@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="corner">40dp</dimen>
+    <dimen name="btn_inMain">130dp</dimen>
+    <dimen name="size_btn">40dp</dimen>
+    <dimen name="text_size_title">22sp</dimen>
+</resources>
