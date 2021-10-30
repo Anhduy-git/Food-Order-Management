@@ -18,7 +18,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <Button
+<<<<<<< HEAD
                 android:id="@+id/back_btn"
+=======
+                android:id="@+id/menu_back_btn"
+>>>>>>> Nam
                 android:layout_width="@dimen/size_btn"
                 android:layout_height="@dimen/size_btn"
                 android:background="@color/main_color"
@@ -33,13 +37,21 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
+<<<<<<< HEAD
                 android:layout_toRightOf="@+id/back_btn"
+=======
+                android:layout_toRightOf="@+id/menu_back_btn"
+>>>>>>> Nam
                 android:text="Menu"
                 android:textColor="@color/main_white"
                 android:textSize="@dimen/text_size_title"></TextView>
 
             <Button
+<<<<<<< HEAD
                 android:id="@+id/add_btn"
+=======
+                android:id="@+id/menu_add_btn"
+>>>>>>> Nam
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
@@ -73,12 +85,20 @@
                 android:background="@color/main_white"
                 android:hint="search"
                 android:textColorHint="@color/main_color"
+<<<<<<< HEAD
                 android:textSize="16sp"
                 android:textStyle="italic"></EditText>
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/client_recycler"
+=======
+                android:textSize="16sp"></EditText>
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/menu_recycler"
+>>>>>>> Nam
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="12dp">

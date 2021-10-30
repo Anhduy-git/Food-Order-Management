@@ -9,11 +9,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 public class Client extends AppCompatActivity {
+
     Button btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
+
 
         btn = (Button)findViewById(R.id.back_btn);
         btn.setOnClickListener(new View.OnClickListener() {

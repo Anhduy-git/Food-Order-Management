@@ -7,19 +7,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="77dp"
+        android:layout_height="65dp"
         android:background="@drawable/list_item"
         android:orientation="horizontal"
         tools:ignore="ExtraText">
 
         <de.hdodenhof.circleimageview.CircleImageView
-<<<<<<< HEAD
-            android:id="@+id/ava_client"
-=======
             android:id="@+id/menu_pic"
->>>>>>> Nam
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="9dp"
             android:scaleType="centerCrop"
@@ -30,36 +26,26 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="9dp"
-<<<<<<< HEAD
-            android:layout_toRightOf="@+id/ava_client"
-            android:orientation="vertical">
-
-            <TextView
-=======
             android:layout_toRightOf="@+id/menu_pic"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/menu_name"
->>>>>>> Nam
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Com chien duong chau"
                 android:textColor="@color/main_white"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"></TextView>
 
             <TextView
-<<<<<<< HEAD
-=======
                 android:id="@+id/menu_price"
->>>>>>> Nam
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="49.000 VND"
                 android:textColor="@color/main_white"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 android:layout_gravity="center_vertical"></TextView>
         </LinearLayout>
     </RelativeLayout>
