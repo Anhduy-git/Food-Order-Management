@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <Button
-                android:id="@+id/back_btn"
+                android:id="@+id/client_back_btn"
                 android:layout_width="@dimen/size_btn"
                 android:layout_height="@dimen/size_btn"
                 android:background="@color/main_color"
@@ -34,13 +34,13 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/back_btn"
+                android:layout_toRightOf="@+id/client_back_btn"
                 android:text="Client"
                 android:textColor="@color/main_white"
                 android:textSize="@dimen/text_size_title"></TextView>
 
             <Button
-                android:id="@+id/add_btn"
+                android:id="@+id/client_add_btn"
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
@@ -74,8 +74,7 @@
                 android:background="@color/main_white"
                 android:hint="search"
                 android:textColorHint="@color/main_color"
-                android:textSize="16sp"
-                android:textStyle="italic"></EditText>
+                android:textSize="16sp"></EditText>
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView

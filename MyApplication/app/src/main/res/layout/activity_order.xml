@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <Button
-                android:id="@+id/back_btn"
+                android:id="@+id/order_back_btn"
                 android:layout_width="@dimen/size_btn"
                 android:layout_height="@dimen/size_btn"
                 android:background="@color/main_color"
@@ -35,13 +35,13 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/back_btn"
+                android:layout_toRightOf="@+id/order_back_btn"
                 android:text="Menu"
                 android:textColor="@color/main_white"
                 android:textSize="@dimen/text_size_title"></TextView>
 
             <Button
-                android:id="@+id/add_btn"
+                android:id="@+id/order_add_btn"
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
@@ -63,7 +63,7 @@
                 android:textColor="@color/main_white"
                 android:textSize="17sp"></TextView>
             <TextView
-                android:id="@+id/revenue_today"
+                android:id="@+id/order_revenue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="899.000"
@@ -78,7 +78,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/client_recycler"
+            android:id="@+id/order_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="12dp">

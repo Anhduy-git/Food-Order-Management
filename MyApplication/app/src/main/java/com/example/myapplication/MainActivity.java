@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, Client.class);
+                Intent i = new Intent(MainActivity.this, Order_info_1.class);
                 startActivity(i);
             }
         });
