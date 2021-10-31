@@ -3,17 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/button.xml" value="0.18611111111111112" />
-        <entry key="app/src/main/res/layout/activity_client.xml" value="0.17527173913043478" />
-        <entry key="app/src/main/res/layout/activity_dish_info.xml" value="0.17527173913043478" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.17527173913043478" />
-        <entry key="app/src/main/res/layout/activity_menu.xml" value="0.17527173913043478" />
-        <entry key="app/src/main/res/layout/activity_order.xml" value="0.17527173913043478" />
-        <entry key="app/src/main/res/layout/activity_order_info1.xml" value="0.17527173913043478" />
-        <entry key="app/src/main/res/layout/activity_profile_client.xml" value="0.17527173913043478" />
-        <entry key="app/src/main/res/layout/client_layout_recycler.xml" value="0.17527173913043478" />
-        <entry key="app/src/main/res/layout/list_dish_recycler.xml" value="0.17527173913043478" />
-        <entry key="app/src/main/res/layout/order_layout_recycler.xml" value="0.17527173913043478" />
+        <entry key="app/src/main/res/drawable/attention.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.14583333333333334" />
       </map>
     </option>
   </component>

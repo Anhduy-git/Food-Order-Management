@@ -1,8 +1,8 @@
-package com.example.myapplication;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.androidapp;
 
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Dish_info extends AppCompatActivity {
 

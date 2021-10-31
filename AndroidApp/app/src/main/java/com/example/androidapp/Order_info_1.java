@@ -1,8 +1,8 @@
-package com.example.myapplication;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.androidapp;
 
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Order_info_1 extends AppCompatActivity {
 
