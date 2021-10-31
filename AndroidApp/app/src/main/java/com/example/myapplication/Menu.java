@@ -2,27 +2,22 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
-
-    Button btn;
+public class Menu extends AppCompatActivity {
+    Button btnBackToMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        btn = (Button)findViewById(R.id.client);
-        btn.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_menu);
+        //Button back to Main
+        btnBackToMain = (Button)findViewById(R.id.menu_back_btn);
+        btnBackToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(MainActivity.this, Client.class);
-
-                startActivity(i);
+                onBackPressed();
             }
         });
     }

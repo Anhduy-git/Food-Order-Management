@@ -13,11 +13,9 @@
         tools:ignore="ExtraText">
 
         <de.hdodenhof.circleimageview.CircleImageView
-<<<<<<< HEAD
-            android:id="@+id/ava_client"
-=======
+
             android:id="@+id/order_avatar"
->>>>>>> Nam
+
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
@@ -30,36 +28,24 @@
             android:layout_height="65dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="9dp"
-<<<<<<< HEAD
-            android:layout_toRightOf="@+id/ava_client"
-=======
+
             android:layout_toRightOf="@+id/order_avatar"
->>>>>>> Nam
+
             android:orientation="vertical"
             android:translationY="-2dp">
 
             <TextView
-<<<<<<< HEAD
-=======
+
                 android:id="@+id/order_name"
->>>>>>> Nam
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vu Hoai Nam"
                 android:textColor="@color/main_white"
                 android:textSize="17sp"
                 android:textStyle="bold"></TextView>
-<<<<<<< HEAD
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20h, 12-10"
-                android:textColor="@color/main_white"
-                android:textSize="15sp"></TextView>
 
-            <TextView
-=======
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,22 +76,14 @@
 
             <TextView
                 android:id="@+id/order_price"
->>>>>>> Nam
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="599.000 VND"
                 android:textColor="@color/main_white"
                 android:textSize="15sp"></TextView>
         </LinearLayout>
-<<<<<<< HEAD
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/check_icon"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"></ImageView>
-=======
+
 
         <ImageView
             android:id="@+id/order_checked"
@@ -115,6 +93,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:src="@drawable/check_icon"></ImageView>
->>>>>>> Nam
+
     </RelativeLayout>
 </LinearLayout>

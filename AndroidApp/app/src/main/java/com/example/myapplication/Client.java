@@ -10,21 +10,22 @@ import android.widget.ListView;
 
 public class Client extends AppCompatActivity {
 
-    Button btn;
 
+    Button btnBackToMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
 
 
-        btn = (Button)findViewById(R.id.back_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        //Button back to Main
+        btnBackToMain = (Button)findViewById(R.id.client_back_btn);
+        btnBackToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Client.this, MainActivity.class);
-                startActivity(i);
+                onBackPressed();
             }
         });
+
     }
 }

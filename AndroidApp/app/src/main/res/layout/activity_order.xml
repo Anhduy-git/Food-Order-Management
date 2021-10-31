@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Menu">
+    tools:context=".Order">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,11 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <Button
-<<<<<<< HEAD
-                android:id="@+id/back_btn"
-=======
-                android:id="@+id/menu_back_btn"
->>>>>>> Nam
+
+                android:id="@+id/order_back_btn"
+
                 android:layout_width="@dimen/size_btn"
                 android:layout_height="@dimen/size_btn"
                 android:background="@color/main_color"
@@ -37,21 +37,17 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-<<<<<<< HEAD
-                android:layout_toRightOf="@+id/back_btn"
-=======
-                android:layout_toRightOf="@+id/menu_back_btn"
->>>>>>> Nam
+
+                android:layout_toRightOf="@+id/order_back_btn"
+
                 android:text="Menu"
                 android:textColor="@color/main_white"
                 android:textSize="@dimen/text_size_title"></TextView>
 
             <Button
-<<<<<<< HEAD
-                android:id="@+id/add_btn"
-=======
-                android:id="@+id/menu_add_btn"
->>>>>>> Nam
+
+                android:id="@+id/order_add_btn"
+
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
@@ -61,44 +57,38 @@
                 android:text="ADD"
                 android:textColor="@color/main_white"></Button>
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:orientation="horizontal"
-            android:background="@drawable/bg_searching"
-            android:layout_marginTop="8dp">
-            <ImageView
-                android:id="@+id/icon_searching"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icon_searching"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="6dp"></ImageView>
 
-            <EditText
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@+id/icon_searching"
-                android:background="@color/main_white"
-                android:hint="search"
-                android:textColorHint="@color/main_color"
-<<<<<<< HEAD
-                android:textSize="16sp"
-                android:textStyle="italic"></EditText>
-        </RelativeLayout>
+                android:text="Revenue today: "
+                android:textColor="@color/main_white"
+                android:textSize="17sp"></TextView>
+            <TextView
+
+                android:id="@+id/order_revenue"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="899.000"
+                android:textColor="@color/color_price"
+                android:textSize="17sp"></TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" VND"
+                android:textColor="@color/main_white"
+                android:textSize="17sp"></TextView>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/client_recycler"
-=======
-                android:textSize="16sp"></EditText>
-        </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/menu_recycler"
->>>>>>> Nam
+            android:id="@+id/order_recycler"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="12dp">
@@ -107,4 +97,4 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>

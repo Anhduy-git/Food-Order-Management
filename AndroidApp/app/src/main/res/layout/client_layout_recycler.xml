@@ -13,54 +13,57 @@
         tools:ignore="ExtraText">
 
         <de.hdodenhof.circleimageview.CircleImageView
-<<<<<<< HEAD
-            android:id="@+id/ava_client"
-=======
-            android:id="@+id/menu_pic"
->>>>>>> Nam
+
+            android:id="@+id/client_avatar"
+
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="9dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ava_menu_default" />
+            android:src="@drawable/ava_client_default" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="9dp"
-<<<<<<< HEAD
-            android:layout_toRightOf="@+id/ava_client"
-            android:orientation="vertical">
+
+            android:layout_toRightOf="@+id/client_avatar"
+
+            android:orientation="vertical"
+            android:translationY="-2dp">
 
             <TextView
-=======
-            android:layout_toRightOf="@+id/menu_pic"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/menu_name"
->>>>>>> Nam
+                android:id="@+id/client_name"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Com chien duong chau"
-                android:textColor="@color/main_white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"></TextView>
-
-            <TextView
-<<<<<<< HEAD
-=======
-                android:id="@+id/menu_price"
->>>>>>> Nam
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="49.000 VND"
+                android:text="Vu Hoai Nam"
                 android:textColor="@color/main_white"
                 android:textSize="17sp"
-                android:layout_gravity="center_vertical"></TextView>
+                android:textStyle="bold"></TextView>
+
+            <TextView
+
+                android:id="@+id/client_phone"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0123456789"
+                android:textColor="@color/main_white"
+                android:textSize="15sp"></TextView>
+
+            <TextView
+
+                android:id="@+id/client_address"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="404/2 Le Hong Phong-Phuoc Long"
+                android:textColor="@color/main_white"
+                android:textSize="15sp"></TextView>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
