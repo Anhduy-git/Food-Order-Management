@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_color">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Revenue today: "
+            android:textColor="@color/main_white"
+            android:textSize="17sp"></TextView>
+        <TextView
+
+            android:id="@+id/order_revenue"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="899.000"
+            android:textColor="@color/color_price"
+            android:textSize="17sp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" VND"
+            android:textColor="@color/main_white"
+            android:textSize="17sp"></TextView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/order_today_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"></androidx.recyclerview.widget.RecyclerView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true">
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_add_circle"
+                android:drawableTop="@drawable/plus_icon"
+                android:paddingTop="8dp"
+                android:layout_centerInParent="true"></Button>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

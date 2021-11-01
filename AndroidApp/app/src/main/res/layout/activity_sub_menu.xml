@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_color">
+
+    <Button
+        android:id="@+id/sub_client_back_btn"
+        android:layout_width="@dimen/size_btn"
+        android:layout_height="@dimen/size_btn"
+        android:layout_centerVertical="true"
+        android:background="@color/main_color"
+        android:drawableStart="@drawable/back_btn"
+        android:layout_marginTop="4dp"
+        android:paddingLeft="8dp"></Button>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_searching"
+        android:layout_margin="10dp">
+        <ImageView
+            android:id="@+id/icon_searching"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/icon_searching"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"></ImageView>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/icon_searching"
+            android:background="@color/main_white"
+            android:hint="search"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColorHint="@color/main_color"
+            android:textSize="16sp"></EditText>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/menu_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"></androidx.recyclerview.widget.RecyclerView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true">
+                <Button
+                    android:id="@+id/sub_menu_minus"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/plus_btn"
+                    android:drawableTop="@drawable/minus_ic_m"
+                    android:paddingTop="6dp"></Button>
+                <TextView
+                    android:id="@+id/sub_menu_num_dish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/main_white"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:textSize="28sp"></TextView>
+                <Button
+                    android:id="@+id/sub_menu_plus"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/plus_btn"
+                    android:drawableTop="@drawable/plus_ic_m"
+                    android:paddingTop="6dp"></Button>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/order_ship_btn"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/bg_ship_btn"
+                android:text="Add"
+                android:textAllCaps="false"
+                android:textColor="@color/main_white"
+                android:textSize="22dp"></Button>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

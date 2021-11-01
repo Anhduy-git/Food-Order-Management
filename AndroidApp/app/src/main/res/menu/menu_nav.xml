@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/order_today"
+        android:title="Order Today"
+        android:icon="@drawable/order_today_icon"></item>
+    <item android:id="@+id/upcoming_order"
+        android:title="Upcoming Order"
+        android:icon="@drawable/upcoming_order_icon"></item>
+    <item android:id="@+id/client"
+        android:title="Client"
+        android:icon="@drawable/client_icon"></item>
+    <item android:id="@+id/menu"
+        android:title="Menu"
+        android:icon="@drawable/menu_icon"></item>
+    <item android:id="@+id/history"
+        android:title="History"
+        android:icon="@drawable/history_icon"></item>
+    <item android:id="@+id/unpaid_order"
+        android:title="Unpaid Order"
+        android:icon="@drawable/unpaid_order_icon"></item>
+</menu>
