@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@drawable/list_item"
+        android:orientation="horizontal"
+        tools:ignore="ExtraText">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/menu_pic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ava_menu_default" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/menu_pic"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/menu_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Com chien duong chau"
+                android:textColor="@color/main_white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"></TextView>
+
+            <TextView
+                android:id="@+id/menu_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="49.000 VND"
+                android:textColor="@color/main_white"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical"></TextView>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

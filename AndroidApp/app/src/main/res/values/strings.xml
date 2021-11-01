@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="revenue_this_month">Revenue in this month</string>
+    <string name="price_this_month">299.000</string>
+    <string name="num_of_order">3</string>
+
+    <string name="open">open</string>
+    <string name="close">close</string>
+
+    <string name="a">Order Today</string>
+    <string name="b">Upcoming Order</string>
+    <string name="c">Client</string>
+    <string name="d">Menu</string>
+    <string name="e">History</string>
+    <string name="f">Unpaid Order</string>
+</resources>
