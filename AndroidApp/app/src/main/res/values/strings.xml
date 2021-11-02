@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Android App</string>
     <string name="revenue_this_month">Revenue in this month</string>
     <string name="price_this_month">299.000</string>
     <string name="num_of_order">3</string>
