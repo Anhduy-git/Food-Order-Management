@@ -1,5 +1,6 @@
 package com.example.androidapp.fragment;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -36,7 +39,7 @@ public class OrderTodayFragment extends Fragment {
         //Button to launch Add New Order Activity
         View view = inflater.inflate(R.layout.fragment_order_today,
                 container, false);
-        btnAddNewOrder = (Button)view.findViewById(R.id.add_new_order);
+        btnAddNewOrder = (Button) view.findViewById(R.id.add_new_order);
         btnAddNewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,12 +60,9 @@ public class OrderTodayFragment extends Fragment {
         });
 
 
-
-
-
-
-
         return view;
     }
-
 }
+
+
+

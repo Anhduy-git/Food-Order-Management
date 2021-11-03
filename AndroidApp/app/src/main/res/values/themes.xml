@@ -19,4 +19,16 @@
         <item name="android:textColorSecondary">@color/main_white</item>
         <item name="actionMenuTextColor">@color/main_white</item>
     </style>
+
+
+
+    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">20sp</item>
+    </style>
+    AndroidApp/app/src/main/res/values/themes.xml
+
 </resources>

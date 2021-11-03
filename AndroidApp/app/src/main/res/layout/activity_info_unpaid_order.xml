@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderInfo1Activity"
+    tools:context=".InfoUnpaidOrderActivity"
     android:background="@color/main_color"
     android:paddingTop="10dp"
     android:orientation="vertical">
@@ -41,22 +41,19 @@
         android:id="@+id/order_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
-
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/order_info_2_back_btn"
+            android:id="@+id/info_unpaid_order_back_btn"
             android:layout_width="@dimen/size_btn"
             android:layout_height="@dimen/size_btn"
             android:layout_centerVertical="true"
             android:background="@color/main_color"
             android:drawableStart="@drawable/back_btn"
             android:paddingLeft="8dp"></Button>
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,7 +63,6 @@
             android:text="Order Information"
             android:textColor="@color/main_white"
             android:textSize="19sp"></TextView>
-
     </LinearLayout>
     <View
         android:layout_width="35dp"
@@ -273,16 +269,5 @@
                     android:background="@drawable/check_icon"></ImageView>
             </LinearLayout>
         </LinearLayout>
-
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/bg_remove_ship_btn"
-            android:text="Remove"
-            android:textAllCaps="false"
-            android:textColor="@color/main_white"
-            android:textSize="22dp"></Button>
     </RelativeLayout>
 </RelativeLayout>

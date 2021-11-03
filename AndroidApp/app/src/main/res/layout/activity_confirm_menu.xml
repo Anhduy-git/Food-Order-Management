@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileClientActivity"
-
-
+    tools:context=".ConfirmDishActivity"
     android:background="@color/main_color"
     android:paddingTop="10dp"
     android:paddingLeft="15dp"
@@ -18,7 +16,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/new_client_back_btn"
+            android:id="@+id/confirm_dish_back_btn"
             android:layout_width="@dimen/size_btn"
             android:layout_height="@dimen/size_btn"
             android:layout_centerVertical="true"
@@ -28,32 +26,24 @@
     </RelativeLayout>
 
     <View
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="120dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignTop="@+id/blur_layout"
+        android:translationY="-80dp"
         android:background="@drawable/ball_detail"></View>
-    <View
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:background="@drawable/ball_detail"
-        android:layout_marginTop="170dp"
-        android:layout_alignParentRight="true"></View>
 
     <View
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignBottom="@+id/blur_layout"
-        android:translationY="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:background="@drawable/ball_detail"></View>
 
     <View
         android:layout_width="310dp"
         android:layout_height="270dp"
         android:layout_centerInParent="true"
-        android:background="@drawable/box_info"
-        ></View>
+        android:background="@drawable/box_info"></View>
 
     <io.alterac.blurkit.BlurLayout
         android:id="@+id/blur_layout"
@@ -65,20 +55,20 @@
         app:blk_fps="0"></io.alterac.blurkit.BlurLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/client_avatar"
+        android:id="@+id/menu_pic"
         android:layout_width="167dp"
         android:layout_height="167dp"
         android:layout_alignTop="@+id/blur_layout"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ava_edit"
-        android:translationY="-100dp" />
+        android:src="@drawable/ava_menu_default"
+        android:translationY="-70dp" />
 
     <LinearLayout
         android:layout_width="288dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:translationY="25dp">
+        android:translationY="40dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -90,6 +80,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="37dp"
+            android:layout_marginBottom="4dp"
             android:background="@drawable/bg_info"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
@@ -108,7 +99,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Number:"
+            android:text="Price:"
             android:textColor="@color/main_white"
             android:textSize="18sp"></TextView>
 
@@ -124,48 +115,31 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_input_transparent"
-
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/main_white"
-
-                android:textSize="17sp"></EditText>
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Address:"
-            android:textColor="@color/main_white"
-            android:textSize="18sp"></TextView>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:background="@drawable/bg_info"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:background="@drawable/bg_input_transparent"
-
                 android:inputType="text"
                 android:maxLines="1"
                 android:textColor="@color/main_white"
-
                 android:textSize="17sp"></EditText>
         </RelativeLayout>
     </LinearLayout>
+
+
     <View
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_alignParentRight="true"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_alignBottom="@+id/blur_layout"
-        android:translationY="30dp"
-        android:background="@drawable/ball_detail"></View>
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/ball_detail"
+        android:translationX="50dp"
+        android:translationY="50dp"></View>
+
+    <View
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/blur_layout"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ball_detail"
+        android:translationX="40dp"
+        android:translationY="80dp"></View>
 
     <Button
         android:layout_width="288dp"
@@ -173,9 +147,9 @@
         android:layout_alignBottom="@+id/blur_layout"
         android:layout_centerInParent="true"
         android:background="@drawable/btn_add"
-        android:text="add"
+        android:text="confirm"
         android:textColor="@color/main_white"
         android:textSize="20dp"
-        android:translationY="100dp"
+        android:translationY="150dp"
         android:translationZ="1dp"></Button>
 </RelativeLayout>
