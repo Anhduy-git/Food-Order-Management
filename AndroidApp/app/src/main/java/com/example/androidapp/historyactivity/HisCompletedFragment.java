@@ -1,4 +1,4 @@
-package com.example.androidapp.historyfragment;
+package com.example.androidapp.historyactivity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.androidapp.R;
 
-public class HisCanceledragment extends Fragment {
+public class HisCompletedFragment extends Fragment {
     private View view;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_canceled_history, container, false);
+        view = inflater.inflate(R.layout.fragment_completed_history, container, false);
 
         return view;
     }

@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.androidapp.fragment.ClientFragment;
-import com.example.androidapp.fragment.HistoryFragment;
 import com.example.androidapp.fragment.MenuFragment;
 import com.example.androidapp.fragment.OrderTodayFragment;
 import com.example.androidapp.fragment.UnpaidOrderFragment;
