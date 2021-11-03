@@ -1,4 +1,4 @@
-package com.example.androidapp.data;
+package com.example.androidapp.menudata;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

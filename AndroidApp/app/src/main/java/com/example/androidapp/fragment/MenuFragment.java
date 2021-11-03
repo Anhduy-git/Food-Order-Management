@@ -2,7 +2,6 @@ package com.example.androidapp.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,19 +15,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.NewDishActivity;
 import com.example.androidapp.R;
-import com.example.androidapp.data.AppDatabase;
-import com.example.androidapp.data.Dish;
-import com.example.androidapp.data.DishAdapter;
-import com.example.androidapp.data.DishDao;
-import com.example.androidapp.data.DishViewModel;
+import com.example.androidapp.menudata.Dish;
+import com.example.androidapp.menudata.DishAdapter;
+import com.example.androidapp.menudata.DishViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MenuFragment extends Fragment {

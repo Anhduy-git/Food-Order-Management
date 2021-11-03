@@ -10,11 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.androidapp.data.AppDatabase;
-import com.example.androidapp.data.Dish;
-import com.example.androidapp.data.DishAdapter;
+import com.example.androidapp.menudata.Dish;
+import com.example.androidapp.menudata.DishAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewDishActivity extends AppCompatActivity {
