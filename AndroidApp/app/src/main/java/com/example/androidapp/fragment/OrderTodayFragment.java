@@ -24,8 +24,11 @@ import java.util.List;
 
 public class OrderTodayFragment extends Fragment {
     public Button btnAddNewOrder;
+
     //View model
     private OrderViewModel orderViewModel;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class OrderTodayFragment extends Fragment {
             }
         });
 
+
         //Data
 
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
@@ -51,6 +55,7 @@ public class OrderTodayFragment extends Fragment {
                 //Update Recycle View
             }
         });
+
 
 
 
