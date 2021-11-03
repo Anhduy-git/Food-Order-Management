@@ -98,7 +98,7 @@
             android:paddingLeft="10dp">
 
             <TextView
-                android:id="@+id/menu_name"
+                android:id="@+id/dish_name_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -121,7 +121,7 @@
             android:paddingLeft="10dp">
 
             <TextView
-                android:id="@+id/menu_price"
+                android:id="@+id/dish_price_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

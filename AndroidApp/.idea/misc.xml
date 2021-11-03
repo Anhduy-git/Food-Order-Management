@@ -38,7 +38,7 @@
         <entry key="app/src/main/res/layout/client_layout_recycler.xml" value="0.3416666666666667" />
         <entry key="app/src/main/res/layout/fragment_client.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_menu.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_menu.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_order_today.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_unpaid_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_upcoming_order.xml" value="0.25" />
