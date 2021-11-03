@@ -28,10 +28,10 @@
             <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_centerInParent="true"
                 android:background="@drawable/btn_add_circle"
                 android:drawableTop="@drawable/plus_icon"
-                android:paddingTop="8dp"
-                android:layout_centerInParent="true"></Button>
+                android:paddingTop="8dp"></Button>
         </RelativeLayout>
     </RelativeLayout>
 
