@@ -38,11 +38,11 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="Com chien duong chau"
                 android:textColor="@color/main_white"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"></TextView>
+                android:textStyle="bold"></TextView>
 
             <TextView
 
@@ -50,10 +50,10 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="49.000 VND"
                 android:textColor="@color/main_white"
-                android:textSize="17sp"
-                android:layout_gravity="center_vertical"></TextView>
+                android:textSize="17sp"></TextView>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
