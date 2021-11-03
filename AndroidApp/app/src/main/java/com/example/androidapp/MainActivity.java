@@ -1,5 +1,6 @@
 package com.example.androidapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int FRAGMENT_UPCOMING_ORDER = 1;
     private static final int FRAGMENT_CLIENT = 2;
     private static final int FRAGMENT_MENU = 3;
-    private static final int FRAGMENT_HISTORY = 4;
+    private static final int ACTIVITY_HISTORY = 4;
     private static final int FRAGMENT_UNPAID_ORDER = 5;
 
     private int mCurrentFragment = FRAGMENT_ORDER_TODAY;
@@ -44,33 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Button to launch Client Activity
-//        btnClient = (Button)findViewById(R.id.client);
-//        btnClient.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MainActivity.this, Client.class);
-//                startActivity(i);
-//            }
-//        });
-//        //Button to launch Menu Activity
-//        btnMenu = (Button)findViewById(R.id.menu);
-//        btnMenu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MainActivity.this, Menu.class);
-//                startActivity(i);
-//            }
-//        });
-//        //Button to launch Order Activity
-//        btnOrder = (Button)findViewById(R.id.order);
-//        btnOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MainActivity.this, Order.class);
-//                startActivity(i);
-//            }
-//        });
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -115,10 +89,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mCurrentFragment = FRAGMENT_MENU;
             }
         } else if (id == R.id.history) {
-            if (mCurrentFragment != FRAGMENT_HISTORY) {
-                replaceFragment(new HistoryFragment());
-                getSupportActionBar().setTitle("History");
-                mCurrentFragment = FRAGMENT_HISTORY;
+            if (mCurrentFragment != ACTIVITY_HISTORY) {
+                mCurrentFragment = ACTIVITY_HISTORY;
+                Intent intent = new Intent(this, HistoryActivity.class);
+                startActivity(intent);
             }
         } else if (id == R.id.unpaid_order) {
             if (mCurrentFragment != FRAGMENT_UNPAID_ORDER) {
