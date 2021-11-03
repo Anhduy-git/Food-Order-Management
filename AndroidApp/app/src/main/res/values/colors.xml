@@ -14,6 +14,7 @@
     <color name="color_btn_1">#3B185F</color>
     <color name="color_btn_2">#A12568</color>
     <color name="color_price">#A5E1AD</color>
-
+    <color name="unselected">#818287</color>
     <color name="color_hint">#AEAEAE</color>
+    <color name="nav_selected">#7A2064</color>
 </resources>

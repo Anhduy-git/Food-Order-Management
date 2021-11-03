@@ -124,9 +124,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_input_transparent"
-                android:textColor="@color/main_white"
                 android:inputType="number"
                 android:maxLines="1"
+                android:textColor="@color/main_white"
                 android:textSize="17sp"></EditText>
         </RelativeLayout>
 
@@ -149,9 +149,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_input_transparent"
-                android:textColor="@color/main_white"
                 android:inputType="text"
                 android:maxLines="1"
+                android:textColor="@color/main_white"
                 android:textSize="17sp"></EditText>
         </RelativeLayout>
     </LinearLayout>

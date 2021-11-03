@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DishInfoActivity"
+    tools:context=".ConfirmDishActivity"
     android:background="@color/main_color"
     android:paddingTop="10dp"
     android:paddingLeft="15dp"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/new_dish_back_btn"
+            android:id="@+id/confirm_dish_back_btn"
             android:layout_width="@dimen/size_btn"
             android:layout_height="@dimen/size_btn"
             android:layout_centerVertical="true"
@@ -60,7 +60,7 @@
         android:layout_height="167dp"
         android:layout_alignTop="@+id/blur_layout"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ava_dish_edit"
+        android:src="@drawable/ava_menu_default"
         android:translationY="-70dp" />
 
     <LinearLayout
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_input_transparent"
-                android:inputType="number"
+                android:inputType="text"
                 android:maxLines="1"
                 android:textColor="@color/main_white"
                 android:textSize="17sp"></EditText>
@@ -147,7 +147,7 @@
         android:layout_alignBottom="@+id/blur_layout"
         android:layout_centerInParent="true"
         android:background="@drawable/btn_add"
-        android:text="add"
+        android:text="confirm"
         android:textColor="@color/main_white"
         android:textSize="20dp"
         android:translationY="150dp"
