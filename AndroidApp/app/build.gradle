@@ -44,6 +44,7 @@ dependencies {
     implementation 'io.alterac.blurkit:blurkit:1.1.0'
 
 
+
     //Life cycle component
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
