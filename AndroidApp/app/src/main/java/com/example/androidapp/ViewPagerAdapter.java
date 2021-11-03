@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.androidapp.historyfragment.HisAllFragment;
-import com.example.androidapp.historyfragment.HisCanceledragment;
-import com.example.androidapp.historyfragment.HisCompletedFragment;
+import com.example.androidapp.historyactivity.HisAllFragment;
+import com.example.androidapp.historyactivity.HisCanceledragment;
+import com.example.androidapp.historyactivity.HisCompletedFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
