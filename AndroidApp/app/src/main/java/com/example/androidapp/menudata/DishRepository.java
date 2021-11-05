@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.androidapp.AppDatabase;
+
 import java.util.List;
 
 public class DishRepository {
@@ -45,8 +47,8 @@ public class DishRepository {
         }
 
         @Override
-        protected Void doInBackground(Dish... dishes) {
-            dishDao.insertDish(dishes[0]);
+        protected Void doInBackground(Dish... dishEntities) {
+            dishDao.insertDish(dishEntities[0]);
             return null;
         }
     }
@@ -59,8 +61,8 @@ public class DishRepository {
         }
 
         @Override
-        protected Void doInBackground(Dish... dishes) {
-            dishDao.updateDish(dishes[0]);
+        protected Void doInBackground(Dish... dishEntities) {
+            dishDao.updateDish(dishEntities[0]);
             return null;
         }
     }
@@ -73,8 +75,8 @@ public class DishRepository {
         }
 
         @Override
-        protected Void doInBackground(Dish... dishes) {
-            dishDao.deleteDish(dishes[0]);
+        protected Void doInBackground(Dish... dishEntities) {
+            dishDao.deleteDish(dishEntities[0]);
             return null;
         }
     }

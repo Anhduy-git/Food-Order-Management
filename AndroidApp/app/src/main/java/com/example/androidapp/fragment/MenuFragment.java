@@ -57,8 +57,8 @@ public class MenuFragment extends Fragment {
         dishViewModel = new ViewModelProvider(getActivity()).get(DishViewModel.class);
         dishViewModel.getAllDishes().observe(getActivity(), new Observer<List<Dish>>() {
             @Override
-            public void onChanged(List<Dish> dishes) {
-                dishAdapter.setDish(dishes);
+            public void onChanged(List<Dish> dishEntities) {
+                dishAdapter.setDish(dishEntities);
             }
         });
 
@@ -83,8 +83,8 @@ public class MenuFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ADD_DISH_REQUEST && resultCode == RESULT_OK) {
-            String name = data.getStringExtra(NewDishActivity.EXTRA_NAME);
-            int price = data.getIntExtra(NewDishActivity.EXTRA_PRICE, 0);
+            String name = data.getStringExtra(NewDishActivity.EXTRA_MENU_NAME);
+            int price = data.getIntExtra(NewDishActivity.EXTRA_MENU_PRICE, 0);
 
             Dish dish = new Dish(name, price);
             dishViewModel.insertDish(dish);

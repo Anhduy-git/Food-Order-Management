@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "order_table")
-public class OrderEntity {
+public class Order {
 
     //Attribute
     @PrimaryKey(autoGenerate = true)
@@ -20,13 +20,16 @@ public class OrderEntity {
 
     private String time;
 
+    private int price;
+
     //Constructor
-    public OrderEntity(String clientName, String phoneNumber, String address, String date, String time) {
+    public Order(String clientName, String phoneNumber, String address, String date, String time, int price) {
         this.clientName = clientName;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.date = date;
         this.time = time;
+        this.price = price;
     }
 
     //Getter
@@ -52,6 +55,10 @@ public class OrderEntity {
 
     public String getTime() {
         return time;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     //Setter

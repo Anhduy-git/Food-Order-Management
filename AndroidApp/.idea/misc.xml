@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.16203703703703703" />
         <entry key="app/src/main/res/drawable/attention.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/ball_detail.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/bg_btn_modify.xml" value="0.36923076923076925" />
@@ -17,6 +18,7 @@
         <entry key="app/src/main/res/drawable/btn_add.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/btn_add_circle.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/button.xml" value="0.36923076923076925" />
+        <entry key="app/src/main/res/drawable/confirm_check_box.xml" value="0.16203703703703703" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/num_dish_box.xml" value="0.28125" />
@@ -32,7 +34,7 @@
         <entry key="app/src/main/res/layout/activity_new_dish.xml" value="0.269140625" />
         <entry key="app/src/main/res/layout/activity_new_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_order.xml" value="0.35185185185185186" />
-        <entry key="app/src/main/res/layout/activity_order_info1.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_order_info1.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_order_info2.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_profile_client.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_sub_contact.xml" value="0.35885416666666664" />
@@ -54,8 +56,9 @@
         <entry key="app/src/main/res/layout/menu_layout_recycler.xml" value="0.35185185185185186" />
         <entry key="app/src/main/res/layout/menu_nav.xml" value="0.3416666666666667" />
         <entry key="app/src/main/res/layout/new_client.xml" value="0.269140625" />
+        <entry key="app/src/main/res/layout/order_info_item_recycler.xml" value="0.17527173913043478" />
         <entry key="app/src/main/res/layout/order_info_recycler.xml" value="0.269140625" />
-        <entry key="app/src/main/res/layout/order_item_recycler.xml" value="0.17527173913043478" />
+        <entry key="app/src/main/res/layout/order_item_recycler.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/order_layout_recycler.xml" value="0.3416666666666667" />
         <entry key="app/src/main/res/menu/menu_nav.xml" value="0.3416666666666667" />
         <entry key="app/src/main/res/menu/menu_nav_head.xml" value="0.2942708333333333" />

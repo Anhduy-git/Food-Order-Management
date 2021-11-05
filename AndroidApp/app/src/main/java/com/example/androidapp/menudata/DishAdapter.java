@@ -16,10 +16,10 @@ import java.util.List;
 //Adapter for RecyclerView
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder>{
 
-    private List<Dish> mListDish = new ArrayList<>();
+    private List<Dish> mListDishEntities = new ArrayList<>();
 
-    public void setDish(List<Dish> mListDish) {
-        this.mListDish = mListDish;
+    public void setDish(List<Dish> mListDishEntities) {
+        this.mListDishEntities = mListDishEntities;
         notifyDataSetChanged();
     }
 
@@ -34,7 +34,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull DishViewHolder holder, int position) {
-        Dish dish = mListDish.get(position);
+        Dish dish = mListDishEntities.get(position);
         if (dish == null) {
             return;
         }
@@ -45,8 +45,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
     @Override
     public int getItemCount() {
-        if (mListDish != null) {
-            return mListDish.size();
+        if (mListDishEntities != null) {
+            return mListDishEntities.size();
         }
         return 0;
     }

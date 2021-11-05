@@ -17,10 +17,10 @@ import com.example.androidapp.menudata.DishAdapter;
 import java.util.List;
 
 public class NewDishActivity extends AppCompatActivity {
-    public static final String EXTRA_NAME =
-            "com.example.androidapp.EXTRA_NAME";
-    public static final String EXTRA_PRICE =
-            "com.example.androidapp.EXTRA_PRICE";
+    public static final String EXTRA_MENU_NAME =
+            "com.example.androidapp.EXTRA_MENU_NAME";
+    public static final String EXTRA_MENU_PRICE =
+            "com.example.androidapp.EXTRA_MENU_PRICE";
 
     private EditText edtDishName;
     private EditText edtDishPrice;
@@ -28,7 +28,7 @@ public class NewDishActivity extends AppCompatActivity {
     private Button btnBack;
 
     private DishAdapter dishAdapter;
-    private List<Dish> mListDish;
+    private List<Dish> mListDishEntities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +75,8 @@ public class NewDishActivity extends AppCompatActivity {
         }
 
         Intent data = new Intent();
-        data.putExtra(EXTRA_NAME, strDishName);
-        data.putExtra(EXTRA_PRICE, Integer.valueOf(strDishPrice));
+        data.putExtra(EXTRA_MENU_NAME, strDishName);
+        data.putExtra(EXTRA_MENU_PRICE, Integer.valueOf(strDishPrice));
 
         setResult(RESULT_OK, data);
         finish();
