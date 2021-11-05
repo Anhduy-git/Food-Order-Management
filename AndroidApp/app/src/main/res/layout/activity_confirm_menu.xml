@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConfirmDishActivity"
+    tools:context=".UpdateDishActivity"
     android:background="@color/main_color"
     android:paddingTop="10dp"
     android:paddingLeft="15dp"
@@ -86,6 +86,7 @@
             android:paddingRight="10dp">
 
             <EditText
+                android:id="@+id/dish_name_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -111,11 +112,12 @@
             android:paddingRight="10dp">
 
             <EditText
+                android:id="@+id/dish_price_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_input_transparent"
-                android:inputType="text"
+                android:inputType="number"
                 android:maxLines="1"
                 android:textColor="@color/main_white"
                 android:textSize="17sp"></EditText>
@@ -142,12 +144,13 @@
         android:translationY="80dp"></View>
 
     <Button
+        android:id="@+id/dish_update_button"
         android:layout_width="288dp"
         android:layout_height="54dp"
         android:layout_alignBottom="@+id/blur_layout"
         android:layout_centerInParent="true"
         android:background="@drawable/btn_add"
-        android:text="confirm"
+        android:text="update"
         android:textColor="@color/main_white"
         android:textSize="20dp"
         android:translationY="150dp"

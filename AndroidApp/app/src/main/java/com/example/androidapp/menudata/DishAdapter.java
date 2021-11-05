@@ -3,6 +3,8 @@ package com.example.androidapp.menudata;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,13 +16,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Adapter for RecyclerView
-public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder>{
+public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> implements Filterable {
+    private List<Dish> mListDish;
+    private List<Dish> mListDishFull;
 
-    private List<Dish> mListDish = new ArrayList<>();
+    private OnItemClickListener listener;
+
+    public DishAdapter(List<Dish> mListDish) {
+        this.mListDish = mListDish;
+    }
 
     public void setDish(List<Dish> mListDish) {
         this.mListDish = mListDish;
+        this.mListDishFull = new ArrayList<>(mListDish);
         notifyDataSetChanged();
+    }
+
+    //Get the dish position
+    public Dish getDishAt(int postition) {
+        return mListDish.get(postition);
     }
 
     @NonNull
@@ -40,7 +54,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         }
 
         holder.tvDishName.setText(dish.getName());
-        holder.tvDishPrice.setText(String.valueOf(dish.getPrice()));
+        holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
     }
 
     @Override
@@ -50,6 +64,43 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         }
         return 0;
     }
+
+    @Override
+    public Filter getFilter() {
+        return dishFilter;
+    }
+
+    //Create a filter object for searching
+    private Filter dishFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Dish> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(mListDishFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Dish item : mListDishFull) {
+                    if (item.getName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mListDish.clear();
+            mListDish.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class DishViewHolder extends RecyclerView.ViewHolder {
 
@@ -61,7 +112,26 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
             tvDishName = itemView.findViewById(R.id.dish_name);
             tvDishPrice = itemView.findViewById(R.id.dish_price);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(mListDish.get(position));
+                    }
+                }
+            });
         }
     }
 
+    //Interface to click on a dish item
+    public interface OnItemClickListener {
+        void onItemClick(Dish dish);
+    }
+
+    //Method item click listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 }
