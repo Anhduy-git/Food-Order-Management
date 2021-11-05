@@ -1,4 +1,4 @@
-package com.example.androidapp.menudata;
+package com.example.androidapp;
 
 
 import android.content.Context;
@@ -9,6 +9,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import com.example.androidapp.menudata.Dish;
+import com.example.androidapp.menudata.DishDao;
 
 //This is the app's main database, don't need to create another one
 //Add more entities (tables) to database by listing them inside entities = {...}
@@ -32,6 +35,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return instance;
     }
 
+    /*
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -39,6 +43,8 @@ public abstract class AppDatabase extends RoomDatabase {
             new PopulateDbAsyncTask(instance).execute();
         }
     };
+
+     */
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private DishDao dishDao;

@@ -22,6 +22,7 @@
             android:layout_marginLeft="6dp"></ImageView>
 
         <EditText
+            android:id="@+id/dish_search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -29,7 +30,7 @@
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@+id/icon_searching"
             android:background="@color/main_white"
-            android:hint="search"
+            android:hint="Search"
             android:inputType="text"
             android:maxLines="1"
             android:textColorHint="@color/main_color"

@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/drawable/plus_btn.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/remove_btn.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_client.xml" value="0.35185185185185186" />
+        <entry key="app/src/main/res/layout/activity_confirm_menu.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_dish_info.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_history.xml" value="0.14583333333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
@@ -57,6 +58,7 @@
         <entry key="app/src/main/res/layout/order_info_recycler.xml" value="0.269140625" />
         <entry key="app/src/main/res/layout/order_item_recycler.xml" value="0.17527173913043478" />
         <entry key="app/src/main/res/layout/order_layout_recycler.xml" value="0.3416666666666667" />
+        <entry key="app/src/main/res/menu/floating_menu.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/menu/menu_nav.xml" value="0.3416666666666667" />
         <entry key="app/src/main/res/menu/menu_nav_head.xml" value="0.2942708333333333" />
       </map>
