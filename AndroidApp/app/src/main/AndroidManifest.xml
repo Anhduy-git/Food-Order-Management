@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidApp">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity_fragment.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,43 +20,43 @@
         </activity>
         <activity
 
-            android:name=".NewOrderActivity"
+            android:name=".activity_fragment.activity.NewOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".ConfirmClientActivity"
+            android:name=".activity_fragment.activity.ConfirmClientActivity"
             android:exported="false" />
         <activity
-            android:name=".UpdateDishActivity"
+            android:name=".activity_fragment.activity.UpdateDishActivity"
             android:exported="false" />
         <activity
-            android:name=".DishInfoActivity"
+            android:name=".activity_fragment.activity.DishInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".HistoryActivity"
+            android:name=".activity_fragment.activity.HistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".InfoUnpaidOrderActivity"
+            android:name=".activity_fragment.activity.InfoUnpaidOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".NewClientActivity"
+            android:name=".activity_fragment.activity.NewClientActivity"
             android:exported="false" />
         <activity
-            android:name=".NewDishActivity"
+            android:name=".activity_fragment.activity.NewDishActivity"
             android:exported="false" />
         <activity
-            android:name=".OrderInfo1Activity"
+            android:name=".activity_fragment.activity.OrderInfo1Activity"
             android:exported="false" />
         <activity
-            android:name=".OrderInfo2Activity"
+            android:name=".activity_fragment.activity.OrderInfo2Activity"
             android:exported="false" />
         <activity
-            android:name=".ProfileClientActivity"
+            android:name=".activity_fragment.activity.ProfileClientActivity"
             android:exported="false" />
         <activity
-            android:name=".SubContactActivity"
+            android:name=".activity_fragment.activity.SubContactActivity"
             android:exported="false" />
         <activity
-            android:name=".SubMenuActivity"
+            android:name=".activity_fragment.activity.SubMenuActivity"
             android:exported="false" />
 
 

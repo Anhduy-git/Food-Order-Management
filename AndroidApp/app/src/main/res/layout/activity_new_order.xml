@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".NewOrderActivity"
+    tools:context=".activity_fragment.activity.NewOrderActivity"
 
     android:background="@color/main_color"
     android:paddingTop="10dp"
@@ -67,15 +67,16 @@
             android:layout_centerVertical="true"></TextView>
 
         <Button
+            android:id="@+id/confirm_add_new_order"
             android:layout_width="80dp"
             android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/btn_add"
             android:text="Add"
             android:textAllCaps="false"
-            android:textSize="17dp"
             android:textColor="@color/main_white"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"></Button>
+            android:textSize="17dp"></Button>
     </RelativeLayout>
     <View
         android:layout_width="35dp"
@@ -123,39 +124,45 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="8dp">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_input_transparent"
-                        android:textColor="@color/main_white"
-                        android:textSize="18sp"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:hint="enter client's name"
-                        android:textColorHint="@color/color_hint"
-                        android:layout_marginBottom="2dp"></EditText>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_input_transparent"
-                        android:textColor="@color/main_white"
-                        android:textSize="18sp"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:hint="enter phone number"
-                        android:layout_marginBottom="2dp"
-                        android:textColorHint="@color/color_hint"></EditText>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_input_transparent"
-                        android:textColor="@color/main_white"
-                        android:textSize="18sp"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:hint="enter address"
-                        android:layout_marginBottom="2dp"
-                        android:textColorHint="@color/color_hint"></EditText>
+
+                <EditText
+                    android:id="@+id/add_order_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/bg_input_transparent"
+                    android:hint="enter client's name"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/main_white"
+                    android:textColorHint="@color/color_hint"
+                    android:textSize="18sp"></EditText>
+
+                <EditText
+                    android:id="@+id/add_order_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/bg_input_transparent"
+                    android:hint="enter phone number"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/main_white"
+                    android:textColorHint="@color/color_hint"
+                    android:textSize="18sp"></EditText>
+
+                <EditText
+                    android:id="@+id/add_order_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/bg_input_transparent"
+                    android:hint="enter address"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/main_white"
+                    android:textColorHint="@color/color_hint"
+                    android:textSize="18sp"></EditText>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -172,16 +179,18 @@
                             android:text="Time: "
                             android:textColor="@color/main_white"
                             android:textSize="18sp"></TextView>
+
                         <EditText
+                            android:id="@+id/add_order_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_input_transparent"
-                            android:textColor="@color/main_white"
-                            android:textSize="18sp"
-                            android:inputType="time"
                             android:hint="hh:mm"
+                            android:inputType="time"
                             android:maxLines="1"
-                            android:textColorHint="@color/color_hint"></EditText>
+                            android:textColor="@color/main_white"
+                            android:textColorHint="@color/color_hint"
+                            android:textSize="18sp"></EditText>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -194,16 +203,18 @@
                             android:text="Day: "
                             android:textColor="@color/main_white"
                             android:textSize="18sp"></TextView>
+
                         <EditText
+                            android:id="@+id/add_order_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_input_transparent"
-                            android:textColor="@color/main_white"
-                            android:textSize="18sp"
-                            android:inputType="text"
                             android:hint="dd-mm"
+                            android:inputType="text"
                             android:maxLines="1"
-                            android:textColorHint="@color/color_hint"></EditText>
+                            android:textColor="@color/main_white"
+                            android:textColorHint="@color/color_hint"
+                            android:textSize="18sp"></EditText>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
