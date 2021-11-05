@@ -6,62 +6,61 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.androidapp.orderdata.OrderEntity;
-import com.example.androidapp.orderdata.OrderDao;
-import com.example.androidapp.orderdata.OrderDatabase;
+import com.example.androidapp.AppDatabase;
+
 
 import java.util.List;
 
 public class OrderRepository {
     private OrderDao orderDao;
-    private LiveData<List<OrderEntity>> allOrder;
+    private LiveData<List<Order>> allOrder;
     public OrderRepository(Application application){
-        OrderDatabase database = OrderDatabase.getInstance(application);
+        AppDatabase database = AppDatabase.getInstance(application);
         orderDao = database.orderDao();
         allOrder = orderDao.getAllOrder();
     }
-    public void insert(OrderEntity orderEntity){
-        new InsertNoteAsyncTask(orderDao).execute(orderEntity);
+    public void insert(Order order){
+        new InsertNoteAsyncTask(orderDao).execute(order);
     }
-    public void update(OrderEntity orderEntity){
-        new UpdateNoteAsyncTask(orderDao).execute(orderEntity);
+    public void update(Order order){
+        new UpdateNoteAsyncTask(orderDao).execute(order);
     }
-    public void delete(OrderEntity orderEntity){new DeleteNoteAsyncTask(orderDao).execute(orderEntity);
+    public void delete(Order order){new DeleteNoteAsyncTask(orderDao).execute(order);
     }
 
-    public LiveData<List<OrderEntity>> getAllOrder(){
+    public LiveData<List<Order>> getAllOrder(){
         return allOrder;
     }
 
-    private static class InsertNoteAsyncTask extends AsyncTask<OrderEntity, Void, Void>{
+    private static class InsertNoteAsyncTask extends AsyncTask<Order, Void, Void>{
         private OrderDao orderDao;
         private InsertNoteAsyncTask(OrderDao orderDao){
             this.orderDao = orderDao;
         }
         @Override
-        protected Void doInBackground(OrderEntity... orderEntities){
+        protected Void doInBackground(Order... orderEntities){
             orderDao.insert(orderEntities[0]);
             return null;
         }
     }
-    private static class UpdateNoteAsyncTask extends AsyncTask<OrderEntity, Void, Void>{
+    private static class UpdateNoteAsyncTask extends AsyncTask<Order, Void, Void>{
         private OrderDao orderDao;
         private UpdateNoteAsyncTask(OrderDao orderDao){
             this.orderDao = orderDao;
         }
         @Override
-        protected Void doInBackground(OrderEntity... orderEntities){
+        protected Void doInBackground(Order... orderEntities){
             orderDao.update(orderEntities[0]);
             return null;
         }
     }
-    private static class DeleteNoteAsyncTask extends AsyncTask<OrderEntity, Void, Void>{
+    private static class DeleteNoteAsyncTask extends AsyncTask<Order, Void, Void>{
         private OrderDao orderDao;
         private DeleteNoteAsyncTask(OrderDao orderDao){
             this.orderDao = orderDao;
         }
         @Override
-        protected Void doInBackground(OrderEntity... orderEntities){
+        protected Void doInBackground(Order... orderEntities){
             orderDao.delete(orderEntities[0]);
             return null;
         }

@@ -10,23 +10,23 @@ import java.util.List;
 
 public class OrderViewModel extends AndroidViewModel {
     private OrderRepository repository;
-    private LiveData<List<OrderEntity>> allOrder;
+    private LiveData<List<Order>> allOrder;
 
     public OrderViewModel(@NonNull Application application){
         super(application);
         repository = new OrderRepository(application);
         allOrder = repository.getAllOrder();
     }
-    public void insert(OrderEntity orderEntity){
-        repository.insert(orderEntity);
+    public void insert(Order order){
+        repository.insert(order);
     }
-    public void update(OrderEntity orderEntity){
-        repository.update(orderEntity);
+    public void update(Order order){
+        repository.update(order);
     }
-    public void delete(OrderEntity orderEntity){
-        repository.delete(orderEntity);
+    public void delete(Order order){
+        repository.delete(order);
     }
-    public LiveData<List<OrderEntity>> getAllOrder(){
+    public LiveData<List<Order>> getAllOrder(){
         return allOrder;
     }
 }

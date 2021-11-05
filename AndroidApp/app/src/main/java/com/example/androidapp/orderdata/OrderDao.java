@@ -12,15 +12,15 @@ import java.util.List;
 @Dao
 public interface OrderDao {
     @Insert
-    void insert(OrderEntity orderEntity);
+    void insert(Order order);
 
     @Update
-    void update(OrderEntity orderEntity);
+    void update(Order order);
 
     @Delete
-    void delete(OrderEntity orderEntity);
+    void delete(Order order);
 
     @Query("SELECT * FROM order_table ORDER BY date ASC")
-    LiveData<List<OrderEntity>> getAllOrder();
+    LiveData<List<Order>> getAllOrder();
 
 }

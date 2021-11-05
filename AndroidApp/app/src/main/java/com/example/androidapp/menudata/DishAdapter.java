@@ -20,6 +20,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     private List<Dish> mListDish;
     private List<Dish> mListDishFull;
 
+
     private OnItemClickListener listener;
 
     public DishAdapter(List<Dish> mListDish) {
@@ -29,6 +30,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     public void setDish(List<Dish> mListDish) {
         this.mListDish = mListDish;
         this.mListDishFull = new ArrayList<>(mListDish);
+
         notifyDataSetChanged();
     }
 
