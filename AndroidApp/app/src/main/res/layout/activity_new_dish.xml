@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DishInfoActivity"
+    tools:context=".activity_fragment.activity.DishInfoActivity"
     android:background="@color/main_color"
     android:paddingTop="10dp"
     android:paddingLeft="15dp"

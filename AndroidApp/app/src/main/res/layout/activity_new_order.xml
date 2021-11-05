@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".NewOrderActivity"
+    tools:context=".activity_fragment.activity.NewOrderActivity"
 
     android:background="@color/main_color"
     android:paddingTop="10dp"
