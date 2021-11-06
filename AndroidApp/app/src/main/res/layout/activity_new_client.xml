@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_fragment.activity.ProfileClientActivity"
+    tools:context=".activity_fragment.activity.NewClientActivity"
 
 
     android:background="@color/main_color"
@@ -31,27 +31,29 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/ball_detail"></View>
-    <View
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:background="@drawable/ball_detail"
-        android:layout_marginTop="170dp"
-        android:layout_alignParentRight="true"></View>
 
     <View
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignBottom="@+id/blur_layout"
-        android:translationY="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="90dp"
         android:background="@drawable/ball_detail"></View>
+
+    <View
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_alignBottom="@+id/blur_layout"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/ball_detail"
+        android:translationY="-90dp"></View>
 
     <View
         android:layout_width="310dp"
         android:layout_height="270dp"
         android:layout_centerInParent="true"
+        android:translationY="-80dp"
         android:background="@drawable/box_info"
         ></View>
 
@@ -60,7 +62,8 @@
         android:layout_width="305dp"
         android:layout_height="265dp"
         android:layout_centerInParent="true"
-        app:blk_blurRadius="7"
+        android:translationY="-80dp"
+        app:blk_blurRadius="12"
         app:blk_cornerRadius="30dp"
         app:blk_fps="0"></io.alterac.blurkit.BlurLayout>
 
@@ -71,14 +74,14 @@
         android:layout_alignTop="@+id/blur_layout"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ava_edit"
-        android:translationY="-100dp" />
+        android:translationY="-180dp" />
 
     <LinearLayout
         android:layout_width="288dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:translationY="25dp">
+        android:translationY="-55dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -159,13 +162,15 @@
                 android:textSize="17sp"></EditText>
         </RelativeLayout>
     </LinearLayout>
+
     <View
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_alignParentRight="true"
         android:layout_alignBottom="@+id/blur_layout"
-        android:translationY="30dp"
-        android:background="@drawable/ball_detail"></View>
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ball_detail"
+        android:translationX="-70dp"
+        android:translationY="-40dp"></View>
 
     <Button
         android:layout_width="288dp"
@@ -178,4 +183,12 @@
         android:textSize="20dp"
         android:translationY="100dp"
         android:translationZ="1dp"></Button>
+
+    <View
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ball_detail"
+        android:translationY="110dp"></View>
 </RelativeLayout>
