@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidapp.activity_fragment.activity.NewOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfo1Activity;
 import com.example.androidapp.R;
+import com.example.androidapp.activity_fragment.activity.UpdateDishActivity;
+import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 import com.example.androidapp.data.orderdata.OrderViewModel;
@@ -34,9 +37,11 @@ import java.util.List;
 public class OrderTodayFragment extends Fragment {
     public Button btnAddNewOrder;
     public static final int ADD_ORDER_REQUEST = 1;
-    public static final int VIEW_ORDER_REQUEST = 2;
+    public static final int CONFIRM_ORDER_REQUEST = 2;
     //View model
     private OrderViewModel orderViewModel;
+    private boolean paid;
+    private boolean ship;
 
 
     @Nullable
@@ -77,21 +82,26 @@ public class OrderTodayFragment extends Fragment {
             }
         }).attachToRecyclerView(rcvData);
 
+
+        //Sent data to Order Info when click order
         orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Order order) {
                 Intent intent = new Intent(getActivity(), OrderInfo1Activity.class);
                 intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_ID, order.getId());
-                intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_NAME_READ_ONLY, order.getClientName());
-                intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_ADDRESS_READ_ONLY, order.getAddress());
-                intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_TIME_READ_ONLY, order.getTime());
-                intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_DATE_READ_ONLY, order.getDate());
-                intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_NUMBER_READ_ONLY, order.getPhoneNumber());
-                startActivityForResult(intent, VIEW_ORDER_REQUEST);
+                intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_NAME, order.getClientName());
+                intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_ADDRESS, order.getAddress());
+                intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_TIME, order.getTime());
+                intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_DATE, order.getDate());
+                intent.putExtra(OrderInfo1Activity.EXTRA_ORDER_NUMBER, order.getPhoneNumber());
+                intent.putExtra(OrderInfo1Activity.EXTRA_CHECK_PAID, order.getPaid());
+                intent.putExtra(OrderInfo1Activity.EXTRA_CHECK_SHIP, order.getShip());
+                startActivityForResult(intent, CONFIRM_ORDER_REQUEST);
             }
         });
 
 
+        //Button to launch New Order Activity
         btnAddNewOrder = (Button) view.findViewById(R.id.add_new_order);
         btnAddNewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +116,7 @@ public class OrderTodayFragment extends Fragment {
         return view;
     }
 
+    //Get data return from Intent to update order
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -116,11 +127,25 @@ public class OrderTodayFragment extends Fragment {
             String number = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_NUMBER);
             String time = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_DATE);
+            paid = data.getBooleanExtra(OrderInfo1Activity.EXTRA_CHECK_PAID, paid);
+            ship = data.getBooleanExtra(OrderInfo1Activity.EXTRA_CHECK_SHIP, ship);
 
-
-
-            Order order = new Order(name, number, address, date, time, 1000);
+            Order order = new Order(name, number, address, date, time, 1000, paid, ship);
             orderViewModel.insert(order);
+        } else if (requestCode == CONFIRM_ORDER_REQUEST && resultCode == RESULT_OK) {
+            int id = data.getIntExtra(OrderInfo1Activity.EXTRA_ORDER_ID, -1);
+            String name = data.getStringExtra(OrderInfo1Activity.EXTRA_ORDER_NAME);
+            String address = data.getStringExtra(OrderInfo1Activity.EXTRA_ORDER_ADDRESS);
+            String number = data.getStringExtra(OrderInfo1Activity.EXTRA_ORDER_NUMBER);
+            String time = data.getStringExtra(OrderInfo1Activity.EXTRA_ORDER_TIME);
+            String date = data.getStringExtra(OrderInfo1Activity.EXTRA_ORDER_DATE);
+            paid = data.getBooleanExtra(OrderInfo1Activity.EXTRA_CHECK_PAID, paid);
+            ship = data.getBooleanExtra(OrderInfo1Activity.EXTRA_CHECK_SHIP, ship);
+
+            Order order = new Order(name, number, address, date, time, 1000, ship, paid);
+            order.setId(id);
+            orderViewModel.update(order);
+            Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         }
         //Toast a message if user press back button and don't add anything
         else {

@@ -244,6 +244,7 @@
         android:paddingRight="20dp">
 
         <Button
+            android:id="@+id/new_dish_btn"
             android:layout_width="120dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"

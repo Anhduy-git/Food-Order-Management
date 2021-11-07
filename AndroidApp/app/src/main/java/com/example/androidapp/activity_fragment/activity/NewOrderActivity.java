@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,6 +27,11 @@ public class NewOrderActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_DATE";
     public static final String EXTRA_ORDER_TIME =
             "com.example.androidapp.EXTRA_ORDER_TIME";
+    public static final String EXTRA_CHECK_PAID =
+            "com.example.androidapp.EXTRA_CHECK_PAID";
+    public static final String EXTRA_CHECK_SHIP =
+            "com.example.androidapp.EXTRA_CHECK_SHIP";
+
 
     private EditText editOrderName;
     private EditText editOrderTime;
@@ -34,6 +40,8 @@ public class NewOrderActivity extends AppCompatActivity {
     private EditText editOrderNumber;
     private Button btnAddOrder;
     private Button btnBack;
+    private Button btnAddDish;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,15 @@ public class NewOrderActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        //Button to add new dish
+        btnAddDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewOrderActivity.this, SubMenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -68,6 +85,9 @@ public class NewOrderActivity extends AppCompatActivity {
         editOrderTime = findViewById(R.id.add_order_time);
         btnBack = findViewById(R.id.new_order_back_btn);
         btnAddOrder = findViewById(R.id.confirm_add_new_order);
+        btnAddDish = findViewById(R.id.new_dish_btn);
+
+
     }
 
     //Add order to database
@@ -92,10 +112,16 @@ public class NewOrderActivity extends AppCompatActivity {
         data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
         data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
         data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-        data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+        data.putExtra(EXTRA_CHECK_PAID, false);
+        data.putExtra(EXTRA_CHECK_SHIP, false);
 
         setResult(RESULT_OK, data);
         finish();
+    }
+
+
+    private void confirmShip(){
+
     }
 
 }

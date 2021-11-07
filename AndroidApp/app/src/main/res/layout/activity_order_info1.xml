@@ -257,7 +257,7 @@
 <!--                    android:background="@drawable/check_icon"></ImageView>-->
 
                 <CheckBox
-                    android:id="@+id/order_ship_checkbox"
+                    android:id="@+id/order_paid_checkbox"
                     android:button="@drawable/confirm_check_box"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />
