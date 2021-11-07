@@ -26,7 +26,7 @@
         <entry key="app/src/main/res/drawable/plus_btn.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/remove_btn.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_client.xml" value="0.35185185185185186" />
-        <entry key="app/src/main/res/layout/activity_confirm_client.xml" value="0.17527173913043478" />
+        <entry key="app/src/main/res/layout/activity_confirm_client.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_confirm_menu.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_dish_info.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_history.xml" value="0.14583333333333334" />
@@ -41,7 +41,7 @@
         <entry key="app/src/main/res/layout/activity_profile_client.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_sub_contact.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/activity_sub_menu.xml" value="0.35885416666666664" />
-        <entry key="app/src/main/res/layout/client_item_recycler.xml" value="0.17527173913043478" />
+        <entry key="app/src/main/res/layout/client_item_recycler.xml" value="0.25" />
         <entry key="app/src/main/res/layout/client_layout_recycler.xml" value="0.3416666666666667" />
         <entry key="app/src/main/res/layout/fragment_all_history.xml" value="0.14583333333333334" />
         <entry key="app/src/main/res/layout/fragment_canceled_history.xml" value="0.14583333333333334" />
@@ -65,7 +65,6 @@
         <entry key="app/src/main/res/menu/floating_menu.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/menu/menu_nav.xml" value="0.3416666666666667" />
         <entry key="app/src/main/res/menu/menu_nav_head.xml" value="0.2942708333333333" />
-
       </map>
     </option>
   </component>

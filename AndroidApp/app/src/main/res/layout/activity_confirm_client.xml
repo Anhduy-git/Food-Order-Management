@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_fragment.activity.ConfirmClientActivity"
+    tools:context=".activity_fragment.activity.UpdateClientActivity"
 
 
     android:background="@color/main_color"
@@ -96,6 +96,7 @@
             android:paddingRight="10dp">
 
             <EditText
+                android:id="@+id/update_client_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -121,6 +122,7 @@
             android:paddingRight="10dp">
 
             <EditText
+                android:id="@+id/update_client_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -146,6 +148,7 @@
             android:paddingRight="10dp">
 
             <EditText
+                android:id="@+id/update_client_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -167,6 +170,7 @@
         android:translationY="-40dp"></View>
 
     <Button
+        android:id="@+id/update_client_info_button"
         android:layout_width="288dp"
         android:layout_height="54dp"
         android:layout_alignBottom="@+id/blur_layout"
@@ -181,8 +185,8 @@
     <View
         android:layout_width="280dp"
         android:layout_height="280dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/ball_detail"
         android:translationY="110dp"></View>
 </RelativeLayout>
