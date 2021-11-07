@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="add_client_name" type="id">1000666</item>
+    <item name="add_client_address" type="id">1000667</item>
+    <item name="add_client_number" type="id">1000668</item>
+    <item name="add_client_back_btn" type="id" />
+    <item name="add_client_info_button" type="id" />
+    <item name="add_client_button" type="id" />
+    <item name="client_search_bar" type="id" />
+</resources>
