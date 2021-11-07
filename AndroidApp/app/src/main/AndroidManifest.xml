@@ -29,9 +29,6 @@
             android:name=".activity_fragment.activity.UpdateDishActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_fragment.activity.DishInfoActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity_fragment.activity.HistoryActivity"
             android:exported="false" />
         <activity
@@ -48,9 +45,6 @@
             android:exported="false" />
         <activity
             android:name=".activity_fragment.activity.OrderInfo2Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activity_fragment.activity.ProfileClientActivity"
             android:exported="false" />
         <activity
             android:name=".activity_fragment.activity.SubContactActivity"

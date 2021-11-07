@@ -6,7 +6,7 @@
     android:background="@color/main_color">
 
     <Button
-        android:id="@+id/sub_client_back_btn"
+        android:id="@+id/sub_menu_back_btn"
         android:layout_width="@dimen/size_btn"
         android:layout_height="@dimen/size_btn"
         android:layout_centerVertical="true"
@@ -30,6 +30,7 @@
             android:layout_marginLeft="6dp"></ImageView>
 
         <EditText
+            android:id="@+id/dish_search_bar_sub_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

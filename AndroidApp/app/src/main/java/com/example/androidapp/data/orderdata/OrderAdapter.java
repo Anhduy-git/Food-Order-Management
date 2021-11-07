@@ -1,5 +1,6 @@
 package com.example.androidapp.data.orderdata;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,10 +43,25 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
 
         holder.tvOrderName.setText(order.getClientName());
-//        holder.tvOrderPrice.setText(String.valueOf(order.getPrice()));
         holder.tvOrderDate.setText(order.getDate());
         holder.tvOrderTime.setText(order.getTime());
         holder.tvOrderPrice.setText("1000");
+
+        if (order.getPaid() == true){
+            Log.d("paid", "true");
+            holder.flagPaid.setVisibility(View.VISIBLE);
+        } else {
+            Log.d("paid", "false");
+            holder.flagPaid.setVisibility(View.INVISIBLE);
+        }
+
+        if (order.getShip() == true){
+
+            holder.flagShip.setVisibility(View.VISIBLE);
+        } else {
+            holder.flagShip.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @Override
@@ -66,6 +82,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private TextView tvOrderDate;
         private TextView tvOrderTime;
         private TextView tvOrderPrice;
+        private View flagPaid;
+        private View flagShip;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +92,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             tvOrderDate = itemView.findViewById(R.id.order_day);
             tvOrderTime = itemView.findViewById(R.id.order_time);
             tvOrderPrice = itemView.findViewById(R.id.order_price);
+            flagPaid = itemView.findViewById(R.id.flag_paid);
+            flagShip = itemView.findViewById(R.id.flag_ship);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

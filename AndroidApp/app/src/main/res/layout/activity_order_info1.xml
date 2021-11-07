@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="175dp"
             android:layout_margin="4dp"
-            app:blk_blurRadius="7"
+            app:blk_blurRadius="12"
             app:blk_cornerRadius="30dp"
             app:blk_fps="0"></io.alterac.blurkit.BlurLayout>
 
@@ -117,6 +117,7 @@
                         android:textSize="20sp"
                         android:textColor="@color/main_white"
                         android:layout_marginBottom="1dp"
+                        android:maxLines="1"
                         android:textStyle="bold"></TextView>
                     <TextView
                         android:id="@+id/order_phone"
@@ -125,6 +126,7 @@
                         android:text="012345678"
                         android:textColor="@color/main_white"
                         android:layout_marginBottom="1dp"
+                        android:maxLines="1"
                         android:textSize="16sp"></TextView>
                     <TextView
                         android:id="@+id/order_address"
@@ -132,6 +134,7 @@
                         android:layout_height="wrap_content"
                         android:text="123 Vo Van Kiet - P5 - Q5"
                         android:textSize="16sp"
+                        android:maxLines="1"
                         android:layout_marginBottom="1dp"
                         android:textColor="@color/main_white"></TextView>
                     <LinearLayout
@@ -168,43 +171,48 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
                 android:text="Total price:"
                 android:textColor="@color/main_white"
-                android:textSize="17sp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"></TextView>
+                android:textSize="17sp"></TextView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
-                android:background="@drawable/bg_info"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp">
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bg_info">
+
                 <TextView
                     android:id="@+id/order_total_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
                     android:text="599.000"
                     android:textColor="@color/main_white"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:layout_marginLeft="10dp"></TextView>
+                    android:textSize="16sp"></TextView>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
                     android:text="VND"
                     android:textColor="@color/main_white"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:layout_marginLeft="5dp"></TextView>
+                    android:textSize="16sp"></TextView>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
@@ -249,24 +257,13 @@
 <!--                    android:background="@drawable/check_icon"></ImageView>-->
 
                 <CheckBox
-                    android:id="@+id/order_ship_checkbox"
+                    android:id="@+id/order_paid_checkbox"
                     android:button="@drawable/confirm_check_box"
                     android:layout_width="40dp"
-                    android:layout_height="40dp"/>
+                    android:layout_height="40dp" />
             </LinearLayout>
 
         </LinearLayout>
-
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/order_ship_btn"
-            android:background="@drawable/bg_remove_ship_btn"
-            android:text="Remove"
-            android:textAllCaps="false"
-            android:textColor="@color/main_white"
-            android:textSize="22dp"></Button>
 
         <Button
             android:id="@+id/order_ship_btn"

@@ -22,14 +22,20 @@ public class Order {
 
     private int price;
 
+    private boolean ship;
+
+    private boolean paid;
+
     //Constructor
-    public Order(String clientName, String phoneNumber, String address, String date, String time, int price) {
+    public Order(String clientName, String phoneNumber, String address, String date, String time, int price, boolean ship, boolean paid) {
         this.clientName = clientName;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.date = date;
         this.time = time;
         this.price = price;
+        this.ship = ship;
+        this.paid = paid;
     }
 
     //Getter
@@ -59,6 +65,14 @@ public class Order {
 
     public int getPrice() {
         return price;
+    }
+
+    public boolean getShip() {
+        return ship;
+    }
+
+    public boolean getPaid() {
+        return paid;
     }
 
     //Setter
