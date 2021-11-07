@@ -100,8 +100,11 @@
             android:id="@+id/blur_layout"
             android:layout_width="match_parent"
             android:layout_height="175dp"
-            android:layout_margin="4dp"
-            app:blk_blurRadius="7"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            app:blk_blurRadius="12"
             app:blk_cornerRadius="30dp"
             app:blk_fps="0"></io.alterac.blurkit.BlurLayout>
 
@@ -136,7 +139,7 @@
                     android:maxLines="1"
                     android:textColor="@color/main_white"
                     android:textColorHint="@color/color_hint"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="17sp"></EditText>
 
                 <EditText
                     android:id="@+id/add_order_number"
@@ -149,7 +152,7 @@
                     android:maxLines="1"
                     android:textColor="@color/main_white"
                     android:textColorHint="@color/color_hint"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="17sp"></EditText>
 
                 <EditText
                     android:id="@+id/add_order_address"
@@ -162,7 +165,7 @@
                     android:maxLines="1"
                     android:textColor="@color/main_white"
                     android:textColorHint="@color/color_hint"
-                    android:textSize="18sp"></EditText>
+                    android:textSize="17sp"></EditText>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -190,7 +193,7 @@
                             android:maxLines="1"
                             android:textColor="@color/main_white"
                             android:textColorHint="@color/color_hint"
-                            android:textSize="18sp"></EditText>
+                            android:textSize="17sp"></EditText>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -214,7 +217,7 @@
                             android:maxLines="1"
                             android:textColor="@color/main_white"
                             android:textColorHint="@color/color_hint"
-                            android:textSize="18sp"></EditText>
+                            android:textSize="17sp"></EditText>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -241,6 +244,7 @@
         android:paddingRight="20dp">
 
         <Button
+            android:id="@+id/new_dish_btn"
             android:layout_width="120dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"

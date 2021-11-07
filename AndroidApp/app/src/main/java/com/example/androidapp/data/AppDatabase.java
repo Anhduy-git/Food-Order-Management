@@ -20,7 +20,9 @@ import com.example.androidapp.data.orderdata.OrderDao;
 
 //This is the app's main database, don't need to create another one
 //Add more entities (tables) to database by listing them inside entities = {...}
-@Database(entities = {Dish.class, Order.class, Client.class}, version = 5)
+
+@Database(entities = {Dish.class, Order.class, Client.class}, version = 1)
+
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "app_database.db";

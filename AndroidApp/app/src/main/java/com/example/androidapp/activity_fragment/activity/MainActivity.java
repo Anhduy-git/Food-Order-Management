@@ -22,6 +22,8 @@ import com.example.androidapp.activity_fragment.fragment.UnpaidOrderFragment;
 import com.example.androidapp.activity_fragment.fragment.UpcomingOrderFragment;
 import com.google.android.material.navigation.NavigationView;
 
+import io.alterac.blurkit.BlurLayout;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Button btnClient;

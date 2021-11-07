@@ -12,7 +12,12 @@ import android.widget.Toast;
 
 import com.example.androidapp.R;
 
+import io.alterac.blurkit.BlurLayout;
+
 public class NewDishActivity extends AppCompatActivity {
+
+    BlurLayout blurLayout;
+
     public static final String EXTRA_MENU_NAME =
             "com.example.androidapp.EXTRA_MENU_NAME";
     public static final String EXTRA_MENU_PRICE =
@@ -28,7 +33,7 @@ public class NewDishActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_dish);
-
+        blurLayout = findViewById(R.id.blur_layout);
         initUi();
 
         btnAddDish.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +49,18 @@ public class NewDishActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        blurLayout.startBlur();
+    }
+
+    @Override
+    protected void onStop() {
+        blurLayout.pauseBlur();
+        super.onStop();
     }
 
     private void initUi () {
