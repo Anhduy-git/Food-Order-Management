@@ -24,8 +24,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidapp.activity_fragment.activity.NewOrderActivity;
-// import com.example.androidapp.activity_fragment.activity.UpdateClientActivity;
+
+import com.example.androidapp.activity_fragment.activity.UpdateClientActivity;
 import com.example.androidapp.activity_fragment.activity.NewClientActivity;
 import com.example.androidapp.R;
 
@@ -112,21 +112,21 @@ public class ClientFragment extends Fragment {
         });
 
         //Method CLICK TO VIEW an item in Recycler View
-        /*
+
         clientAdapter.setOnItemClickListener(new ClientAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Client client) {
                 Intent intent = new Intent(getActivity(), UpdateClientActivity.class);
-                intent.putExtra(UpdateClientActivity.EXTRA_ID, client.getId());
-                intent.putExtra(UpdateClientActivity.EXTRA_NAME, client.getClientName());
-                intent.putExtra(UpdateClientActivity.EXTRA_NUMBER, client.getPhoneNumber());
-                intent.putExtra(UpdateClientActivity.EXTRA_ADDRESS, client.getAddress());
+                intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_ID, client.getId());
+                intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_NAME, client.getClientName());
+                intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_NUMBER, client.getPhoneNumber());
+                intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS, client.getAddress());
 
 
-                startActivityForResult(intent, EDIT_CIENT_REQUEST);
+                startActivityForResult(intent, EDIT_CLIENT_REQUEST);
             }
         });
-        */
+
         //Method CLICK the add button
         btnAddClient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,9 +160,9 @@ public class ClientFragment extends Fragment {
             Toast.makeText(getActivity(), "Client added successfully", Toast.LENGTH_SHORT).show();
         }
         //EDIT CLIENT REQUEST (Update an existing client)
-        /*
+
         else if (requestCode == EDIT_CLIENT_REQUEST && resultCode == RESULT_OK) {
-            int id = data.getIntExtra(UpdateClientActivity.EXTRA_ID, -1);
+            int id = data.getIntExtra(UpdateClientActivity.EXTRA_CLIENT_ID, -1);
             if (id == -1) {
                 Toast.makeText(getActivity(), "Client can't be updated", Toast.LENGTH_SHORT).show();
                 return;
@@ -177,7 +177,7 @@ public class ClientFragment extends Fragment {
             clientViewModel.updateClient(client);
             Toast.makeText(getActivity(), "Client updated successfully", Toast.LENGTH_SHORT).show();
         }
-        */
+
 
     }
 

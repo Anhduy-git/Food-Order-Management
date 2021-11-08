@@ -191,8 +191,8 @@
     <View
         android:layout_width="280dp"
         android:layout_height="280dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/ball_detail"
         android:translationY="110dp"></View>
 </RelativeLayout>
