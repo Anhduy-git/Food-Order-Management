@@ -2,10 +2,8 @@ package com.example.androidapp.activity_fragment.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.androidapp.R;
 
-public class OrderInfo1Activity extends AppCompatActivity {
+public class OrderInfoUpcomingActivity extends AppCompatActivity {
 
     public static final String EXTRA_ORDER_ID =
             "com.example.androidapp.EXTRA_ORDER_ID";
@@ -39,16 +37,13 @@ public class OrderInfo1Activity extends AppCompatActivity {
     private TextView tvOrderTime;
     private TextView tvOrderDate;
     private Button btnBack;
-    private Button btnShip;
     private CheckBox checkPaid;
-    private boolean ship;
     private boolean paid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_info1);
+        setContentView(R.layout.activity_order_info_upcoming);
         //Reset
-        ship = false;
         paid = false;
 
         initUi();
@@ -60,17 +55,12 @@ public class OrderInfo1Activity extends AppCompatActivity {
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
-            ship = intent.getBooleanExtra(EXTRA_CHECK_SHIP, ship);
             paid = intent.getBooleanExtra(EXTRA_CHECK_PAID, paid);
         }
 
         //Check if Paid for checkbox:
         if (paid){
             checkPaid.setChecked(true);
-        }
-        //Check if ship for disable button
-        if (ship){
-            btnShip.setVisibility(View.INVISIBLE);
         }
 
         //Convert to String
@@ -93,34 +83,13 @@ public class OrderInfo1Activity extends AppCompatActivity {
                 }
             }
         });
-        //Ship button to confirm ship and return data
-        btnShip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ship = true;
-                Intent data = new Intent();
-                data.putExtra(EXTRA_CHECK_SHIP, ship);
-                data.putExtra(EXTRA_CHECK_PAID, paid);
-                data.putExtra(EXTRA_ORDER_NAME, strOrderName);
-                data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
-                data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
-                data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
-                data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
-                if (id != -1) {
-                    data.putExtra(EXTRA_ORDER_ID, id);
-                }
-                setResult(RESULT_OK, data);
-                finish();
-            }
-        });
+
         //Button back to OrderTodayFragment
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHECK_PAID, paid);
-                data.putExtra(EXTRA_CHECK_SHIP, ship);
                 data.putExtra(EXTRA_ORDER_NAME, strOrderName);
                 data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
@@ -145,9 +114,9 @@ public class OrderInfo1Activity extends AppCompatActivity {
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);
         tvOrderTime = findViewById(R.id.order_time);
-        btnBack = findViewById(R.id.order_info_1_back_btn);
+        btnBack = findViewById(R.id.order_info_2_back_btn);
         checkPaid = findViewById(R.id.order_paid_checkbox);
-        btnShip = findViewById(R.id.order_ship_btn);
+
 
     }
 

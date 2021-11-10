@@ -16,12 +16,16 @@ import com.example.androidapp.data.menudata.DishDao;
 
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderDao;
+import com.example.androidapp.data.unpaiddata.UnpaidOrder;
+import com.example.androidapp.data.unpaiddata.UnpaidOrderDao;
+import com.example.androidapp.data.upcomingorderdata.UpcomingOrder;
+import com.example.androidapp.data.upcomingorderdata.UpcomingOrderDao;
 
 
 //This is the app's main database, don't need to create another one
 //Add more entities (tables) to database by listing them inside entities = {...}
 
-@Database(entities = {Dish.class, Order.class, Client.class}, version = 3)
+@Database(entities = {Dish.class, Order.class, Client.class, UnpaidOrder.class, UpcomingOrder.class}, version = 1)
 
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -32,7 +36,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract DishDao dishDao();
     public abstract OrderDao orderDao();
     public abstract ClientDao clientDao();
-
+    public abstract UnpaidOrderDao unpaidOrderDao();
+    public abstract UpcomingOrderDao upcomingOrderDao();
 
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
@@ -60,10 +65,15 @@ public abstract class AppDatabase extends RoomDatabase {
         private DishDao dishDao;
         private OrderDao orderDao;
         private ClientDao clientDao;
+        private UnpaidOrderDao unpaidOrderDao;
+        private UpcomingOrderDao upcomingOrderDao;
+
         private PopulateDbAsyncTask(AppDatabase db) {
             dishDao = db.dishDao();
             orderDao = db.orderDao();
             clientDao = db.clientDao();
+            unpaidOrderDao = db.unpaidOrderDao();
+            upcomingOrderDao = db.upcomingOrderDao();
         }
         @Override
         protected Void doInBackground(Void... voids) {

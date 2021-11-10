@@ -20,7 +20,7 @@
         </activity>
         <activity
 
-            android:name=".activity_fragment.activity.NewOrderActivity"
+            android:name=".activity_fragment.activity.NewTodayOrderActivity"
             android:exported="false" />
         <activity
             android:name=".activity_fragment.activity.UpdateClientActivity"
@@ -32,19 +32,16 @@
             android:name=".activity_fragment.activity.HistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_fragment.activity.InfoUnpaidOrderActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity_fragment.activity.NewClientActivity"
             android:exported="false" />
         <activity
             android:name=".activity_fragment.activity.NewDishActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_fragment.activity.OrderInfo1Activity"
+            android:name=".activity_fragment.activity.OrderInfoTodayActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_fragment.activity.OrderInfo2Activity"
+            android:name=".activity_fragment.activity.OrderInfoUpcomingActivity"
             android:exported="false" />
         <activity
             android:name=".activity_fragment.activity.SubContactActivity"
@@ -52,6 +49,13 @@
         <activity
             android:name=".activity_fragment.activity.SubMenuActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity_fragment.activity.NewUpcomingOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity_fragment.activity.OrderInfoUnpaidActivity"
+            android:exported="false" />
+
 
 
     </application>
