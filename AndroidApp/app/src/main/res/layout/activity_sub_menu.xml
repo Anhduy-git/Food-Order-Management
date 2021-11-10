@@ -97,7 +97,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/order_ship_btn"
+                android:id="@+id/unpaid_order_paid_btn"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"

@@ -57,7 +57,7 @@
             android:layout_alignParentBottom="true">
 
             <Button
-                android:id="@+id/add_new_order"
+                android:id="@+id/add_new_today_order"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"

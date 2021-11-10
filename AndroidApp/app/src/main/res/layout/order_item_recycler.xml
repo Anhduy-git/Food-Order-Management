@@ -92,13 +92,13 @@
 
     <View
         android:id="@+id/flag_paid"
-        android:visibility="gone"
         android:layout_width="17dp"
         android:layout_height="33dp"
         android:layout_alignParentRight="true"
         android:background="@drawable/flag_paid"
         android:translationX="-50dp"
-        android:translationY="3dp"></View>
+        android:translationY="3dp"
+        android:visibility="gone"></View>
 
     <View
         android:id="@+id/flag_ship"

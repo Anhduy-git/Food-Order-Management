@@ -27,7 +27,8 @@ public class Order {
     private boolean paid;
 
     //Constructor
-    public Order(String clientName, String phoneNumber, String address, String date, String time, int price, boolean ship, boolean paid) {
+    public Order(String clientName, String phoneNumber, String address,
+                 String date, String time, int price, boolean ship, boolean paid) {
         this.clientName = clientName;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -78,5 +79,11 @@ public class Order {
     //Setter
     public void setId(int id) {
         this.id = id;
+    }
+    public void setShip(boolean ship) {
+        this.ship = ship;
+    }
+    public void setPaid(boolean paid) {
+        this.ship = paid;
     }
 }
