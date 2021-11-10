@@ -20,7 +20,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private List<Order> mListOrder = new ArrayList<>();
     private OnItemClickListener listener;
 
-
     public void setOrder(List<Order> mListOrder) {
         this.mListOrder = mListOrder;
         notifyDataSetChanged();

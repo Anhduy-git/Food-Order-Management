@@ -67,12 +67,12 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         return 0;
     }
 
+    //Create a filter object for searching
     @Override
     public Filter getFilter() {
         return dishFilter;
     }
 
-    //Create a filter object for searching
     private Filter dishFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {

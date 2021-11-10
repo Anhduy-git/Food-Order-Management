@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.36770833333333336" />
         <entry key="../../../../layout/custom_preview.xml" value="0.16203703703703703" />
         <entry key="app/src/main/res/drawable/attention.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/ball_detail.xml" value="0.36923076923076925" />
@@ -36,7 +37,7 @@
         <entry key="app/src/main/res/layout/activity_new_dish.xml" value="0.269140625" />
         <entry key="app/src/main/res/layout/activity_new_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_order.xml" value="0.35185185185185186" />
-        <entry key="app/src/main/res/layout/activity_order_info1.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_order_info1.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_order_info2.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_profile_client.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_sub_contact.xml" value="0.35885416666666664" />

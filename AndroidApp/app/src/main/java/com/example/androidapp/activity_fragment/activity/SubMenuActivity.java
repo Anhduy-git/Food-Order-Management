@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.menudata.Dish;
@@ -23,12 +24,14 @@ import java.util.List;
 
 public class SubMenuActivity extends AppCompatActivity {
 
-
-
+    private int numberOfDish = 1;
     private List<Dish> mListDish;
     private DishViewModel dishViewModel;
     private EditText edtSearchBar;
+    private TextView tvQuantity;
     private Button btnBack;
+    private Button btnIncreaseDish;
+    private Button btnDecreaseDish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class SubMenuActivity extends AppCompatActivity {
         mListDish = new ArrayList<>();
 
         //Create Recycler View
-        RecyclerView rcvData = findViewById(R.id.menu_recycler);;
+        RecyclerView rcvData = findViewById(R.id.sub_menu_recycler);;
 
         //rcvData.setHasFixedSize(true);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
@@ -56,10 +59,8 @@ public class SubMenuActivity extends AppCompatActivity {
             //Method DISPLAY the list on screen
             public void onChanged(List<Dish> dishes) {
                 dishAdapter.setDish(dishes);
-
             }
         });
-
 
         //Create search bar listener for SEARCH METHOD
         edtSearchBar.addTextChangedListener(new TextWatcher() {
@@ -79,6 +80,38 @@ public class SubMenuActivity extends AppCompatActivity {
             }
         });
 
+        //Highlight an item on click
+        dishAdapter.setOnItemClickListener(new DishAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Dish dish) {
+                //TODO: Highlight item
+                //Reset quantity whenever click to an item
+                numberOfDish = 1;
+                tvQuantity.setText(String.valueOf(numberOfDish));
+            }
+        });
+
+        //Button increase dish quantity
+        btnIncreaseDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                numberOfDish = numberOfDish + 1;
+                tvQuantity.setText(String.valueOf(numberOfDish));
+            }
+        });
+
+        //Button decrease dish quantity, minimum is 1
+        btnDecreaseDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (numberOfDish > 1) {
+                    numberOfDish = numberOfDish - 1;
+                    tvQuantity.setText(String.valueOf(numberOfDish));
+                }
+            }
+        });
+
+
         //Button back to NewOrderActivity
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +124,10 @@ public class SubMenuActivity extends AppCompatActivity {
 
 
     private void initUi () {
+        tvQuantity = findViewById(R.id.sub_menu_num_dish);
         btnBack = findViewById(R.id.sub_menu_back_btn);
+        btnIncreaseDish = findViewById((R.id.sub_menu_plus));
+        btnDecreaseDish = findViewById((R.id.sub_menu_minus));
         edtSearchBar = findViewById(R.id.dish_search_bar_sub_menu);
     }
 }

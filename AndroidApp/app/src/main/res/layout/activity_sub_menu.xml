@@ -2,32 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/main_color">
+    android:background="@color/main_color"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/sub_menu_back_btn"
         android:layout_width="@dimen/size_btn"
         android:layout_height="@dimen/size_btn"
         android:layout_centerVertical="true"
+        android:layout_marginTop="4dp"
         android:background="@color/main_color"
         android:drawableStart="@drawable/back_btn"
-        android:layout_marginTop="4dp"
         android:paddingLeft="8dp"></Button>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:orientation="horizontal"
+        android:layout_margin="10dp"
         android:background="@drawable/bg_searching"
-        android:layout_margin="10dp">
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/icon_searching"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/icon_searching"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="6dp"></ImageView>
+            android:layout_marginLeft="6dp"
+            android:src="@drawable/icon_searching"></ImageView>
 
         <EditText
             android:id="@+id/dish_search_bar_sub_menu"
@@ -51,7 +53,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/menu_recycler"
+            android:id="@+id/sub_menu_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="60dp"
@@ -66,9 +68,10 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
-                android:layout_centerVertical="true">
+                android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/sub_menu_minus"
                     android:layout_width="35dp"
@@ -76,17 +79,19 @@
                     android:background="@drawable/plus_btn"
                     android:drawableTop="@drawable/minus_ic_m"
                     android:paddingTop="6dp"></Button>
+
                 <TextView
                     android:id="@+id/sub_menu_num_dish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
-                    android:textColor="@color/main_white"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_gravity="center_vertical"
-                    android:textStyle="bold"
-                    android:textSize="28sp"></TextView>
+                    android:text="1"
+                    android:textColor="@color/main_white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"></TextView>
+
                 <Button
                     android:id="@+id/sub_menu_plus"
                     android:layout_width="35dp"

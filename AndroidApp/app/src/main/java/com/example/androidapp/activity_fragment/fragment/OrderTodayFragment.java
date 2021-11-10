@@ -100,7 +100,6 @@ public class OrderTodayFragment extends Fragment {
             }
         });
 
-
         //Button to launch New Order Activity
         btnAddNewOrder = (Button) view.findViewById(R.id.add_new_order);
         btnAddNewOrder.setOnClickListener(new View.OnClickListener() {
@@ -148,8 +147,9 @@ public class OrderTodayFragment extends Fragment {
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         }
         //Toast a message if user press back button and don't add anything
+        //Not necessary
         else {
-            Toast.makeText(getActivity(), "Order not added", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Order not added", Toast.LENGTH_SHORT).show();
         }
     }
 }

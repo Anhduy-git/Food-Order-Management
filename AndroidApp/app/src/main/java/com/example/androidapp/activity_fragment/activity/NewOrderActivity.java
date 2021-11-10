@@ -1,5 +1,6 @@
 package com.example.androidapp.activity_fragment.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.menudata.Dish;
 
 public class NewOrderActivity extends AppCompatActivity {
 
@@ -32,6 +34,7 @@ public class NewOrderActivity extends AppCompatActivity {
     public static final String EXTRA_CHECK_SHIP =
             "com.example.androidapp.EXTRA_CHECK_SHIP";
 
+    public static final int CHOOSE_CLIENT_REQUEST = 1;
 
     private EditText editOrderName;
     private EditText editOrderTime;
@@ -41,7 +44,7 @@ public class NewOrderActivity extends AppCompatActivity {
     private Button btnAddOrder;
     private Button btnBack;
     private Button btnAddDish;
-
+    private Button btnAddClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 addOrder();
             }
         });
+
         //Button back to OrderTodayFragment
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +68,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
         //Button to add new dish
         btnAddDish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,10 +78,16 @@ public class NewOrderActivity extends AppCompatActivity {
             }
         });
 
+        //Button to choose client from contact
+        btnAddClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewOrderActivity.this, SubContactActivity.class);
+                startActivityForResult(intent, CHOOSE_CLIENT_REQUEST);
+            }
+        });
 
     }
-
-
     private void initUi () {
         editOrderName = findViewById(R.id.add_order_name);
         editOrderAddress = findViewById(R.id.add_order_address);
@@ -86,8 +97,7 @@ public class NewOrderActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.new_order_back_btn);
         btnAddOrder = findViewById(R.id.confirm_add_new_order);
         btnAddDish = findViewById(R.id.new_dish_btn);
-
-
+        btnAddClient = findViewById(R.id.new_client_btn);
     }
 
     //Add order to database
@@ -119,6 +129,23 @@ public class NewOrderActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CHOOSE_CLIENT_REQUEST && resultCode == RESULT_OK) {
+            String clientName = data.getStringExtra(SubContactActivity.EXTRA_NAME);
+            String clientPhoneNumber = data.getStringExtra(SubContactActivity.EXTRA_PHONE_NUMBER);
+            String clientAddress = data.getStringExtra(SubContactActivity.EXTRA_ADDRESS);
+
+            //Display client's info after having chosen from existing contact
+            editOrderName.setText(clientName);
+            editOrderNumber.setText(clientPhoneNumber);
+            editOrderAddress.setText(clientAddress);
+
+            Toast.makeText(NewOrderActivity.this, "Client added successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void confirmShip(){
 

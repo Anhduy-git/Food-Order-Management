@@ -111,7 +111,7 @@ public class MenuFragment extends Fragment {
             }
         });
 
-        //Method CLICK TO VIEW an item in Recycler View
+        //Method CLICK TO VIEW info of an item in Recycler View
         dishAdapter.setOnItemClickListener(new DishAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Dish dish) {
@@ -155,7 +155,7 @@ public class MenuFragment extends Fragment {
             dishViewModel.insertDish(dish);
             Toast.makeText(getActivity(), "Dish added successfully", Toast.LENGTH_SHORT).show();
         }
-        //EDIT DISH REQUEST (Update an existing dish)
+        //EDIT_DISH_REQUEST (Update an existing dish)
         else if (requestCode == EDIT_DISH_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(UpdateDishActivity.EXTRA_ID, -1);
             if (id == -1) {

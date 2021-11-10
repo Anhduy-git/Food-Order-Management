@@ -224,6 +224,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/new_client_btn"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_alignParentBottom="true"
