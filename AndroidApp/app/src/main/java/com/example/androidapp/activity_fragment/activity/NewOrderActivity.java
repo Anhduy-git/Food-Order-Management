@@ -84,7 +84,7 @@ public class NewOrderActivity extends AppCompatActivity {
         editOrderNumber = findViewById(R.id.add_order_number);
         editOrderTime = findViewById(R.id.add_order_time);
         btnBack = findViewById(R.id.new_order_back_btn);
-        btnAddOrder = findViewById(R.id.confirm_add_new_order);
+        btnAddOrder = findViewById(R.id.add_new_order);
         btnAddDish = findViewById(R.id.new_dish_btn);
 
 

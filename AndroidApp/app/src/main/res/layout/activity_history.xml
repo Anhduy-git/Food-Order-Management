@@ -14,7 +14,7 @@
         android:layout_marginTop="4dp">
 
         <Button
-            android:id="@+id/history_back_btn"
+            android:id="@+id/back_btn"
             android:layout_width="@dimen/size_btn"
             android:layout_height="@dimen/size_btn"
             android:layout_centerVertical="true"

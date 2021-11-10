@@ -48,7 +48,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/new_order_back_btn"
+            android:id="@+id/back_btn"
             android:layout_width="@dimen/size_btn"
             android:layout_height="@dimen/size_btn"
             android:layout_centerVertical="true"
@@ -67,7 +67,7 @@
             android:layout_centerVertical="true"></TextView>
 
         <Button
-            android:id="@+id/confirm_add_new_order"
+            android:id="@+id/add_new_order"
             android:layout_width="80dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"

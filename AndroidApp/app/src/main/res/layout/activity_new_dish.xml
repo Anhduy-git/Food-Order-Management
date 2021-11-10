@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_fragment.activity.DishInfoActivity"
+    tools:context=".activity_fragment.activity.NewDishActivity"
     android:background="@color/main_color"
     android:paddingTop="10dp"
     android:paddingLeft="15dp"
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/new_dish_back_btn"
+            android:id="@+id/back_btn"
             android:layout_width="@dimen/size_btn"
             android:layout_height="@dimen/size_btn"
             android:layout_centerVertical="true"

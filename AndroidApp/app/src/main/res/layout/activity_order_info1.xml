@@ -47,7 +47,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/order_info_1_back_btn"
+            android:id="@+id/back_btn"
             android:layout_width="@dimen/size_btn"
             android:layout_height="@dimen/size_btn"
             android:layout_centerVertical="true"

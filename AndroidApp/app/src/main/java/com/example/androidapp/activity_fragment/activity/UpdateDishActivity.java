@@ -58,7 +58,7 @@ public class UpdateDishActivity extends AppCompatActivity {
     private void initUi() {
         editDishName = findViewById(R.id.dish_name_info);
         editDishPrice = findViewById(R.id.dish_price_info);
-        btnBack = findViewById(R.id.confirm_dish_back_btn);
+        btnBack = findViewById(R.id.back_btn);
         btnUpdate = findViewById(R.id.dish_update_button);
     }
 

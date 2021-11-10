@@ -67,7 +67,7 @@ public class NewDishActivity extends AppCompatActivity {
         edtDishName = findViewById(R.id.add_dish_name_text);
         edtDishPrice = findViewById(R.id.add_dish_price_text);
         btnAddDish = findViewById(R.id.add_dish_info_button);
-        btnBack = findViewById(R.id.new_dish_back_btn);
+        btnBack = findViewById(R.id.back_btn);
     }
 
     //Add dish to database

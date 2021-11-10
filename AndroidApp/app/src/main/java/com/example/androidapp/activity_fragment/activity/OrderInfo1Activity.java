@@ -145,7 +145,7 @@ public class OrderInfo1Activity extends AppCompatActivity {
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);
         tvOrderTime = findViewById(R.id.order_time);
-        btnBack = findViewById(R.id.order_info_1_back_btn);
+        btnBack = findViewById(R.id.back_btn);
         checkPaid = findViewById(R.id.order_paid_checkbox);
         btnShip = findViewById(R.id.order_ship_btn);
 

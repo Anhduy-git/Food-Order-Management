@@ -91,7 +91,7 @@ public class SubMenuActivity extends AppCompatActivity {
 
 
     private void initUi () {
-        btnBack = findViewById(R.id.sub_menu_back_btn);
+        btnBack = findViewById(R.id.back_btn);
         edtSearchBar = findViewById(R.id.dish_search_bar_sub_menu);
     }
 }

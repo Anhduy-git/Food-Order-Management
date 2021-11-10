@@ -6,7 +6,7 @@
     android:background="@color/main_color">
 
     <Button
-        android:id="@+id/sub_menu_back_btn"
+        android:id="@+id/back_btn"
         android:layout_width="@dimen/size_btn"
         android:layout_height="@dimen/size_btn"
         android:layout_centerVertical="true"

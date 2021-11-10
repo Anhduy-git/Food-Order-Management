@@ -47,7 +47,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/info_unpaid_order_back_btn"
+            android:id="@+id/back_btn"
             android:layout_width="@dimen/size_btn"
             android:layout_height="@dimen/size_btn"
             android:layout_centerVertical="true"
@@ -225,7 +225,7 @@
         android:gravity="center_vertical">
 
         <Button
-            android:id="@+id/order_ship_btn"
+            android:id="@+id/ship_btn"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
