@@ -173,7 +173,9 @@ public class OrderTodayFragment extends Fragment {
             orderViewModel.update(order);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getActivity(), "Order not added", Toast.LENGTH_SHORT).show();
+
+            //Do nothing
+
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.androidapp.activity_fragment.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -32,7 +33,7 @@ public class NewTodayOrderActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_CHECK_PAID";
     public static final String EXTRA_CHECK_SHIP =
             "com.example.androidapp.EXTRA_CHECK_SHIP";
-
+    public static final int CHOOSE_CLIENT_REQUEST = 1;
 
     private EditText editOrderName;
     private EditText editOrderTime;
@@ -42,6 +43,7 @@ public class NewTodayOrderActivity extends AppCompatActivity {
     private Button btnAddOrder;
     private Button btnBack;
     private Button btnAddDish;
+    private Button btnAddClient;
     private Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
     private int today = (calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -74,6 +76,14 @@ public class NewTodayOrderActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //Button to choose client from contact
+        btnAddClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewTodayOrderActivity.this, SubContactActivity.class);
+                startActivityForResult(intent, CHOOSE_CLIENT_REQUEST);
+            }
+        });
 
 
     }
@@ -88,7 +98,7 @@ public class NewTodayOrderActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         btnAddOrder = findViewById(R.id.add_new_order);
         btnAddDish = findViewById(R.id.new_dish_btn);
-
+        btnAddClient = findViewById(R.id.new_client_btn);
 
     }
 
@@ -124,6 +134,23 @@ public class NewTodayOrderActivity extends AppCompatActivity {
 
         setResult(RESULT_OK, data);
         finish();
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CHOOSE_CLIENT_REQUEST && resultCode == RESULT_OK) {
+            String clientName = data.getStringExtra(SubContactActivity.EXTRA_NAME);
+            String clientPhoneNumber = data.getStringExtra(SubContactActivity.EXTRA_PHONE_NUMBER);
+            String clientAddress = data.getStringExtra(SubContactActivity.EXTRA_ADDRESS);
+
+            //Display client's info after having chosen from existing contact
+            editOrderName.setText(clientName);
+            editOrderNumber.setText(clientPhoneNumber);
+            editOrderAddress.setText(clientAddress);
+
+            Toast.makeText(NewTodayOrderActivity.this, "Client added successfully", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
