@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
@@ -58,7 +57,7 @@ public class UpdateDishActivity extends AppCompatActivity {
     private void initUi() {
         editDishName = findViewById(R.id.dish_name_info);
         editDishPrice = findViewById(R.id.dish_price_info);
-        btnBack = findViewById(R.id.confirm_dish_back_btn);
+        btnBack = findViewById(R.id.btn_back);
         btnUpdate = findViewById(R.id.dish_update_button);
     }
 

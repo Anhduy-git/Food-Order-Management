@@ -53,7 +53,7 @@ public class NewClientActivity extends AppCompatActivity {
         editClientNumber = findViewById(R.id.add_client_number);
         editClientAddress = findViewById(R.id.add_client_address);
         btnAddClient = findViewById(R.id.add_client_info_button);
-        btnBack = findViewById(R.id.new_client_back_btn);
+        btnBack = findViewById(R.id.btn_back);
     }
     private void addClient() {
         String strClientName = editClientName.getText().toString().trim();

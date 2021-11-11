@@ -31,6 +31,8 @@ import com.example.androidapp.R;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishAdapter;
 import com.example.androidapp.data.menudata.DishViewModel;
+import com.example.androidapp.data.orderdata.Order;
+import com.example.androidapp.data.orderdata.OrderAdapter;
 
 
 import java.util.ArrayList;
@@ -78,20 +80,20 @@ public class MenuFragment extends Fragment {
         });
 
         //Method DELETE an item by swiping it
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                //Not implemented on purpose
-                return false;
-            }
-            //This is the swiping to delete method
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                dishViewModel.deleteDish(dishAdapter.getDishAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(getActivity(), "Dish deleted", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(rcvData);
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+//                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                //Not implemented on purpose
+//                return false;
+//            }
+//            //This is the swiping to delete method
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                dishViewModel.deleteDish(dishAdapter.getDishAt(viewHolder.getAdapterPosition()));
+//                Toast.makeText(getActivity(), "Dish deleted", Toast.LENGTH_SHORT).show();
+//            }
+//        }).attachToRecyclerView(rcvData);
 
         //Create search bar listener for SEARCH METHOD
         edtSearchBar.addTextChangedListener(new TextWatcher() {
@@ -121,6 +123,13 @@ public class MenuFragment extends Fragment {
                 intent.putExtra(UpdateDishActivity.EXTRA_PRICE, dish.getPrice());
 
                 startActivityForResult(intent, EDIT_DISH_REQUEST);
+            }
+        });
+        //Delete item
+        dishAdapter.setOnItemClickDelListener(new DishAdapter.OnItemClickDelListener() {
+            @Override
+            public void onItemClickDel(Dish dish) {
+                dishViewModel.deleteDish(dish);
             }
         });
 
@@ -170,6 +179,9 @@ public class MenuFragment extends Fragment {
             dish.setDishID(id);
             dishViewModel.updateDish(dish);
             Toast.makeText(getActivity(), "Dish updated successfully", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getActivity(), "Dish not added", Toast.LENGTH_SHORT).show();
         }
     }
 }

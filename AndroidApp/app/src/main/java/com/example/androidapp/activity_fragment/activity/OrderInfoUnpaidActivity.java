@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +30,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
     public static final String EXTRA_CHECK_SHIP =
             "com.example.androidapp.EXTRA_CHECK_SHIP";
 
+
     private TextView tvOrderName;
     private TextView tvOrderAddress;
     private TextView tvOrderNumber;
@@ -38,8 +38,10 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
     private TextView tvOrderDate;
     private Button btnBack;
     private Button btnPaid;
-    private boolean ship;
-    private boolean paid;
+    //Here order's paid is definitely false, and order's ship is definitely true.
+    private boolean paid = false;
+    private boolean ship = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +57,6 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
-            ship = intent.getBooleanExtra(EXTRA_CHECK_SHIP, ship);
-            paid = intent.getBooleanExtra(EXTRA_CHECK_PAID, paid);
         }
 
 
@@ -107,8 +107,8 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);
         tvOrderTime = findViewById(R.id.order_time);
-        btnBack = findViewById(R.id.info_unpaid_order_back_btn);
-        btnPaid = findViewById(R.id.unpaid_order_paid_btn);
+        btnBack = findViewById(R.id.btn_back);
+        btnPaid = findViewById(R.id.paid_btn);
     }
 
 }

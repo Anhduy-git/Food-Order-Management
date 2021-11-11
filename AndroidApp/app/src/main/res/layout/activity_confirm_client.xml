@@ -18,7 +18,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/confirm_client_back_btn"
+            android:id="@+id/btn_back"
             android:layout_width="@dimen/size_btn"
             android:layout_height="@dimen/size_btn"
             android:layout_centerVertical="true"
@@ -176,7 +176,7 @@
         android:layout_alignBottom="@+id/blur_layout"
         android:layout_centerInParent="true"
         android:background="@drawable/btn_add"
-        android:text="Confirm"
+        android:text="Update"
         android:textColor="@color/main_white"
         android:textSize="20dp"
         android:translationY="100dp"

@@ -5,12 +5,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
+import com.example.androidapp.data.orderdata.Order;
+import com.example.androidapp.data.orderdata.OrderAdapter;
 
 
 import java.util.ArrayList;
@@ -19,10 +25,12 @@ import java.util.List;
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientViewHolder> implements Filterable {
     private List<Client> mListClient;
     private List<Client> mListClientFull;
-
     private OnItemClickListener listener;
+    private OnItemClickDelListener delListener;
+    private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public ClientAdapter(List<Client> mListClient) {
+        viewBinderHelper.setOpenOnlyOne(true);
         this.mListClient = mListClient;
     }
 
@@ -53,6 +61,8 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
         if (client == null) {
             return;
         }
+        //Provide id object
+        viewBinderHelper.bind(holder.swipeRevealLayout, Integer.toString(client.getId()));
 
         holder.tvClientName.setText(client.getClientName());
         holder.tvClientNumber.setText(client.getPhoneNumber());
@@ -109,21 +119,42 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
         private TextView tvClientName;
         private TextView tvClientNumber;
         private TextView tvClientAddress;
+        private SwipeRevealLayout swipeRevealLayout;
+        private LinearLayout layoutDel;
+        private RelativeLayout item;
 
         public ClientViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            swipeRevealLayout = itemView.findViewById(R.id.swipe_reveal_layout);
+            layoutDel = itemView.findViewById(R.id.client_item_del);
             tvClientName = itemView.findViewById(R.id.client_name);
             tvClientNumber = itemView.findViewById(R.id.client_phone);
             tvClientAddress = itemView.findViewById(R.id.client_address);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
+            //This is the main layout in order_item_recycler
+            item = itemView.findViewById(R.id.client_item);
+            //Set onClick method for each item
+            item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
                         listener.onItemClick(mListClient.get(position));
                     }
+                }
+            });
+            //Set delete when click layout del
+            layoutDel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Get pos
+                    int pos = getAdapterPosition();
+                    //Get del client
+                    Client client = getClientAt(pos);
+                    if (delListener != null && pos != RecyclerView.NO_POSITION){
+                        delListener.onItemClickDel(client);
+                    }
+
                 }
             });
         }
@@ -137,6 +168,13 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
     //Method item click listener
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
+    }
+
+    public interface OnItemClickDelListener{
+        void onItemClickDel(Client client);
+    }
+    public void setOnItemClickDelListener(ClientAdapter.OnItemClickDelListener delListener){
+        this.delListener = delListener;
     }
 }
 

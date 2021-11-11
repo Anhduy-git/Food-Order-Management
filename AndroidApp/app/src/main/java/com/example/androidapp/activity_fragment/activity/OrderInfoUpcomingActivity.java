@@ -39,6 +39,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
     private Button btnBack;
     private CheckBox checkPaid;
     private boolean paid;
+    //ship is definitely false
+    private boolean ship = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +92,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHECK_PAID, paid);
+                data.putExtra(EXTRA_CHECK_SHIP, ship);
                 data.putExtra(EXTRA_ORDER_NAME, strOrderName);
                 data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
@@ -114,9 +117,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);
         tvOrderTime = findViewById(R.id.order_time);
-        btnBack = findViewById(R.id.order_info_2_back_btn);
+        btnBack = findViewById(R.id.btn_back);
         checkPaid = findViewById(R.id.order_paid_checkbox);
-
 
     }
 

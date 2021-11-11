@@ -32,6 +32,8 @@ import com.example.androidapp.R;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.clientdata.ClientAdapter;
 import com.example.androidapp.data.clientdata.ClientViewModel;
+import com.example.androidapp.data.orderdata.Order;
+import com.example.androidapp.data.orderdata.OrderAdapter;
 
 
 import java.util.ArrayList;
@@ -78,20 +80,20 @@ public class ClientFragment extends Fragment {
         });
 
         //Method DELETE an item by swiping it
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                //Not implemented on purpose
-                return false;
-            }
-            //This is the swiping to delete method
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                clientViewModel.deleteClient(clientAdapter.getClientAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(getActivity(), "Client deleted", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(rcvData);
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+//                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                //Not implemented on purpose
+//                return false;
+//            }
+//            //This is the swiping to delete method
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                clientViewModel.deleteClient(clientAdapter.getClientAt(viewHolder.getAdapterPosition()));
+//                Toast.makeText(getActivity(), "Client deleted", Toast.LENGTH_SHORT).show();
+//            }
+//        }).attachToRecyclerView(rcvData);
 
         //Create search bar listener for SEARCH METHOD
         edtSearchBar.addTextChangedListener(new TextWatcher() {
@@ -112,7 +114,6 @@ public class ClientFragment extends Fragment {
         });
 
         //Method CLICK TO VIEW an item in Recycler View
-
         clientAdapter.setOnItemClickListener(new ClientAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Client client) {
@@ -124,6 +125,14 @@ public class ClientFragment extends Fragment {
 
 
                 startActivityForResult(intent, EDIT_CLIENT_REQUEST);
+            }
+        });
+
+        //Delete item
+        clientAdapter.setOnItemClickDelListener(new ClientAdapter.OnItemClickDelListener() {
+            @Override
+            public void onItemClickDel(Client client) {
+                clientViewModel.deleteClient(client);
             }
         });
 
@@ -176,8 +185,9 @@ public class ClientFragment extends Fragment {
             client.setId(id);
             clientViewModel.updateClient(client);
             Toast.makeText(getActivity(), "Client updated successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Client not added", Toast.LENGTH_SHORT).show();
         }
-
 
     }
 

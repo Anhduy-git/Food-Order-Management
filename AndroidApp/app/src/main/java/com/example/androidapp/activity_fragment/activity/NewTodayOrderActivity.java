@@ -85,8 +85,8 @@ public class NewTodayOrderActivity extends AppCompatActivity {
         editOrderDate = findViewById(R.id.add_order_date);
         editOrderNumber = findViewById(R.id.add_order_number);
         editOrderTime = findViewById(R.id.add_order_time);
-        btnBack = findViewById(R.id.new_order_back_btn);
-        btnAddOrder = findViewById(R.id.confirm_add_new_order);
+        btnBack = findViewById(R.id.btn_back);
+        btnAddOrder = findViewById(R.id.add_new_order);
         btnAddDish = findViewById(R.id.new_dish_btn);
 
 
@@ -107,9 +107,9 @@ public class NewTodayOrderActivity extends AppCompatActivity {
             Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
             return;
         }
-        //Check if the day is current day
-        if (intOrderDate > today){
-            Toast.makeText(this, "Please add only today's order here", Toast.LENGTH_SHORT).show();
+        //Check if the day is not in the pass
+        if (intOrderDate < today){
+            Toast.makeText(this, "Can't add order in the pass here", Toast.LENGTH_SHORT).show();
             return;
         }
 

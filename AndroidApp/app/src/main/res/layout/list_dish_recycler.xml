@@ -1,54 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_reveal_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:mode="same_level"
+    app:dragEdge="right">
 
+<!--    Secondary layout-->
+    <LinearLayout
+        android:id="@+id/menu_item_del"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:translationY="4dp"
+        android:gravity="center">
+        <TextView
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:gravity="center"
+            android:background="@drawable/bg_delete_swipe_btn"
+            android:text="Delete"
+            android:textColor="@color/main_white"
+            android:textAllCaps="false"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:textSize="17dp">
+        </TextView>
+    </LinearLayout>
+
+<!--    Main layout-->
     <RelativeLayout
+        android:id="@+id/order_item"
+        android:clickable="true"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/list_item"
-        android:orientation="horizontal"
-        tools:ignore="ExtraText">
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/menu_item"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/list_item"
+            android:orientation="horizontal"
+            tools:ignore="ExtraText">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/menu_pic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="9dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ava_menu_default" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/menu_pic"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="9dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ava_menu_default" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="9dp"
-            android:layout_toRightOf="@+id/menu_pic"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/dish_name"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Com chien duong chau"
-                android:textColor="@color/main_white"
-                android:textSize="18sp"
-                android:textStyle="bold"></TextView>
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="9dp"
+                android:layout_toRightOf="@+id/menu_pic"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/dish_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="49.000 VND"
-                android:textColor="@color/main_white"
-                android:textSize="16sp"></TextView>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/dish_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Com chien duong chau"
+                    android:textColor="@color/main_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/dish_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="49.000 VND"
+                    android:textColor="@color/main_white"
+                    android:textSize="16sp"></TextView>
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
-</LinearLayout>
+</com.chauthai.swipereveallayout.SwipeRevealLayout>

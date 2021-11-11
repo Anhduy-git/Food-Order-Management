@@ -49,7 +49,6 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         //Reset
         ship = false;
         paid = false;
-
         initUi();
         //Get data from intent to display UI
         Intent intent = getIntent();
@@ -144,9 +143,9 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);
         tvOrderTime = findViewById(R.id.order_time);
-        btnBack = findViewById(R.id.order_info_1_back_btn);
+        btnBack = findViewById(R.id.btn_back);
         checkPaid = findViewById(R.id.order_paid_checkbox);
-        btnShip = findViewById(R.id.unpaid_order_paid_btn);
+        btnShip = findViewById(R.id.order_ship_btn);
 
     }
 

@@ -26,7 +26,7 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
         //Button back to Main Activity
-        btnBack = (Button)findViewById(R.id.history_back_btn);
+        btnBack = (Button)findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
