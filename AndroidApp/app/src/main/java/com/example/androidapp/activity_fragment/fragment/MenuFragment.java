@@ -113,7 +113,7 @@ public class MenuFragment extends Fragment {
             }
         });
 
-        //Method CLICK TO VIEW an item in Recycler View
+        //Method CLICK TO VIEW info of an item in Recycler View
         dishAdapter.setOnItemClickListener(new DishAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Dish dish) {
@@ -181,7 +181,7 @@ public class MenuFragment extends Fragment {
             Toast.makeText(getActivity(), "Dish updated successfully", Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(getActivity(), "Dish not added", Toast.LENGTH_SHORT).show();
+            //Do nothing
         }
     }
 }
