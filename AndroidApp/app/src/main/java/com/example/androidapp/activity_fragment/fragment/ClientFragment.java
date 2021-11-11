@@ -186,7 +186,9 @@ public class ClientFragment extends Fragment {
             clientViewModel.updateClient(client);
             Toast.makeText(getActivity(), "Client updated successfully", Toast.LENGTH_SHORT).show();
         } else {
+
             //Do nothing
+
         }
 
     }

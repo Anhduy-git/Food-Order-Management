@@ -151,7 +151,9 @@ public class UpcomingOrderFragment extends Fragment {
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         }
         else {
+
             //Do nothing
+
         }
     }
 }

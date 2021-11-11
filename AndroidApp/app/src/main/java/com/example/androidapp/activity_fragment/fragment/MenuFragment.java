@@ -181,7 +181,9 @@ public class MenuFragment extends Fragment {
             Toast.makeText(getActivity(), "Dish updated successfully", Toast.LENGTH_SHORT).show();
         }
         else {
+
             //Do nothing
+
         }
     }
 }

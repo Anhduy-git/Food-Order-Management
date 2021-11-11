@@ -123,7 +123,9 @@ public class SubMenuActivity extends AppCompatActivity {
 
 
     private void initUi () {
+
         tvQuantity = findViewById(R.id.sub_menu_num_dish);
+
         btnBack = findViewById(R.id.btn_back);
         edtSearchBar = findViewById(R.id.dish_search_bar_sub_menu);
         btnIncreaseDish = findViewById((R.id.sub_menu_plus));
