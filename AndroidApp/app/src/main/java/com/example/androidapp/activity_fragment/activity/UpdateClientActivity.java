@@ -58,7 +58,7 @@ public class UpdateClientActivity extends AppCompatActivity {
         editClientNumber = findViewById(R.id.update_client_number);
         editClientAddress = findViewById(R.id.update_client_address);
         btnUpdateClient = findViewById(R.id.update_client_info_button);
-        btnBack = findViewById(R.id.confirm_client_back_btn);
+        btnBack = findViewById(R.id.btn_back);
     }
     private void updateClient() {
         String strClientName = editClientName.getText().toString().trim();

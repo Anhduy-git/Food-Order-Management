@@ -5,12 +5,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
+import com.example.androidapp.data.orderdata.Order;
+import com.example.androidapp.data.orderdata.OrderAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +25,14 @@ import java.util.List;
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> implements Filterable {
     private List<Dish> mListDish;
     private List<Dish> mListDishFull;
-
-
     private OnItemClickListener listener;
+    private OnItemClickDelListener delListener;
+    private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public DishAdapter(List<Dish> mListDish) {
         this.mListDish = mListDish;
+        //Open 1 card only when delete
+        viewBinderHelper.setOpenOnlyOne(true);
     }
 
     public void setDish(List<Dish> mListDish) {
@@ -54,6 +62,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         if (dish == null) {
             return;
         }
+        //Provide id object
+        viewBinderHelper.bind(holder.swipeRevealLayout, Integer.toString(dish.getDishID()));
 
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
@@ -66,6 +76,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         }
         return 0;
     }
+
 
     @Override
     public Filter getFilter() {
@@ -108,20 +119,41 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
         private TextView tvDishName;
         private TextView tvDishPrice;
+        private SwipeRevealLayout swipeRevealLayout;
+        private LinearLayout layoutDel;
+        private RelativeLayout item;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvDishName = itemView.findViewById(R.id.dish_name);
             tvDishPrice = itemView.findViewById(R.id.dish_price);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
+            swipeRevealLayout = itemView.findViewById(R.id.swipe_reveal_layout);
+            layoutDel = itemView.findViewById(R.id.menu_item_del);
+            //This is the main layout in order_item_recycler
+            item = itemView.findViewById(R.id.menu_item);
+            //Set onClick method for each item
+            item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
                         listener.onItemClick(mListDish.get(position));
                     }
+                }
+            });
+            //Set delete when click layout del
+            layoutDel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Get pos
+                    int pos = getAdapterPosition();
+                    //Get del dish
+                    Dish dish = getDishAt(pos);
+                    if (delListener != null && pos != RecyclerView.NO_POSITION){
+                        delListener.onItemClickDel(dish);
+                    }
+
                 }
             });
         }
@@ -135,5 +167,12 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     //Method item click listener
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
+    }
+
+    public interface OnItemClickDelListener{
+        void onItemClickDel(Dish dish);
+    }
+    public void setOnItemClickDelListener(DishAdapter.OnItemClickDelListener delListener){
+        this.delListener = delListener;
     }
 }

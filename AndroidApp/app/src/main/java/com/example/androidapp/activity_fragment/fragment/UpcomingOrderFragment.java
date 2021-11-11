@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidapp.R;
 import com.example.androidapp.activity_fragment.activity.NewUpcomingOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUpcomingActivity;
+import com.example.androidapp.data.orderdata.Order;
+import com.example.androidapp.data.orderdata.OrderAdapter;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrder;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrderAdapter;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrderViewModel;
@@ -63,19 +65,19 @@ public class UpcomingOrderFragment extends Fragment {
             }
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                upcomingOrderViewModel.delete(upcomingOrderAdapter.getUpcommingOrderAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(rcvData);
+//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+//                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                upcomingOrderViewModel.delete(upcomingOrderAdapter.getUpcommingOrderAt(viewHolder.getAdapterPosition()));
+//                Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
+//            }
+//        }).attachToRecyclerView(rcvData);
 
 
         //Sent data to Order Info when click order
@@ -91,6 +93,13 @@ public class UpcomingOrderFragment extends Fragment {
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NUMBER, upcomingOrder.getPhoneNumber());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_CHECK_PAID, upcomingOrder.getPaid());
                 startActivityForResult(intent, CONFIRM_ORDER_REQUEST);
+            }
+        });
+        //Delete item
+        upcomingOrderAdapter.setOnItemClickDelListener(new UpcomingOrderAdapter.OnItemClickDelListener() {
+            @Override
+            public void onItemClickDel(UpcomingOrder upcomingOrder) {
+                upcomingOrderViewModel.delete(upcomingOrder);
             }
         });
 
@@ -140,6 +149,9 @@ public class UpcomingOrderFragment extends Fragment {
             upcomingOrder.setId(id);
             upcomingOrderViewModel.update(upcomingOrder);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getActivity(), "Order not added", Toast.LENGTH_SHORT).show();
         }
     }
 }

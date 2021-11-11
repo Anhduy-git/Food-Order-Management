@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +31,7 @@ public class UnpaidOrderAdapter extends RecyclerView.Adapter<UnpaidOrderAdapter.
     @Override
     public UnpaidOrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.order_item_recycler, parent, false);
+                .inflate(R.layout.unpaid_order_item_recycler, parent, false);
 
         return new UnpaidOrderViewHolder(view);
     }

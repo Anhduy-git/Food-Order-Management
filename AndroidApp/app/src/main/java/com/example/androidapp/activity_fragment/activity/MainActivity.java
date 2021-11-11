@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private OrderViewModel orderViewModel;
     private UnpaidOrderViewModel unpaidOrderViewModel;
     private UpcomingOrderViewModel upcomingOrderViewModel;
+    //get current date
     private Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
 
 
@@ -62,9 +63,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Test
-        Log.d("test", "On create");
 
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
