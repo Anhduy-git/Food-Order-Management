@@ -1,7 +1,10 @@
 package com.example.androidapp.data.orderdata;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.example.androidapp.data.clientdata.Client;
 
 @Entity(tableName = "order_table")
 public class Order {
@@ -10,11 +13,8 @@ public class Order {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private String clientName;
-
-    private String phoneNumber;
-
-    private String address;
+    @Embedded
+    private Client client;
 
     private String date;
 
@@ -27,11 +27,9 @@ public class Order {
     private boolean paid;
 
     //Constructor
-    public Order(String clientName, String phoneNumber, String address,
-                 String date, String time, int price, boolean ship, boolean paid) {
-        this.clientName = clientName;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
+    public Order(Client client, String date, String time,
+                 int price, boolean ship, boolean paid) {
+        this.client = client;
         this.date = date;
         this.time = time;
         this.price = price;
@@ -44,16 +42,8 @@ public class Order {
         return id;
     }
 
-    public String getClientName() {
-        return clientName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
+    public Client getClient() {
+        return client;
     }
 
     public String getDate() {

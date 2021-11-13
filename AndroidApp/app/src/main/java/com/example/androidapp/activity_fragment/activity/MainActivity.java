@@ -23,6 +23,7 @@ import com.example.androidapp.activity_fragment.fragment.MenuFragment;
 import com.example.androidapp.activity_fragment.fragment.OrderTodayFragment;
 import com.example.androidapp.activity_fragment.fragment.UnpaidOrderFragment;
 import com.example.androidapp.activity_fragment.fragment.UpcomingOrderFragment;
+import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderViewModel;
 import com.example.androidapp.data.unpaiddata.UnpaidOrder;
@@ -101,8 +102,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             if (order.getPaid()) {
                                 //
                             } else { // move to history success and unpaid order.
-                                UnpaidOrder unpaidOrder = new UnpaidOrder(order.getClientName(), order.getPhoneNumber(),
-                                        order.getAddress(), order.getDate(), order.getTime(), order.getPrice(), false);
+                                Client client = new Client(order.getClient().getClientName(), order.getClient().getPhoneNumber(),
+                                order.getClient().getAddress());
+                                UnpaidOrder unpaidOrder = new UnpaidOrder(client, order.getDate(), order.getTime(), order.getPrice(), false);
                                 unpaidOrderViewModel.insert(unpaidOrder);
                             }
                         } else {
@@ -124,8 +126,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     int upcomingOrderDay = Integer.parseInt(upcomingOrder.getDate());
                     //Check if the upcomingOrderDay is today
                     if (upcomingOrderDay == today) {
-                        Order order = new Order(upcomingOrder.getClientName(), upcomingOrder.getPhoneNumber(),
-                                upcomingOrder.getAddress(), upcomingOrder.getDate(), upcomingOrder.getTime(), upcomingOrder.getPrice(), false, upcomingOrder.getPaid());
+                        Client client = new Client(upcomingOrder.getClient().getClientName(), upcomingOrder.getClient().getPhoneNumber(),
+                                upcomingOrder.getClient().getAddress());
+                        Order order = new Order(client, upcomingOrder.getDate(), upcomingOrder.getTime(),
+                                upcomingOrder.getPrice(), false, upcomingOrder.getPaid());
                         //add upcomingOrder to today's Order
                         orderViewModel.insert(order);
                         //remove that upcomingOrder
@@ -135,19 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
-        //Update Unpaid Order when confirm paid
-        unpaidOrderViewModel.getAllUnpaidOrder().observe(MainActivity.this, new Observer<List<UnpaidOrder>>() {
-            @Override
-            public void onChanged(List<UnpaidOrder> unpaidOrders) {
-                for (UnpaidOrder unpaidOrder : unpaidOrders) {
-                    //Check if paid
-                    if (unpaidOrder.getPaid()) {
-                        unpaidOrderViewModel.delete(unpaidOrder);
-                    }
 
-                }
-            }
-        });
     }
 
     //test

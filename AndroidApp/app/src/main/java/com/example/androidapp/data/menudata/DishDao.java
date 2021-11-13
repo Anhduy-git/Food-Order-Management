@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface DishDao {
 
-    @Query("SELECT * FROM dish_table")
+    @Query("SELECT * FROM dish_table ORDER BY name ASC")
     LiveData<List<Dish>> getAllDishes();
 
     @Insert

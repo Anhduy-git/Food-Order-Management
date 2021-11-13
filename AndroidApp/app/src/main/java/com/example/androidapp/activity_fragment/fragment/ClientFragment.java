@@ -74,7 +74,10 @@ public class ClientFragment extends Fragment {
 
             //Method DISPLAY the list on screen
             public void onChanged(List<Client> clients) {
+                //use for filter
                 clientAdapter.setClient(clients);
+                //use for animation
+                clientAdapter.submitList(clients);
 
             }
         });
@@ -118,7 +121,7 @@ public class ClientFragment extends Fragment {
             @Override
             public void onItemClick(Client client) {
                 Intent intent = new Intent(getActivity(), UpdateClientActivity.class);
-                intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_ID, client.getId());
+                intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_ID, client.getClientId());
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_NAME, client.getClientName());
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_NUMBER, client.getPhoneNumber());
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS, client.getAddress());
@@ -182,7 +185,7 @@ public class ClientFragment extends Fragment {
             String address = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS);
 
             Client client = new Client(name, number, address);
-            client.setId(id);
+            client.setClientId(id);
             clientViewModel.updateClient(client);
             Toast.makeText(getActivity(), "Client updated successfully", Toast.LENGTH_SHORT).show();
         } else {

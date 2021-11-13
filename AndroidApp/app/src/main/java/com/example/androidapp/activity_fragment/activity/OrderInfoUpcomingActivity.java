@@ -15,7 +15,6 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
 
     public static final String EXTRA_ORDER_ID =
             "com.example.androidapp.EXTRA_ORDER_ID";
-
     public static final String EXTRA_ORDER_NAME =
             "com.example.androidapp.EXTRA_ORDER_NAME";
     public static final String EXTRA_ORDER_ADDRESS =
@@ -28,8 +27,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_TIME";
     public static final String EXTRA_CHECK_PAID =
             "com.example.androidapp.EXTRA_CHECK_PAID";
-    public static final String EXTRA_CHECK_SHIP =
-            "com.example.androidapp.EXTRA_CHECK_SHIP";
+
 
     private TextView tvOrderName;
     private TextView tvOrderAddress;
@@ -39,8 +37,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
     private Button btnBack;
     private CheckBox checkPaid;
     private boolean paid;
-    //ship is definitely false
-    private boolean ship = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +89,6 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHECK_PAID, paid);
-                data.putExtra(EXTRA_CHECK_SHIP, ship);
                 data.putExtra(EXTRA_ORDER_NAME, strOrderName);
                 data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);

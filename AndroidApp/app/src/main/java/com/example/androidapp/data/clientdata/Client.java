@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class Client {
     //Attribute
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int clientId;
 
     private String clientName;
 
@@ -23,11 +23,11 @@ public class Client {
     }
 
 
-    public int getId() {
-        return id;
+    public int getClientId() {
+        return clientId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setClientId(int id) {
+        this.clientId = id;
     }
 
     public String getClientName() {

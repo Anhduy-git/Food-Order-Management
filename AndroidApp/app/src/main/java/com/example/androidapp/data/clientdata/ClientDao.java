@@ -26,6 +26,6 @@ public interface ClientDao {
     @Query("DELETE FROM client_table")
     void deleteAllClients();
 
-    @Query("SELECT * FROM client_table")
+    @Query("SELECT * FROM client_table ORDER BY clientName")
     LiveData<List<Client>> getAllClients();
 }

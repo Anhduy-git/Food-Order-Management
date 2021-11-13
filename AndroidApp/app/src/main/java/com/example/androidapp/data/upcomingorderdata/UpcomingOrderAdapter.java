@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
@@ -21,17 +23,38 @@ import com.example.androidapp.data.orderdata.OrderAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpcomingOrderAdapter extends RecyclerView.Adapter<UpcomingOrderAdapter.UpcommingOrderViewHolder>{
+public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrderAdapter.UpcommingOrderViewHolder>{
 
     private List<UpcomingOrder> mListUpcomingOrder = new ArrayList<>();
     private OnItemClickListener listener;
     private OnItemClickDelListener delListener;
     private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
-    //Open 1 card only when delete
+
     public UpcomingOrderAdapter(){
+        super(DIFF_CALLBACK);
+        //Open 1 card only when delete
         viewBinderHelper.setOpenOnlyOne(true);
     }
+    //setup for animation
+    private static final DiffUtil.ItemCallback<UpcomingOrder> DIFF_CALLBACK = new DiffUtil.ItemCallback<UpcomingOrder>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull UpcomingOrder oldItem, @NonNull UpcomingOrder newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull UpcomingOrder oldItem, @NonNull UpcomingOrder newItem) {
+            return oldItem.getClient().getClientName().equals(newItem.getClient().getClientName()) &&
+                    oldItem.getClient().getAddress().equals(newItem.getClient().getAddress()) &&
+                    oldItem.getDate().equals(newItem.getDate()) &&
+                    oldItem.getTime().equals(newItem.getTime()) &&
+                    oldItem.getClient().getPhoneNumber().equals(newItem.getClient().getPhoneNumber()) &&
+                    oldItem.getPrice() == newItem.getPrice() &&
+                    oldItem.getPaid() == newItem.getPaid() &&
+                    oldItem.getShip() == newItem.getShip();
+        }
+    };
 
     public void setUpcommingOrder(List<UpcomingOrder> mListUpcomingOrder) {
         this.mListUpcomingOrder = mListUpcomingOrder;
@@ -49,7 +72,7 @@ public class UpcomingOrderAdapter extends RecyclerView.Adapter<UpcomingOrderAdap
 
     @Override
     public void onBindViewHolder(@NonNull UpcommingOrderViewHolder holder, int position){
-        UpcomingOrder upcomingOrder = mListUpcomingOrder.get(position);
+        UpcomingOrder upcomingOrder = getItem(position);
         if (upcomingOrder == null) {
             return;
         }
@@ -57,7 +80,7 @@ public class UpcomingOrderAdapter extends RecyclerView.Adapter<UpcomingOrderAdap
         //Provide id object
         viewBinderHelper.bind(holder.swipeRevealLayout, Integer.toString(upcomingOrder.getId()));
 
-        holder.tvOrderName.setText(upcomingOrder.getClientName());
+        holder.tvOrderName.setText(upcomingOrder.getClient().getClientName());
         holder.tvOrderDate.setText(upcomingOrder.getDate());
         holder.tvOrderTime.setText(upcomingOrder.getTime());
         holder.tvOrderPrice.setText("1000");
@@ -70,16 +93,9 @@ public class UpcomingOrderAdapter extends RecyclerView.Adapter<UpcomingOrderAdap
 
     }
 
-    @Override
-    public int getItemCount() {
-        if (mListUpcomingOrder != null) {
-            return mListUpcomingOrder.size();
-        }
-        return 0;
-    }
 
     public UpcomingOrder getUpcommingOrderAt(int pos){
-        return mListUpcomingOrder.get(pos);
+        return getItem(pos);
     }
 
     public class UpcommingOrderViewHolder extends RecyclerView.ViewHolder {
@@ -112,7 +128,7 @@ public class UpcomingOrderAdapter extends RecyclerView.Adapter<UpcomingOrderAdap
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if (listener != null && pos != RecyclerView.NO_POSITION){
-                        listener.onItemClick(mListUpcomingOrder.get(pos));
+                        listener.onItemClick(getItem(pos));
                     }
                 }
             });

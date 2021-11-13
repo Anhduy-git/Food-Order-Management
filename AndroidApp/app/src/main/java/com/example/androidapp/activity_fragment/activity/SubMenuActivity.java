@@ -60,6 +60,7 @@ public class SubMenuActivity extends AppCompatActivity {
             //Method DISPLAY the list on screen
             public void onChanged(List<Dish> dishes) {
                 dishAdapter.setDish(dishes);
+                dishAdapter.submitList(dishes);
 
             }
         });

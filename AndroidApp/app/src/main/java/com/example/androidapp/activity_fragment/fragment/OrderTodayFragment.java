@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidapp.activity_fragment.activity.NewTodayOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.R;
+import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 import com.example.androidapp.data.orderdata.OrderViewModel;
@@ -72,7 +73,7 @@ public class OrderTodayFragment extends Fragment {
             @Override
             public void onChanged(List<Order> orderEntities) {
                 //Update Recycle View
-                orderAdapter.setOrder(orderEntities);
+                orderAdapter.submitList(orderEntities);
             }
         });
 
@@ -95,11 +96,11 @@ public class OrderTodayFragment extends Fragment {
             public void onItemClick(Order order) {
                 Intent intent = new Intent(getActivity(), OrderInfoTodayActivity.class);
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_ID, order.getId());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NAME, order.getClientName());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_ADDRESS, order.getAddress());
+                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NAME, order.getClient().getClientName());
+                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_ADDRESS, order.getClient().getAddress());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_TIME, order.getTime());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_DATE, order.getDate());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NUMBER, order.getPhoneNumber());
+                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NUMBER, order.getClient().getPhoneNumber());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, order.getPaid());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, order.getShip());
                 startActivityForResult(intent, CONFIRM_ORDER_REQUEST);
@@ -124,8 +125,6 @@ public class OrderTodayFragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
@@ -140,17 +139,17 @@ public class OrderTodayFragment extends Fragment {
             String number = data.getStringExtra(NewTodayOrderActivity.EXTRA_ORDER_NUMBER);
             String time = data.getStringExtra(NewTodayOrderActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(NewTodayOrderActivity.EXTRA_ORDER_DATE);
+            Client client = new Client(name, number, address);
             int intOrderDay = Integer.parseInt(date);
             //Reset ship and paid immediately after add new order.
             ship = false;
             paid = false;
             if (intOrderDay > today){
                 //Move order to upcomming order if order's day > today.
-                UpcomingOrder upcomingOrder = new UpcomingOrder(name, number,
-                        address, date, time, 1000, paid);
+                UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid);
                 upcomingOrderViewModel.insert(upcomingOrder);
             } else { //else add to new order's today
-                Order order = new Order(name, number, address, date, time, 1000, ship, paid);
+                Order order = new Order(client, date, time, 1000, ship, paid);
                 orderViewModel.insert(order);
             }
 
@@ -168,7 +167,8 @@ public class OrderTodayFragment extends Fragment {
                 Toast.makeText(getActivity(), "Order can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Order order = new Order(name, number, address, date, time, 1000, ship, paid);
+            Client client = new Client(name, number, address);
+            Order order = new Order(client, date, time, 1000, ship, paid);
             order.setId(id);
             orderViewModel.update(order);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();

@@ -13,26 +13,50 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.example.androidapp.R;
+import com.example.androidapp.data.menudata.Dish;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 //Adapter for RecyclerView
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
+public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolder>{
     private List<Order> mListOrder = new ArrayList<>();
     private OnItemClickListener listener;
     private OnItemClickDelListener delListener;
     private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
-    //Open 1 card only when delete
+
     public OrderAdapter(){
+        super(DIFF_CALLBACK);
+        //Open 1 card only when delete
         viewBinderHelper.setOpenOnlyOne(true);
     }
+    //setup for animation
+    private static final DiffUtil.ItemCallback<Order> DIFF_CALLBACK = new DiffUtil.ItemCallback<Order>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Order oldItem, @NonNull Order newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Order oldItem, @NonNull Order newItem) {
+            return oldItem.getClient().getClientName().equals(newItem.getClient().getClientName()) &&
+                    oldItem.getClient().getAddress().equals(newItem.getClient().getAddress()) &&
+                    oldItem.getDate().equals(newItem.getDate()) &&
+                    oldItem.getTime().equals(newItem.getTime()) &&
+                    oldItem.getClient().getPhoneNumber().equals(newItem.getClient().getPhoneNumber()) &&
+                    oldItem.getPrice() == newItem.getPrice() &&
+                    oldItem.getPaid() == newItem.getPaid() &&
+                    oldItem.getShip() == newItem.getShip();
+        }
+    };
 
     public void setOrder(List<Order> mListOrder) {
         this.mListOrder = mListOrder;
@@ -51,7 +75,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order order = mListOrder.get(position);
+        Order order = getItem(position);
         if (order == null) {
             return;
         }
@@ -59,7 +83,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         //Provide id object
         viewBinderHelper.bind(holder.swipeRevealLayout, Integer.toString(order.getId()));
 
-        holder.tvOrderName.setText(order.getClientName());
+        holder.tvOrderName.setText(order.getClient().getClientName());
         holder.tvOrderDate.setText(order.getDate());
         holder.tvOrderTime.setText(order.getTime());
         holder.tvOrderPrice.setText("1000");
@@ -80,16 +104,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     }
 
-    @Override
-    public int getItemCount() {
-        if (mListOrder != null) {
-            return mListOrder.size();
-        }
-        return 0;
-    }
 
     public Order getOrderAt(int pos){
-        return mListOrder.get(pos);
+        return getItem(pos);
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
@@ -123,7 +140,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if (listener != null && pos != RecyclerView.NO_POSITION){
-                        listener.onItemClick(mListOrder.get(pos));
+                        listener.onItemClick(getItem(pos));
                     }
                 }
             });

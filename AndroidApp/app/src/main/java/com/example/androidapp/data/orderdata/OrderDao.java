@@ -20,7 +20,7 @@ public interface OrderDao {
     @Delete
     void delete(Order order);
 
-    @Query("SELECT * FROM order_table ORDER BY date ASC")
+    @Query("SELECT * FROM order_table ORDER BY clientName ASC")
     LiveData<List<Order>> getAllOrder();
 
     @Query("DELETE FROM order_table")

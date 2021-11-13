@@ -10,11 +10,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
+import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 
@@ -22,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Adapter for RecyclerView
-public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> implements Filterable {
+public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> implements Filterable {
     private List<Dish> mListDish;
     private List<Dish> mListDishFull;
     private OnItemClickListener listener;
@@ -30,10 +33,25 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public DishAdapter(List<Dish> mListDish) {
+        super(DIFF_CALLBACK);
         this.mListDish = mListDish;
         //Open 1 card only when delete
         viewBinderHelper.setOpenOnlyOne(true);
     }
+    //setup for animation
+    private static final DiffUtil.ItemCallback<Dish> DIFF_CALLBACK = new DiffUtil.ItemCallback<Dish>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Dish oldItem, @NonNull Dish newItem) {
+            return oldItem.getDishID() == newItem.getDishID();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Dish oldItem, @NonNull Dish newItem) {
+            return oldItem.getName().equals(newItem.getName()) &&
+                    oldItem.getPrice() == newItem.getPrice();
+
+        }
+    };
 
     public void setDish(List<Dish> mListDish) {
         this.mListDish = mListDish;
@@ -44,7 +62,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
     //Get the dish position
     public Dish getDishAt(int postition) {
-        return mListDish.get(postition);
+        return getItem(postition);
     }
 
     @NonNull
@@ -58,7 +76,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull DishViewHolder holder, int position) {
-        Dish dish = mListDish.get(position);
+        Dish dish = getItem(position);
         if (dish == null) {
             return;
         }
@@ -67,14 +85,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
-    }
-
-    @Override
-    public int getItemCount() {
-        if (mListDish != null) {
-            return mListDish.size();
-        }
-        return 0;
     }
 
 
@@ -138,7 +148,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(mListDish.get(position));
+                        listener.onItemClick(getItem(position));
                     }
                 }
             });
