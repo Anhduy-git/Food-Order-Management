@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
@@ -22,7 +24,7 @@ import com.example.androidapp.data.orderdata.OrderAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientViewHolder> implements Filterable {
+public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewHolder> implements Filterable {
     private List<Client> mListClient;
     private List<Client> mListClientFull;
     private OnItemClickListener listener;
@@ -30,9 +32,26 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
     private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public ClientAdapter(List<Client> mListClient) {
+        super(DIFF_CALLBACK);
+        //Open 1 card only when delete
         viewBinderHelper.setOpenOnlyOne(true);
         this.mListClient = mListClient;
     }
+    //setup for animation
+    private static final DiffUtil.ItemCallback<Client> DIFF_CALLBACK = new DiffUtil.ItemCallback<Client>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Client oldItem, @NonNull Client newItem) {
+            return oldItem.getClientId() == newItem.getClientId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Client oldItem, @NonNull Client newItem) {
+            return oldItem.getClientName().equals(newItem.getClientName()) &&
+                    oldItem.getAddress().equals(newItem.getAddress()) &&
+                    oldItem.getPhoneNumber().equals(newItem.getPhoneNumber());
+
+        }
+    };
 
     public void setClient(List<Client> mListClient) {
         this.mListClient = mListClient;
@@ -43,7 +62,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
 
     //Get the Client position
     public Client getClientAt(int postition) {
-        return mListClient.get(postition);
+        return getItem(postition);
     }
 
     @NonNull
@@ -57,25 +76,19 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
 
     @Override
     public void onBindViewHolder(@NonNull ClientViewHolder holder, int position) {
-        Client client = mListClient.get(position);
+        Client client = getItem(position);
         if (client == null) {
             return;
         }
         //Provide id object
-        viewBinderHelper.bind(holder.swipeRevealLayout, Integer.toString(client.getId()));
+        viewBinderHelper.bind(holder.swipeRevealLayout, Integer.toString(client.getClientId()));
 
         holder.tvClientName.setText(client.getClientName());
         holder.tvClientNumber.setText(client.getPhoneNumber());
         holder.tvClientAddress.setText(client.getAddress());
     }
 
-    @Override
-    public int getItemCount() {
-        if (mListClient != null) {
-            return mListClient.size();
-        }
-        return 0;
-    }
+
 
     @Override
     public Filter getFilter() {
@@ -139,7 +152,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(mListClient.get(position));
+                        listener.onItemClick(getItem(position));
                     }
                 }
             });

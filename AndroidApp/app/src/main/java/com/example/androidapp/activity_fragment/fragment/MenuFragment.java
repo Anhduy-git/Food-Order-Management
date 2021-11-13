@@ -74,7 +74,10 @@ public class MenuFragment extends Fragment {
 
             //Method DISPLAY the list on screen
             public void onChanged(List<Dish> dishes) {
+                //use for filter
                 dishAdapter.setDish(dishes);
+                //use for animation
+                dishAdapter.submitList(dishes);
 
             }
         });

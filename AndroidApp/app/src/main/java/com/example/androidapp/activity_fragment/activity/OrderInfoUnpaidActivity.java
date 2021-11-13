@@ -25,10 +25,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_DATE";
     public static final String EXTRA_ORDER_TIME =
             "com.example.androidapp.EXTRA_ORDER_TIME";
-    public static final String EXTRA_CHECK_PAID =
-            "com.example.androidapp.EXTRA_CHECK_PAID";
-    public static final String EXTRA_CHECK_SHIP =
-            "com.example.androidapp.EXTRA_CHECK_SHIP";
+
 
 
     private TextView tvOrderName;
@@ -72,10 +69,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         btnPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                paid = true;
                 Intent data = new Intent();
-                data.putExtra(EXTRA_CHECK_SHIP, ship);
-                data.putExtra(EXTRA_CHECK_PAID, paid);
                 data.putExtra(EXTRA_ORDER_NAME, strOrderName);
                 data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);

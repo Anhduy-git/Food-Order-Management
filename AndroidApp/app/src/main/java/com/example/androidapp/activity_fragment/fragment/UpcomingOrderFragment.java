@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidapp.R;
 import com.example.androidapp.activity_fragment.activity.NewUpcomingOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUpcomingActivity;
+import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrder;
@@ -61,7 +62,7 @@ public class UpcomingOrderFragment extends Fragment {
             @Override
             public void onChanged(List<UpcomingOrder> upcomingOrders) {
                 //Update Recycle View
-                upcomingOrderAdapter.setUpcommingOrder(upcomingOrders);
+                upcomingOrderAdapter.submitList(upcomingOrders);
             }
         });
 
@@ -86,11 +87,11 @@ public class UpcomingOrderFragment extends Fragment {
             public void onItemClick(UpcomingOrder upcomingOrder) {
                 Intent intent = new Intent(getActivity(), OrderInfoUpcomingActivity.class);
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_ID, upcomingOrder.getId());
-                intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NAME, upcomingOrder.getClientName());
-                intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_ADDRESS, upcomingOrder.getAddress());
+                intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NAME, upcomingOrder.getClient().getClientName());
+                intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_ADDRESS, upcomingOrder.getClient().getAddress());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_TIME, upcomingOrder.getTime());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_DATE, upcomingOrder.getDate());
-                intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NUMBER, upcomingOrder.getPhoneNumber());
+                intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NUMBER, upcomingOrder.getClient().getPhoneNumber());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_CHECK_PAID, upcomingOrder.getPaid());
                 startActivityForResult(intent, CONFIRM_ORDER_REQUEST);
             }
@@ -130,7 +131,11 @@ public class UpcomingOrderFragment extends Fragment {
             String number = data.getStringExtra(NewUpcomingOrderActivity.EXTRA_ORDER_NUMBER);
             String time = data.getStringExtra(NewUpcomingOrderActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(NewUpcomingOrderActivity.EXTRA_ORDER_DATE);
-            UpcomingOrder upcomingOrder = new UpcomingOrder(name, number, address, date, time, 1000, paid);
+            Client client = new Client(name, number, address);
+            //Reset paid
+            paid = false;
+
+            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid);
             upcomingOrderViewModel.insert(upcomingOrder);
 
         } else if (requestCode == CONFIRM_ORDER_REQUEST && resultCode == RESULT_OK) {
@@ -140,12 +145,14 @@ public class UpcomingOrderFragment extends Fragment {
             String number = data.getStringExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NUMBER);
             String time = data.getStringExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_DATE);
+            Client client = new Client(name, number, address);
             paid = data.getBooleanExtra(OrderInfoUpcomingActivity.EXTRA_CHECK_PAID, paid);
             if (id == -1){
                 Toast.makeText(getActivity(), "Order can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
-            UpcomingOrder upcomingOrder = new UpcomingOrder(name, number, address, date, time, 1000, paid);
+
+            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid);
             upcomingOrder.setId(id);
             upcomingOrderViewModel.update(upcomingOrder);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();

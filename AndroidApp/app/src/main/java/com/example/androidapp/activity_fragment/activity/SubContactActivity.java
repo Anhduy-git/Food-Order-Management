@@ -51,6 +51,7 @@ public class SubContactActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Client> clients) {
                 clientAdapter.setClient(clients);
+                clientAdapter.submitList(clients);
             }
         });
 

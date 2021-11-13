@@ -8,19 +8,44 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.orderdata.Order;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UnpaidOrderAdapter extends RecyclerView.Adapter<UnpaidOrderAdapter.UnpaidOrderViewHolder>{
+public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdapter.UnpaidOrderViewHolder>{
 
     private List<UnpaidOrder> mListUnpaidOrder = new ArrayList<>();
     private OnItemClickListener listener;
 
+    public UnpaidOrderAdapter(){
+        super(DIFF_CALLBACK);
+    }
+    //setup for animation
+    private static final DiffUtil.ItemCallback<UnpaidOrder> DIFF_CALLBACK = new DiffUtil.ItemCallback<UnpaidOrder>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull UnpaidOrder oldItem, @NonNull UnpaidOrder newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull UnpaidOrder oldItem, @NonNull UnpaidOrder newItem) {
+            return oldItem.getClient().getClientName().equals(newItem.getClient().getClientName()) &&
+                    oldItem.getClient().getAddress().equals(newItem.getClient().getAddress()) &&
+                    oldItem.getDate().equals(newItem.getDate()) &&
+                    oldItem.getTime().equals(newItem.getTime()) &&
+                    oldItem.getClient().getPhoneNumber().equals(newItem.getClient().getPhoneNumber()) &&
+                    oldItem.getPrice() == newItem.getPrice() &&
+                    oldItem.getPaid() == newItem.getPaid() &&
+                    oldItem.getShip() == newItem.getShip();
+        }
+    };
 
     public void setUnpaidOrder(List<UnpaidOrder> mListUnpaidOrder) {
         this.mListUnpaidOrder = mListUnpaidOrder;
@@ -38,28 +63,20 @@ public class UnpaidOrderAdapter extends RecyclerView.Adapter<UnpaidOrderAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull UnpaidOrderViewHolder holder, int position){
-        UnpaidOrder unpaidOrder = mListUnpaidOrder.get(position);
+        UnpaidOrder unpaidOrder = getItem(position);
         if (unpaidOrder == null) {
             return;
         }
 
-        holder.tvOrderName.setText(unpaidOrder.getClientName());
+        holder.tvOrderName.setText(unpaidOrder.getClient().getClientName());
         holder.tvOrderDate.setText(unpaidOrder.getDate());
         holder.tvOrderTime.setText(unpaidOrder.getTime());
         holder.tvOrderPrice.setText("1000");
 
     }
 
-    @Override
-    public int getItemCount() {
-        if (mListUnpaidOrder != null) {
-            return mListUnpaidOrder.size();
-        }
-        return 0;
-    }
-
     public UnpaidOrder getUnpaidOrderAt(int pos){
-        return mListUnpaidOrder.get(pos);
+        return getItem(pos);
     }
 
     public class UnpaidOrderViewHolder extends RecyclerView.ViewHolder {
@@ -82,7 +99,7 @@ public class UnpaidOrderAdapter extends RecyclerView.Adapter<UnpaidOrderAdapter.
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
                     if (listener != null && pos != RecyclerView.NO_POSITION){
-                        listener.onItemClick(mListUnpaidOrder.get(pos));
+                        listener.onItemClick(getItem(pos));
                     }
                 }
             });

@@ -21,6 +21,7 @@ import com.example.androidapp.R;
 import com.example.androidapp.activity_fragment.activity.NewTodayOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUnpaidActivity;
+import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 import com.example.androidapp.data.orderdata.OrderViewModel;
@@ -33,7 +34,7 @@ import java.util.List;
 public class UnpaidOrderFragment extends Fragment {
     public static final int CONFIRM_UNPAID_ORDER_REQUEST = 1;
     private UnpaidOrderViewModel unpaidOrderViewModel;
-    private boolean paid;
+    private boolean paid = false;
 
     @Nullable
     @Override
@@ -55,7 +56,7 @@ public class UnpaidOrderFragment extends Fragment {
             @Override
             public void onChanged(List<UnpaidOrder> unpaidOrders) {
                 //Update Recycle View
-                unpaidOrderAdapter.setUnpaidOrder(unpaidOrders);
+                unpaidOrderAdapter.submitList(unpaidOrders);
             }
         });
 
@@ -66,13 +67,12 @@ public class UnpaidOrderFragment extends Fragment {
             public void onItemClick(UnpaidOrder unpaidOrder) {
                 Intent intent = new Intent(getActivity(), OrderInfoUnpaidActivity.class);
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_ID, unpaidOrder.getId());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NAME, unpaidOrder.getClientName());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_ADDRESS, unpaidOrder.getAddress());
+                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NAME, unpaidOrder.getClient().getClientName());
+                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_ADDRESS, unpaidOrder.getClient().getAddress());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_TIME, unpaidOrder.getTime());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_DATE, unpaidOrder.getDate());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NUMBER, unpaidOrder.getPhoneNumber());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, unpaidOrder.getPaid());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, unpaidOrder.getShip());
+                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NUMBER, unpaidOrder.getClient().getPhoneNumber());
+
                 startActivityForResult(intent, CONFIRM_UNPAID_ORDER_REQUEST);
             }
         });
@@ -90,14 +90,15 @@ public class UnpaidOrderFragment extends Fragment {
             String number = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER);
             String time = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE);
-            paid = data.getBooleanExtra(OrderInfoUnpaidActivity.EXTRA_CHECK_PAID, paid);
+
             if (id == -1){
                 Toast.makeText(getActivity(), "Unpaid Order can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
-            UnpaidOrder unpaidOrder = new UnpaidOrder(name, number, address, date, time, 1000, paid);
+            Client client = new Client(name, number, address);
+            UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, 1000, paid);
             unpaidOrder.setId(id);
-            unpaidOrderViewModel.update(unpaidOrder);
+            unpaidOrderViewModel.delete(unpaidOrder);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         }
 
