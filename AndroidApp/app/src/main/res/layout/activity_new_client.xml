@@ -22,7 +22,7 @@
             android:layout_width="@dimen/size_btn"
             android:layout_height="@dimen/size_btn"
             android:layout_centerVertical="true"
-            android:background="@color/main_color"
+            android:background="@drawable/btn_back_background"
             android:drawableStart="@drawable/back_btn"
             android:paddingLeft="8dp"></Button>
     </RelativeLayout>

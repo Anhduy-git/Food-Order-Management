@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/ball_detail.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/bg_btn_modify.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/bg_checkbox.xml" value="0.36923076923076925" />
+        <entry key="app/src/main/res/drawable/bg_delete_swipe_btn.xml" value="0.17777777777777778" />
         <entry key="app/src/main/res/drawable/bg_head_nav.xml" value="0.17083333333333334" />
         <entry key="app/src/main/res/drawable/bg_info.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/bg_input_transparent.xml" value="0.28125" />
@@ -17,10 +18,12 @@
         <entry key="app/src/main/res/drawable/box_info.xml" value="0.28125" />
         <entry key="app/src/main/res/drawable/btn_add.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/btn_add_circle.xml" value="0.36923076923076925" />
+        <entry key="app/src/main/res/drawable/btn_back.xml" value="0.17777777777777778" />
         <entry key="app/src/main/res/drawable/button.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/confirm_check_box.xml" value="0.16203703703703703" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/drawable/list_item.xml" value="0.17777777777777778" />
         <entry key="app/src/main/res/drawable/num_dish_box.xml" value="0.28125" />
         <entry key="app/src/main/res/drawable/order_today_icon.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/plus_btn.xml" value="0.375" />

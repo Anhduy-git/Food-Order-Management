@@ -5,12 +5,7 @@
     <item>
         <shape android:shape="oval"
             xmlns:android="http://schemas.android.com/apk/res/android">
-            <gradient
-                android:startColor = "#3B185F"
-                android:endColor = "#A12568"
-                android:type = "linear" />
-            <corners
-                android:radius="60dp"></corners>
+            <solid android:color="@color/main_color"></solid>
         </shape>
     </item>
 </ripple>
