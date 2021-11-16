@@ -118,10 +118,10 @@ public class NewTodayOrderActivity extends AppCompatActivity {
             return;
         }
         //Check if the day is not in the pass
-//        if (intOrderDate < today){
-//            Toast.makeText(this, "Can't add order in the pass here", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        if (intOrderDate < today){
+            Toast.makeText(this, "Can't add order in the pass here", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent data = new Intent();
         data.putExtra(EXTRA_ORDER_NAME, strOrderName);
