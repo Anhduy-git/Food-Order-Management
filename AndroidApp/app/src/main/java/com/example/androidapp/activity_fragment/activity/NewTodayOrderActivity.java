@@ -10,9 +10,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -36,8 +39,8 @@ public class NewTodayOrderActivity extends AppCompatActivity {
     public static final int CHOOSE_CLIENT_REQUEST = 1;
 
     private EditText editOrderName;
-    private EditText editOrderTime;
-    private EditText editOrderDate;
+    private TextView editOrderTime;
+    private TextView editOrderDate;
     private EditText editOrderAddress;
     private EditText editOrderNumber;
     private Button btnAddOrder;
