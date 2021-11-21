@@ -32,64 +32,72 @@
 <!--    Main layout-->
     <RelativeLayout
         android:id="@+id/client_item"
+        android:clickable="true"
         android:layout_width="match_parent"
-        android:layout_height="77dp"
-        android:background="@drawable/list_item"
-        android:orientation="horizontal"
-        tools:ignore="ExtraText">
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/list_item"
+            android:orientation="horizontal"
+            tools:ignore="ExtraText">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+            <de.hdodenhof.circleimageview.CircleImageView
 
-            android:id="@+id/client_avatar"
+                android:id="@+id/client_avatar"
 
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="9dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ava_client_default" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="9dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ava_client_default" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="65dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="9dp"
-
-            android:layout_toRightOf="@+id/client_avatar"
-
-            android:orientation="vertical"
-            android:translationY="-2dp">
-
-            <TextView
-
-                android:id="@+id/client_name"
-
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vu Hoai Nam"
-                android:textColor="@color/main_white"
-                android:textSize="17sp"
-                android:textStyle="bold"></TextView>
+                android:layout_height="65dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="9dp"
 
-            <TextView
+                android:layout_toRightOf="@+id/client_avatar"
 
-                android:id="@+id/client_phone"
+                android:orientation="vertical"
+                android:translationY="-2dp">
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0123456789"
-                android:textColor="@color/main_white"
-                android:textSize="15sp"></TextView>
+                <TextView
 
-            <TextView
+                    android:id="@+id/client_name"
 
-                android:id="@+id/client_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vu Hoai Nam"
+                    android:textColor="@color/main_white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"></TextView>
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="404/2 Le Hong Phong-Phuoc Long"
-                android:textColor="@color/main_white"
-                android:textSize="15sp"></TextView>
-        </LinearLayout>
+                <TextView
+
+                    android:id="@+id/client_phone"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0123456789"
+                    android:textColor="@color/main_white"
+                    android:textSize="15sp"></TextView>
+
+                <TextView
+
+                    android:id="@+id/client_address"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="404/2 Le Hong Phong-Phuoc Long"
+                    android:textColor="@color/main_white"
+                    android:textSize="15sp"></TextView>
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
+
 </com.chauthai.swipereveallayout.SwipeRevealLayout>
