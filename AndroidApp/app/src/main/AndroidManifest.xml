@@ -20,7 +20,7 @@
         </activity>
         <activity
 
-            android:name=".activity_fragment.activity.NewTodayOrderActivity"
+            android:name=".activity_fragment.activity.NewOrderActivity"
             android:exported="false" />
         <activity
             android:name=".activity_fragment.activity.UpdateClientActivity"
@@ -48,9 +48,6 @@
             android:exported="false" />
         <activity
             android:name=".activity_fragment.activity.SubMenuActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity_fragment.activity.NewUpcomingOrderActivity"
             android:exported="false" />
         <activity
             android:name=".activity_fragment.activity.OrderInfoUnpaidActivity"

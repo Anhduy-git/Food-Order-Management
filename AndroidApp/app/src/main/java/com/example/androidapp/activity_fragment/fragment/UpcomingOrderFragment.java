@@ -15,16 +15,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.activity_fragment.activity.NewUpcomingOrderActivity;
+import com.example.androidapp.activity_fragment.activity.NewOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUpcomingActivity;
 import com.example.androidapp.data.clientdata.Client;
-import com.example.androidapp.data.orderdata.Order;
-import com.example.androidapp.data.orderdata.OrderAdapter;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrder;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrderAdapter;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrderViewModel;
@@ -110,7 +107,7 @@ public class UpcomingOrderFragment extends Fragment {
         btnAddNewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewUpcomingOrderActivity.class);
+                Intent intent = new Intent(getActivity(), NewOrderActivity.class);
                 startActivityForResult(intent, ADD_ORDER_REQUEST);
             }
         });
@@ -126,11 +123,11 @@ public class UpcomingOrderFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ADD_ORDER_REQUEST && resultCode == RESULT_OK) {
-            String name = data.getStringExtra(NewUpcomingOrderActivity.EXTRA_ORDER_NAME);
-            String address = data.getStringExtra(NewUpcomingOrderActivity.EXTRA_ORDER_ADDRESS);
-            String number = data.getStringExtra(NewUpcomingOrderActivity.EXTRA_ORDER_NUMBER);
-            String time = data.getStringExtra(NewUpcomingOrderActivity.EXTRA_ORDER_TIME);
-            String date = data.getStringExtra(NewUpcomingOrderActivity.EXTRA_ORDER_DATE);
+            String name = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_NAME);
+            String address = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_ADDRESS);
+            String number = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_NUMBER);
+            String time = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_TIME);
+            String date = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_DATE);
             Client client = new Client(name, number, address);
             //Reset paid
             paid = false;

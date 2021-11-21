@@ -42,7 +42,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'io.alterac.blurkit:blurkit:1.1.0'
-
+    implementation 'joda-time:joda-time:2.9.9'
 
     //Life cycle component
     // ViewModel
