@@ -4,23 +4,32 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
 
-import org.w3c.dom.Text;
+import org.joda.time.DateTimeComparator;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
-public class NewTodayOrderActivity extends AppCompatActivity {
+public class NewOrderActivity extends AppCompatActivity {
 
     public static final String EXTRA_ORDER_NAME =
             "com.example.androidapp.EXTRA_ORDER_NAME";
@@ -41,14 +50,15 @@ public class NewTodayOrderActivity extends AppCompatActivity {
     private EditText editOrderName;
     private TextView editOrderTime;
     private TextView editOrderDate;
+    private ImageView addOrderDate;
+    private ImageView addOrderTime;
     private EditText editOrderAddress;
     private EditText editOrderNumber;
     private Button btnAddOrder;
     private Button btnBack;
     private Button btnAddDish;
     private Button btnAddClient;
-    private Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
-    private int today = (calendar.get(Calendar.DAY_OF_MONTH));
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,7 @@ public class NewTodayOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_order);
 
         initUi();
+        setupDateTimePicker();
 
         //Confirm add order
         btnAddOrder.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +86,7 @@ public class NewTodayOrderActivity extends AppCompatActivity {
         btnAddDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NewTodayOrderActivity.this, SubMenuActivity.class);
+                Intent intent = new Intent(NewOrderActivity.this, SubMenuActivity.class);
                 startActivity(intent);
             }
         });
@@ -83,7 +94,7 @@ public class NewTodayOrderActivity extends AppCompatActivity {
         btnAddClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NewTodayOrderActivity.this, SubContactActivity.class);
+                Intent intent = new Intent(NewOrderActivity.this, SubContactActivity.class);
                 startActivityForResult(intent, CHOOSE_CLIENT_REQUEST);
             }
         });
@@ -95,13 +106,59 @@ public class NewTodayOrderActivity extends AppCompatActivity {
     private void initUi () {
         editOrderName = findViewById(R.id.add_order_name);
         editOrderAddress = findViewById(R.id.add_order_address);
-        editOrderDate = findViewById(R.id.add_order_date);
         editOrderNumber = findViewById(R.id.add_order_number);
-        editOrderTime = findViewById(R.id.add_order_time);
         btnBack = findViewById(R.id.btn_back);
         btnAddOrder = findViewById(R.id.add_new_order);
         btnAddDish = findViewById(R.id.new_dish_btn);
         btnAddClient = findViewById(R.id.new_client_btn);
+        editOrderDate = findViewById(R.id.order_date_tv);
+        editOrderTime = findViewById(R.id.order_time_tv);
+        addOrderDate = findViewById(R.id.add_order_date);
+        addOrderTime = findViewById(R.id.add_order_time);
+    }
+
+    private void setupDateTimePicker() {
+        addOrderDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateDialog(editOrderDate);
+            }
+        });
+        addOrderTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimeDialog(editOrderTime);
+            }
+        });
+    }
+    private void showDateDialog(final TextView date_in) {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                date_in.setText(simpleDateFormat.format(calendar.getTime()));
+
+            }
+        };
+        new DatePickerDialog(NewOrderActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    private void showTimeDialog(final TextView time_in) {
+        final Calendar calendar = Calendar.getInstance();
+        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                time_in.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        };
+        new TimePickerDialog(NewOrderActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
 
     }
 
@@ -112,7 +169,10 @@ public class NewTodayOrderActivity extends AppCompatActivity {
         String strOrderNumber = editOrderNumber.getText().toString().trim();
         String strOrderDate = editOrderDate.getText().toString().trim();
         String strOrderTime = editOrderTime.getText().toString().trim();
-        int intOrderDate = Integer.parseInt(strOrderDate);
+        //Only compare the date
+        DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strOrderName) || TextUtils.isEmpty(strOrderAddress)
                 || TextUtils.isEmpty(strOrderNumber) || TextUtils.isEmpty(strOrderDate)
@@ -120,23 +180,29 @@ public class NewTodayOrderActivity extends AppCompatActivity {
             Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
             return;
         }
-        //Check if the day is not in the pass
-        if (intOrderDate < today){
-            Toast.makeText(this, "Can't add order in the pass here", Toast.LENGTH_SHORT).show();
-            return;
+        //Get the current date
+        Date today = calendar.getTime();
+        //Get order date
+        try {
+            Date orderDate = simpleDateFormat.parse(strOrderDate);
+            //Check if the day is not in the pass
+            int ret = dateTimeComparator.compare(orderDate, today);
+            if (ret < 0){
+                Toast.makeText(this, "Can't add order in the pass here", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent data = new Intent();
+            data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+            data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
+            data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
+            data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
+            data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+            setResult(RESULT_OK, data);
+            finish();
+        } catch (ParseException ex) {
+            Toast.makeText(NewOrderActivity.this, "Parse Exception", Toast.LENGTH_SHORT).show();
         }
-
-        Intent data = new Intent();
-        data.putExtra(EXTRA_ORDER_NAME, strOrderName);
-        data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
-        data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
-        data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
-        data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-        data.putExtra(EXTRA_CHECK_PAID, false);
-        data.putExtra(EXTRA_CHECK_SHIP, false);
-
-        setResult(RESULT_OK, data);
-        finish();
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -152,7 +218,7 @@ public class NewTodayOrderActivity extends AppCompatActivity {
             editOrderNumber.setText(clientPhoneNumber);
             editOrderAddress.setText(clientAddress);
 
-            Toast.makeText(NewTodayOrderActivity.this, "Client added successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewOrderActivity.this, "Client added successfully", Toast.LENGTH_SHORT).show();
         }
     }
 

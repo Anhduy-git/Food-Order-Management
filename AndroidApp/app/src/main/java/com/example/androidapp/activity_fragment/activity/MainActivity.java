@@ -33,9 +33,14 @@ import com.example.androidapp.data.upcomingorderdata.UpcomingOrderViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 
+import org.joda.time.DateTimeComparator;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 
+import java.util.Date;
 import java.util.List;
 
 import java.util.TimeZone;
@@ -56,9 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private OrderViewModel orderViewModel;
     private UnpaidOrderViewModel unpaidOrderViewModel;
     private UpcomingOrderViewModel upcomingOrderViewModel;
-    //get current date
-    private Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,40 +82,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         replaceFragment(new OrderTodayFragment());
 
 
-        //Get the current day
-        int today = calendar.get(Calendar.DAY_OF_MONTH);
 
         //Setup View Model
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
         unpaidOrderViewModel = new ViewModelProvider(this).get(UnpaidOrderViewModel.class);
         upcomingOrderViewModel = new ViewModelProvider(this).get(UpcomingOrderViewModel.class);
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        //Only compare the date
+        DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
+        //Get the current date
+        Date today  = calendar.getTime();
 
-
-        //Update Unpaid Order and History
+        //Update item from Today Order to Unpaid Order and History
         orderViewModel.getAllOrder().observe(MainActivity.this, new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
                 for (Order order : orders) {
-                    int orderDay = Integer.parseInt(order.getDate());
-                    if (orderDay < today) {
-                        //if shipped
-                        if (order.getShip()) {
-                            //if paid then move only to history success order
-                            if (order.getPaid()) {
-                                //
-                            } else { // move to history success and unpaid order.
-                                Client client = new Client(order.getClient().getClientName(), order.getClient().getPhoneNumber(),
-                                order.getClient().getAddress());
-                                UnpaidOrder unpaidOrder = new UnpaidOrder(client, order.getDate(), order.getTime(), order.getPrice(), false);
-                                unpaidOrderViewModel.insert(unpaidOrder);
+                    try {
+                        Date orderDate = simpleDateFormat.parse(order.getDate());
+                        int ret = dateTimeComparator.compare(orderDate, today);
+                        if (ret < 0) {
+                            //if shipped
+                            if (order.getShip()) {
+                                //if paid then move only to history success order
+                                if (order.getPaid()) {
+                                    //
+                                } else { // move to history success and unpaid order.
+                                    Client client = new Client(order.getClient().getClientName(), order.getClient().getPhoneNumber(),
+                                            order.getClient().getAddress());
+                                    UnpaidOrder unpaidOrder = new UnpaidOrder(client, order.getDate(), order.getTime(), order.getPrice(), false);
+                                    unpaidOrderViewModel.insert(unpaidOrder);
+                                }
+                            } else {
+                                //Move to history cancel
                             }
-                        } else {
-                            //Move to history cancel
+                            //Remove all old order
+                            orderViewModel.delete(order);
                         }
-                        //Remove all old order
-                        orderViewModel.delete(order);
-                    }
+                    } catch (ParseException ex) {
 
+                    }
                 }
             }
         });
@@ -123,18 +132,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onChanged(List<UpcomingOrder> upcomingOrders) {
                 for (UpcomingOrder upcomingOrder : upcomingOrders) {
                     //Get the day of upcomingOrder
-                    int upcomingOrderDay = Integer.parseInt(upcomingOrder.getDate());
-                    //Check if the upcomingOrderDay is today
-                    if (upcomingOrderDay == today) {
-                        Client client = new Client(upcomingOrder.getClient().getClientName(), upcomingOrder.getClient().getPhoneNumber(),
-                                upcomingOrder.getClient().getAddress());
-                        Order order = new Order(client, upcomingOrder.getDate(), upcomingOrder.getTime(),
-                                upcomingOrder.getPrice(), false, upcomingOrder.getPaid());
-                        //add upcomingOrder to today's Order
-                        orderViewModel.insert(order);
-                        //remove that upcomingOrder
-                        upcomingOrderViewModel.delete(upcomingOrder);
+                    try {
+                        Date upcomingOrderDay = simpleDateFormat.parse(upcomingOrder.getDate());
+                        //Check if the upcomingOrderDay is today
+                        int ret = dateTimeComparator.compare(upcomingOrderDay, today);
+                        if (ret == 0) {
+                            Client client = new Client(upcomingOrder.getClient().getClientName(), upcomingOrder.getClient().getPhoneNumber(),
+                                    upcomingOrder.getClient().getAddress());
+                            Order order = new Order(client, upcomingOrder.getDate(), upcomingOrder.getTime(),
+                                    upcomingOrder.getPrice(), false, upcomingOrder.getPaid());
+                            //add upcomingOrder to today's Order
+                            orderViewModel.insert(order);
+                            //remove that upcomingOrder
+                            upcomingOrderViewModel.delete(upcomingOrder);
+                        }
+
+                    } catch (ParseException ex) {
+
                     }
+
 
                 }
             }

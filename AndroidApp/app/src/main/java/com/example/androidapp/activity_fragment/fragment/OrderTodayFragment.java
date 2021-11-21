@@ -5,7 +5,6 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,10 @@ import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidapp.activity_fragment.activity.NewTodayOrderActivity;
+import com.example.androidapp.activity_fragment.activity.NewOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.R;
 import com.example.androidapp.data.clientdata.Client;
@@ -33,7 +31,12 @@ import com.example.androidapp.data.orderdata.OrderViewModel;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrder;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrderViewModel;
 
+import org.joda.time.DateTimeComparator;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -47,10 +50,6 @@ public class OrderTodayFragment extends Fragment {
 
     private boolean paid;
     private boolean ship;
-    private Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
-    private int today = (calendar.get(Calendar.DAY_OF_MONTH));
-
-
 
     @Nullable
     @Override
@@ -120,7 +119,7 @@ public class OrderTodayFragment extends Fragment {
         btnAddNewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewTodayOrderActivity.class);
+                Intent intent = new Intent(getActivity(), NewOrderActivity.class);
                 startActivityForResult(intent, ADD_ORDER_REQUEST);
             }
         });
@@ -134,26 +133,39 @@ public class OrderTodayFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         //Add new order
         if (requestCode == ADD_ORDER_REQUEST && resultCode == RESULT_OK) {
-            String name = data.getStringExtra(NewTodayOrderActivity.EXTRA_ORDER_NAME);
-            String address = data.getStringExtra(NewTodayOrderActivity.EXTRA_ORDER_ADDRESS);
-            String number = data.getStringExtra(NewTodayOrderActivity.EXTRA_ORDER_NUMBER);
-            String time = data.getStringExtra(NewTodayOrderActivity.EXTRA_ORDER_TIME);
-            String date = data.getStringExtra(NewTodayOrderActivity.EXTRA_ORDER_DATE);
+            String name = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_NAME);
+            String address = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_ADDRESS);
+            String number = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_NUMBER);
+            String time = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_TIME);
+            String date = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_DATE);
             Client client = new Client(name, number, address);
-            int intOrderDay = Integer.parseInt(date);
             //Reset ship and paid immediately after add new order.
             ship = false;
             paid = false;
-            if (intOrderDay > today){
-                //Move order to upcomming order if order's day > today.
-                UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid);
-                upcomingOrderViewModel.insert(upcomingOrder);
-            } else { //else add to new order's today
-                Order order = new Order(client, date, time, 1000, ship, paid);
-                orderViewModel.insert(order);
+            //Only compare the date
+            DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            //Get the current date
+            Date today  = calendar.getTime();
+            try {
+                Date orderDate = simpleDateFormat.parse(date);
+                int ret = dateTimeComparator.compare(orderDate, today);
+                if (ret > 0){
+                    //Move order to upcomming order if order's day > today.
+                    UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid);
+                    upcomingOrderViewModel.insert(upcomingOrder);
+                } else { //else add to new order's today
+                    Order order = new Order(client, date, time, 1000, ship, paid);
+                    orderViewModel.insert(order);
+                }
+
+            } catch (ParseException ex) {
+                Toast.makeText(getActivity(), "Parse Exception", Toast.LENGTH_SHORT).show();
             }
 
-            //Update order
+
+            //Update order (paid, ship)
         } else if (requestCode == CONFIRM_ORDER_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(OrderInfoTodayActivity.EXTRA_ORDER_ID, -1);
             String name = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_NAME);

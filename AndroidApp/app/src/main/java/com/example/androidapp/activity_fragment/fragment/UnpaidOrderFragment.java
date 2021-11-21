@@ -18,13 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.activity_fragment.activity.NewTodayOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUnpaidActivity;
 import com.example.androidapp.data.clientdata.Client;
-import com.example.androidapp.data.orderdata.Order;
-import com.example.androidapp.data.orderdata.OrderAdapter;
-import com.example.androidapp.data.orderdata.OrderViewModel;
 import com.example.androidapp.data.unpaiddata.UnpaidOrder;
 import com.example.androidapp.data.unpaiddata.UnpaidOrderAdapter;
 import com.example.androidapp.data.unpaiddata.UnpaidOrderViewModel;

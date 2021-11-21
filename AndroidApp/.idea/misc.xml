@@ -41,7 +41,7 @@
         <entry key="app/src/main/res/layout/activity_menu.xml" value="0.3416666666666667" />
         <entry key="app/src/main/res/layout/activity_new_client.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_new_dish.xml" value="0.269140625" />
-        <entry key="app/src/main/res/layout/activity_new_order.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_new_order.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/activity_order.xml" value="0.35185185185185186" />
         <entry key="app/src/main/res/layout/activity_order_info_today.xml" value="0.1418884982420894" />
         <entry key="app/src/main/res/layout/activity_order_info_upcoming.xml" value="0.33" />
