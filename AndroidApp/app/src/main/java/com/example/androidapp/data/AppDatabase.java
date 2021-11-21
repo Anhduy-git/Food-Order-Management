@@ -11,6 +11,8 @@ import androidx.room.RoomDatabase;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.clientdata.ClientDao;
 
+import com.example.androidapp.data.historydata.HistoryOrder;
+import com.example.androidapp.data.historydata.HistoryOrderDao;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishDao;
 
@@ -25,7 +27,7 @@ import com.example.androidapp.data.upcomingorderdata.UpcomingOrderDao;
 //This is the app's main database, don't need to create another one
 //Add more entities (tables) to database by listing them inside entities = {...}
 
-@Database(entities = {Dish.class, Order.class, Client.class, UnpaidOrder.class, UpcomingOrder.class}, version = 2)
+@Database(entities = {Dish.class, Order.class, Client.class, UnpaidOrder.class, UpcomingOrder.class, HistoryOrder.class}, version = 2)
 
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -38,6 +40,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ClientDao clientDao();
     public abstract UnpaidOrderDao unpaidOrderDao();
     public abstract UpcomingOrderDao upcomingOrderDao();
+    public abstract HistoryOrderDao historyOrderDao();
 
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
@@ -67,6 +70,7 @@ public abstract class AppDatabase extends RoomDatabase {
         private ClientDao clientDao;
         private UnpaidOrderDao unpaidOrderDao;
         private UpcomingOrderDao upcomingOrderDao;
+        private HistoryOrderDao historyOrderDao;
 
         private PopulateDbAsyncTask(AppDatabase db) {
             dishDao = db.dishDao();
@@ -74,6 +78,7 @@ public abstract class AppDatabase extends RoomDatabase {
             clientDao = db.clientDao();
             unpaidOrderDao = db.unpaidOrderDao();
             upcomingOrderDao = db.upcomingOrderDao();
+            historyOrderDao = db.historyOrderDao();
         }
         @Override
         protected Void doInBackground(Void... voids) {
