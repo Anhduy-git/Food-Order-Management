@@ -15,19 +15,19 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center">
-        <TextView
-            android:layout_width="77dp"
-            android:layout_height="77dp"
+        <LinearLayout
+            android:layout_width="67dp"
+            android:layout_height="67dp"
             android:gravity="center"
+            android:layout_marginTop="5dp"
             android:background="@drawable/bg_delete_swipe_btn"
-            android:text="Delete"
-            android:textColor="@color/main_white"
-            android:textAllCaps="false"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:textSize="17dp">
-        </TextView>
+            android:layout_marginRight="8dp">
+            <View
+                android:layout_width="23dp"
+                android:layout_height="26dp"
+                android:background="@drawable/trash_ic"></View>
+        </LinearLayout>
     </LinearLayout>
 <!--    Main layout-->
     <RelativeLayout
