@@ -15,7 +15,7 @@
         android:paddingLeft="8dp"></Button>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="35dp"
         android:orientation="horizontal"
         android:background="@drawable/bg_searching"
         android:layout_margin="10dp">
@@ -26,7 +26,7 @@
             android:src="@drawable/icon_searching"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="6dp"></ImageView>
+            android:layout_marginLeft="8dp"></ImageView>
 
         <EditText
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:textColorHint="@color/main_color"
-            android:textSize="16sp"></EditText>
+            android:textSize="17sp"></EditText>
 
     </RelativeLayout>
 

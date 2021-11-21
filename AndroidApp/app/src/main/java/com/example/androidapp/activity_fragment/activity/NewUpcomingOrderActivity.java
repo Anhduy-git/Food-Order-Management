@@ -6,11 +6,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidapp.R;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -34,8 +37,8 @@ public class NewUpcomingOrderActivity extends AppCompatActivity {
 
 
     private EditText editOrderName;
-    private EditText editOrderTime;
-    private EditText editOrderDate;
+    private TextView editOrderTime;
+    private TextView editOrderDate;
     private EditText editOrderAddress;
     private EditText editOrderNumber;
     private Button btnAddOrder;
