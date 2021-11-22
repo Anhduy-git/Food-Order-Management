@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
+
         //Update Upcoming Order to Order Today
         upcomingOrderViewModel.getAllUpcomingOrder().observe(MainActivity.this, new Observer<List<UpcomingOrder>>() {
             @Override
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Client client = new Client(upcomingOrder.getClient().getClientName(), upcomingOrder.getClient().getPhoneNumber(),
                                     upcomingOrder.getClient().getAddress());
                             Order order = new Order(client, upcomingOrder.getDate(), upcomingOrder.getTime(),
-                                    upcomingOrder.getPrice(), false, upcomingOrder.getPaid());
+                                    upcomingOrder.getPrice(), false, upcomingOrder.getPaid(), null);
                             //add upcomingOrder to today's Order
                             orderViewModel.insert(order);
                             //remove that upcomingOrder

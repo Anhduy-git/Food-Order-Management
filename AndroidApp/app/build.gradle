@@ -58,4 +58,7 @@ dependencies {
 
     //swipe layout
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.7'
 }

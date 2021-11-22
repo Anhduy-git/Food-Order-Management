@@ -56,8 +56,7 @@ public class UnpaidOrderFragment extends Fragment {
             }
         });
 
-
-        //Sent data to Order Info when click order
+        //Send data to Order Info when click order
         unpaidOrderAdapter.setOnItemClickListener(new UnpaidOrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(UnpaidOrder unpaidOrder) {

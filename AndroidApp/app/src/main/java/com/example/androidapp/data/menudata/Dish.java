@@ -1,10 +1,15 @@
 package com.example.androidapp.data.menudata;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "dish_table")
-public class Dish {
+public class Dish implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int dishID;
 
@@ -16,6 +21,25 @@ public class Dish {
         this.name = name;
         this.price = price;
     }
+
+    protected Dish(Parcel in) {
+        dishID = in.readInt();
+        name = in.readString();
+        price = in.readInt();
+        quantity = in.readInt();
+    }
+
+    public static final Creator<Dish> CREATOR = new Creator<Dish>() {
+        @Override
+        public Dish createFromParcel(Parcel in) {
+            return new Dish(in);
+        }
+
+        @Override
+        public Dish[] newArray(int size) {
+            return new Dish[size];
+        }
+    };
 
     //Setters and Getters
     public int getDishID() {
@@ -48,6 +72,20 @@ public class Dish {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeInt(dishID);
+        dest.writeString(name);
+        dest.writeInt(price);
+        dest.writeInt(quantity);
     }
 }
 

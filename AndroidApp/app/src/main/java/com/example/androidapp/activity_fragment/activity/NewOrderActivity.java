@@ -2,12 +2,18 @@ package com.example.androidapp.activity_fragment.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,13 +26,19 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.menudata.Dish;
+import com.example.androidapp.data.menudata.DishAdapter;
+import com.example.androidapp.data.menudata.DishViewModel;
 
 import org.joda.time.DateTimeComparator;
 
+import java.io.Console;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 public class NewOrderActivity extends AppCompatActivity {
@@ -45,7 +57,11 @@ public class NewOrderActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_CHECK_PAID";
     public static final String EXTRA_CHECK_SHIP =
             "com.example.androidapp.EXTRA_CHECK_SHIP";
+    public static final String EXTRA_ORDER_DISH_LIST =
+            "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
+
     public static final int CHOOSE_CLIENT_REQUEST = 1;
+    public static final int CHOOSE_DISH_REQUEST= 2;
 
     private EditText editOrderName;
     private TextView editOrderTime;
@@ -58,7 +74,9 @@ public class NewOrderActivity extends AppCompatActivity {
     private Button btnBack;
     private Button btnAddDish;
     private Button btnAddClient;
-
+    private RecyclerView rcvData;
+    private List<Dish> mListDish = new ArrayList<>();
+    final DishAdapter dishAdapter = new DishAdapter(mListDish);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +84,8 @@ public class NewOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_order);
 
         initUi();
+        initRecyclerView();
+
         setupDateTimePicker();
 
         //Confirm add order
@@ -75,6 +95,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 addOrder();
             }
         });
+
         //Button back to OrderTodayFragment
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,14 +103,16 @@ public class NewOrderActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        //Button to add new dish
+
+        //Button to choose a new dish from menu
         btnAddDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NewOrderActivity.this, SubMenuActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, CHOOSE_DISH_REQUEST);
             }
         });
+
         //Button to choose client from contact
         btnAddClient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,10 +121,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 startActivityForResult(intent, CHOOSE_CLIENT_REQUEST);
             }
         });
-
-
     }
-
 
     private void initUi () {
         editOrderName = findViewById(R.id.add_order_name);
@@ -115,6 +135,14 @@ public class NewOrderActivity extends AppCompatActivity {
         editOrderTime = findViewById(R.id.order_time_tv);
         addOrderDate = findViewById(R.id.add_order_date);
         addOrderTime = findViewById(R.id.add_order_time);
+    }
+
+    private void initRecyclerView() {
+        //Dish view holder and recycler view and displaying
+        rcvData = findViewById(R.id.new_order_dish_recycler);
+
+        rcvData.setAdapter(dishAdapter);
+        rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void setupDateTimePicker() {
@@ -131,6 +159,7 @@ public class NewOrderActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showDateDialog(final TextView date_in) {
         final Calendar calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -141,7 +170,6 @@ public class NewOrderActivity extends AppCompatActivity {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 date_in.setText(simpleDateFormat.format(calendar.getTime()));
-
             }
         };
         new DatePickerDialog(NewOrderActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -169,6 +197,7 @@ public class NewOrderActivity extends AppCompatActivity {
         String strOrderNumber = editOrderNumber.getText().toString().trim();
         String strOrderDate = editOrderDate.getText().toString().trim();
         String strOrderTime = editOrderTime.getText().toString().trim();
+
         //Only compare the date
         DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
@@ -188,7 +217,7 @@ public class NewOrderActivity extends AppCompatActivity {
             //Check if the day is not in the pass
             int ret = dateTimeComparator.compare(orderDate, today);
             if (ret < 0){
-                Toast.makeText(this, "Can't add order in the pass here", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Can't add order in the past here", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -198,12 +227,15 @@ public class NewOrderActivity extends AppCompatActivity {
             data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
             data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
             data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+            data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
+
             setResult(RESULT_OK, data);
             finish();
         } catch (ParseException ex) {
             Toast.makeText(NewOrderActivity.this, "Parse Exception", Toast.LENGTH_SHORT).show();
         }
     }
+    @SuppressLint("WrongConstant")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -220,6 +252,13 @@ public class NewOrderActivity extends AppCompatActivity {
 
             Toast.makeText(NewOrderActivity.this, "Client added successfully", Toast.LENGTH_SHORT).show();
         }
-    }
+        else if (requestCode == CHOOSE_DISH_REQUEST && resultCode == RESULT_OK) {
+            Dish dish = data.getParcelableExtra(SubMenuActivity.EXTRA_DISH);
+            mListDish.add(dish);
 
+            //Display the chosen dish to the current order
+            dishAdapter.setDish(mListDish);
+            dishAdapter.submitList(mListDish);
+        }
+    }
 }
