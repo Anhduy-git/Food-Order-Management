@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Client client = new Client(upcomingOrder.getClient().getClientName(), upcomingOrder.getClient().getPhoneNumber(),
                                     upcomingOrder.getClient().getAddress());
                             Order order = new Order(client, upcomingOrder.getDate(), upcomingOrder.getTime(),
-                                    upcomingOrder.getPrice(), false, upcomingOrder.getPaid(), null);
+                                    upcomingOrder.getPrice(), false, upcomingOrder.getPaid());
                             //add upcomingOrder to today's Order
                             orderViewModel.insert(order);
                             //remove that upcomingOrder
