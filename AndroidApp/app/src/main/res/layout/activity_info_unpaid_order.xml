@@ -211,7 +211,7 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/order_recycler"
+        android:id="@+id/order_dish_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="225dp"

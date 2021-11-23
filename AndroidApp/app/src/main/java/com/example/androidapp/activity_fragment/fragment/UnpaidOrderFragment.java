@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,17 +22,19 @@ import com.example.androidapp.R;
 import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUnpaidActivity;
 import com.example.androidapp.data.clientdata.Client;
+import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.unpaiddata.UnpaidOrder;
 import com.example.androidapp.data.unpaiddata.UnpaidOrderAdapter;
 import com.example.androidapp.data.unpaiddata.UnpaidOrderViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UnpaidOrderFragment extends Fragment {
     public static final int CONFIRM_UNPAID_ORDER_REQUEST = 1;
     private UnpaidOrderViewModel unpaidOrderViewModel;
     private boolean paid = false;
-
+    public static List<Dish> mOrderListDish = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,19 +59,18 @@ public class UnpaidOrderFragment extends Fragment {
             }
         });
 
-
-        //Sent data to Order Info when click order
+        //Send data to Order Info when click order
         unpaidOrderAdapter.setOnItemClickListener(new UnpaidOrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(UnpaidOrder unpaidOrder) {
                 Intent intent = new Intent(getActivity(), OrderInfoUnpaidActivity.class);
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_ID, unpaidOrder.getId());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NAME, unpaidOrder.getClient().getClientName());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_ADDRESS, unpaidOrder.getClient().getAddress());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_TIME, unpaidOrder.getTime());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_DATE, unpaidOrder.getDate());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NUMBER, unpaidOrder.getClient().getPhoneNumber());
-
+                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ID, unpaidOrder.getId());
+                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NAME, unpaidOrder.getClient().getClientName());
+                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ADDRESS, unpaidOrder.getClient().getAddress());
+                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME, unpaidOrder.getTime());
+                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE, unpaidOrder.getDate());
+                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER, unpaidOrder.getClient().getPhoneNumber());
+                intent.putParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) unpaidOrder.getOrderListDish());
                 startActivityForResult(intent, CONFIRM_UNPAID_ORDER_REQUEST);
             }
         });
@@ -92,7 +94,8 @@ public class UnpaidOrderFragment extends Fragment {
                 return;
             }
             Client client = new Client(name, number, address);
-            UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, 1000, paid);
+            mOrderListDish = data.getParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST);
+            UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, 1000, paid, mOrderListDish);
             unpaidOrder.setId(id);
             unpaidOrderViewModel.delete(unpaidOrder);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();

@@ -1,15 +1,23 @@
 package com.example.androidapp.activity_fragment.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.menudata.Dish;
+import com.example.androidapp.data.menudata.DishOrderAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderInfoUpcomingActivity extends AppCompatActivity {
 
@@ -27,7 +35,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_TIME";
     public static final String EXTRA_CHECK_PAID =
             "com.example.androidapp.EXTRA_CHECK_PAID";
-
+    public static final String EXTRA_ORDER_DISH_LIST =
+            "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
 
     private TextView tvOrderName;
     private TextView tvOrderAddress;
@@ -37,6 +46,9 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
     private Button btnBack;
     private CheckBox checkPaid;
     private boolean paid;
+    private RecyclerView rcvData;
+    private List<Dish> mListDish = new ArrayList<>();
+    final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +58,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         paid = false;
 
         initUi();
+        initRecyclerView();
         //Get data from intent to display UI
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
@@ -55,7 +68,10 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
             paid = intent.getBooleanExtra(EXTRA_CHECK_PAID, paid);
+            mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
         }
+        //display list dish
+        dishOrderAdapter.submitList(mListDish);
 
         //Check if Paid for checkbox:
         if (paid){
@@ -94,6 +110,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
                 data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
                 data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
                 int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
                 if (id != -1) {
                     data.putExtra(EXTRA_ORDER_ID, id);
@@ -116,6 +133,13 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         checkPaid = findViewById(R.id.order_paid_checkbox);
 
+    }
+    private void initRecyclerView() {
+        //Dish view holder and recycler view and displaying
+        rcvData = findViewById(R.id.order_dish_recycler);
+
+        rcvData.setAdapter(dishOrderAdapter);
+        rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
 
 }

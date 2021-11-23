@@ -5,6 +5,8 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import com.example.androidapp.activity_fragment.activity.NewOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.R;
 import com.example.androidapp.data.clientdata.Client;
+import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 import com.example.androidapp.data.orderdata.OrderViewModel;
@@ -35,6 +38,7 @@ import org.joda.time.DateTimeComparator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +54,8 @@ public class OrderTodayFragment extends Fragment {
 
     private boolean paid;
     private boolean ship;
+
+    public static List<Dish> mOrderListDish = new ArrayList<>();
 
     @Nullable
     @Override
@@ -102,9 +108,11 @@ public class OrderTodayFragment extends Fragment {
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NUMBER, order.getClient().getPhoneNumber());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, order.getPaid());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, order.getShip());
+                intent.putParcelableArrayListExtra(OrderInfoTodayActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) order.getOrderListDish());
                 startActivityForResult(intent, CONFIRM_ORDER_REQUEST);
             }
         });
+
         //Delete item
         orderAdapter.setOnItemClickDelListener(new OrderAdapter.OnItemClickDelListener() {
             @Override
@@ -112,7 +120,6 @@ public class OrderTodayFragment extends Fragment {
                 orderViewModel.delete(order);
             }
         });
-
 
         //Button to launch New Today Order Activity
         btnAddNewOrder = (Button) view.findViewById(R.id.add_new_today_order);
@@ -139,6 +146,8 @@ public class OrderTodayFragment extends Fragment {
             String time = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_DATE);
             Client client = new Client(name, number, address);
+            mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
+
             //Reset ship and paid immediately after add new order.
             ship = false;
             paid = false;
@@ -153,10 +162,10 @@ public class OrderTodayFragment extends Fragment {
                 int ret = dateTimeComparator.compare(orderDate, today);
                 if (ret > 0){
                     //Move order to upcomming order if order's day > today.
-                    UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid);
+                    UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid, mOrderListDish);
                     upcomingOrderViewModel.insert(upcomingOrder);
                 } else { //else add to new order's today
-                    Order order = new Order(client, date, time, 1000, ship, paid);
+                    Order order = new Order(client, date, time, 1000, ship, paid, mOrderListDish);
                     orderViewModel.insert(order);
                 }
 
@@ -180,14 +189,13 @@ public class OrderTodayFragment extends Fragment {
                 return;
             }
             Client client = new Client(name, number, address);
-            Order order = new Order(client, date, time, 1000, ship, paid);
+            mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
+            Order order = new Order(client, date, time, 1000, ship, paid, mOrderListDish);
             order.setId(id);
             orderViewModel.update(order);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         } else {
-
             //Do nothing
-
         }
     }
 }

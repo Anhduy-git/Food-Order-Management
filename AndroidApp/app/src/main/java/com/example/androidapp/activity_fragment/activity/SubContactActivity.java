@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.clientdata.Client;
@@ -29,6 +31,8 @@ public class SubContactActivity extends AppCompatActivity {
     public static final String EXTRA_ADDRESS =
             "com.example.androidapp.EXTRA_ADDRESS";
 
+    private Button btnBack;
+
     private List<Client> mListClient;
     private ClientViewModel clientViewModel;
 
@@ -37,6 +41,8 @@ public class SubContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_contact);
+
+        initUi();
 
         //Create Recycler View
         RecyclerView rcvData = findViewById(R.id.client_recycler);
@@ -67,5 +73,17 @@ public class SubContactActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+    }
+
+    void initUi(){
+        btnBack = findViewById(R.id.btn_back_sub_contact);
     }
 }

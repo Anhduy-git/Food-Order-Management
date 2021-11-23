@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
 import com.example.androidapp.activity_fragment.activity.NewOrderActivity;
+import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUpcomingActivity;
 import com.example.androidapp.data.clientdata.Client;
+import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrder;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrderAdapter;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrderViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UpcomingOrderFragment extends Fragment {
@@ -35,7 +39,7 @@ public class UpcomingOrderFragment extends Fragment {
     //View model
     private UpcomingOrderViewModel upcomingOrderViewModel;
     private boolean paid;
-
+    public static List<Dish> mOrderListDish = new ArrayList<>();
 
 
 
@@ -90,6 +94,7 @@ public class UpcomingOrderFragment extends Fragment {
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_DATE, upcomingOrder.getDate());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NUMBER, upcomingOrder.getClient().getPhoneNumber());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_CHECK_PAID, upcomingOrder.getPaid());
+                intent.putParcelableArrayListExtra(OrderInfoTodayActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) upcomingOrder.getOrderListDish());
                 startActivityForResult(intent, CONFIRM_ORDER_REQUEST);
             }
         });
@@ -129,10 +134,11 @@ public class UpcomingOrderFragment extends Fragment {
             String time = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_DATE);
             Client client = new Client(name, number, address);
+            mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
             //Reset paid
             paid = false;
 
-            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid);
+            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid, mOrderListDish);
             upcomingOrderViewModel.insert(upcomingOrder);
 
         } else if (requestCode == CONFIRM_ORDER_REQUEST && resultCode == RESULT_OK) {
@@ -143,13 +149,14 @@ public class UpcomingOrderFragment extends Fragment {
             String time = data.getStringExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_DATE);
             Client client = new Client(name, number, address);
+            mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
             paid = data.getBooleanExtra(OrderInfoUpcomingActivity.EXTRA_CHECK_PAID, paid);
             if (id == -1){
                 Toast.makeText(getActivity(), "Order can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid);
+            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid, mOrderListDish);
             upcomingOrder.setId(id);
             upcomingOrderViewModel.update(upcomingOrder);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
