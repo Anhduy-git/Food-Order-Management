@@ -2,8 +2,6 @@ package com.example.androidapp.activity_fragment.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,12 +24,10 @@ import android.widget.Toast;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.menudata.DishAdapter;
-import com.example.androidapp.data.menudata.DishViewModel;
+import com.example.androidapp.data.menudata.DishOrderAdapter;
 
 import org.joda.time.DateTimeComparator;
 
-import java.io.Console;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,7 +71,7 @@ public class NewOrderActivity extends AppCompatActivity {
     private Button btnAddClient;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
-    final DishAdapter dishAdapter = new DishAdapter(mListDish);
+    final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,9 +134,9 @@ public class NewOrderActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         //Dish view holder and recycler view and displaying
-        rcvData = findViewById(R.id.new_order_dish_recycler);
+        rcvData = findViewById(R.id.order_dish_recycler);
 
-        rcvData.setAdapter(dishAdapter);
+        rcvData.setAdapter(dishOrderAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -257,8 +252,8 @@ public class NewOrderActivity extends AppCompatActivity {
             mListDish.add(dish);
 
             //Display the chosen dish to the current order
-            dishAdapter.setDish(mListDish);
-            dishAdapter.submitList(mListDish);
+            dishOrderAdapter.setDish(mListDish);
+            dishOrderAdapter.submitList(mListDish);
         }
     }
 }

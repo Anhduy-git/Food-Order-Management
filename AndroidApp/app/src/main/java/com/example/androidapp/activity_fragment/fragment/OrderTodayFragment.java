@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,6 +108,7 @@ public class OrderTodayFragment extends Fragment {
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NUMBER, order.getClient().getPhoneNumber());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, order.getPaid());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, order.getShip());
+                intent.putParcelableArrayListExtra(OrderInfoTodayActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) order.getOrderListDish());
                 startActivityForResult(intent, CONFIRM_ORDER_REQUEST);
             }
         });
@@ -187,6 +189,7 @@ public class OrderTodayFragment extends Fragment {
                 return;
             }
             Client client = new Client(name, number, address);
+            mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
             Order order = new Order(client, date, time, 1000, ship, paid, mOrderListDish);
             order.setId(id);
             orderViewModel.update(order);

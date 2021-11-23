@@ -14,11 +14,10 @@
             android:id="@+id/upcoming_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="10dp"
+            android:layout_marginBottom="60dp"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginBottom="60dp">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"></androidx.recyclerview.widget.RecyclerView>
 
         <RelativeLayout
             android:layout_width="match_parent"

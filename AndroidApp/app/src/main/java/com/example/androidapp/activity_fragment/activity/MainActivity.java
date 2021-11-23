@@ -104,14 +104,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         int ret = dateTimeComparator.compare(orderDate, today);
                         if (ret < 0) {
                             //if shipped
-                            if (order.getShip()) {
+                            if (!order.getShip()) {
                                 //if paid then move only to history success order
                                 if (order.getPaid()) {
                                     //
                                 } else { // move to history success and unpaid order.
                                     Client client = new Client(order.getClient().getClientName(), order.getClient().getPhoneNumber(),
                                             order.getClient().getAddress());
-                                    UnpaidOrder unpaidOrder = new UnpaidOrder(client, order.getDate(), order.getTime(), order.getPrice(), false);
+                                    UnpaidOrder unpaidOrder = new UnpaidOrder(client, order.getDate(), order.getTime(), order.getPrice(), false, order.getOrderListDish());
                                     unpaidOrderViewModel.insert(unpaidOrder);
                                 }
                             } else {
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Client client = new Client(upcomingOrder.getClient().getClientName(), upcomingOrder.getClient().getPhoneNumber(),
                                     upcomingOrder.getClient().getAddress());
                             Order order = new Order(client, upcomingOrder.getDate(), upcomingOrder.getTime(),
-                                    upcomingOrder.getPrice(), false, upcomingOrder.getPaid());
+                                    upcomingOrder.getPrice(), false, upcomingOrder.getPaid(), upcomingOrder.getOrderListDish());
                             //add upcomingOrder to today's Order
                             orderViewModel.insert(order);
                             //remove that upcomingOrder

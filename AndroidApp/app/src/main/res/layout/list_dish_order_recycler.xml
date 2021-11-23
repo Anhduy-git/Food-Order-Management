@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_reveal_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:mode="same_level"
+    app:dragEdge="right">
+
+    <!--    Secondary layout-->
+    <LinearLayout
+        android:id="@+id/menu_item_del"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_delete_swipe_btn"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
+            <View
+                android:layout_width="23dp"
+                android:layout_height="26dp"
+                android:background="@drawable/trash_ic"></View>
+        </LinearLayout>
+    </LinearLayout>
+    <!--    Main layout-->
+    <!--    Main layout-->
+    <RelativeLayout
+        android:id="@+id/menu_item"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/list_item"
+            android:orientation="horizontal"
+            tools:ignore="ExtraText">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/menu_pic"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="9dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ava_menu_default" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="9dp"
+                android:layout_toRightOf="@+id/menu_pic"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dish_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Com chien duong chau"
+                    android:textColor="@color/main_white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/dish_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="49.000 VND"
+                    android:textColor="@color/main_white"
+                    android:textSize="16sp"></TextView>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/num_dish_box"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_marginRight="10dp">
+
+                <TextView
+                    android:id="@+id/order_info_num_dish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="2"
+                    android:textColor="@color/main_white"
+                    android:textSize="22sp"></TextView>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</com.chauthai.swipereveallayout.SwipeRevealLayout>
+
