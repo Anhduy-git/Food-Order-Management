@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         int ret = dateTimeComparator.compare(orderDate, today);
                         if (ret < 0) {
                             //if shipped
-                            if (!order.getShip()) {
+                            if (order.getShip()) {
                                 //if paid then move only to history success order
                                 if (order.getPaid()) {
                                     //
