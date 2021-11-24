@@ -69,7 +69,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
         }
         //display list dish
-        dishOrderAdapter.submitList(mListDish);
+        dishOrderAdapter.setDish(mListDish);
 
         //Convert to String
         String strOrderName = tvOrderName.getText().toString().trim();

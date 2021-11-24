@@ -135,9 +135,8 @@ public class NewOrderActivity extends AppCompatActivity {
     private void initRecyclerView() {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
-
-        rcvData.setAdapter(dishOrderAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
+        rcvData.setAdapter(dishOrderAdapter);
     }
 
     private void setupDateTimePicker() {
@@ -250,10 +249,11 @@ public class NewOrderActivity extends AppCompatActivity {
         else if (requestCode == CHOOSE_DISH_REQUEST && resultCode == RESULT_OK) {
             Dish dish = data.getParcelableExtra(SubMenuActivity.EXTRA_DISH);
             mListDish.add(dish);
-
+            for (int i = 1; i <= mListDish.size(); i++) {
+                mListDish.get(i - 1).setDishID(i);
+            }
             //Display the chosen dish to the current order
             dishOrderAdapter.setDish(mListDish);
-            dishOrderAdapter.submitList(mListDish);
         }
     }
 }

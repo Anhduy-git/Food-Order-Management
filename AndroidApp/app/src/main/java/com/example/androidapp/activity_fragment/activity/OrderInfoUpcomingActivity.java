@@ -71,7 +71,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
         }
         //display list dish
-        dishOrderAdapter.submitList(mListDish);
+        dishOrderAdapter.setDish(mListDish);
 
         //Check if Paid for checkbox:
         if (paid){

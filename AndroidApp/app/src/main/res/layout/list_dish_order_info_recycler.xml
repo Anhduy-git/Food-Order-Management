@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/list_item"
+        android:orientation="horizontal"
+        tools:ignore="ExtraText">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+
+            android:id="@+id/menu_pic"
+
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ava_menu_default" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+
+
+            android:layout_toRightOf="@+id/menu_pic"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dish_name"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Com chien duong chau"
+                android:textColor="@color/main_white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"></TextView>
+
+            <TextView
+
+                android:id="@+id/dish_price"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="49.000 VND"
+                android:textColor="@color/main_white"
+                android:textSize="17sp"
+                android:layout_gravity="center_vertical"></TextView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/num_dish_box"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/order_info_num_dish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="2"
+                android:textColor="@color/main_white"
+                android:textSize="22sp"></TextView>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
