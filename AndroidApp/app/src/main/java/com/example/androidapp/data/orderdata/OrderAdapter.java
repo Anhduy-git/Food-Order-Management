@@ -144,6 +144,7 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
                     }
                 }
             });
+
             //Set delete when click layout del
             layoutDel.setOnClickListener(new View.OnClickListener() {
                 @Override

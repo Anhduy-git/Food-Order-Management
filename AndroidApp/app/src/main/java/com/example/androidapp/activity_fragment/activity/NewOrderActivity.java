@@ -194,7 +194,7 @@ public class NewOrderActivity extends AppCompatActivity {
 
         //Only compare the date
         DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
+        Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strOrderName) || TextUtils.isEmpty(strOrderAddress)

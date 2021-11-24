@@ -153,7 +153,7 @@ public class OrderTodayFragment extends Fragment {
             paid = false;
             //Only compare the date
             DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
-            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
+            Calendar calendar = Calendar.getInstance();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             //Get the current date
             Date today  = calendar.getTime();

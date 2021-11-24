@@ -29,12 +29,14 @@
 
     <!-- Your main layout here -->
     <RelativeLayout
-        android:id="@+id/order_item"
-        android:clickable="true"
+
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/order_item"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="77dp"
             android:layout_marginTop="4dp"
