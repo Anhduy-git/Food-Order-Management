@@ -21,14 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Adapter for RecyclerView
-public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.DishViewHolder>{
+public class DishOrderInfoAdapter extends RecyclerView.Adapter<DishOrderInfoAdapter.DishViewHolder>{
     private List<Dish> mListDish;
-    private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
-    public DishOrderAdapter(List<Dish> mListDish) {
+    public DishOrderInfoAdapter(List<Dish> mListDish) {
         this.mListDish = mListDish;
-        //Open 1 card only when delete
-        viewBinderHelper.setOpenOnlyOne(true);
     }
 
     public void setDish(List<Dish> mListDish) {
@@ -51,7 +48,7 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
     @Override
     public DishViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_dish_order_recycler, parent, false);
+                .inflate(R.layout.list_dish_order_info_recycler, parent, false);
 
         return new DishViewHolder(view);
     }
@@ -62,21 +59,10 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
         if (dish == null) {
             return;
         }
-        //Provide id object
-        viewBinderHelper.bind(holder.swipeRevealLayout, Integer.toString(dish.getDishID()));
-
 
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
 
-        holder.layoutDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListDish.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
-                Log.d("test", "removed");
-            }
-        });
     }
 
 
@@ -86,16 +72,13 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
 
         private TextView tvDishName;
         private TextView tvDishPrice;
-        private SwipeRevealLayout swipeRevealLayout;
-        private LinearLayout layoutDel;
+
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvDishName = itemView.findViewById(R.id.dish_name);
             tvDishPrice = itemView.findViewById(R.id.dish_price);
-            swipeRevealLayout = itemView.findViewById(R.id.swipe_reveal_layout);
-            layoutDel = itemView.findViewById(R.id.menu_item_del);
         }
     }
 

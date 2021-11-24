@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.androidapp.R;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderAdapter;
+import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
     private boolean paid;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
-    final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
+    final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
         }
         //display list dish
-        dishOrderAdapter.submitList(mListDish);
+        dishOrderInfoAdapter.setDish(mListDish);
 
         //Check if Paid for checkbox:
         if (paid){
@@ -138,7 +139,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
 
-        rcvData.setAdapter(dishOrderAdapter);
+        rcvData.setAdapter(dishOrderInfoAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
 

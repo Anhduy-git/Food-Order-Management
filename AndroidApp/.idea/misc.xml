@@ -61,6 +61,7 @@
         <entry key="app/src/main/res/layout/fragment_unpaid_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_upcoming_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/header_nav.xml" value="0.35185185185185186" />
+        <entry key="app/src/main/res/layout/list_dish_order_info_recycler.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/list_dish_order_recycler.xml" value="0.5" />
         <entry key="app/src/main/res/layout/list_dish_recycler.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/menu_layout_recycler.xml" value="0.35185185185185186" />
