@@ -330,7 +330,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         createNotificationChannel();
         //set time daily for notification
         calendarNotification = Calendar.getInstance();
-        calendarNotification.set(Calendar.HOUR_OF_DAY, 19);
+        calendarNotification.set(Calendar.HOUR_OF_DAY, 20);
+   
         calendarNotification.set(Calendar.MINUTE, 0);
         calendarNotification.set(Calendar.SECOND, 0);
 
