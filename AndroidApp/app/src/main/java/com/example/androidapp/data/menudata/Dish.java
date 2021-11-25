@@ -20,6 +20,7 @@ public class Dish implements Parcelable {
     public Dish(String name, int price) {
         this.name = name;
         this.price = price;
+        this.quantity = 0;
     }
 
     protected Dish(Parcel in) {

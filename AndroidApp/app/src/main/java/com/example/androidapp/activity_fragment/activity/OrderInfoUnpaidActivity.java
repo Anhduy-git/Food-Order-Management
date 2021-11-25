@@ -38,6 +38,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
 
 
     private TextView tvOrderName;
+    private TextView tvOrderPrice;
     private TextView tvOrderAddress;
     private TextView tvOrderNumber;
     private TextView tvOrderTime;
@@ -105,13 +106,11 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
     }
-
 
     private void initUi () {
         tvOrderName = findViewById(R.id.order_name);
+        tvOrderPrice = findViewById(R.id.unpaid_order_total_price);
         tvOrderAddress = findViewById(R.id.order_address);
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);

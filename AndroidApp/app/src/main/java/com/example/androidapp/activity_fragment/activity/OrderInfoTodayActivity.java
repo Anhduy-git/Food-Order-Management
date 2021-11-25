@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,9 +26,10 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
 
     public static final String EXTRA_ORDER_ID =
             "com.example.androidapp.EXTRA_ORDER_ID";
-
     public static final String EXTRA_ORDER_NAME =
             "com.example.androidapp.EXTRA_ORDER_NAME";
+    public static final String EXTRA_ORDER_PRICE =
+            "com.example.androidapp.EXTRA_ORDER_PRICE";
     public static final String EXTRA_ORDER_ADDRESS =
             "com.example.androidapp.EXTRA_ORDER_ADDRESS";
     public static final String EXTRA_ORDER_NUMBER =
@@ -44,6 +46,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
 
     private TextView tvOrderName;
+    private TextView tvOrderPrice;
     private TextView tvOrderAddress;
     private TextView tvOrderNumber;
     private TextView tvOrderTime;
@@ -71,6 +74,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
+            int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
+            tvOrderPrice.setText(String.valueOf(price));
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
@@ -97,6 +102,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         String strOrderNumber = tvOrderNumber.getText().toString().trim();
         String strOrderDate = tvOrderDate.getText().toString().trim();
         String strOrderTime = tvOrderTime.getText().toString().trim();
+        int orderPrice = Integer.valueOf(tvOrderPrice.getText().toString().trim());
 
         //Checkbox to confirm paid
         checkPaid.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +113,6 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
 
                 } else {
                     paid = false;
-
                 }
             }
         });
@@ -120,6 +125,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_CHECK_SHIP, ship);
                 data.putExtra(EXTRA_CHECK_PAID, paid);
                 data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+                data.putExtra(EXTRA_ORDER_PRICE, orderPrice);
                 data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
                 data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
@@ -141,6 +147,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_CHECK_PAID, paid);
                 data.putExtra(EXTRA_CHECK_SHIP, ship);
                 data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+                data.putExtra(EXTRA_ORDER_PRICE, orderPrice);
                 data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
                 data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
@@ -154,13 +161,11 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
-
 
     private void initUi () {
         tvOrderName = findViewById(R.id.order_name);
+        tvOrderPrice = findViewById(R.id.order_info_total_price);
         tvOrderAddress = findViewById(R.id.order_address);
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);
@@ -168,8 +173,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         checkPaid = findViewById(R.id.order_paid_checkbox);
         btnShip = findViewById(R.id.order_ship_btn);
-
     }
+
     private void initRecyclerView() {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
@@ -177,5 +182,4 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         rcvData.setAdapter(dishOrderAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
-
 }

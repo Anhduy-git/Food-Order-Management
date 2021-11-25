@@ -25,6 +25,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_ID";
     public static final String EXTRA_ORDER_NAME =
             "com.example.androidapp.EXTRA_ORDER_NAME";
+    public static final String EXTRA_ORDER_PRICE =
+            "com.example.androidapp.EXTRA_ORDER_PRICE";
     public static final String EXTRA_ORDER_ADDRESS =
             "com.example.androidapp.EXTRA_ORDER_ADDRESS";
     public static final String EXTRA_ORDER_NUMBER =
@@ -39,6 +41,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
 
     private TextView tvOrderName;
+    private TextView tvOrderPrice;
     private TextView tvOrderAddress;
     private TextView tvOrderNumber;
     private TextView tvOrderTime;
@@ -63,6 +66,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
+            int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
+            tvOrderPrice.setText(String.valueOf(price));
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
@@ -119,13 +124,11 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
-
 
     private void initUi () {
         tvOrderName = findViewById(R.id.order_name);
+        tvOrderPrice = findViewById(R.id.upcoming_order_total_price);
         tvOrderAddress = findViewById(R.id.order_address);
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);

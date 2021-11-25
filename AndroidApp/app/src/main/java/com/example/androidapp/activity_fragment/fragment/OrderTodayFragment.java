@@ -63,7 +63,6 @@ public class OrderTodayFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_order_today,
                 container, false);
 
-
         RecyclerView rcvData = (RecyclerView) view.findViewById(R.id.order_today_recycler);;
         //rcvData.setHasFixedSize(true);
         rcvData.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -108,6 +107,7 @@ public class OrderTodayFragment extends Fragment {
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_NUMBER, order.getClient().getPhoneNumber());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, order.getPaid());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, order.getShip());
+                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_PRICE, order.getPrice());
                 intent.putParcelableArrayListExtra(OrderInfoTodayActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) order.getOrderListDish());
                 startActivityForResult(intent, CONFIRM_ORDER_REQUEST);
             }
@@ -147,6 +147,7 @@ public class OrderTodayFragment extends Fragment {
             String date = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_DATE);
             Client client = new Client(name, number, address);
             mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
+            int price = calculateOrderPrice(mOrderListDish);
 
             //Reset ship and paid immediately after add new order.
             ship = false;
@@ -161,18 +162,16 @@ public class OrderTodayFragment extends Fragment {
                 Date orderDate = simpleDateFormat.parse(date);
                 int ret = dateTimeComparator.compare(orderDate, today);
                 if (ret > 0){
-                    //Move order to upcomming order if order's day > today.
-                    UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid, mOrderListDish);
+                    //Move order to upcoming order if order's day > today.
+                    UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, price, paid, mOrderListDish);
                     upcomingOrderViewModel.insert(upcomingOrder);
                 } else { //else add to new order's today
-                    Order order = new Order(client, date, time, 1000, ship, paid, mOrderListDish);
+                    Order order = new Order(client, date, time, price, ship, paid, mOrderListDish);
                     orderViewModel.insert(order);
                 }
-
             } catch (ParseException ex) {
                 Toast.makeText(getActivity(), "Parse Exception", Toast.LENGTH_SHORT).show();
             }
-
 
             //Update order (paid, ship)
         } else if (requestCode == CONFIRM_ORDER_REQUEST && resultCode == RESULT_OK) {
@@ -189,13 +188,25 @@ public class OrderTodayFragment extends Fragment {
                 return;
             }
             Client client = new Client(name, number, address);
+
             mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
-            Order order = new Order(client, date, time, 1000, ship, paid, mOrderListDish);
+            int price = calculateOrderPrice(mOrderListDish);
+
+            Order order = new Order(client, date, time, price, ship, paid, mOrderListDish);
             order.setId(id);
             orderViewModel.update(order);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         } else {
             //Do nothing
         }
+    }
+
+    int calculateOrderPrice(List<Dish> listDish){
+        int price = 0;
+        for (Dish dish : listDish) {
+            price += dish.getPrice() * dish.getQuantity();
+        }
+
+        return price;
     }
 }

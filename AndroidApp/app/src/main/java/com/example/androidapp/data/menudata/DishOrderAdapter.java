@@ -80,6 +80,7 @@ public class DishOrderAdapter extends ListAdapter<Dish, DishOrderAdapter.DishVie
 
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
+        holder.tvDishQuantity.setText(String.valueOf(dish.getQuantity()));
     }
 
 
@@ -89,6 +90,7 @@ public class DishOrderAdapter extends ListAdapter<Dish, DishOrderAdapter.DishVie
 
         private TextView tvDishName;
         private TextView tvDishPrice;
+        private TextView tvDishQuantity;
         private SwipeRevealLayout swipeRevealLayout;
         private LinearLayout layoutDel;
         private RelativeLayout item;
@@ -98,6 +100,7 @@ public class DishOrderAdapter extends ListAdapter<Dish, DishOrderAdapter.DishVie
 
             tvDishName = itemView.findViewById(R.id.dish_name);
             tvDishPrice = itemView.findViewById(R.id.dish_price);
+            tvDishQuantity = itemView.findViewById(R.id.order_info_num_dish);
             swipeRevealLayout = itemView.findViewById(R.id.swipe_reveal_layout);
             layoutDel = itemView.findViewById(R.id.menu_item_del);
             //This is the main layout in order_item_recycler

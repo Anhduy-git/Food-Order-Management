@@ -29,6 +29,8 @@ public class SubMenuActivity extends AppCompatActivity {
 
     public static final String EXTRA_DISH =
             "com.example.androidapp.EXTRA_DISH";
+    public static final String EXTRA_DISH_QUANTITY =
+            "com.example.androidapp.EXTRA_DISH_QUANTITY";
 
     private int numberOfDish = 1;
     private boolean isChosen = false;
@@ -71,7 +73,6 @@ public class SubMenuActivity extends AppCompatActivity {
             }
         });
 
-
         //Create search bar listener for SEARCH METHOD
         edtSearchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -94,8 +95,6 @@ public class SubMenuActivity extends AppCompatActivity {
         dishAdapter.setOnItemClickListener(new DishAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Dish dish) {
-                //TODO: Highlight item
-
                 //Set the current dish choice to the dish that's been clicked
                 isChosen = true;
                 currentDishChoice = new Dish(dish.getName(), dish.getPrice());
@@ -161,6 +160,8 @@ public class SubMenuActivity extends AppCompatActivity {
 
         Intent data = new Intent();
         data.putExtra(EXTRA_DISH, currentDishChoice);
+        data.putExtra(EXTRA_DISH_QUANTITY, numberOfDish);
+        //data.putExtra(EXTRA_DISH_ID, currentDishChoice.getDishID());
 
         setResult(RESULT_OK, data);
         finish();

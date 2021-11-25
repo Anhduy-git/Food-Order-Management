@@ -85,7 +85,7 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
 
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
-    }
+}
 
 
     @Override
@@ -163,7 +163,6 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
                     if (delListener != null && pos != RecyclerView.NO_POSITION){
                         delListener.onItemClickDel(dish);
                     }
-
                 }
             });
         }
