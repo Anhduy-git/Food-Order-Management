@@ -82,13 +82,14 @@ public class UpcomingOrderFragment extends Fragment {
 //        }).attachToRecyclerView(rcvData);
 
 
-        //Sent data to Order Info when click order
+        //Send data to Order Info when click order
         upcomingOrderAdapter.setOnItemClickListener(new UpcomingOrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(UpcomingOrder upcomingOrder) {
                 Intent intent = new Intent(getActivity(), OrderInfoUpcomingActivity.class);
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_ID, upcomingOrder.getId());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NAME, upcomingOrder.getClient().getClientName());
+                intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_PRICE, upcomingOrder.getPrice());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_ADDRESS, upcomingOrder.getClient().getAddress());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_TIME, upcomingOrder.getTime());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_DATE, upcomingOrder.getDate());
@@ -135,10 +136,11 @@ public class UpcomingOrderFragment extends Fragment {
             String date = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_DATE);
             Client client = new Client(name, number, address);
             mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
+            int price = calculateOrderPrice(mOrderListDish);
             //Reset paid
             paid = false;
 
-            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid, mOrderListDish);
+            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, price, paid, mOrderListDish);
             upcomingOrderViewModel.insert(upcomingOrder);
 
         } else if (requestCode == CONFIRM_ORDER_REQUEST && resultCode == RESULT_OK) {
@@ -150,13 +152,14 @@ public class UpcomingOrderFragment extends Fragment {
             String date = data.getStringExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_DATE);
             Client client = new Client(name, number, address);
             mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
+            int price = calculateOrderPrice(mOrderListDish);
             paid = data.getBooleanExtra(OrderInfoUpcomingActivity.EXTRA_CHECK_PAID, paid);
             if (id == -1){
                 Toast.makeText(getActivity(), "Order can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, 1000, paid, mOrderListDish);
+            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, price, paid, mOrderListDish);
             upcomingOrder.setId(id);
             upcomingOrderViewModel.update(upcomingOrder);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
@@ -166,5 +169,13 @@ public class UpcomingOrderFragment extends Fragment {
             //Do nothing
 
         }
+    }
+    int calculateOrderPrice(List<Dish> listDish){
+        int price = 0;
+        for (Dish dish : listDish) {
+            price += dish.getPrice() * dish.getQuantity();
+        }
+
+        return price;
     }
 }

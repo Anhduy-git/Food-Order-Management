@@ -30,6 +30,8 @@ public class SubMenuActivity extends AppCompatActivity {
 
     public static final String EXTRA_DISH =
             "com.example.androidapp.EXTRA_DISH";
+    public static final String EXTRA_DISH_QUANTITY =
+            "com.example.androidapp.EXTRA_DISH_QUANTITY";
 
     private int numberOfDish = 1;
     private boolean isChosen = false;
@@ -161,7 +163,8 @@ public class SubMenuActivity extends AppCompatActivity {
 
         Intent data = new Intent();
         data.putExtra(EXTRA_DISH, currentDishChoice);
-
+        data.putExtra(EXTRA_DISH_QUANTITY, numberOfDish);
+        //data.putExtra(EXTRA_DISH_ID, currentDishChoice.getDishID());
         setResult(RESULT_OK, data);
         finish();
     }

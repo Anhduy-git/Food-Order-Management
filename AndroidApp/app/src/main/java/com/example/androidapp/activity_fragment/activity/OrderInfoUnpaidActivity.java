@@ -39,6 +39,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
 
 
     private TextView tvOrderName;
+    private TextView tvOrderPrice;
     private TextView tvOrderAddress;
     private TextView tvOrderNumber;
     private TextView tvOrderTime;
@@ -50,7 +51,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
     private boolean ship = true;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
-    final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
+    final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
         }
         //display list dish
-        dishOrderInfoAdapter.setDish(mListDish);
+        dishOrderAdapter.setDish(mListDish);
 
         //Convert to String
         String strOrderName = tvOrderName.getText().toString().trim();
@@ -112,6 +113,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
 
 
     private void initUi () {
+        tvOrderPrice = findViewById(R.id.unpaid_order_total_price);
         tvOrderName = findViewById(R.id.order_name);
         tvOrderAddress = findViewById(R.id.order_address);
         tvOrderDate = findViewById(R.id.order_day);
@@ -124,7 +126,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
 
-        rcvData.setAdapter(dishOrderInfoAdapter);
+        rcvData.setAdapter(dishOrderAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
 

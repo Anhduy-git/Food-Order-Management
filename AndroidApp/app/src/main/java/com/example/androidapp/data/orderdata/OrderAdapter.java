@@ -87,7 +87,7 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
         holder.tvOrderDate.setText(order.getDate());
         holder.tvOrderTime.setText(order.getTime());
         holder.tvOrderPrice.setText("1000");
-
+        holder.tvOrderPrice.setText(String.format("%,d", order.getPrice()) + " VND");
 
         if (order.getPaid() == true){
             holder.flagPaid.setVisibility(View.VISIBLE);

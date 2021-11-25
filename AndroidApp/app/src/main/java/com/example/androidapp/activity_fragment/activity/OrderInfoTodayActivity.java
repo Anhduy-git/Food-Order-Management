@@ -43,12 +43,15 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_CHECK_SHIP";
     public static final String EXTRA_ORDER_DISH_LIST =
             "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
+    public static final String EXTRA_ORDER_PRICE =
+            "com.example.androidapp.EXTRA_ORDER_PRICE";
 
     private TextView tvOrderName;
     private TextView tvOrderAddress;
     private TextView tvOrderNumber;
     private TextView tvOrderTime;
     private TextView tvOrderDate;
+    private TextView tvOrderPrice;
     private Button btnBack;
     private Button btnShip;
     private CheckBox checkPaid;
@@ -56,7 +59,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
     private boolean paid;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
-    final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
+    final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
+            int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
+            tvOrderPrice.setText(String.valueOf(price));
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
@@ -81,7 +86,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
         }
         //display list dish
-        dishOrderInfoAdapter.setDish(mListDish);
+        dishOrderAdapter.setDish(mListDish);
 
         //Check if Paid for checkbox:
         if (paid){
@@ -98,6 +103,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         String strOrderNumber = tvOrderNumber.getText().toString().trim();
         String strOrderDate = tvOrderDate.getText().toString().trim();
         String strOrderTime = tvOrderTime.getText().toString().trim();
+        int orderPrice = Integer.valueOf(tvOrderPrice.getText().toString().trim());
 
         //Checkbox to confirm paid
         checkPaid.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +127,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_CHECK_SHIP, ship);
                 data.putExtra(EXTRA_CHECK_PAID, paid);
                 data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+                data.putExtra(EXTRA_ORDER_PRICE, orderPrice);
                 data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
                 data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
@@ -161,6 +168,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
 
 
     private void initUi () {
+        tvOrderPrice = findViewById(R.id.order_info_total_price);
         tvOrderName = findViewById(R.id.order_name);
         tvOrderAddress = findViewById(R.id.order_address);
         tvOrderDate = findViewById(R.id.order_day);
@@ -175,7 +183,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
 
-        rcvData.setAdapter(dishOrderInfoAdapter);
+        rcvData.setAdapter(dishOrderAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
 

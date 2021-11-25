@@ -83,7 +83,7 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
         holder.tvOrderName.setText(upcomingOrder.getClient().getClientName());
         holder.tvOrderDate.setText(upcomingOrder.getDate());
         holder.tvOrderTime.setText(upcomingOrder.getTime());
-        holder.tvOrderPrice.setText("1000");
+        holder.tvOrderPrice.setText(String.format("%,d", upcomingOrder.getPrice()) + " VND");
 
         if (upcomingOrder.getPaid() == true){
             holder.flagPaid.setVisibility(View.VISIBLE);

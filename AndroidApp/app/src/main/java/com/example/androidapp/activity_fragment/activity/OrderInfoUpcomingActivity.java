@@ -38,8 +38,11 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_CHECK_PAID";
     public static final String EXTRA_ORDER_DISH_LIST =
             "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
+    public static final String EXTRA_ORDER_PRICE =
+            "com.example.androidapp.EXTRA_ORDER_PRICE";
 
     private TextView tvOrderName;
+    private TextView tvOrderPrice;
     private TextView tvOrderAddress;
     private TextView tvOrderNumber;
     private TextView tvOrderTime;
@@ -49,7 +52,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
     private boolean paid;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
-    final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
+    final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
+            int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
+            tvOrderPrice.setText(String.valueOf(price));
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
@@ -72,7 +77,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
         }
         //display list dish
-        dishOrderInfoAdapter.setDish(mListDish);
+        dishOrderAdapter.setDish(mListDish);
 
         //Check if Paid for checkbox:
         if (paid){
@@ -126,6 +131,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
 
 
     private void initUi () {
+        tvOrderPrice = findViewById(R.id.upcoming_order_total_price);
         tvOrderName = findViewById(R.id.order_name);
         tvOrderAddress = findViewById(R.id.order_address);
         tvOrderDate = findViewById(R.id.order_day);
@@ -139,7 +145,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
 
-        rcvData.setAdapter(dishOrderInfoAdapter);
+        rcvData.setAdapter(dishOrderAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
 
