@@ -68,7 +68,7 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
 
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
-
+        holder.tvDishQuantity.setText(String.valueOf(dish.getQuantity()));
         holder.layoutDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +87,7 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
         private TextView tvDishPrice;
         private SwipeRevealLayout swipeRevealLayout;
         private LinearLayout layoutDel;
+        private TextView tvDishQuantity;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -95,6 +96,7 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
             tvDishPrice = itemView.findViewById(R.id.dish_price);
             swipeRevealLayout = itemView.findViewById(R.id.swipe_reveal_layout);
             layoutDel = itemView.findViewById(R.id.menu_item_del);
+            tvDishQuantity = itemView.findViewById(R.id.order_info_num_dish);
         }
     }
 

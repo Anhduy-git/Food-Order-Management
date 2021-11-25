@@ -71,7 +71,7 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
         holder.tvOrderName.setText(unpaidOrder.getClient().getClientName());
         holder.tvOrderDate.setText(unpaidOrder.getDate());
         holder.tvOrderTime.setText(unpaidOrder.getTime());
-        holder.tvOrderPrice.setText("1000");
+        holder.tvOrderPrice.setText(String.format("%,d", unpaidOrder.getPrice()) + " VND");
 
     }
 

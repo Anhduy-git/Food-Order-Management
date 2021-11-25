@@ -87,7 +87,12 @@ public class NewOrderActivity extends AppCompatActivity {
         btnAddOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addOrder();
+                if (! mListDish.isEmpty()) {
+                    addOrder();
+                }
+                else {
+                    Toast.makeText(NewOrderActivity.this, "Please add a dish", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -248,6 +253,8 @@ public class NewOrderActivity extends AppCompatActivity {
         }
         else if (requestCode == CHOOSE_DISH_REQUEST && resultCode == RESULT_OK) {
             Dish dish = data.getParcelableExtra(SubMenuActivity.EXTRA_DISH);
+            int dishQuantity = data.getIntExtra(SubMenuActivity.EXTRA_DISH_QUANTITY, 0);
+            dish.setQuantity(dishQuantity);
             mListDish.add(dish);
             for (int i = 1; i <= mListDish.size(); i++) {
                 mListDish.get(i - 1).setDishID(i);
