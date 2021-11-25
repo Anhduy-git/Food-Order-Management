@@ -71,10 +71,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SimpleDateFormat simpleDateFormat;
     private DateTimeComparator dateTimeComparator;
     private Date today;
+
     private String tomorrow;
     private Calendar calendarNotification;
     private Calendar calendarToday;
     private Calendar calendarTomorrow;
+
     public static final String CHANNEL_ID = "CHANNEL 1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +110,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Get tomorrow's date
         calendarTomorrow = Calendar.getInstance();
         calendarTomorrow.add(Calendar.DAY_OF_YEAR, 1);
+
         tomorrow = simpleDateFormat.format(calendarTomorrow.getTime());
 
         //set notify
         updateNumTomorrowOrderAndNotify();
+
 
         //Update Upcoming Order to Order Today
         updateUpcomingOrder();
@@ -303,6 +307,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
     private void updateNumTomorrowOrderAndNotify() {
         upcomingOrderViewModel.getAllUpcomingOrder().observe(MainActivity.this, new Observer<List<UpcomingOrder>>() {
             @Override
@@ -326,7 +331,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Notification
         createNotificationChannel();
 
-
         //set time daily for notification
         calendarNotification = Calendar.getInstance();
         calendarNotification.set(Calendar.HOUR_OF_DAY, 9);
@@ -340,6 +344,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.putExtra("numOrderTomorrow", numTomorrowOrder);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //set notify daily
+   
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendarNotification.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
