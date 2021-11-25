@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //set notify
         updateNumTomorrowOrderAndNotify();
 
-
         //Update Upcoming Order to Order Today
         updateUpcomingOrder();
 
@@ -331,10 +330,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Notification
         createNotificationChannel();
 
+
+
         //set time daily for notification
         calendarNotification = Calendar.getInstance();
-        calendarNotification.set(Calendar.HOUR_OF_DAY, 9);
-        calendarNotification.set(Calendar.MINUTE, 31);
+        calendarNotification.set(Calendar.HOUR_OF_DAY, 20);
+        calendarNotification.set(Calendar.MINUTE, 0);
         calendarNotification.set(Calendar.SECOND, 0);
         //set notify only 1 time in day
         if (Calendar.getInstance().after(calendarNotification)) {
@@ -344,7 +345,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.putExtra("numOrderTomorrow", numTomorrowOrder);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //set notify daily
-   
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendarNotification.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
