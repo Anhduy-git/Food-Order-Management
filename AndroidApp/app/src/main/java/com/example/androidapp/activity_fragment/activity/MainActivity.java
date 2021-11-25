@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 
@@ -19,7 +18,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -37,6 +35,7 @@ import com.example.androidapp.data.unpaiddata.UnpaidOrder;
 import com.example.androidapp.data.unpaiddata.UnpaidOrderViewModel;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrder;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrderViewModel;
+import com.example.androidapp.supportclass.NotificationReceiver;
 import com.google.android.material.navigation.NavigationView;
 
 

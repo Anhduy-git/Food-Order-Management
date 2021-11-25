@@ -74,7 +74,6 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
             public void onClick(View v) {
                 mListDish.remove(holder.getAdapterPosition());
                 notifyItemRemoved(holder.getAdapterPosition());
-                Log.d("test", "removed");
             }
         });
     }

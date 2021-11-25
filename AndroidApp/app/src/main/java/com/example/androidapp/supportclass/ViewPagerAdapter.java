@@ -1,4 +1,4 @@
-package com.example.androidapp.activity_fragment.fragment;
+package com.example.androidapp.supportclass;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

@@ -19,7 +19,8 @@ import android.widget.Toast;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.menudata.DishAdapter;
+import com.example.androidapp.data.menudata.DishSelectAdapter;
+import com.example.androidapp.data.menudata.DishSelectAdapter;
 import com.example.androidapp.data.menudata.DishViewModel;
 
 import java.util.ArrayList;
@@ -57,8 +58,8 @@ public class SubMenuActivity extends AppCompatActivity {
         rcvData.setLayoutManager(new LinearLayoutManager(this));
 
         //Create DISH ADAPTER
-        final DishAdapter dishAdapter = new DishAdapter(mListDish);
-        rcvData.setAdapter(dishAdapter);
+        final DishSelectAdapter dishSelectAdapter = new DishSelectAdapter(mListDish);
+        rcvData.setAdapter(dishSelectAdapter);
 
         //Create DISH VIEW MODEL
         dishViewModel = new ViewModelProvider(this).get(DishViewModel.class);
@@ -66,8 +67,7 @@ public class SubMenuActivity extends AppCompatActivity {
             @Override
             //Method DISPLAY the list on screen
             public void onChanged(List<Dish> dishes) {
-                dishAdapter.setDish(dishes);
-                dishAdapter.submitList(dishes);
+                dishSelectAdapter.setDish(dishes);
             }
         });
 
@@ -86,16 +86,16 @@ public class SubMenuActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                dishAdapter.getFilter().filter(s.toString());
+                dishSelectAdapter.getFilter().filter(s.toString());
             }
         });
 
         //Highlight an item on click
-        dishAdapter.setOnItemClickListener(new DishAdapter.OnItemClickListener() {
+        dishSelectAdapter.setOnItemClickListener(new DishSelectAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Dish dish) {
                 //TODO: Highlight item
-
+                Log.d("test","clicked");
                 //Set the current dish choice to the dish that's been clicked
                 isChosen = true;
                 currentDishChoice = new Dish(dish.getName(), dish.getPrice());
