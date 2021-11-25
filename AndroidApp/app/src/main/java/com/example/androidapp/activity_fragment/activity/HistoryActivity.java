@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.androidapp.R;
-import com.example.androidapp.activity_fragment.fragment.ViewPagerAdapter;
+import com.example.androidapp.supportclass.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

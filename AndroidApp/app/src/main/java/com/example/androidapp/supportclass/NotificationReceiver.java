@@ -1,4 +1,4 @@
-package com.example.androidapp.activity_fragment.activity;
+package com.example.androidapp.supportclass;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,6 +16,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.androidapp.R;
+import com.example.androidapp.activity_fragment.activity.MainActivity;
 
 
 public class NotificationReceiver extends BroadcastReceiver {
