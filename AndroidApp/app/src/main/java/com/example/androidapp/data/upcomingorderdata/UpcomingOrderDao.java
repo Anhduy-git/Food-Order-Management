@@ -22,4 +22,8 @@ public interface UpcomingOrderDao {
 
     @Query("SELECT * FROM upcoming_order_table ORDER BY date ASC")
     LiveData<List<UpcomingOrder>> getAllUpcomingOrder();
+
+    @Query("SELECT * FROM upcoming_order_table WHERE date = :tomorrow")
+    List<UpcomingOrder> getNumOrderTomorrow(String tomorrow);
+
 }

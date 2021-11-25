@@ -19,6 +19,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -28,6 +29,7 @@ import com.example.androidapp.activity_fragment.fragment.MenuFragment;
 import com.example.androidapp.activity_fragment.fragment.OrderTodayFragment;
 import com.example.androidapp.activity_fragment.fragment.UnpaidOrderFragment;
 import com.example.androidapp.activity_fragment.fragment.UpcomingOrderFragment;
+import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderViewModel;
@@ -69,11 +71,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SimpleDateFormat simpleDateFormat;
     private DateTimeComparator dateTimeComparator;
     private Date today;
-    private Date tomorrow;
+    private String tomorrow;
     private Calendar calendarNotification;
     private Calendar calendarToday;
     private Calendar calendarTomorrow;
-    private int numTomorrowOrder;
     public static final String CHANNEL_ID = "CHANNEL 1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,10 +108,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Get tomorrow's date
         calendarTomorrow = Calendar.getInstance();
         calendarTomorrow.add(Calendar.DAY_OF_YEAR, 1);
-        tomorrow = calendarTomorrow.getTime();
+        tomorrow = simpleDateFormat.format(calendarTomorrow.getTime());
 
-        //Update the number of tomorrow order and notify
-        getNumTomorrowOrderAndNotify();
+        //set notify
+        updateNumTomorrowOrderAndNotify();
 
         //Update Upcoming Order to Order Today
         updateUpcomingOrder();
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    //test
+
 //    @Override
 //    public void onStart(){
 //        super.onStart();
@@ -140,7 +141,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    @Override
 //    public void onResume(){
 //        super.onResume();
-//        Log.d("test", "onResume");
+//
+//        Log.d("test", "On resume");
 //    }
 //    @Override
 //    public void onStop(){
@@ -301,43 +303,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-    private void getNumTomorrowOrderAndNotify() {
+    private void updateNumTomorrowOrderAndNotify() {
         upcomingOrderViewModel.getAllUpcomingOrder().observe(MainActivity.this, new Observer<List<UpcomingOrder>>() {
             @Override
             public void onChanged(List<UpcomingOrder> upcomingOrders) {
-                numTomorrowOrder = 0;
-                for (UpcomingOrder upcomingOrder : upcomingOrders) {
-                    //Get the day of upcomingOrder
-                    try {
-                        Date upcomingOrderDate = simpleDateFormat.parse(upcomingOrder.getDate());
-                        //Check if the upcomingOrderDay is today
-                        int ret = dateTimeComparator.compare(upcomingOrderDate, tomorrow);
-                        if (ret == 0) {
-                            numTomorrowOrder += 1;
-
-                        }
-
-                    } catch (ParseException ex) {
-
-                    }
+                //get the number of tomorrow order and notify
+                int numTomorrowOrder = getNumTomorrowOrder();
+                //Notify
+                if (numTomorrowOrder > 0) {
+                    setNotification(numTomorrowOrder);
                 }
-                setNotification();
             }
         });
+
     }
-    private void setNotification() {
+    private int getNumTomorrowOrder() {
+
+        List<UpcomingOrder> list = AppDatabase.getInstance(this).upcomingOrderDao().getNumOrderTomorrow(tomorrow);
+        return list.size();
+    }
+    private void setNotification(int numTomorrowOrder) {
         //Notification
         createNotificationChannel();
+
+
         //set time daily for notification
         calendarNotification = Calendar.getInstance();
-        calendarNotification.set(Calendar.HOUR_OF_DAY, 20);
-        calendarNotification.set(Calendar.MINUTE, 0);
+        calendarNotification.set(Calendar.HOUR_OF_DAY, 9);
+        calendarNotification.set(Calendar.MINUTE, 31);
         calendarNotification.set(Calendar.SECOND, 0);
-
+        //set notify only 1 time in day
+        if (Calendar.getInstance().after(calendarNotification)) {
+            calendarNotification.add(Calendar.DAY_OF_MONTH, 1);
+        }
         Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
-
         intent.putExtra("numOrderTomorrow", numTomorrowOrder);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //set notify daily
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendarNotification.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
