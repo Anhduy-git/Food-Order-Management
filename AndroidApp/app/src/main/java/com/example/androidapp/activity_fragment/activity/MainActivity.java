@@ -71,10 +71,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SimpleDateFormat simpleDateFormat;
     private DateTimeComparator dateTimeComparator;
     private Date today;
+
     private String tomorrow;
     private Calendar calendarNotification;
     private Calendar calendarToday;
     private Calendar calendarTomorrow;
+
     public static final String CHANNEL_ID = "CHANNEL 1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Get tomorrow's date
         calendarTomorrow = Calendar.getInstance();
         calendarTomorrow.add(Calendar.DAY_OF_YEAR, 1);
+
         tomorrow = simpleDateFormat.format(calendarTomorrow.getTime());
 
         //set notify
@@ -303,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
     private void updateNumTomorrowOrderAndNotify() {
         upcomingOrderViewModel.getAllUpcomingOrder().observe(MainActivity.this, new Observer<List<UpcomingOrder>>() {
             @Override
@@ -325,6 +329,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setNotification(int numTomorrowOrder) {
         //Notification
         createNotificationChannel();
+
 
 
         //set time daily for notification
