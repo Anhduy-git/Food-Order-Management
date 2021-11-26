@@ -27,7 +27,7 @@
             android:layout_height="90dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="70dp"
             android:background="@drawable/ball_detail"></View>
 
         <View
@@ -35,7 +35,7 @@
             android:layout_height="90dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="90dp"
+            android:layout_marginRight="140dp"
             android:background="@drawable/ball_detail"></View>
     </RelativeLayout>
     <RelativeLayout
@@ -87,19 +87,19 @@
     <RelativeLayout
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:layout_height="185dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
         <View
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="185dp"
             android:background="@drawable/box_info"
             ></View>
 
         <io.alterac.blurkit.BlurLayout
             android:id="@+id/blur_layout"
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="185dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
@@ -132,40 +132,40 @@
                     android:id="@+id/add_order_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_input_transparent"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/borderbottom"
                     android:hint="enter client's name"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textColor="@color/main_white"
                     android:textColorHint="@color/color_hint"
-                    android:textSize="17sp"></EditText>
+                    android:textSize="18sp"></EditText>
 
                 <EditText
                     android:id="@+id/add_order_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_input_transparent"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/borderbottom"
                     android:hint="enter phone number"
                     android:inputType="number"
                     android:maxLines="1"
                     android:textColor="@color/main_white"
                     android:textColorHint="@color/color_hint"
-                    android:textSize="17sp"></EditText>
+                    android:textSize="18sp"></EditText>
 
                 <EditText
                     android:id="@+id/add_order_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_input_transparent"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/borderbottom"
                     android:hint="enter address"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textColor="@color/main_white"
                     android:textColorHint="@color/color_hint"
-                    android:textSize="17sp"></EditText>
+                    android:textSize="18sp"></EditText>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -243,7 +243,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="225dp"
+        android:layout_marginTop="235dp"
         android:paddingRight="20dp">
 
         <Button
@@ -263,6 +263,7 @@
         android:id="@+id/order_dish_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="270dp"
-        android:padding="10dp"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginTop="280dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"></androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

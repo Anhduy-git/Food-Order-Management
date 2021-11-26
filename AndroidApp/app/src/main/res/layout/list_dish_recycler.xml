@@ -33,21 +33,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <RelativeLayout
             android:id="@+id/menu_item"
-            android:clickable="true"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="77dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/list_item"
+            android:clickable="true"
             android:orientation="horizontal"
             tools:ignore="ExtraText">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/menu_pic"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="9dp"
                 android:scaleType="centerCrop"
@@ -68,7 +69,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="Com chien duong chau"
                     android:textColor="@color/main_white"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
                 <TextView
@@ -78,7 +79,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="49.000 VND"
                     android:textColor="@color/main_white"
-                    android:textSize="16sp"></TextView>
+                    android:textSize="18sp"></TextView>
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>

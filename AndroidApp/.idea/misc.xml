@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/drawable/bg_remove_ship_btn.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/bg_searching.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/bg_ship_btn.xml" value="0.375" />
+        <entry key="app/src/main/res/drawable/bg_splash.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/borderbottom.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/box_info.xml" value="0.28125" />
         <entry key="app/src/main/res/drawable/btn_add.xml" value="0.36923076923076925" />
@@ -42,29 +43,30 @@
         <entry key="app/src/main/res/layout/activity_menu.xml" value="0.3416666666666667" />
         <entry key="app/src/main/res/layout/activity_new_client.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_new_dish.xml" value="0.269140625" />
-        <entry key="app/src/main/res/layout/activity_new_order.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/layout/activity_new_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_order.xml" value="0.35185185185185186" />
-        <entry key="app/src/main/res/layout/activity_order_info_today.xml" value="0.1418884982420894" />
+        <entry key="app/src/main/res/layout/activity_order_info_today.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_order_info_upcoming.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_profile_client.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_sub_contact.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/activity_sub_menu.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/layout/bg_splash.xml" value="0.33" />
         <entry key="app/src/main/res/layout/client_item_recycler.xml" value="0.33" />
         <entry key="app/src/main/res/layout/client_layout_recycler.xml" value="0.3416666666666667" />
-        <entry key="app/src/main/res/layout/fragment_all_history.xml" value="0.14583333333333334" />
-        <entry key="app/src/main/res/layout/fragment_canceled_history.xml" value="0.14583333333333334" />
+        <entry key="app/src/main/res/layout/fragment_all_history.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_canceled_history.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_client.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_completed_history.xml" value="0.14583333333333334" />
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_menu.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_order_today.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_unpaid_order.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_unpaid_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_upcoming_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/header_nav.xml" value="0.35185185185185186" />
         <entry key="app/src/main/res/layout/list_dish_order_info_recycler.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/list_dish_order_recycler.xml" value="0.3333333333333333" />
-        <entry key="app/src/main/res/layout/list_dish_order_select_recycler.xml" value="0.3333333333333333" />
-        <entry key="app/src/main/res/layout/list_dish_recycler.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/layout/list_dish_order_select_recycler.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/list_dish_recycler.xml" value="0.33" />
         <entry key="app/src/main/res/layout/menu_layout_recycler.xml" value="0.35185185185185186" />
         <entry key="app/src/main/res/layout/menu_nav.xml" value="0.3416666666666667" />
         <entry key="app/src/main/res/layout/new_client.xml" value="0.269140625" />

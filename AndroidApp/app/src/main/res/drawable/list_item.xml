@@ -11,7 +11,7 @@
                 android:endColor = "#A12568"
                 android:type = "linear" />
             <corners
-                android:radius="30dp"></corners>
+                android:radius="50dp"></corners>
         </shape>
     </item>
 </ripple>
