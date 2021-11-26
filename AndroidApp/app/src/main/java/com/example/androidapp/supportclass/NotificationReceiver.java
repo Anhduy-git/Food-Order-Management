@@ -17,6 +17,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.androidapp.R;
 import com.example.androidapp.activity_fragment.activity.MainActivity;
+import com.example.androidapp.activity_fragment.activity.SplashActivity;
 
 
 public class NotificationReceiver extends BroadcastReceiver {
@@ -26,14 +27,15 @@ public class NotificationReceiver extends BroadcastReceiver {
         int numOrderTomorrow = intent.getIntExtra("numOrderTomorrow", -1);
         if(numOrderTomorrow > 0) {
 
-            Intent repeatIntent = new Intent(context, MainActivity.class);
+            Intent repeatIntent = new Intent(context, SplashActivity.class);
             //Open Upcoming fragment as default
             repeatIntent.putExtra("fragmentSelect", 1);
+            repeatIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             //Get logo
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.logo);
             //Get sound
             Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            repeatIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
 
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, repeatIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
