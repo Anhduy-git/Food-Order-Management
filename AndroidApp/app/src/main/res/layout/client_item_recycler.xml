@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:text="404/2 Le Hong Phong-Phuoc Long"
                     android:textColor="@color/main_white"
-                    android:textSize="15sp"></TextView>
+                    android:textSize="17sp"></TextView>
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>

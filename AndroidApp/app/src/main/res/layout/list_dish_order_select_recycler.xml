@@ -9,11 +9,13 @@
         android:clickable="true"
         android:id="@+id/menu_item"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="77dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/list_item"
         android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         tools:ignore="ExtraText">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -56,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="49.000 VND"
                 android:textColor="@color/main_white"
-                android:textSize="17sp"
+                android:textSize="18sp"
                 android:layout_gravity="center_vertical"></TextView>
         </LinearLayout>
     </RelativeLayout>

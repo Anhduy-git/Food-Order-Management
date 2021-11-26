@@ -215,13 +215,32 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="225dp"
+        android:paddingRight="20dp">
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_btn_modify"
+            android:text="New Dish"
+            android:textAllCaps="false"
+            android:textColor="@color/main_white"
+            android:textSize="18sp"></Button>
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/order_dish_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="225dp"
+        android:layout_marginTop="270dp"
         android:layout_marginBottom="60dp"
-        android:padding="10dp"></androidx.recyclerview.widget.RecyclerView>
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"></androidx.recyclerview.widget.RecyclerView>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -248,17 +267,17 @@
                 android:layout_height="40dp"
                 android:background="@drawable/bg_checkbox"
                 android:gravity="center">
-<!--                <ImageView-->
-<!--                    android:id="@+id/confirm_ship_btn"-->
-<!--                    android:layout_width="30dp"-->
-<!--                    android:layout_height="30dp"-->
-<!--                    android:background="@drawable/check_icon"></ImageView>-->
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/confirm_ship_btn"-->
+                <!--                    android:layout_width="30dp"-->
+                <!--                    android:layout_height="30dp"-->
+                <!--                    android:background="@drawable/check_icon"></ImageView>-->
 
                 <CheckBox
                     android:id="@+id/order_paid_checkbox"
-                    android:button="@drawable/confirm_check_box"
                     android:layout_width="40dp"
-                    android:layout_height="40dp" />
+                    android:layout_height="40dp"
+                    android:button="@drawable/confirm_check_box" />
             </LinearLayout>
 
         </LinearLayout>
