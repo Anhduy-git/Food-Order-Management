@@ -1,14 +1,11 @@
 package com.example.androidapp.activity_fragment.activity.historyactivity;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,21 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUnpaidActivity;
-import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.historydata.HistoryOrder;
 import com.example.androidapp.data.historydata.HistoryOrderAdapter;
 import com.example.androidapp.data.historydata.HistoryOrderViewModel;
 import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.unpaiddata.UnpaidOrder;
-import com.example.androidapp.data.unpaiddata.UnpaidOrderAdapter;
-import com.example.androidapp.data.unpaiddata.UnpaidOrderViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HisAllFragment extends Fragment {
+public class HisCanceledFragment extends Fragment {
     public static final int VIEW_HISTORY_ORDER_REQUEST = 1;
     private HistoryOrderViewModel historyOrderViewModel;
     public static List<Dish> mOrderListDish = new ArrayList<>();
@@ -41,18 +33,18 @@ public class HisAllFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //Button to launch Add New Order Activity
-        View view = inflater.inflate(R.layout.fragment_all_history,
+        View view = inflater.inflate(R.layout.fragment_canceled_history,
                 container, false);
 
 
-        RecyclerView rcvData = (RecyclerView) view.findViewById(R.id.his_all_recycler);;
+        RecyclerView rcvData = (RecyclerView) view.findViewById(R.id.his_canceled_recycler);;
         //rcvData.setHasFixedSize(true);
         rcvData.setLayoutManager(new LinearLayoutManager(view.getContext()));
         final HistoryOrderAdapter historyOrderAdapter = new HistoryOrderAdapter();
         rcvData.setAdapter(historyOrderAdapter);
 
         historyOrderViewModel = new ViewModelProvider(this).get(HistoryOrderViewModel.class);
-        historyOrderViewModel.getAllHistoryOrder().observe(getActivity(), new Observer<List<HistoryOrder>>() {
+        historyOrderViewModel.getAllHistoryCancelOrder().observe(getActivity(), new Observer<List<HistoryOrder>>() {
             @Override
             public void onChanged(List<HistoryOrder> historyOrders) {
                 //Update Recycle View
@@ -78,31 +70,4 @@ public class HisAllFragment extends Fragment {
         });
         return view;
     }
-    //Get data return from Intent to update order
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == VIEW_HISTORY_ORDER_REQUEST && resultCode == RESULT_OK) {
-//            int id = data.getIntExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ID, -1);
-//            String name = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NAME);
-//            String address = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ADDRESS);
-//            String number = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER);
-//            String time = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME);
-//            String date = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE);
-//
-//            if (id == -1){
-//                Toast.makeText(getActivity(), "Unpaid Order can't be updated", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//            Client client = new Client(name, number, address);
-//            mOrderListDish = data.getParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST);
-//            UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, 1000, paid, mOrderListDish);
-//            unpaidOrder.setId(id);
-//            unpaidOrderViewModel.delete(unpaidOrder);
-//            Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
-
 }

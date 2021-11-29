@@ -23,7 +23,7 @@ import com.example.androidapp.data.orderdata.OrderAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrderAdapter.UpcommingOrderViewHolder>{
+public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrderAdapter.UpcomingOrderViewHolder>{
 
     private List<UpcomingOrder> mListUpcomingOrder = new ArrayList<>();
     private OnItemClickListener listener;
@@ -56,22 +56,22 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
         }
     };
 
-    public void setUpcommingOrder(List<UpcomingOrder> mListUpcomingOrder) {
+    public void setUpcomingOrder(List<UpcomingOrder> mListUpcomingOrder) {
         this.mListUpcomingOrder = mListUpcomingOrder;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public UpcommingOrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UpcomingOrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.order_item_recycler, parent, false);
 
-        return new UpcommingOrderViewHolder(view);
+        return new UpcomingOrderViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UpcommingOrderViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull UpcomingOrderViewHolder holder, int position){
         UpcomingOrder upcomingOrder = getItem(position);
         if (upcomingOrder == null) {
             return;
@@ -94,11 +94,11 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
     }
 
 
-    public UpcomingOrder getUpcommingOrderAt(int pos){
+    public UpcomingOrder getUpcomingOrderAt(int pos){
         return getItem(pos);
     }
 
-    public class UpcommingOrderViewHolder extends RecyclerView.ViewHolder {
+    public class UpcomingOrderViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvOrderName;
         private TextView tvOrderDate;
@@ -109,7 +109,7 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
         private SwipeRevealLayout swipeRevealLayout;
         private LinearLayout layoutDel;
 
-        public UpcommingOrderViewHolder(@NonNull View itemView) {
+        public UpcomingOrderViewHolder(@NonNull View itemView) {
             super(itemView);
 
             swipeRevealLayout = itemView.findViewById(R.id.swipe_reveal_layout);
@@ -139,7 +139,7 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
                     //Get pos
                     int pos = getAdapterPosition();
                     //Get del order
-                    UpcomingOrder upcomingOrder = getUpcommingOrderAt(pos);
+                    UpcomingOrder upcomingOrder = getUpcomingOrderAt(pos);
                     if (delListener != null && pos != RecyclerView.NO_POSITION){
                         delListener.onItemClickDel(upcomingOrder);
                     }

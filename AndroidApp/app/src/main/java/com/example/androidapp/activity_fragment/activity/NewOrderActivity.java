@@ -48,10 +48,6 @@ public class NewOrderActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_DATE";
     public static final String EXTRA_ORDER_TIME =
             "com.example.androidapp.EXTRA_ORDER_TIME";
-    public static final String EXTRA_CHECK_PAID =
-            "com.example.androidapp.EXTRA_CHECK_PAID";
-    public static final String EXTRA_CHECK_SHIP =
-            "com.example.androidapp.EXTRA_CHECK_SHIP";
     public static final String EXTRA_ORDER_DISH_LIST =
             "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
 
@@ -157,6 +153,18 @@ public class NewOrderActivity extends AppCompatActivity {
                 showTimeDialog(editOrderTime);
             }
         });
+        editOrderDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateDialog(editOrderDate);
+            }
+        });
+        editOrderTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimeDialog(editOrderTime);
+            }
+        });
     }
 
     private void showDateDialog(final TextView date_in) {
@@ -215,10 +223,10 @@ public class NewOrderActivity extends AppCompatActivity {
             Date orderDate = simpleDateFormat.parse(strOrderDate);
             //Check if the day is not in the pass
             int ret = dateTimeComparator.compare(orderDate, today);
-            if (ret < 0){
-                Toast.makeText(this, "Can't add order in the past here", Toast.LENGTH_SHORT).show();
-                return;
-            }
+//            if (ret < 0){
+//                Toast.makeText(this, "Can't add order in the past here", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
 
             Intent data = new Intent();
             data.putExtra(EXTRA_ORDER_NAME, strOrderName);
@@ -254,8 +262,19 @@ public class NewOrderActivity extends AppCompatActivity {
         else if (requestCode == CHOOSE_DISH_REQUEST && resultCode == RESULT_OK) {
             Dish dish = data.getParcelableExtra(SubMenuActivity.EXTRA_DISH);
             int dishQuantity = data.getIntExtra(SubMenuActivity.EXTRA_DISH_QUANTITY, 0);
-            dish.setQuantity(dishQuantity);
-            mListDish.add(dish);
+            //check if dish existed
+            int checkExist = 0;
+            for (int i = 0; i < mListDish.size(); i++) {
+                if (mListDish.get(i).getName().equals(dish.getName())) {
+                    checkExist = 1;
+                    mListDish.get(i).setQuantity(mListDish.get(i).getQuantity() + dishQuantity);
+                }
+            }
+            if (checkExist == 0) {
+                dish.setQuantity(dishQuantity);
+                mListDish.add(dish);
+            }
+            //generate id for all dish
             for (int i = 1; i <= mListDish.size(); i++) {
                 mListDish.get(i - 1).setDishID(i);
             }

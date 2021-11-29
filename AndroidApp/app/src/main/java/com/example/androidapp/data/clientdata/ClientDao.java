@@ -28,4 +28,7 @@ public interface ClientDao {
 
     @Query("SELECT * FROM client_table ORDER BY clientName")
     LiveData<List<Client>> getAllClients();
+
+    @Query("SELECT * FROM client_table WHERE clientName =:newName AND address =:newAddress AND phoneNumber =:newPhoneNumber")
+    List<Client> checkClientExist(String newName, String newAddress, String newPhoneNumber);
 }

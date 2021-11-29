@@ -70,6 +70,7 @@ public class UnpaidOrderFragment extends Fragment {
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME, unpaidOrder.getTime());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE, unpaidOrder.getDate());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER, unpaidOrder.getClient().getPhoneNumber());
+                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_PRICE, unpaidOrder.getPrice());
                 intent.putParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) unpaidOrder.getOrderListDish());
                 startActivityForResult(intent, CONFIRM_UNPAID_ORDER_REQUEST);
             }
@@ -93,14 +94,24 @@ public class UnpaidOrderFragment extends Fragment {
                 Toast.makeText(getActivity(), "Unpaid Order can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Client client = new Client(name, number, address);
+
             mOrderListDish = data.getParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST);
-            UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, 1000, paid, mOrderListDish);
+            int price = calculateOrderPrice(mOrderListDish);
+            Client client = new Client(name, number, address);
+
+            UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, price, paid, mOrderListDish);
             unpaidOrder.setId(id);
             unpaidOrderViewModel.delete(unpaidOrder);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         }
 
+    }
+    int calculateOrderPrice(List<Dish> listDish){
+        int price = 0;
+        for (Dish dish : listDish) {
+            price += dish.getPrice() * dish.getQuantity();
+        }
+        return price;
     }
 
 }

@@ -7,6 +7,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.androidapp.data.clientdata.Client;
+
 import java.util.List;
 
 @Dao
@@ -14,6 +16,9 @@ public interface DishDao {
 
     @Query("SELECT * FROM dish_table ORDER BY name ASC")
     LiveData<List<Dish>> getAllDishes();
+
+    @Query("SELECT * FROM dish_table WHERE name =:newName AND price =:newPrice")
+    List<Dish> checkDishExist(String newName, int newPrice);
 
     @Insert
     void insertDish(Dish dish);

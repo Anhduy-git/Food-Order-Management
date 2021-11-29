@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.androidapp.activity_fragment.activity.historyactivity.HisAllFragment;
-import com.example.androidapp.activity_fragment.activity.historyactivity.HisCanceledragment;
+import com.example.androidapp.activity_fragment.activity.historyactivity.HisCanceledFragment;
 import com.example.androidapp.activity_fragment.activity.historyactivity.HisCompletedFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
@@ -23,7 +23,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 1:
                 return new HisCompletedFragment();
             case 2:
-                return new HisCanceledragment();
+                return new HisCanceledFragment();
             default:
                 return new HisAllFragment();
         }

@@ -81,6 +81,8 @@ public class Order {
         return orderListDish;
     }
 
+
+
     //Setter
     public void setId(int id) {
         this.id = id;
@@ -91,7 +93,21 @@ public class Order {
     public void setPaid(boolean paid) {
         this.ship = paid;
     }
+    public void setDate(String date) {
+        this.date = date;
+    }
     public void setOrderListDish(List<Dish> orderListDish) {
         this.orderListDish = orderListDish;
+    }
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

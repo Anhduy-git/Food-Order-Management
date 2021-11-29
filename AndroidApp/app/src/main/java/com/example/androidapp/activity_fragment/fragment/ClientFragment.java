@@ -29,6 +29,7 @@ import com.example.androidapp.activity_fragment.activity.UpdateClientActivity;
 import com.example.androidapp.activity_fragment.activity.NewClientActivity;
 import com.example.androidapp.R;
 
+import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.clientdata.ClientAdapter;
 import com.example.androidapp.data.clientdata.ClientViewModel;
@@ -168,8 +169,13 @@ public class ClientFragment extends Fragment {
             String address = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_ADDRESS);
 
             Client client = new Client(name, number, address);
-            clientViewModel.insertClient(client);
-            Toast.makeText(getActivity(), "Client added successfully", Toast.LENGTH_SHORT).show();
+
+            //Check if exist client
+            if (!checkClientExist(client)) {
+                clientViewModel.insertClient(client);
+                Toast.makeText(getActivity(), "Client added successfully", Toast.LENGTH_SHORT).show();
+            }
+
         }
         //EDIT CLIENT REQUEST (Update an existing client)
 
@@ -185,15 +191,23 @@ public class ClientFragment extends Fragment {
             String address = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS);
 
             Client client = new Client(name, number, address);
-            client.setClientId(id);
-            clientViewModel.updateClient(client);
-            Toast.makeText(getActivity(), "Client updated successfully", Toast.LENGTH_SHORT).show();
+            //Check if exist client
+            if (!checkClientExist(client)) {
+                client.setClientId(id);
+                clientViewModel.updateClient(client);
+                Toast.makeText(getActivity(), "Client updated successfully", Toast.LENGTH_SHORT).show();
+            }
         } else {
 
             //Do nothing
 
         }
 
+    }
+    private boolean checkClientExist(@NonNull Client client) {
+        List<Client> list  = AppDatabase.getInstance(getContext()).clientDao().checkClientExist(client.getClientName(),
+                client.getAddress(), client.getPhoneNumber());
+        return list != null && !list.isEmpty();
     }
 
 }

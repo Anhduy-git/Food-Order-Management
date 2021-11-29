@@ -28,6 +28,8 @@ import com.example.androidapp.activity_fragment.activity.UpdateDishActivity;
 import com.example.androidapp.activity_fragment.activity.NewDishActivity;
 import com.example.androidapp.R;
 
+import com.example.androidapp.data.AppDatabase;
+import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishAdapter;
 import com.example.androidapp.data.menudata.DishViewModel;
@@ -164,8 +166,12 @@ public class MenuFragment extends Fragment {
             int price = data.getIntExtra(NewDishActivity.EXTRA_MENU_PRICE, 0);
 
             Dish dish = new Dish(name, price);
-            dishViewModel.insertDish(dish);
-            Toast.makeText(getActivity(), "Dish added successfully", Toast.LENGTH_SHORT).show();
+            //check if dish exist
+            if (!checkDishExist(dish)) {
+                dishViewModel.insertDish(dish);
+                Toast.makeText(getActivity(), "Dish added successfully", Toast.LENGTH_SHORT).show();
+            }
+
         }
         //EDIT DISH REQUEST (Update an existing dish)
         else if (requestCode == EDIT_DISH_REQUEST && resultCode == RESULT_OK) {
@@ -177,16 +183,23 @@ public class MenuFragment extends Fragment {
 
             String name = data.getStringExtra(UpdateDishActivity.EXTRA_NAME);
             int price = data.getIntExtra(UpdateDishActivity.EXTRA_PRICE, 0);
-
             Dish dish = new Dish(name, price);
-            dish.setDishID(id);
-            dishViewModel.updateDish(dish);
-            Toast.makeText(getActivity(), "Dish updated successfully", Toast.LENGTH_SHORT).show();
+            //check if dish exist
+            if (!checkDishExist(dish)) {
+                dish.setDishID(id);
+                dishViewModel.updateDish(dish);
+                Toast.makeText(getActivity(), "Dish updated successfully", Toast.LENGTH_SHORT).show();
+            }
+
         }
         else {
 
             //Do nothing
 
         }
+    }
+    private boolean checkDishExist(@NonNull Dish dish) {
+        List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice());
+        return list != null && !list.isEmpty();
     }
 }

@@ -186,13 +186,15 @@ public class OrderTodayFragment extends Fragment {
             String date = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_DATE);
             paid = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, paid);
             ship = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, ship);
+
             if (id == -1){
                 Toast.makeText(getActivity(), "Order can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
             Client client = new Client(name, number, address);
-            mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
+            mOrderListDish = data.getParcelableArrayListExtra(OrderInfoTodayActivity.EXTRA_ORDER_DISH_LIST);
             int price = calculateOrderPrice(mOrderListDish);
+
             Order order = new Order(client, date, time, price, ship, paid, mOrderListDish);
             order.setId(id);
             orderViewModel.update(order);
@@ -206,7 +208,6 @@ public class OrderTodayFragment extends Fragment {
         for (Dish dish : listDish) {
             price += dish.getPrice() * dish.getQuantity();
         }
-
         return price;
     }
 }
