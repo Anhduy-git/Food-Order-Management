@@ -2,7 +2,6 @@ package com.example.androidapp.activity_fragment.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,14 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.menudata.DishOrderAdapter;
 import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderInfoUnpaidActivity extends AppCompatActivity {
-
+public class OrderInfoHistoryActivity extends AppCompatActivity {
     public static final String EXTRA_ORDER_ID =
             "com.example.androidapp.EXTRA_ORDER_ID";
 
@@ -47,19 +44,14 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
     private TextView tvOrderTime;
     private TextView tvOrderDate;
     private Button btnBack;
-    private Button btnPaid;
-    //Here order's paid is definitely false, and order's ship is definitely true.
-    private boolean paid = false;
-    private boolean ship = true;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     //info is view only
     final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info_unpaid_order);
+        setContentView(R.layout.activity_history_info);
 
         initUi();
         initRecyclerView();
@@ -80,19 +72,6 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         dishOrderInfoAdapter.setDish(mListDish);
 
 
-        //Paid button to confirm paid and remove unpaid order
-        btnPaid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent data = new Intent();
-                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
-                if (id != -1) {
-                    data.putExtra(EXTRA_ORDER_ID, id);
-                }
-                setResult(RESULT_OK, data);
-                finish();
-            }
-        });
         //Button back to UnpaidOrderFragment
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +92,6 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         tvOrderNumber = findViewById(R.id.order_phone);
         tvOrderTime = findViewById(R.id.order_time);
         btnBack = findViewById(R.id.btn_back);
-        btnPaid = findViewById(R.id.paid_btn);
     }
     private void initRecyclerView() {
         //Dish view holder and recycler view and displaying
@@ -122,5 +100,4 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         rcvData.setAdapter(dishOrderInfoAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
-
 }

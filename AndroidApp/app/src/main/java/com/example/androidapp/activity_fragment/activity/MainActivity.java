@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Client client = new Client(order.getClient().getClientName(), order.getClient().getPhoneNumber(),
                                     order.getClient().getAddress());
                             //if shipped
-                            if (!order.getShip()) {
+                            if (order.getShip()) {
                                 //move to unpaid order
                                 if (!order.getPaid()) {
                                     UnpaidOrder unpaidOrder = new UnpaidOrder(client, order.getDate(), order.getTime(), order.getPrice(), false, order.getOrderListDish());

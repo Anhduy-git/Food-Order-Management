@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.example.androidapp.R;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.clientdata.ClientAdapter;
+import com.example.androidapp.data.clientdata.ClientSelectAdapter;
 import com.example.androidapp.data.clientdata.ClientViewModel;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishViewModel;
@@ -48,20 +49,19 @@ public class SubContactActivity extends AppCompatActivity {
         RecyclerView rcvData = findViewById(R.id.client_recycler);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
 
-        final ClientAdapter clientAdapter = new ClientAdapter(mListClient);
-        rcvData.setAdapter(clientAdapter);
+        final ClientSelectAdapter clientSelectAdapter = new ClientSelectAdapter(mListClient);
+        rcvData.setAdapter(clientSelectAdapter);
 
         //Create client view model
         clientViewModel = new ViewModelProvider(this).get(ClientViewModel.class);
         clientViewModel.getAllClients().observe(this, new Observer<List<Client>>() {
             @Override
             public void onChanged(List<Client> clients) {
-                clientAdapter.setClient(clients);
-                clientAdapter.submitList(clients);
+                clientSelectAdapter.setClient(clients);
             }
         });
 
-        clientAdapter.setOnItemClickListener(new ClientAdapter.OnItemClickListener() {
+        clientSelectAdapter.setOnItemClickListener(new ClientSelectAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Client client) {
                 Intent data = new Intent();

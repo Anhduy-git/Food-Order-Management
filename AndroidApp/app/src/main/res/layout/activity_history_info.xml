@@ -90,87 +90,87 @@
             app:blk_cornerRadius="30dp"
             app:blk_fps="0"></io.alterac.blurkit.BlurLayout>
 
+        <LinearLayout
+            android:id="@+id/a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/order_avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ava_client_default"
+                android:layout_gravity="center_vertical"/>
+
             <LinearLayout
-                android:id="@+id/a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/order_avatar"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/ava_client_default"
-                    android:layout_gravity="center_vertical"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/order_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="8dp">
+                    android:text="Vu Hoai Nam"
+                    android:textSize="20sp"
+                    android:textColor="@color/main_white"
+                    android:layout_marginBottom="1dp"
+                    android:maxLines="1"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:id="@+id/order_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="012345678"
+                    android:textColor="@color/main_white"
+                    android:layout_marginBottom="1dp"
+                    android:maxLines="1"
+                    android:textSize="16sp"></TextView>
+                <TextView
+                    android:id="@+id/order_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123 Vo Van Kiet - P5 - Q5"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:layout_marginBottom="1dp"
+                    android:textColor="@color/main_white"></TextView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/order_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Vu Hoai Nam"
-                        android:textSize="20sp"
+                        android:text="Time: "
                         android:textColor="@color/main_white"
-                        android:layout_marginBottom="1dp"
-                        android:maxLines="1"
-                        android:textStyle="bold"></TextView>
-                    <TextView
-                        android:id="@+id/order_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="012345678"
-                        android:textColor="@color/main_white"
-                        android:layout_marginBottom="1dp"
-                        android:maxLines="1"
                         android:textSize="16sp"></TextView>
                     <TextView
-                        android:id="@+id/order_address"
+                        android:id="@+id/order_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="123 Vo Van Kiet - P5 - Q5"
+                        android:text="12h30"
+                        android:textColor="@color/main_white"
+                        android:textSize="16sp"></TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Day: "
+                        android:textColor="@color/main_white"
                         android:textSize="16sp"
-                        android:maxLines="1"
-                        android:layout_marginBottom="1dp"
-                        android:textColor="@color/main_white"></TextView>
-                    <LinearLayout
+                        android:layout_marginLeft="30dp"></TextView>
+                    <TextView
+                        android:id="@+id/order_day"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Time: "
-                            android:textColor="@color/main_white"
-                            android:textSize="16sp"></TextView>
-                        <TextView
-                            android:id="@+id/order_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="12h30"
-                            android:textColor="@color/main_white"
-                            android:textSize="16sp"></TextView>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Day: "
-                            android:textColor="@color/main_white"
-                            android:textSize="16sp"
-                            android:layout_marginLeft="30dp"></TextView>
-                        <TextView
-                            android:id="@+id/order_day"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5-11"
-                            android:textSize="16sp"
-                            android:textColor="@color/main_white"></TextView>
-                    </LinearLayout>
+                        android:text="5-11"
+                        android:textSize="16sp"
+                        android:textColor="@color/main_white"></TextView>
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -180,6 +180,7 @@
             android:orientation="vertical">
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -215,85 +216,11 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="225dp"
-        android:paddingRight="20dp">
-
-        <Button
-            android:id="@+id/new_dish_btn"
-            android:layout_width="120dp"
-            android:layout_height="35dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/bg_btn_modify"
-            android:text="New Dish"
-            android:textAllCaps="false"
-            android:textColor="@color/main_white"
-            android:textSize="18sp"></Button>
-    </RelativeLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/order_dish_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="270dp"
-        android:layout_marginBottom="60dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"></androidx.recyclerview.widget.RecyclerView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_vertical">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:gravity="bottom"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Paid:"
-                android:textColor="@color/main_white"
-                android:textSize="20sp"></TextView>
-
-            <LinearLayout
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_checkbox"
-                android:gravity="center">
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/confirm_ship_btn"-->
-                <!--                    android:layout_width="30dp"-->
-                <!--                    android:layout_height="30dp"-->
-                <!--                    android:background="@drawable/check_icon"></ImageView>-->
-
-                <CheckBox
-                    android:id="@+id/order_paid_checkbox"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:button="@drawable/confirm_check_box" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/order_ship_btn"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg_ship_btn"
-            android:text="Ship"
-            android:textAllCaps="false"
-            android:textColor="@color/main_white"
-            android:textSize="22dp"></Button>
-    </RelativeLayout>
+        android:layout_marginTop="225dp"
+        android:padding="10dp"></androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>
 

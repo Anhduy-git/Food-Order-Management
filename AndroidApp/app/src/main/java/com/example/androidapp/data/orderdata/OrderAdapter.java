@@ -88,13 +88,13 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
         holder.tvOrderTime.setText(order.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", order.getPrice()) + " VND");
 
-        if (order.getPaid() == true){
+        if (order.getPaid()){
             holder.flagPaid.setVisibility(View.VISIBLE);
         } else {
             holder.flagPaid.setVisibility(View.INVISIBLE);
         }
 
-        if (order.getShip() == true){
+        if (order.getShip()){
             holder.flagShip.setVisibility(View.VISIBLE);
         } else {
             holder.flagShip.setVisibility(View.INVISIBLE);

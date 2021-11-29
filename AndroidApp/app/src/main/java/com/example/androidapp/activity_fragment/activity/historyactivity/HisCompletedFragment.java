@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.activity_fragment.activity.OrderInfoHistoryActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUnpaidActivity;
 import com.example.androidapp.data.historydata.HistoryOrder;
 import com.example.androidapp.data.historydata.HistoryOrderAdapter;
@@ -56,15 +57,15 @@ public class HisCompletedFragment extends Fragment {
         historyOrderAdapter.setOnItemClickListener(new HistoryOrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(HistoryOrder historyOrder) {
-                Intent intent = new Intent(getActivity(), OrderInfoUnpaidActivity.class);
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ID, historyOrder.getId());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NAME, historyOrder.getClient().getClientName());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ADDRESS, historyOrder.getClient().getAddress());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME, historyOrder.getTime());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE, historyOrder.getDate());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER, historyOrder.getClient().getPhoneNumber());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_PRICE, historyOrder.getPrice());
-                intent.putParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) historyOrder.getOrderListDish());
+                Intent intent = new Intent(getActivity(), OrderInfoHistoryActivity.class);
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_ID, historyOrder.getId());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_NAME, historyOrder.getClient().getClientName());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_ADDRESS, historyOrder.getClient().getAddress());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_TIME, historyOrder.getTime());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_DATE, historyOrder.getDate());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_NUMBER, historyOrder.getClient().getPhoneNumber());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_PRICE, historyOrder.getPrice());
+                intent.putParcelableArrayListExtra(OrderInfoHistoryActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) historyOrder.getOrderListDish());
                 startActivityForResult(intent, VIEW_HISTORY_ORDER_REQUEST);
             }
         });

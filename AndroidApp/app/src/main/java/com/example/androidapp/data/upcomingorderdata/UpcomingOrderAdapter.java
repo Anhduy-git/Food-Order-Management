@@ -85,7 +85,7 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
         holder.tvOrderTime.setText(upcomingOrder.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", upcomingOrder.getPrice()) + " VND");
 
-        if (upcomingOrder.getPaid() == true){
+        if (upcomingOrder.getPaid()){
             holder.flagPaid.setVisibility(View.VISIBLE);
         } else {
             holder.flagPaid.setVisibility(View.INVISIBLE);
@@ -105,7 +105,7 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
         private TextView tvOrderTime;
         private TextView tvOrderPrice;
         private View flagPaid;
-        RelativeLayout item;
+        private RelativeLayout item;
         private SwipeRevealLayout swipeRevealLayout;
         private LinearLayout layoutDel;
 

@@ -1,33 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipe_reveal_layout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:mode="same_level"
-    app:dragEdge="right">
-    <!-- Your secondary layout here -->
-    <LinearLayout
-        android:id="@+id/order_item_del"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center">
-        <LinearLayout
-            android:layout_width="67dp"
-            android:layout_height="67dp"
-            android:gravity="center"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bg_delete_swipe_btn"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
-            <View
-                android:layout_width="23dp"
-                android:layout_height="26dp"
-                android:background="@drawable/trash_ic"></View>
-        </LinearLayout>
-    </LinearLayout>
+    android:orientation="vertical">
 
-    <!-- Your main layout here -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -44,9 +20,7 @@
             android:translationY="4dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-
                 android:id="@+id/order_avatar"
-
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
@@ -59,9 +33,7 @@
                 android:layout_height="65dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="9dp"
-
                 android:layout_toRightOf="@+id/order_avatar"
-
                 android:orientation="vertical"
                 android:translationY="-2dp">
 
@@ -120,24 +92,24 @@
         </RelativeLayout>
 
         <View
-            android:id="@+id/flag_paid"
+            android:id="@+id/flag_completed"
             android:visibility="gone"
             android:layout_width="17dp"
             android:layout_height="33dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/flag_paid"
-            android:translationX="-50dp"
+            android:background="@drawable/flag_completed"
+            android:translationX="-40dp"
             android:translationY="3dp"></View>
 
         <View
-            android:id="@+id/flag_ship"
+            android:id="@+id/flag_canceled"
             android:visibility="gone"
             android:layout_width="17dp"
             android:layout_height="33dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/flag_ship"
-            android:translationX="-30dp"
+            android:background="@drawable/flag_canceled"
+            android:translationX="-40dp"
             android:translationY="3dp"></View>
     </RelativeLayout>
-</com.chauthai.swipereveallayout.SwipeRevealLayout>
+</LinearLayout>
 
