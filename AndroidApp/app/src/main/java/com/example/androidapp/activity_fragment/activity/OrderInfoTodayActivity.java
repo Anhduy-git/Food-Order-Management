@@ -180,7 +180,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
 
 
     private void initUi () {
-        tvOrderPrice = findViewById(R.id.order_info_total_price);
+        tvOrderPrice = findViewById(R.id.order_price);
         tvOrderName = findViewById(R.id.order_name);
         tvOrderAddress = findViewById(R.id.order_address);
         tvOrderDate = findViewById(R.id.order_day);

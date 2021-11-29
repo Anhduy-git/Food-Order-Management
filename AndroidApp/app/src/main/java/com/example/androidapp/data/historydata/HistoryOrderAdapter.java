@@ -3,6 +3,7 @@ package com.example.androidapp.data.historydata;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,7 +46,7 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
     @Override
     public HistoryOrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.unpaid_order_item_recycler, parent, false);
+                .inflate(R.layout.history_item_recycler, parent, false);
 
         return new HistoryOrderViewHolder(view);
     }
@@ -62,6 +63,13 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
         holder.tvOrderTime.setText(historyOrder.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", historyOrder.getPrice()) + " VND");
 
+        if (historyOrder.getShip()){
+            holder.flagCompleted.setVisibility(View.VISIBLE);
+            holder.flagCanceled.setVisibility(View.GONE);
+        } else {
+            holder.flagCanceled.setVisibility(View.VISIBLE);
+            holder.flagCompleted.setVisibility(View.GONE);
+        }
     }
 
     public HistoryOrder getUnpaidOrderAt(int pos){
@@ -74,6 +82,9 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
         private TextView tvOrderDate;
         private TextView tvOrderTime;
         private TextView tvOrderPrice;
+        private View flagCompleted;
+        private View flagCanceled;
+        private RelativeLayout item;
 
         public HistoryOrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,8 +93,10 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
             tvOrderDate = itemView.findViewById(R.id.order_day);
             tvOrderTime = itemView.findViewById(R.id.order_time);
             tvOrderPrice = itemView.findViewById(R.id.order_price);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
+            flagCompleted = itemView.findViewById(R.id.flag_completed);
+            flagCanceled = itemView.findViewById(R.id.flag_canceled);
+            item = itemView.findViewById(R.id.order_item);
+            item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();

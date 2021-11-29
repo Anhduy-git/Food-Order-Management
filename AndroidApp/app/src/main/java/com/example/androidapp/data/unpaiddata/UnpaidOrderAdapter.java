@@ -85,7 +85,7 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
         private TextView tvOrderDate;
         private TextView tvOrderTime;
         private TextView tvOrderPrice;
-
+        private RelativeLayout item;
         public UnpaidOrderViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -93,8 +93,8 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
             tvOrderDate = itemView.findViewById(R.id.order_day);
             tvOrderTime = itemView.findViewById(R.id.order_time);
             tvOrderPrice = itemView.findViewById(R.id.order_price);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
+            item = itemView.findViewById(R.id.order_item);
+            item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();

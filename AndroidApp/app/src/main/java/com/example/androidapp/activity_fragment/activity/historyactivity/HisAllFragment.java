@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.activity_fragment.activity.OrderInfoHistoryActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUnpaidActivity;
 import com.example.androidapp.data.clientdata.Client;
@@ -64,45 +65,19 @@ public class HisAllFragment extends Fragment {
         historyOrderAdapter.setOnItemClickListener(new HistoryOrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(HistoryOrder historyOrder) {
-                Intent intent = new Intent(getActivity(), OrderInfoUnpaidActivity.class);
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ID, historyOrder.getId());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NAME, historyOrder.getClient().getClientName());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ADDRESS, historyOrder.getClient().getAddress());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME, historyOrder.getTime());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE, historyOrder.getDate());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER, historyOrder.getClient().getPhoneNumber());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_PRICE, historyOrder.getPrice());
-                intent.putParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) historyOrder.getOrderListDish());
+                Intent intent = new Intent(getActivity(), OrderInfoHistoryActivity.class);
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_ID, historyOrder.getId());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_NAME, historyOrder.getClient().getClientName());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_ADDRESS, historyOrder.getClient().getAddress());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_TIME, historyOrder.getTime());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_DATE, historyOrder.getDate());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_NUMBER, historyOrder.getClient().getPhoneNumber());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_PRICE, historyOrder.getPrice());
+                intent.putParcelableArrayListExtra(OrderInfoHistoryActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) historyOrder.getOrderListDish());
                 startActivityForResult(intent, VIEW_HISTORY_ORDER_REQUEST);
             }
         });
         return view;
     }
-    //Get data return from Intent to update order
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == VIEW_HISTORY_ORDER_REQUEST && resultCode == RESULT_OK) {
-//            int id = data.getIntExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ID, -1);
-//            String name = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NAME);
-//            String address = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ADDRESS);
-//            String number = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER);
-//            String time = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME);
-//            String date = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE);
-//
-//            if (id == -1){
-//                Toast.makeText(getActivity(), "Unpaid Order can't be updated", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//            Client client = new Client(name, number, address);
-//            mOrderListDish = data.getParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST);
-//            UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, 1000, paid, mOrderListDish);
-//            unpaidOrder.setId(id);
-//            unpaidOrderViewModel.delete(unpaidOrder);
-//            Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
 
 }

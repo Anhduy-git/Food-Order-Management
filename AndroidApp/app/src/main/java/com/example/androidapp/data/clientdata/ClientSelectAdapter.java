@@ -3,55 +3,33 @@ package com.example.androidapp.data.clientdata;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chauthai.swipereveallayout.SwipeRevealLayout;
-import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
-import com.example.androidapp.data.orderdata.Order;
-import com.example.androidapp.data.orderdata.OrderAdapter;
-
+import com.example.androidapp.data.menudata.Dish;
+import com.example.androidapp.data.menudata.DishSelectAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewHolder> implements Filterable {
+public class ClientSelectAdapter extends RecyclerView.Adapter<ClientSelectAdapter.ClientSelectViewHolder> implements Filterable {
     private List<Client> mListClient;
     private List<Client> mListClientFull;
-    private OnItemClickListener listener;
-    private OnItemClickDelListener delListener;
-    private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
-    public ClientAdapter(List<Client> mListClient) {
-        super(DIFF_CALLBACK);
-        //Open 1 card only when delete
-        viewBinderHelper.setOpenOnlyOne(true);
+
+    private OnItemClickListener listener;
+
+    public ClientSelectAdapter(List<Client> mListClient) {
         this.mListClient = mListClient;
     }
-    //setup for animation
-    private static final DiffUtil.ItemCallback<Client> DIFF_CALLBACK = new DiffUtil.ItemCallback<Client>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull Client oldItem, @NonNull Client newItem) {
-            return oldItem.getClientId() == newItem.getClientId();
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull Client oldItem, @NonNull Client newItem) {
-            return oldItem.getClientName().equals(newItem.getClientName()) &&
-                    oldItem.getAddress().equals(newItem.getAddress()) &&
-                    oldItem.getPhoneNumber().equals(newItem.getPhoneNumber());
-
-        }
-    };
 
     public void setClient(List<Client> mListClient) {
         this.mListClient = mListClient;
@@ -60,35 +38,39 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
         notifyDataSetChanged();
     }
 
-    //Get the Client position
-    public Client getClientAt(int postition) {
-        return getItem(postition);
+    //Get the client position
+    public Client gClientAt(int postition) {
+        return mListClient.get(postition);
     }
 
     @NonNull
     @Override
-    public ClientAdapter.ClientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ClientSelectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.client_item_recycler, parent, false);
+                .inflate(R.layout.client_item_select_recycler, parent, false);
 
-        return new ClientViewHolder(view);
+        return new ClientSelectViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ClientViewHolder holder, int position) {
-        Client client = getItem(position);
+    public void onBindViewHolder(@NonNull ClientSelectViewHolder holder, int position) {
+        Client client = mListClient.get(position);
         if (client == null) {
             return;
         }
-        //Provide id object
-        viewBinderHelper.bind(holder.swipeRevealLayout, Integer.toString(client.getClientId()));
 
         holder.tvClientName.setText(client.getClientName());
         holder.tvClientNumber.setText(client.getPhoneNumber());
         holder.tvClientAddress.setText(client.getAddress());
     }
 
-
+    @Override
+    public int getItemCount() {
+        if (mListClient != null) {
+            return mListClient.size();
+        }
+        return 0;
+    }
 
     @Override
     public Filter getFilter() {
@@ -127,53 +109,33 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
         }
     };
 
-    public class ClientViewHolder extends RecyclerView.ViewHolder {
+    public class ClientSelectViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvClientName;
         private TextView tvClientNumber;
         private TextView tvClientAddress;
-        private SwipeRevealLayout swipeRevealLayout;
-        private LinearLayout layoutDel;
         private RelativeLayout item;
 
-        public ClientViewHolder(@NonNull View itemView) {
+        public ClientSelectViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            swipeRevealLayout = itemView.findViewById(R.id.swipe_reveal_layout);
-            layoutDel = itemView.findViewById(R.id.client_item_del);
             tvClientName = itemView.findViewById(R.id.client_name);
             tvClientNumber = itemView.findViewById(R.id.client_phone);
             tvClientAddress = itemView.findViewById(R.id.client_address);
-
             item = itemView.findViewById(R.id.client_item);
-            //Set onClick method for each item
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(getItem(position));
+                        listener.onItemClick(mListClient.get(position));
                     }
-                }
-            });
-            //Set delete when click layout del
-            layoutDel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Get pos
-                    int pos = getAdapterPosition();
-                    //Get del client
-                    Client client = getClientAt(pos);
-                    if (delListener != null && pos != RecyclerView.NO_POSITION){
-                        delListener.onItemClickDel(client);
-                    }
-
                 }
             });
         }
     }
 
-    //Interface to click on a Client item
+    //Interface to click on a dish item
     public interface OnItemClickListener {
         void onItemClick(Client client);
     }
@@ -182,12 +144,4 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
-    public interface OnItemClickDelListener{
-        void onItemClickDel(Client client);
-    }
-    public void setOnItemClickDelListener(ClientAdapter.OnItemClickDelListener delListener){
-        this.delListener = delListener;
-    }
 }
-
