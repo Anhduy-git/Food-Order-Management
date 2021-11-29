@@ -56,13 +56,14 @@
         <entry key="app/src/main/res/layout/fragment_all_history.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_canceled_history.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_client.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_completed_history.xml" value="0.14583333333333334" />
-        <entry key="app/src/main/res/layout/fragment_history.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_completed_history.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_history.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_menu.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_order_today.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_unpaid_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_upcoming_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/header_nav.xml" value="0.35185185185185186" />
+        <entry key="app/src/main/res/layout/history_item_recycler.xml" value="0.33" />
         <entry key="app/src/main/res/layout/list_dish_order_info_recycler.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/list_dish_order_recycler.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/list_dish_order_select_recycler.xml" value="0.33" />

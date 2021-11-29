@@ -61,12 +61,12 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:background="@drawable/num_dish_box"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/num_dish_box"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:layout_marginRight="10dp">
+            android:paddingRight="5dp">
 
             <TextView
                 android:id="@+id/order_info_num_dish"
