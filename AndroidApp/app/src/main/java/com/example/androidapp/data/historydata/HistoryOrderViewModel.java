@@ -12,17 +12,27 @@ import java.util.List;
 public class HistoryOrderViewModel extends AndroidViewModel {
     private HistoryOrderRepository repository;
     private LiveData<List<HistoryOrder>> allHistoryOrder;
+    private LiveData<List<HistoryOrder>> allHistorySuccessOrder;
+    private LiveData<List<HistoryOrder>> allHistoryCancelOrder;
 
     public HistoryOrderViewModel(@NonNull Application application){
         super(application);
         repository = new HistoryOrderRepository(application);
         allHistoryOrder = repository.getAllHistoryOrder();
+        allHistorySuccessOrder = repository.getAllHistorySuccessOrder();
+        allHistoryCancelOrder = repository.getAllHistoryCancelOrder();
     }
     public void insert(HistoryOrder historyOrder){
         repository.insert(historyOrder);
     }
     public LiveData<List<HistoryOrder>> getAllHistoryOrder(){
         return allHistoryOrder;
+    }
+    public LiveData<List<HistoryOrder>> getAllHistorySuccessOrder(){
+        return allHistorySuccessOrder;
+    }
+    public LiveData<List<HistoryOrder>> getAllHistoryCancelOrder(){
+        return allHistoryCancelOrder;
     }
 
 }

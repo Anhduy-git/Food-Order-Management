@@ -29,6 +29,8 @@ import com.example.androidapp.activity_fragment.fragment.UnpaidOrderFragment;
 import com.example.androidapp.activity_fragment.fragment.UpcomingOrderFragment;
 import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.clientdata.Client;
+import com.example.androidapp.data.historydata.HistoryOrder;
+import com.example.androidapp.data.historydata.HistoryOrderViewModel;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderViewModel;
 import com.example.androidapp.data.unpaiddata.UnpaidOrder;
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private OrderViewModel orderViewModel;
     private UnpaidOrderViewModel unpaidOrderViewModel;
     private UpcomingOrderViewModel upcomingOrderViewModel;
+    private HistoryOrderViewModel historyOrderViewModel;
     private SimpleDateFormat simpleDateFormat;
     private DateTimeComparator dateTimeComparator;
     private Date today;
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
         unpaidOrderViewModel = new ViewModelProvider(this).get(UnpaidOrderViewModel.class);
         upcomingOrderViewModel = new ViewModelProvider(this).get(UpcomingOrderViewModel.class);
+        historyOrderViewModel = new ViewModelProvider(this).get(HistoryOrderViewModel.class);
         //Date format
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         //Only compare the date
@@ -281,20 +285,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Date orderDate = simpleDateFormat.parse(order.getDate());
                         int ret = dateTimeComparator.compare(orderDate, today);
                         if (ret < 0) {
+                            Client client = new Client(order.getClient().getClientName(), order.getClient().getPhoneNumber(),
+                                    order.getClient().getAddress());
                             //if shipped
-                            if (order.getShip()) {
-                                //if paid then move only to history success order
-                                if (order.getPaid()) {
-                                    //
-                                } else { // move to history success and unpaid order.
-                                    Client client = new Client(order.getClient().getClientName(), order.getClient().getPhoneNumber(),
-                                            order.getClient().getAddress());
+                            if (!order.getShip()) {
+                                //move to unpaid order
+                                if (!order.getPaid()) {
                                     UnpaidOrder unpaidOrder = new UnpaidOrder(client, order.getDate(), order.getTime(), order.getPrice(), false, order.getOrderListDish());
                                     unpaidOrderViewModel.insert(unpaidOrder);
                                 }
-                            } else {
-                                //Move to history cancel
                             }
+                            //Move to history
+                            HistoryOrder historyOrder = new HistoryOrder(client, order.getDate(), order.getTime(), order.getPrice(), order.getShip(), order.getPaid(), order.getOrderListDish());
+                            historyOrderViewModel.insert(historyOrder);
                             //Remove all old order
                             orderViewModel.delete(order);
                         }

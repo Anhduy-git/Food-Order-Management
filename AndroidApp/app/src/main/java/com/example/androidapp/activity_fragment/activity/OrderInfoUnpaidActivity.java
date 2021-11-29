@@ -36,6 +36,8 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_TIME";
     public static final String EXTRA_ORDER_DISH_LIST =
             "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
+    public static final String EXTRA_ORDER_PRICE =
+            "com.example.androidapp.EXTRA_ORDER_PRICE";
 
 
     private TextView tvOrderName;
@@ -51,7 +53,8 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
     private boolean ship = true;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
-    final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
+    //view only
+    final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,21 +67,17 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
+            int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
+            tvOrderPrice.setText(String.valueOf(price));
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
+
         }
         //display list dish
-        dishOrderAdapter.setDish(mListDish);
-
-        //Convert to String
-        String strOrderName = tvOrderName.getText().toString().trim();
-        String strOrderAddress = tvOrderAddress.getText().toString().trim();
-        String strOrderNumber = tvOrderNumber.getText().toString().trim();
-        String strOrderDate = tvOrderDate.getText().toString().trim();
-        String strOrderTime = tvOrderTime.getText().toString().trim();
+        dishOrderInfoAdapter.setDish(mListDish);
 
 
         //Paid button to confirm paid and remove unpaid order
@@ -86,12 +85,6 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent data = new Intent();
-                data.putExtra(EXTRA_ORDER_NAME, strOrderName);
-                data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
-                data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
-                data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
-                data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-                data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
                 int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
                 if (id != -1) {
                     data.putExtra(EXTRA_ORDER_ID, id);
@@ -126,7 +119,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
 
-        rcvData.setAdapter(dishOrderAdapter);
+        rcvData.setAdapter(dishOrderInfoAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
 

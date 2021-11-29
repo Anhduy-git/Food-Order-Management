@@ -1,9 +1,11 @@
 package com.example.androidapp.activity_fragment.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.menudata.Dish;
@@ -40,6 +43,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
     public static final String EXTRA_ORDER_PRICE =
             "com.example.androidapp.EXTRA_ORDER_PRICE";
+    public static final int CHOOSE_DISH_REQUEST= 1;
 
     private TextView tvOrderName;
     private TextView tvOrderPrice;
@@ -53,6 +57,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
+    private Button btnAddDish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +130,14 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                 finish();
             }
         });
+        //Button to choose a new dish from menu
+        btnAddDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderInfoUpcomingActivity.this, SubMenuActivity.class);
+                startActivityForResult(intent, CHOOSE_DISH_REQUEST);
+            }
+        });
 
 
     }
@@ -139,6 +152,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         tvOrderTime = findViewById(R.id.order_time);
         btnBack = findViewById(R.id.btn_back);
         checkPaid = findViewById(R.id.order_paid_checkbox);
+        btnAddDish = findViewById(R.id.new_dish_btn);
 
     }
     private void initRecyclerView() {
@@ -147,6 +161,34 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
 
         rcvData.setAdapter(dishOrderAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
+    }
+    @SuppressLint("WrongConstant")
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CHOOSE_DISH_REQUEST && resultCode == RESULT_OK) {
+            Dish dish = data.getParcelableExtra(SubMenuActivity.EXTRA_DISH);
+            int dishQuantity = data.getIntExtra(SubMenuActivity.EXTRA_DISH_QUANTITY, 0);
+            //check if dish existed
+            int checkExist = 0;
+            for (int i = 0; i < mListDish.size(); i++) {
+                if (mListDish.get(i).getName().equals(dish.getName())) {
+                    checkExist = 1;
+                    mListDish.get(i).setQuantity(mListDish.get(i).getQuantity() + dishQuantity);
+                }
+            }
+            if (checkExist == 0) {
+                dish.setQuantity(dishQuantity);
+                mListDish.add(dish);
+            }
+            //generate id for all dish
+            for (int i = 1; i <= mListDish.size(); i++) {
+                mListDish.get(i - 1).setDishID(i);
+            }
+            //Display the chosen dish to the current order
+            dishOrderAdapter.setDish(mListDish);
+        }
     }
 
 }

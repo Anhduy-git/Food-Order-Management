@@ -16,4 +16,10 @@ public interface HistoryOrderDao {
 
     @Query("SELECT * FROM history_table ORDER BY clientName ASC")
     LiveData<List<HistoryOrder>> getAllHistoryOrder();
+
+    @Query("SELECT * FROM history_table WHERE ship = 1 ORDER BY clientName ASC")
+    LiveData<List<HistoryOrder>> getAllHistorySuccessOrder();
+
+    @Query("SELECT * FROM history_table WHERE ship = 0 ORDER BY clientName ASC")
+    LiveData<List<HistoryOrder>> getAllHistoryCancelOrder();
 }
