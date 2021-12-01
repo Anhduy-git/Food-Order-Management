@@ -33,6 +33,7 @@
             android:hint="Search"
             android:inputType="text"
             android:maxLines="1"
+            android:textColor="@color/main_color"
             android:textColorHint="@color/main_color"
             android:textSize="17sp"></EditText>
 
