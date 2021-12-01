@@ -23,6 +23,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderAdapter;
 
@@ -50,6 +51,8 @@ public class NewOrderActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_TIME";
     public static final String EXTRA_ORDER_DISH_LIST =
             "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
+    public static final String EXTRA_ORDER_IMAGE =
+            "com.example.androidapp.EXTRA_ORDER_IMAGE";
 
     public static final int CHOOSE_CLIENT_REQUEST = 1;
     public static final int CHOOSE_DISH_REQUEST= 2;
@@ -59,14 +62,17 @@ public class NewOrderActivity extends AppCompatActivity {
     private TextView editOrderDate;
     private ImageView addOrderDate;
     private ImageView addOrderTime;
+    private ImageView imageView;
     private EditText editOrderAddress;
     private EditText editOrderNumber;
     private Button btnAddOrder;
     private Button btnBack;
     private Button btnAddDish;
     private Button btnAddClient;
+
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
+    private byte[] image;
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
 
     @Override
@@ -131,6 +137,7 @@ public class NewOrderActivity extends AppCompatActivity {
         editOrderTime = findViewById(R.id.order_time_tv);
         addOrderDate = findViewById(R.id.add_order_date);
         addOrderTime = findViewById(R.id.add_order_time);
+        imageView = findViewById(R.id.order_avatar);
     }
 
     private void initRecyclerView() {
@@ -234,6 +241,7 @@ public class NewOrderActivity extends AppCompatActivity {
             data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
             data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
             data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+            data.putExtra(EXTRA_ORDER_IMAGE, image);
             data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
 
             setResult(RESULT_OK, data);
@@ -251,11 +259,13 @@ public class NewOrderActivity extends AppCompatActivity {
             String clientName = data.getStringExtra(SubContactActivity.EXTRA_NAME);
             String clientPhoneNumber = data.getStringExtra(SubContactActivity.EXTRA_PHONE_NUMBER);
             String clientAddress = data.getStringExtra(SubContactActivity.EXTRA_ADDRESS);
+            image = data.getByteArrayExtra(SubContactActivity.EXTRA_IMAGE);
 
             //Display client's info after having chosen from existing contact
             editOrderName.setText(clientName);
             editOrderNumber.setText(clientPhoneNumber);
             editOrderAddress.setText(clientAddress);
+            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
 
             Toast.makeText(NewOrderActivity.this, "Client added successfully", Toast.LENGTH_SHORT).show();
         }
@@ -263,13 +273,16 @@ public class NewOrderActivity extends AppCompatActivity {
             Dish dish = data.getParcelableExtra(SubMenuActivity.EXTRA_DISH);
             int dishQuantity = data.getIntExtra(SubMenuActivity.EXTRA_DISH_QUANTITY, 0);
             //check if dish existed
+
             int checkExist = 0;
+
             for (int i = 0; i < mListDish.size(); i++) {
                 if (mListDish.get(i).getName().equals(dish.getName())) {
                     checkExist = 1;
                     mListDish.get(i).setQuantity(mListDish.get(i).getQuantity() + dishQuantity);
                 }
             }
+
             if (checkExist == 0) {
                 dish.setQuantity(dishQuantity);
                 mListDish.add(dish);

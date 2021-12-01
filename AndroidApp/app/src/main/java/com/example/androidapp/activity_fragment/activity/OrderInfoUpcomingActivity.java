@@ -12,10 +12,12 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderAdapter;
 import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
@@ -31,6 +33,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_NAME";
     public static final String EXTRA_ORDER_ADDRESS =
             "com.example.androidapp.EXTRA_ORDER_ADDRESS";
+    public static final String EXTRA_ORDER_IMAGE =
+            "com.example.androidapp.EXTRA_ORDER_IMAGE";
     public static final String EXTRA_ORDER_NUMBER =
             "com.example.androidapp.EXTRA_ORDER_NUMBER";
     public static final String EXTRA_ORDER_DATE =
@@ -51,9 +55,13 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
     private TextView tvOrderNumber;
     private TextView tvOrderTime;
     private TextView tvOrderDate;
+    private ImageView imageView;
     private Button btnBack;
     private CheckBox checkPaid;
+
     private boolean paid;
+    private byte[] image;
+
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
@@ -72,13 +80,20 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
+
             int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
             tvOrderPrice.setText(String.valueOf(price));
+
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
+
+            image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
+            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
+
             paid = intent.getBooleanExtra(EXTRA_CHECK_PAID, paid);
+
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
         }
         //display list dish
@@ -121,6 +136,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
                 data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
                 data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                data.putExtra(EXTRA_ORDER_IMAGE, image);
                 data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
                 int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
                 if (id != -1) {
@@ -138,10 +154,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                 startActivityForResult(intent, CHOOSE_DISH_REQUEST);
             }
         });
-
-
     }
-
 
     private void initUi () {
         tvOrderPrice = findViewById(R.id.order_price);
@@ -150,6 +163,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);
         tvOrderTime = findViewById(R.id.order_time);
+        imageView = findViewById(R.id.order_avatar);
         btnBack = findViewById(R.id.btn_back);
         checkPaid = findViewById(R.id.order_paid_checkbox);
         btnAddDish = findViewById(R.id.new_dish_btn);

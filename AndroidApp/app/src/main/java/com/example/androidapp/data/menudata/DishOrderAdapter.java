@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,10 +67,12 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
         //Provide id object
         viewBinderHelper.bind(holder.swipeRevealLayout, Integer.toString(dish.getDishID()));
 
-
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
         holder.tvDishQuantity.setText(String.valueOf(dish.getQuantity()));
+        //TODO: ERROR here
+        //holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(dish.getImage()));
+
         holder.layoutDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +89,7 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
 
         private TextView tvDishName;
         private TextView tvDishPrice;
+        private ImageView imageView;
         private SwipeRevealLayout swipeRevealLayout;
         private LinearLayout layoutDel;
         private TextView tvDishQuantity;
@@ -94,6 +99,7 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
 
             tvDishName = itemView.findViewById(R.id.dish_name);
             tvDishPrice = itemView.findViewById(R.id.dish_price);
+            imageView = itemView.findViewById(R.id.dish_pic_view);
             swipeRevealLayout = itemView.findViewById(R.id.swipe_reveal_layout);
             layoutDel = itemView.findViewById(R.id.menu_item_del);
             tvDishQuantity = itemView.findViewById(R.id.order_info_num_dish);

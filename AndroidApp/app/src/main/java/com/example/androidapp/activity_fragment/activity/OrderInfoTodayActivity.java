@@ -13,9 +13,11 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 
 import com.example.androidapp.data.menudata.DishOrderAdapter;
@@ -39,6 +41,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_DATE";
     public static final String EXTRA_ORDER_TIME =
             "com.example.androidapp.EXTRA_ORDER_TIME";
+    public static final String EXTRA_ORDER_IMAGE =
+            "com.example.androidapp.EXTRA_ORDER_IMAGE";
     public static final String EXTRA_CHECK_PAID =
             "com.example.androidapp.EXTRA_CHECK_PAID";
     public static final String EXTRA_CHECK_SHIP =
@@ -55,15 +59,21 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
     private TextView tvOrderTime;
     private TextView tvOrderDate;
     private TextView tvOrderPrice;
+    private ImageView imageView;
     private Button btnBack;
     private Button btnShip;
+    private Button btnAddDish;
     private CheckBox checkPaid;
+
     private boolean ship;
     private boolean paid;
+
+    private byte[] image;
+
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
-    private Button btnAddDish;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +89,21 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
+
             int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
             tvOrderPrice.setText(String.valueOf(price));
+
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
+
             ship = intent.getBooleanExtra(EXTRA_CHECK_SHIP, ship);
             paid = intent.getBooleanExtra(EXTRA_CHECK_PAID, paid);
+
+            image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
+            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
+
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
         }
         //display list dish
@@ -136,6 +153,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
                 data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
                 data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                data.putExtra(EXTRA_ORDER_IMAGE, image);
+
                 data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
                 int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
                 if (id != -1) {
@@ -157,6 +176,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
                 data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
                 data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                data.putExtra(EXTRA_ORDER_IMAGE, image);
                 data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
                 int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
                 if (id != -1) {
@@ -174,10 +194,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 startActivityForResult(intent, CHOOSE_DISH_REQUEST);
             }
         });
-
-
     }
-
 
     private void initUi () {
         tvOrderPrice = findViewById(R.id.order_price);
@@ -186,6 +203,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);
         tvOrderTime = findViewById(R.id.order_time);
+        imageView = findViewById(R.id.order_avatar);
         btnBack = findViewById(R.id.btn_back);
         checkPaid = findViewById(R.id.order_paid_checkbox);
         btnShip = findViewById(R.id.order_ship_btn);

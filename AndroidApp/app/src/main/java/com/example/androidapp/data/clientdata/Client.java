@@ -1,6 +1,7 @@
 package com.example.androidapp.data.clientdata;
 
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -11,15 +12,17 @@ public class Client {
     private int clientId;
 
     private String clientName;
-
     private String phoneNumber;
-
     private String address;
 
-    public Client(String clientName, String phoneNumber, String address) {
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image;
+
+    public Client(String clientName, String phoneNumber, String address, byte[] image) {
         this.clientName = clientName;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.image = image;
     }
 
 
@@ -42,4 +45,11 @@ public class Client {
         return address;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }

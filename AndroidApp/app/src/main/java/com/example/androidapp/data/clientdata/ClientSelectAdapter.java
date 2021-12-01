@@ -7,6 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishSelectAdapter;
 
@@ -62,6 +64,7 @@ public class ClientSelectAdapter extends RecyclerView.Adapter<ClientSelectAdapte
         holder.tvClientName.setText(client.getClientName());
         holder.tvClientNumber.setText(client.getPhoneNumber());
         holder.tvClientAddress.setText(client.getAddress());
+        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(client.getImage()));
     }
 
     @Override
@@ -114,6 +117,7 @@ public class ClientSelectAdapter extends RecyclerView.Adapter<ClientSelectAdapte
         private TextView tvClientName;
         private TextView tvClientNumber;
         private TextView tvClientAddress;
+        private ImageView imageView;
         private RelativeLayout item;
 
         public ClientSelectViewHolder(@NonNull View itemView) {
@@ -122,6 +126,7 @@ public class ClientSelectAdapter extends RecyclerView.Adapter<ClientSelectAdapte
             tvClientName = itemView.findViewById(R.id.client_name);
             tvClientNumber = itemView.findViewById(R.id.client_phone);
             tvClientAddress = itemView.findViewById(R.id.client_address);
+            imageView = itemView.findViewById(R.id.client_avatar);
             item = itemView.findViewById(R.id.client_item);
             item.setOnClickListener(new View.OnClickListener() {
                 @Override

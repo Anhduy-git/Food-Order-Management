@@ -65,7 +65,7 @@
         app:blk_fps="0"></io.alterac.blurkit.BlurLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/menu_pic"
+        android:id="@+id/dish_pic_view"
         android:layout_width="167dp"
         android:layout_height="167dp"
         android:layout_alignTop="@+id/blur_layout"
@@ -174,4 +174,16 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/ball_detail"
         android:translationY="110dp"></View>
+
+    <Button
+        android:id="@+id/btn_add_dish_image"
+        android:layout_width="198dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="145dp"
+        android:text="Button" />
 </RelativeLayout>

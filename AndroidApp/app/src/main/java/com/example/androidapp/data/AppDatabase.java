@@ -2,6 +2,7 @@ package com.example.androidapp.data;
 
 
 import android.content.Context;
+import android.media.Image;
 import android.os.AsyncTask;
 
 import androidx.room.Database;
@@ -35,9 +36,9 @@ import com.example.androidapp.data.upcomingorderdata.UpcomingOrderDao;
         UnpaidOrder.class,
         UpcomingOrder.class,
         HistoryOrder.class
-}, version = 3)
+}, version = 2)
 
-@TypeConverters(DataConverter.class)
+@TypeConverters({DataConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "app_database.db";

@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         int ret = dateTimeComparator.compare(upcomingOrderDate, today);
                         if (ret == 0) {
                             Client client = new Client(upcomingOrder.getClient().getClientName(), upcomingOrder.getClient().getPhoneNumber(),
-                                    upcomingOrder.getClient().getAddress());
+                                    upcomingOrder.getClient().getAddress(), upcomingOrder.getClient().getImage());
                             Order order = new Order(client, upcomingOrder.getDate(), upcomingOrder.getTime(),
                                     upcomingOrder.getPrice(), false, upcomingOrder.getPaid(), upcomingOrder.getOrderListDish());
                             //add upcomingOrder to today's Order
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         int ret = dateTimeComparator.compare(orderDate, today);
                         if (ret < 0) {
                             Client client = new Client(order.getClient().getClientName(), order.getClient().getPhoneNumber(),
-                                    order.getClient().getAddress());
+                                    order.getClient().getAddress(), order.getClient().getImage());
                             //if shipped
                             if (order.getShip()) {
                                 //move to unpaid order

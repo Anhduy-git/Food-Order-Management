@@ -24,13 +24,9 @@ public class Order {
     private Client client;
 
     private String date;
-
     private String time;
-
     private int price;
-
     private boolean ship;
-
     private boolean paid;
 
     @ColumnInfo(name = "dish_list")
