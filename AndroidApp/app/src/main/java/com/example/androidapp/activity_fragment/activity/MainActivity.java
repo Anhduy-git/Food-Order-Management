@@ -92,8 +92,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
         NavigationView nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
+        replaceFragment(new OrderTodayFragment());
+
         //set highlight order today
         nav_view.getMenu().findItem(R.id.order_today).setChecked(true);
         //select the current fragment from intent (when start from notification)
