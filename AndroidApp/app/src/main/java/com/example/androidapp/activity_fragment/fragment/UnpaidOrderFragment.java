@@ -70,7 +70,7 @@ public class UnpaidOrderFragment extends Fragment {
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME, unpaidOrder.getTime());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE, unpaidOrder.getDate());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER, unpaidOrder.getClient().getPhoneNumber());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_PRICE, unpaidOrder.getPrice());
+                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_PRICE, unpaidOrder.getPrice());
                 intent.putParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) unpaidOrder.getOrderListDish());
                 startActivityForResult(intent, CONFIRM_UNPAID_ORDER_REQUEST);
             }

@@ -223,10 +223,10 @@ public class NewOrderActivity extends AppCompatActivity {
             Date orderDate = simpleDateFormat.parse(strOrderDate);
             //Check if the day is not in the pass
             int ret = dateTimeComparator.compare(orderDate, today);
-            if (ret < 0){
-                Toast.makeText(this, "Can't add order in the past here", Toast.LENGTH_SHORT).show();
-                return;
-            }
+//            if (ret < 0){
+//                Toast.makeText(this, "Can't add order in the past here", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
 
             Intent data = new Intent();
             data.putExtra(EXTRA_ORDER_NAME, strOrderName);
