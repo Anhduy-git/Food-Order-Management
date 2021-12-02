@@ -92,11 +92,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
         NavigationView nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
         replaceFragment(new OrderTodayFragment());
-        //select the current fragment from intent
-        selectFragment();
+
+        //set highlight order today
+        nav_view.getMenu().findItem(R.id.order_today).setChecked(true);
+        //select the current fragment from intent (when start from notification)
+        int intentFragment = getIntent().getIntExtra("fragmentSelect", -1);
+        if (intentFragment == FRAGMENT_UPCOMING_ORDER) {
+            replaceFragment(new UpcomingOrderFragment());
+            getSupportActionBar().setTitle("Upcoming Order");
+            mCurrentFragment = FRAGMENT_UPCOMING_ORDER;
+            nav_view.getMenu().findItem(R.id.upcoming_order).setChecked(true);
+        }
 
         //Setup View Model
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
@@ -215,18 +225,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-    //Select the current fragment from intent
-    private void  selectFragment() {
-        int intentFragment = getIntent().getIntExtra("fragmentSelect", -1);
-
-        switch (intentFragment){
-            case FRAGMENT_UPCOMING_ORDER:
-                replaceFragment(new UpcomingOrderFragment());
-                getSupportActionBar().setTitle("Upcoming Order");
-                mCurrentFragment = FRAGMENT_UPCOMING_ORDER;
-                break;
-        }
-    }
+//    //Select the current fragment from intent
+//    private void  selectFragment() {
+//        int intentFragment = getIntent().getIntExtra("fragmentSelect", -1);
+//
+//        if (intentFragment == FRAGMENT_UPCOMING_ORDER) {
+//
+//            replaceFragment(new UpcomingOrderFragment());
+//            getSupportActionBar().setTitle("Upcoming Order");
+//            mCurrentFragment = FRAGMENT_UPCOMING_ORDER;
+//        } else {
+//            replaceFragment(new OrderTodayFragment());
+//        }
+//    }
 
     private void replaceFragment (Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -337,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //set time daily for notification
         calendarNotification = Calendar.getInstance();
         calendarNotification.set(Calendar.HOUR_OF_DAY, 20);
-        calendarNotification.set(Calendar.MINUTE, 0);
+        calendarNotification.set(Calendar.MINUTE, 55);
         calendarNotification.set(Calendar.SECOND, 0);
         //set notify only 1 time in day
         if (Calendar.getInstance().after(calendarNotification)) {
