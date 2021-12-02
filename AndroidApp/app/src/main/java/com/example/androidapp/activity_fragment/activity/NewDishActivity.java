@@ -30,6 +30,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.alterac.blurkit.BlurLayout;
 
 public class NewDishActivity extends AppCompatActivity {
@@ -46,6 +47,7 @@ public class NewDishActivity extends AppCompatActivity {
     private final int GALLERY_REQUEST = 1;
     private final int CAMERA_REQUEST = 2;
     private final int IMAGE_SIZE = 500;
+
 
     private ImageView imageView;
     private EditText edtDishName;

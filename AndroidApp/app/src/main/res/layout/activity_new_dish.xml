@@ -24,37 +24,8 @@
             android:paddingLeft="8dp"></Button>
     </RelativeLayout>
 
-    <View
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/ball_detail"
-        android:translationY="15dp"
-        android:translationX="80dp"></View>
-
-    <View
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_alignTop="@+id/blur_layout"
-        android:background="@drawable/ball_detail"
-        android:translationY="-120dp"></View>
-
-    <View
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/ball_detail"
-        android:translationY="-80dp"></View>
-
-    <View
-        android:layout_width="310dp"
-        android:layout_height="270dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/box_info"
-        android:translationY="-80dp"></View>
-
     <io.alterac.blurkit.BlurLayout
+        android:visibility="gone"
         android:id="@+id/blur_layout"
         android:layout_width="305dp"
         android:layout_height="265dp"
@@ -64,21 +35,76 @@
         app:blk_cornerRadius="30dp"
         app:blk_fps="0"></io.alterac.blurkit.BlurLayout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/dish_pic_view"
-        android:layout_width="167dp"
-        android:layout_height="167dp"
-        android:layout_alignTop="@+id/blur_layout"
+    <View
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ball_detail"
+        android:translationX="-50dp"
+        android:translationY="20dp"></View>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp">
+        <ImageView
+            android:id="@+id/dish_pic_view"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/rec_ava_dish">
+        </ImageView>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_add_dish_image"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ava_dish_edit"
-        android:translationY="-150dp" />
+        android:layout_below="@+id/cardview"
+        android:translationY="-61dp"
+        android:translationX="-20dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_lib_btn"
+        android:drawableTop="@drawable/lib_icon"
+        android:paddingTop="14dp" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ball_detail"></View>
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:translationY="120dp"
+        android:translationX="90dp"
+        android:background="@drawable/ball_detail"></View>
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ball_detail"
+        android:translationX="-20dp"
+        android:translationY="100dp"></View>
 
     <LinearLayout
         android:layout_width="288dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
         android:orientation="vertical"
-        android:translationY="-40dp">
+        android:translationY="25dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -90,10 +116,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="37dp"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/bg_info"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/borderbottom">
 
             <EditText
                 android:id="@+id/add_dish_name_text"
@@ -104,7 +128,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:textColor="@color/main_white"
-                android:textSize="17sp"></EditText>
+                android:textSize="18sp"></EditText>
         </RelativeLayout>
 
         <TextView
@@ -117,9 +141,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="37dp"
-            android:background="@drawable/bg_info"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:background="@drawable/borderbottom">
 
             <EditText
                 android:id="@+id/add_dish_price_text"
@@ -127,46 +149,25 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_input_transparent"
-
                 android:inputType="number"
-
                 android:maxLines="1"
                 android:textColor="@color/main_white"
-                android:textSize="17sp"></EditText>
+                android:textSize="18sp"></EditText>
         </RelativeLayout>
     </LinearLayout>
-
-
-    <View
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignBottom="@+id/blur_layout"
-        android:layout_alignParentLeft="true"
-        android:background="@drawable/ball_detail"
-        android:translationX="50dp"
-        android:translationY="-30dp"></View>
-
-    <View
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignBottom="@+id/blur_layout"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/ball_detail"
-        android:translationX="40dp"
-        android:translationY="-20dp"></View>
 
     <Button
         android:id="@+id/add_dish_info_button"
         android:layout_width="288dp"
         android:layout_height="54dp"
-        android:layout_alignBottom="@+id/blur_layout"
-        android:layout_centerInParent="true"
         android:background="@drawable/btn_add"
         android:text="add"
         android:textColor="@color/main_white"
         android:textSize="20dp"
-        android:translationY="100dp"
-        android:translationZ="1dp"></Button>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        ></Button>
 
     <View
         android:layout_width="280dp"
@@ -175,15 +176,4 @@
         android:background="@drawable/ball_detail"
         android:translationY="110dp"></View>
 
-    <Button
-        android:id="@+id/btn_add_dish_image"
-        android:layout_width="198dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="145dp"
-        android:text="Button" />
 </RelativeLayout>
