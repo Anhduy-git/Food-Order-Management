@@ -53,6 +53,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button btnBack;
     private Button btnPaid;
+    private byte[] image;
     //Here order's paid is definitely false, and order's ship is definitely true.
     private boolean paid = false;
     private boolean ship = true;
@@ -87,6 +88,13 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
 
         }
+        //Convert to String
+        String strOrderName = tvOrderName.getText().toString().trim();
+        String strOrderAddress = tvOrderAddress.getText().toString().trim();
+        String strOrderNumber = tvOrderNumber.getText().toString().trim();
+        String strOrderDate = tvOrderDate.getText().toString().trim();
+        String strOrderTime = tvOrderTime.getText().toString().trim();
+        int orderPrice = Integer.valueOf(tvOrderPrice.getText().toString().trim());
         //display list dish
         dishOrderInfoAdapter.setDish(mListDish);
 
@@ -96,6 +104,13 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent data = new Intent();
+                data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+                data.putExtra(EXTRA_ORDER_PRICE, orderPrice);
+                data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
+                data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
+                data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
+                data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                data.putExtra(EXTRA_ORDER_IMAGE, image);
                 int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
                 if (id != -1) {
                     data.putExtra(EXTRA_ORDER_ID, id);
