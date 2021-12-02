@@ -33,7 +33,6 @@ import java.util.List;
 public class UnpaidOrderFragment extends Fragment {
     public static final int CONFIRM_UNPAID_ORDER_REQUEST = 1;
     private UnpaidOrderViewModel unpaidOrderViewModel;
-    private boolean paid = false;
     public static List<Dish> mOrderListDish = new ArrayList<>();
     @Nullable
     @Override
@@ -99,11 +98,9 @@ public class UnpaidOrderFragment extends Fragment {
                 return;
             }
 
-            mOrderListDish = data.getParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST);
-            int price = calculateOrderPrice(mOrderListDish);
             Client client = new Client(name, number, address, image);
 
-            UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, price, paid, mOrderListDish);
+            UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, 0, true, mOrderListDish);
             unpaidOrder.setId(id);
             unpaidOrderViewModel.delete(unpaidOrder);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
