@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 
@@ -84,6 +86,7 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
         holder.tvOrderDate.setText(upcomingOrder.getDate());
         holder.tvOrderTime.setText(upcomingOrder.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", upcomingOrder.getPrice()) + " VND");
+        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(upcomingOrder.getClient().getImage()));
 
         if (upcomingOrder.getPaid()){
             holder.flagPaid.setVisibility(View.VISIBLE);
@@ -104,6 +107,7 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
         private TextView tvOrderDate;
         private TextView tvOrderTime;
         private TextView tvOrderPrice;
+        private ImageView imageView;
         private View flagPaid;
         private RelativeLayout item;
         private SwipeRevealLayout swipeRevealLayout;
@@ -118,6 +122,7 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
             tvOrderDate = itemView.findViewById(R.id.order_day);
             tvOrderTime = itemView.findViewById(R.id.order_time);
             tvOrderPrice = itemView.findViewById(R.id.order_price);
+            imageView = itemView.findViewById(R.id.order_avatar);
             flagPaid = itemView.findViewById(R.id.flag_paid);
 
             //This is the main layout in order_item_recycler

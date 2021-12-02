@@ -67,10 +67,13 @@ public class UnpaidOrderFragment extends Fragment {
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ID, unpaidOrder.getId());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NAME, unpaidOrder.getClient().getClientName());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ADDRESS, unpaidOrder.getClient().getAddress());
+                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_IMAGE, unpaidOrder.getClient().getImage());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME, unpaidOrder.getTime());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE, unpaidOrder.getDate());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER, unpaidOrder.getClient().getPhoneNumber());
+
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_PRICE, unpaidOrder.getPrice());
+
                 intent.putParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) unpaidOrder.getOrderListDish());
                 startActivityForResult(intent, CONFIRM_UNPAID_ORDER_REQUEST);
             }
@@ -89,6 +92,7 @@ public class UnpaidOrderFragment extends Fragment {
             String number = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER);
             String time = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE);
+            byte[] image = data.getByteArrayExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_IMAGE);
 
             if (id == -1){
                 Toast.makeText(getActivity(), "Unpaid Order can't be updated", Toast.LENGTH_SHORT).show();
@@ -97,7 +101,7 @@ public class UnpaidOrderFragment extends Fragment {
 
             mOrderListDish = data.getParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST);
             int price = calculateOrderPrice(mOrderListDish);
-            Client client = new Client(name, number, address);
+            Client client = new Client(name, number, address, image);
 
             UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, price, paid, mOrderListDish);
             unpaidOrder.setId(id);

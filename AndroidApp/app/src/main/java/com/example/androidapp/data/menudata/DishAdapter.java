@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
@@ -85,8 +87,8 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
 
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
+        holder.imgView.setImageBitmap(ImageConverter.convertByteArray2Image(dish.getImage()));
     }
-
 
     @Override
     public Filter getFilter() {
@@ -129,6 +131,7 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
 
         private TextView tvDishName;
         private TextView tvDishPrice;
+        private ImageView imgView;
         private SwipeRevealLayout swipeRevealLayout;
         private LinearLayout layoutDel;
         private RelativeLayout item;
@@ -138,6 +141,7 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
 
             tvDishName = itemView.findViewById(R.id.dish_name);
             tvDishPrice = itemView.findViewById(R.id.dish_price);
+            imgView = itemView.findViewById(R.id.dish_pic_view);
             swipeRevealLayout = itemView.findViewById(R.id.swipe_reveal_layout);
             layoutDel = itemView.findViewById(R.id.menu_item_del);
             //This is the main layout in order_item_recycler

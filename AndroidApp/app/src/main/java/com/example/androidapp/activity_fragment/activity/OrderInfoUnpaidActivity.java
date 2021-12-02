@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderAdapter;
 import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
@@ -38,6 +40,8 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
     public static final String EXTRA_ORDER_PRICE =
             "com.example.androidapp.EXTRA_ORDER_PRICE";
+    public static final String EXTRA_ORDER_IMAGE =
+            "com.example.androidapp.EXTRA_ORDER_IMAGE";
 
 
     private TextView tvOrderName;
@@ -46,6 +50,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
     private TextView tvOrderNumber;
     private TextView tvOrderTime;
     private TextView tvOrderDate;
+    private ImageView imageView;
     private Button btnBack;
     private Button btnPaid;
     //Here order's paid is definitely false, and order's ship is definitely true.
@@ -67,12 +72,18 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
+
             int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
             tvOrderPrice.setText(String.valueOf(price));
+
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
+
+            byte[] image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
+            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
+
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
 
         }
@@ -100,10 +111,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
     }
-
 
     private void initUi () {
         tvOrderPrice = findViewById(R.id.order_price);
@@ -112,6 +120,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         tvOrderDate = findViewById(R.id.order_day);
         tvOrderNumber = findViewById(R.id.order_phone);
         tvOrderTime = findViewById(R.id.order_time);
+        imageView = findViewById(R.id.order_avatar);
         btnBack = findViewById(R.id.btn_back);
         btnPaid = findViewById(R.id.paid_btn);
     }

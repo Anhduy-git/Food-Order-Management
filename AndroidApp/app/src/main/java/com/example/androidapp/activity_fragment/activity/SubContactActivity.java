@@ -31,6 +31,8 @@ public class SubContactActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_PHONE_NUMBER";
     public static final String EXTRA_ADDRESS =
             "com.example.androidapp.EXTRA_ADDRESS";
+    public static final String EXTRA_IMAGE =
+            "com.example.androidapp.EXTRA_IMAGE";
 
     private Button btnBack;
 
@@ -68,6 +70,7 @@ public class SubContactActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_NAME, client.getClientName());
                 data.putExtra(EXTRA_PHONE_NUMBER, client.getPhoneNumber());
                 data.putExtra(EXTRA_ADDRESS, client.getAddress());
+                data.putExtra(EXTRA_IMAGE, client.getImage());
 
                 setResult(RESULT_OK, data);
                 finish();

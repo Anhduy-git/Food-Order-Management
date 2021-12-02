@@ -20,7 +20,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
 
-            android:id="@+id/menu_pic"
+            android:id="@+id/dish_pic_view"
 
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="9dp"
-            android:layout_toRightOf="@+id/menu_pic"
+            android:layout_toRightOf="@+id/dish_pic_view"
             android:orientation="vertical">
 
             <TextView

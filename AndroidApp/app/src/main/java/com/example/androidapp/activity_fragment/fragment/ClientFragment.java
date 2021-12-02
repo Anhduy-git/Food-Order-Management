@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.androidapp.activity_fragment.activity.NewDishActivity;
 import com.example.androidapp.activity_fragment.activity.UpdateClientActivity;
 import com.example.androidapp.activity_fragment.activity.NewClientActivity;
 import com.example.androidapp.R;
@@ -126,7 +127,7 @@ public class ClientFragment extends Fragment {
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_NAME, client.getClientName());
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_NUMBER, client.getPhoneNumber());
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS, client.getAddress());
-
+                intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_IMAGE, client.getImage());
 
                 startActivityForResult(intent, EDIT_CLIENT_REQUEST);
             }
@@ -167,8 +168,9 @@ public class ClientFragment extends Fragment {
             String name = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_NAME);
             String number = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_NUMBER);
             String address = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_ADDRESS);
+            byte[] image = data.getByteArrayExtra(NewClientActivity.EXTRA_CLIENT_IMAGE);
 
-            Client client = new Client(name, number, address);
+            Client client = new Client(name, number, address, image);
 
             //Check if exist client
             if (!checkClientExist(client)) {
@@ -189,8 +191,9 @@ public class ClientFragment extends Fragment {
             String name = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_NAME);
             String number = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_NUMBER);
             String address = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS);
+            byte[] image = data.getByteArrayExtra(UpdateClientActivity.EXTRA_CLIENT_IMAGE);
 
-            Client client = new Client(name, number, address);
+            Client client = new Client(name, number, address, image);
             //Check if exist client
             if (!checkClientExist(client)) {
                 client.setClientId(id);
@@ -198,15 +201,13 @@ public class ClientFragment extends Fragment {
                 Toast.makeText(getActivity(), "Client updated successfully", Toast.LENGTH_SHORT).show();
             }
         } else {
-
             //Do nothing
-
         }
-
     }
+
     private boolean checkClientExist(@NonNull Client client) {
         List<Client> list  = AppDatabase.getInstance(getContext()).clientDao().checkClientExist(client.getClientName(),
-                client.getAddress(), client.getPhoneNumber());
+                client.getAddress(), client.getPhoneNumber(), client.getImage());
         return list != null && !list.isEmpty();
     }
 

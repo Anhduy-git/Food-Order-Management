@@ -4,9 +4,11 @@ import static android.app.Activity.RESULT_OK;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import com.example.androidapp.activity_fragment.activity.NewDishActivity;
 import com.example.androidapp.R;
 
 import com.example.androidapp.data.AppDatabase;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishAdapter;
@@ -126,6 +129,7 @@ public class MenuFragment extends Fragment {
                 intent.putExtra(UpdateDishActivity.EXTRA_ID, dish.getDishID());
                 intent.putExtra(UpdateDishActivity.EXTRA_NAME, dish.getName());
                 intent.putExtra(UpdateDishActivity.EXTRA_PRICE, dish.getPrice());
+                intent.putExtra(UpdateDishActivity.EXTRA_IMAGE, dish.getImage());
 
                 startActivityForResult(intent, EDIT_DISH_REQUEST);
             }
@@ -164,8 +168,10 @@ public class MenuFragment extends Fragment {
         if (requestCode == ADD_DISH_REQUEST && resultCode == RESULT_OK) {
             String name = data.getStringExtra(NewDishActivity.EXTRA_MENU_NAME);
             int price = data.getIntExtra(NewDishActivity.EXTRA_MENU_PRICE, 0);
+            byte[] image = data.getByteArrayExtra(NewDishActivity.EXTRA_MENU_IMAGE);
+            //Log.d("IMAGE", String.valueOf(image));
 
-            Dish dish = new Dish(name, price);
+            Dish dish = new Dish(name, price, image);
             //check if dish exist
             if (!checkDishExist(dish)) {
                 dishViewModel.insertDish(dish);
@@ -183,23 +189,22 @@ public class MenuFragment extends Fragment {
 
             String name = data.getStringExtra(UpdateDishActivity.EXTRA_NAME);
             int price = data.getIntExtra(UpdateDishActivity.EXTRA_PRICE, 0);
-            Dish dish = new Dish(name, price);
+            byte[] image = data.getByteArrayExtra(UpdateDishActivity.EXTRA_IMAGE);
+
+            Dish dish = new Dish(name, price, image);
             //check if dish exist
             if (!checkDishExist(dish)) {
                 dish.setDishID(id);
                 dishViewModel.updateDish(dish);
                 Toast.makeText(getActivity(), "Dish updated successfully", Toast.LENGTH_SHORT).show();
             }
-
         }
         else {
-
             //Do nothing
-
         }
     }
     private boolean checkDishExist(@NonNull Dish dish) {
-        List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice());
+        List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice(), dish.getImage());
         return list != null && !list.isEmpty();
     }
 }

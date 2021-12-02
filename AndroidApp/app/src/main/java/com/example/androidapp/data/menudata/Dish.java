@@ -1,8 +1,10 @@
 package com.example.androidapp.data.menudata;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -17,10 +19,14 @@ public class Dish implements Parcelable {
     private int price;
     private int quantity;
 
-    public Dish(String name, int price) {
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image;
+
+    public Dish(String name, int price, byte[] image) {
         this.name = name;
         this.price = price;
         this.quantity = 0;
+        this.image = image;
     }
 
     protected Dish(Parcel in) {
@@ -28,6 +34,8 @@ public class Dish implements Parcelable {
         name = in.readString();
         price = in.readInt();
         quantity = in.readInt();
+        //TODO: ERROR HERE
+        //image = in.createByteArray();
     }
 
     public static final Creator<Dish> CREATOR = new Creator<Dish>() {
@@ -75,6 +83,14 @@ public class Dish implements Parcelable {
         this.quantity = quantity;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -82,11 +98,12 @@ public class Dish implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
         dest.writeInt(dishID);
         dest.writeString(name);
         dest.writeInt(price);
         dest.writeInt(quantity);
+        //TODO: ERROR HERE
+       // dest.writeByteArray(image);
     }
 }
 

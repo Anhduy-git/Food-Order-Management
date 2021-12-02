@@ -96,11 +96,10 @@ public class SubMenuActivity extends AppCompatActivity {
         dishSelectAdapter.setOnItemClickListener(new DishSelectAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Dish dish) {
-                //TODO: Highlight item
-                Log.d("test","clicked");
+                //Log.d("test","clicked");
                 //Set the current dish choice to the dish that's been clicked
                 isChosen = true;
-                currentDishChoice = new Dish(dish.getName(), dish.getPrice());
+                currentDishChoice = new Dish(dish.getName(), dish.getPrice(), dish.getImage());
                 //Log.d("NAME", currentDishChoice.getName());
 
                 //Reset quantity whenever click to an item

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 
@@ -86,9 +88,8 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
         holder.tvClientName.setText(client.getClientName());
         holder.tvClientNumber.setText(client.getPhoneNumber());
         holder.tvClientAddress.setText(client.getAddress());
+        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(client.getImage()));
     }
-
-
 
     @Override
     public Filter getFilter() {
@@ -132,6 +133,7 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
         private TextView tvClientName;
         private TextView tvClientNumber;
         private TextView tvClientAddress;
+        private ImageView imageView;
         private SwipeRevealLayout swipeRevealLayout;
         private LinearLayout layoutDel;
         private RelativeLayout item;
@@ -144,6 +146,7 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
             tvClientName = itemView.findViewById(R.id.client_name);
             tvClientNumber = itemView.findViewById(R.id.client_phone);
             tvClientAddress = itemView.findViewById(R.id.client_address);
+            imageView = itemView.findViewById(R.id.client_avatar);
 
             item = itemView.findViewById(R.id.client_item);
             //Set onClick method for each item

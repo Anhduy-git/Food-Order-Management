@@ -7,6 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +62,7 @@ public class DishSelectAdapter extends RecyclerView.Adapter<DishSelectAdapter.Di
 
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
+        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(dish.getImage()));
     }
 
     @Override
@@ -111,6 +114,7 @@ public class DishSelectAdapter extends RecyclerView.Adapter<DishSelectAdapter.Di
 
         private TextView tvDishName;
         private TextView tvDishPrice;
+        private ImageView imageView;
         private RelativeLayout item;
 
         public DishSelectViewHolder(@NonNull View itemView) {
@@ -118,6 +122,7 @@ public class DishSelectAdapter extends RecyclerView.Adapter<DishSelectAdapter.Di
 
             tvDishName = itemView.findViewById(R.id.dish_name);
             tvDishPrice = itemView.findViewById(R.id.dish_price);
+            imageView = itemView.findViewById(R.id.dish_pic_view);
             item = itemView.findViewById(R.id.menu_item);
             item.setOnClickListener(new View.OnClickListener() {
                 @Override

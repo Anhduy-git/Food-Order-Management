@@ -2,16 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/btn_client_gallery"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_fragment.activity.UpdateClientActivity"
 
 
     android:background="@color/main_color"
-    android:paddingTop="10dp"
     android:paddingLeft="15dp"
+    android:paddingTop="10dp"
     android:paddingRight="15dp"
-    android:paddingBottom="15dp">
+    android:paddingBottom="15dp"
+    tools:context=".activity_fragment.activity.UpdateClientActivity">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -33,12 +34,13 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/ball_detail"></View>
+
     <View
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:background="@drawable/ball_detail"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="170dp"
-        android:layout_alignParentRight="true"></View>
+        android:background="@drawable/ball_detail"></View>
 
     <View
         android:layout_width="110dp"
@@ -189,4 +191,16 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/ball_detail"
         android:translationY="110dp"></View>
+
+    <Button
+        android:id="@+id/btn_update_client_gallery"
+        android:layout_width="97dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="279dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="21dp"
+        android:text="Button" />
 </RelativeLayout>

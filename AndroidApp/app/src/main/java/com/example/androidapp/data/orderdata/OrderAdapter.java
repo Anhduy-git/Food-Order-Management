@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 
 import java.util.ArrayList;
@@ -87,6 +89,7 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
         holder.tvOrderDate.setText(order.getDate());
         holder.tvOrderTime.setText(order.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", order.getPrice()) + " VND");
+        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(order.getClient().getImage()));
 
         if (order.getPaid()){
             holder.flagPaid.setVisibility(View.VISIBLE);
@@ -114,6 +117,7 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
         private TextView tvOrderDate;
         private TextView tvOrderTime;
         private TextView tvOrderPrice;
+        private ImageView imageView;
         private View flagPaid;
         private View flagShip;
         private SwipeRevealLayout swipeRevealLayout;
@@ -129,6 +133,7 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
             tvOrderDate = itemView.findViewById(R.id.order_day);
             tvOrderTime = itemView.findViewById(R.id.order_time);
             tvOrderPrice = itemView.findViewById(R.id.order_price);
+            imageView = itemView.findViewById(R.id.order_avatar);
             flagPaid = itemView.findViewById(R.id.flag_paid);
             flagShip = itemView.findViewById(R.id.flag_ship);
             //This is the main layout in order_item_recycler
