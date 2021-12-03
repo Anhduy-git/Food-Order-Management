@@ -24,16 +24,6 @@
             android:paddingLeft="8dp"></Button>
     </RelativeLayout>
 
-    <io.alterac.blurkit.BlurLayout
-        android:visibility="gone"
-        android:id="@+id/blur_layout"
-        android:layout_width="305dp"
-        android:layout_height="265dp"
-        android:layout_centerInParent="true"
-        android:translationY="-80dp"
-        app:blk_blurRadius="12"
-        app:blk_cornerRadius="30dp"
-        app:blk_fps="0"></io.alterac.blurkit.BlurLayout>
 
     <View
         android:layout_width="110dp"

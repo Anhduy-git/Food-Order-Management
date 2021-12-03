@@ -10,8 +10,7 @@
     android:background="@color/main_color"
     android:paddingTop="10dp"
     android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingBottom="15dp">
+    android:paddingRight="15dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"

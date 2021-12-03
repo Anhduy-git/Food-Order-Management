@@ -91,7 +91,6 @@
             app:blk_fps="0"></io.alterac.blurkit.BlurLayout>
 
         <LinearLayout
-            android:id="@+id/a"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

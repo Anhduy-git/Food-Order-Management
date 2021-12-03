@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,13 +74,14 @@ public class DishOrderInfoAdapter extends RecyclerView.Adapter<DishOrderInfoAdap
 
         private TextView tvDishName;
         private TextView tvDishPrice;
-
+        private ImageView imgView;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvDishName = itemView.findViewById(R.id.dish_name);
             tvDishPrice = itemView.findViewById(R.id.dish_price);
+            imgView = itemView.findViewById(R.id.dish_pic_view);
         }
     }
 

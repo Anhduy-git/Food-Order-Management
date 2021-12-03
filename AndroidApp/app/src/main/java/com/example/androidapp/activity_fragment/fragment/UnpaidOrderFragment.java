@@ -33,7 +33,7 @@ import java.util.List;
 public class UnpaidOrderFragment extends Fragment {
     public static final int CONFIRM_UNPAID_ORDER_REQUEST = 1;
     private UnpaidOrderViewModel unpaidOrderViewModel;
-    public static List<Dish> mOrderListDish = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,9 +70,7 @@ public class UnpaidOrderFragment extends Fragment {
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME, unpaidOrder.getTime());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE, unpaidOrder.getDate());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER, unpaidOrder.getClient().getPhoneNumber());
-
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_PRICE, unpaidOrder.getPrice());
-
                 intent.putParcelableArrayListExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) unpaidOrder.getOrderListDish());
                 startActivityForResult(intent, CONFIRM_UNPAID_ORDER_REQUEST);
             }
@@ -86,33 +84,24 @@ public class UnpaidOrderFragment extends Fragment {
 
         if (requestCode == CONFIRM_UNPAID_ORDER_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ID, -1);
-            String name = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NAME);
-            String address = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ADDRESS);
-            String number = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER);
-            String time = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME);
-            String date = data.getStringExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE);
-            byte[] image = data.getByteArrayExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_IMAGE);
+            //initialize empty array, just for delete
+            byte[] image = new byte[0];
+            List<Dish> mOrderListDish = new ArrayList<>();
 
             if (id == -1){
                 Toast.makeText(getActivity(), "Unpaid Order can't be updated", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            Client client = new Client(name, number, address, image);
-
-            UnpaidOrder unpaidOrder = new UnpaidOrder(client, date, time, 0, true, mOrderListDish);
+            Client client = new Client("", "", "", image);
+            //only id is necessary for delete
+            UnpaidOrder unpaidOrder = new UnpaidOrder(client, "", "", 0, true, mOrderListDish);
             unpaidOrder.setId(id);
             unpaidOrderViewModel.delete(unpaidOrder);
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         }
 
     }
-    int calculateOrderPrice(List<Dish> listDish){
-        int price = 0;
-        for (Dish dish : listDish) {
-            price += dish.getPrice() * dish.getQuantity();
-        }
-        return price;
-    }
+
 
 }
