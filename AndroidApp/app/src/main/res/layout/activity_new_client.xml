@@ -10,8 +10,7 @@
     android:background="@color/main_color"
     android:paddingTop="10dp"
     android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingBottom="15dp">
+    android:paddingRight="15dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -76,6 +75,17 @@
         android:src="@drawable/ava_edit"
         android:translationY="-180dp" />
 
+    <Button
+        android:id="@+id/btn_client_gallery"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_alignTop="@+id/client_avatar"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_lib_btn"
+        android:drawableTop="@drawable/lib_icon"
+        android:paddingTop="14dp"
+        android:translationX="60dp"
+        android:translationY="-64dp" />
     <LinearLayout
         android:layout_width="288dp"
         android:layout_height="wrap_content"
@@ -195,16 +205,4 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/ball_detail"
         android:translationY="110dp"></View>
-
-    <Button
-        android:id="@+id/btn_client_gallery"
-        android:layout_width="100dp"
-        android:layout_height="59dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="282dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginEnd="14dp"
-        android:text="Button" />
 </RelativeLayout>

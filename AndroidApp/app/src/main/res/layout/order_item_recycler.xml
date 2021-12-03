@@ -59,19 +59,15 @@
                 android:layout_height="65dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="9dp"
-
                 android:layout_toRightOf="@+id/order_avatar"
-
                 android:orientation="vertical"
                 android:translationY="-2dp">
 
                 <TextView
-
                     android:id="@+id/order_name"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Vu Hoai Nam"
+                    android:text="Hiếu Hiếugạ"
                     android:textColor="@color/main_white"
                     android:textSize="17sp"
                     android:textStyle="bold"></TextView>

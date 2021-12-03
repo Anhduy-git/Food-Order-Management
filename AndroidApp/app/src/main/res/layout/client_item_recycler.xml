@@ -33,14 +33,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <RelativeLayout
             android:id="@+id/client_item"
-            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="77dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/list_item"
+            android:clickable="true"
             android:orientation="horizontal"
             tools:ignore="ExtraText">
 
@@ -67,35 +68,29 @@
                 android:translationY="-2dp">
 
                 <TextView
-
                     android:id="@+id/client_name"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Vu Hoai Nam"
+                    android:text="Nguyễn Hồ Trung Hiếu"
                     android:textColor="@color/main_white"
-                    android:textSize="17sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"></TextView>
 
                 <TextView
-
                     android:id="@+id/client_phone"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0123456789"
                     android:textColor="@color/main_white"
-                    android:textSize="15sp"></TextView>
+                    android:textSize="16sp"></TextView>
 
                 <TextView
-
                     android:id="@+id/client_address"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="404/2 Le Hong Phong-Phuoc Long"
+                    android:text="404/2 lê hồng phong"
                     android:textColor="@color/main_white"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="16sp"></TextView>
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>

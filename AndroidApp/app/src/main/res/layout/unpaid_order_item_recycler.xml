@@ -38,12 +38,10 @@
             android:translationY="-2dp">
 
             <TextView
-
                 android:id="@+id/order_name"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vu Hoai Nam"
+                android:text="Vũ Hoài Nam"
                 android:textColor="@color/main_white"
                 android:textSize="17sp"
                 android:textStyle="bold"></TextView>

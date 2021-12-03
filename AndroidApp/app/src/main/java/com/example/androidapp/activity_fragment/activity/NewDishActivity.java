@@ -30,11 +30,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import io.alterac.blurkit.BlurLayout;
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class NewDishActivity extends AppCompatActivity {
 
-    BlurLayout blurLayout;
 
     public static final String EXTRA_MENU_NAME =
             "com.example.androidapp.EXTRA_MENU_NAME";
@@ -47,6 +47,7 @@ public class NewDishActivity extends AppCompatActivity {
     private final int CAMERA_REQUEST = 2;
     private final int IMAGE_SIZE = 500;
 
+
     private ImageView imageView;
     private EditText edtDishName;
     private EditText edtDishPrice;
@@ -58,7 +59,7 @@ public class NewDishActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_dish);
-        blurLayout = findViewById(R.id.blur_layout);
+
         initUi();
 
         btnAddDish.setOnClickListener(new View.OnClickListener() {
@@ -92,17 +93,7 @@ public class NewDishActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        blurLayout.startBlur();
-    }
 
-    @Override
-    protected void onStop() {
-        blurLayout.pauseBlur();
-        super.onStop();
-    }
 
     private void initUi () {
         imageView = findViewById(R.id.dish_pic_view);

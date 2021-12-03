@@ -18,7 +18,6 @@
         tools:ignore="ExtraText">
 
         <de.hdodenhof.circleimageview.CircleImageView
-
             android:id="@+id/client_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -39,35 +38,29 @@
             android:translationY="-2dp">
 
             <TextView
-
                 android:id="@+id/client_name"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vu Hoai Nam"
                 android:textColor="@color/main_white"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 android:textStyle="bold"></TextView>
 
             <TextView
-
                 android:id="@+id/client_phone"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0123456789"
                 android:textColor="@color/main_white"
-                android:textSize="15sp"></TextView>
+                android:textSize="16sp"></TextView>
 
             <TextView
-
                 android:id="@+id/client_address"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="404/2 Le Hong Phong-Phuoc Long"
                 android:textColor="@color/main_white"
-                android:textSize="15sp"></TextView>
+                android:textSize="16sp"></TextView>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

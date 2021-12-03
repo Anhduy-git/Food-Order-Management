@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.orderdata.Order;
 
 
@@ -72,6 +74,7 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
         holder.tvOrderDate.setText(unpaidOrder.getDate());
         holder.tvOrderTime.setText(unpaidOrder.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", unpaidOrder.getPrice()) + " VND");
+        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(unpaidOrder.getClient().getImage()));
 
     }
 
@@ -86,6 +89,8 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
         private TextView tvOrderTime;
         private TextView tvOrderPrice;
         private RelativeLayout item;
+        private ImageView imageView;
+
         public UnpaidOrderViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -94,6 +99,7 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
             tvOrderTime = itemView.findViewById(R.id.order_time);
             tvOrderPrice = itemView.findViewById(R.id.order_price);
             item = itemView.findViewById(R.id.order_item);
+            imageView = itemView.findViewById(R.id.order_avatar);
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

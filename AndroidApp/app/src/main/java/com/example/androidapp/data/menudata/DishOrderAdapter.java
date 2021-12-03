@@ -71,7 +71,7 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
         holder.tvDishQuantity.setText(String.valueOf(dish.getQuantity()));
         //TODO: ERROR here
-        //holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(dish.getImage()));
+//        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(dish.getImage()));
 
         holder.layoutDel.setOnClickListener(new View.OnClickListener() {
             @Override
