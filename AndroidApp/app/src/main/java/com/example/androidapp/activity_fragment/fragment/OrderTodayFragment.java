@@ -29,6 +29,8 @@ import com.example.androidapp.activity_fragment.activity.NewOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.R;
 import com.example.androidapp.data.clientdata.Client;
+import com.example.androidapp.data.historydata.HistoryOrder;
+import com.example.androidapp.data.historydata.HistoryOrderViewModel;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
@@ -210,6 +212,14 @@ public class OrderTodayFragment extends Fragment {
             Order order = new Order(client, date, time, price, ship, paid, mOrderListDish);
             order.setId(id);
             orderViewModel.update(order);
+            //if shipped, then move to history
+            if(order.getShip()) {
+                HistoryOrderViewModel historyOrderViewModel;
+                historyOrderViewModel = new ViewModelProvider(this).get(HistoryOrderViewModel.class);
+                //Move to history all success order
+                HistoryOrder historyOrder = new HistoryOrder(client, order.getDate(), order.getTime(), order.getPrice(), order.getShip(), order.getPaid(), order.getOrderListDish());
+                historyOrderViewModel.insert(historyOrder);
+            }
             Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         } else {
             //Do nothing
