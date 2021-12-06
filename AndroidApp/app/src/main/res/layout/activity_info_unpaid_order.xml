@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="4dp"
-            android:text="Order Information"
+            android:text="Thông Tin Đơn Hàng"
             android:textColor="@color/main_white"
             android:textSize="19sp"></TextView>
     </LinearLayout>
@@ -181,7 +181,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total price:"
+                android:text="Tổng tiền:"
                 android:textColor="@color/main_white"
                 android:textSize="17sp"
                 android:layout_gravity="center_vertical"
@@ -231,14 +231,14 @@
 
             android:id="@+id/paid_btn"
 
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="30dp"
             android:background="@drawable/bg_ship_btn"
-            android:text="Paid"
+            android:text="Thanh Toán"
             android:textAllCaps="false"
             android:textColor="@color/main_white"
-            android:textSize="22dp"></Button>
+            android:textSize="20dp"></Button>
     </RelativeLayout>
 </RelativeLayout>
