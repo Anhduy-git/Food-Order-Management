@@ -7,7 +7,10 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
@@ -73,12 +76,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SimpleDateFormat simpleDateFormat;
     private DateTimeComparator dateTimeComparator;
     private Date today;
-
     private String tomorrow;
     private Calendar calendarNotification;
     private Calendar calendarToday;
     private Calendar calendarTomorrow;
-
     public static final String CHANNEL_ID = "CHANNEL 1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setTitle("Order Today");
         mDrawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
+
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             nav_view.getMenu().findItem(R.id.upcoming_order).setChecked(true);
         }
 
+
         //Setup View Model
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
         unpaidOrderViewModel = new ViewModelProvider(this).get(UnpaidOrderViewModel.class);
@@ -125,6 +128,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         calendarTomorrow.add(Calendar.DAY_OF_YEAR, 1);
 
         tomorrow = simpleDateFormat.format(calendarTomorrow.getTime());
+
+        //get revenue this month
+
+        View headerView = nav_view.getHeaderView(0);
+        TextView revMonth = (TextView)headerView.findViewById(R.id.rev_this_month);
+        getRevMonth(revMonth);
 
         //set notify
         updateNumTomorrowOrderAndNotify();
@@ -348,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //set time daily for notification
         calendarNotification = Calendar.getInstance();
         calendarNotification.set(Calendar.HOUR_OF_DAY, 20);
-        calendarNotification.set(Calendar.MINUTE, 55);
+        calendarNotification.set(Calendar.MINUTE, 0);
         calendarNotification.set(Calendar.SECOND, 0);
         //set notify only 1 time in day
         if (Calendar.getInstance().after(calendarNotification)) {
@@ -360,5 +369,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //set notify daily
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendarNotification.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+    private void getRevMonth(TextView textView) {
+        historyOrderViewModel.getAllHistorySuccessOrder().observe(this, new Observer<List<HistoryOrder>>() {
+            @Override
+            public void onChanged(List<HistoryOrder> historyOrders) {
+                int revThisMonth = 0;
+                for (int i = 0; i < historyOrders.size(); i++) {
+                    revThisMonth = revThisMonth + historyOrders.get(i).getPrice();
+                }
+                textView.setText(String.format("%,d", revThisMonth));
+            }
+        });
     }
 }

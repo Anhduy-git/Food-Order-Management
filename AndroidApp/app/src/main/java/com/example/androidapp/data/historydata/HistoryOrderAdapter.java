@@ -3,6 +3,7 @@ package com.example.androidapp.data.historydata;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 
 
 public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderAdapter.HistoryOrderViewHolder> {
@@ -62,6 +64,7 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
         holder.tvOrderDate.setText(historyOrder.getDate());
         holder.tvOrderTime.setText(historyOrder.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", historyOrder.getPrice()) + " VND");
+        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(historyOrder.getClient().getImage()));
 
         if (historyOrder.getShip()){
             holder.flagCompleted.setVisibility(View.VISIBLE);
@@ -85,6 +88,7 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
         private View flagCompleted;
         private View flagCanceled;
         private RelativeLayout item;
+        private ImageView imageView;
 
         public HistoryOrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +100,7 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
             flagCompleted = itemView.findViewById(R.id.flag_completed);
             flagCanceled = itemView.findViewById(R.id.flag_canceled);
             item = itemView.findViewById(R.id.order_item);
+            imageView = itemView.findViewById(R.id.order_avatar);
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
 
@@ -35,6 +37,8 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_DISH_LIST";
     public static final String EXTRA_ORDER_PRICE =
             "com.example.androidapp.EXTRA_ORDER_PRICE";
+    public static final String EXTRA_ORDER_IMAGE =
+            "com.example.androidapp.EXTRA_ORDER_IMAGE";
 
 
     private TextView tvOrderName;
@@ -46,6 +50,8 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
     private Button btnBack;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
+    private byte[] image;
+    private ImageView imageView;
     //info is view only
     final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
     @Override
@@ -66,6 +72,8 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
+            image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
+            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
 
         }
         //display list dish
@@ -92,6 +100,7 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
         tvOrderNumber = findViewById(R.id.order_phone);
         tvOrderTime = findViewById(R.id.order_time);
         btnBack = findViewById(R.id.btn_back);
+        imageView = findViewById(R.id.order_avatar);
     }
     private void initRecyclerView() {
         //Dish view holder and recycler view and displaying

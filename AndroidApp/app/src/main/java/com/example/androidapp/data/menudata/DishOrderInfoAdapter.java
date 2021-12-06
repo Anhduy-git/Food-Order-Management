@@ -64,6 +64,7 @@ public class DishOrderInfoAdapter extends RecyclerView.Adapter<DishOrderInfoAdap
 
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
+        holder.tvDishQuantity.setText(String.valueOf(dish.getQuantity()));
 
     }
 
@@ -75,6 +76,7 @@ public class DishOrderInfoAdapter extends RecyclerView.Adapter<DishOrderInfoAdap
         private TextView tvDishName;
         private TextView tvDishPrice;
         private ImageView imgView;
+        private TextView tvDishQuantity;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,6 +84,7 @@ public class DishOrderInfoAdapter extends RecyclerView.Adapter<DishOrderInfoAdap
             tvDishName = itemView.findViewById(R.id.dish_name);
             tvDishPrice = itemView.findViewById(R.id.dish_price);
             imgView = itemView.findViewById(R.id.dish_pic_view);
+            tvDishQuantity = itemView.findViewById(R.id.order_info_num_dish);
         }
     }
 

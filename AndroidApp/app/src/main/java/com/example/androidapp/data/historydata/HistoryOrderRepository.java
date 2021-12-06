@@ -14,6 +14,7 @@ import java.util.List;
 
 public class HistoryOrderRepository {
 
+
     private HistoryOrderDao historyOrderDao;
     private LiveData<List<HistoryOrder>> allHistoryOrder;
     private LiveData<List<HistoryOrder>> allHistorySuccessOrder;
@@ -30,10 +31,12 @@ public class HistoryOrderRepository {
     }
 
 
+
     public LiveData<List<HistoryOrder>> getAllHistoryOrder(){
         return allHistoryOrder;
     }
     public LiveData<List<HistoryOrder>> getAllHistorySuccessOrder(){
+
         return allHistorySuccessOrder;
     }
     public LiveData<List<HistoryOrder>> getAllHistoryCancelOrder(){
@@ -52,4 +55,6 @@ public class HistoryOrderRepository {
         }
     }
 
+
 }
+
