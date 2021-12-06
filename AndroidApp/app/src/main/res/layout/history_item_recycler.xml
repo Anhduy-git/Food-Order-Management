@@ -29,10 +29,11 @@
                 android:src="@drawable/ava_client_default" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="9dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@+id/order_avatar"
                 android:orientation="vertical"
                 android:translationY="-2dp">
@@ -43,6 +44,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:text="Vu Hoai Nam"
                     android:textColor="@color/main_white"
                     android:textSize="17sp"
@@ -84,6 +86,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:text="599.000 VND"
                     android:textColor="@color/main_white"
                     android:textSize="15sp"></TextView>
@@ -94,8 +97,8 @@
         <View
             android:id="@+id/flag_completed"
             android:visibility="gone"
-            android:layout_width="17dp"
-            android:layout_height="33dp"
+            android:layout_width="20dp"
+            android:layout_height="36dp"
             android:layout_alignParentRight="true"
             android:background="@drawable/flag_completed"
             android:translationX="-40dp"
@@ -104,8 +107,8 @@
         <View
             android:id="@+id/flag_canceled"
             android:visibility="gone"
-            android:layout_width="17dp"
-            android:layout_height="33dp"
+            android:layout_width="20dp"
+            android:layout_height="36dp"
             android:layout_alignParentRight="true"
             android:background="@drawable/flag_canceled"
             android:translationX="-40dp"

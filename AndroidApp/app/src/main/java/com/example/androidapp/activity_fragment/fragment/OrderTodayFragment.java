@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -46,7 +47,8 @@ import java.util.List;
 import java.util.TimeZone;
 
 public class OrderTodayFragment extends Fragment {
-    public Button btnAddNewOrder;
+    private Button btnAddNewOrder;
+    private TextView numOrderToday;
     public static final int ADD_ORDER_REQUEST = 1;
     public static final int CONFIRM_ORDER_REQUEST = 2;
     //View model
@@ -69,6 +71,8 @@ public class OrderTodayFragment extends Fragment {
         //rcvData.setHasFixedSize(true);
         rcvData.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        numOrderToday = (TextView)view.findViewById(R.id.order_num);
+
         final OrderAdapter orderAdapter = new OrderAdapter();
         rcvData.setAdapter(orderAdapter);
         //Set up view model
@@ -77,9 +81,12 @@ public class OrderTodayFragment extends Fragment {
 
         orderViewModel.getAllOrder().observe(getActivity(), new Observer<List<Order>>() {
             @Override
-            public void onChanged(List<Order> orderEntities) {
+            public void onChanged(List<Order> orders) {
                 //Update Recycle View
-                orderAdapter.submitList(orderEntities);
+                orderAdapter.submitList(orders);
+                //Display number of order today
+                numOrderToday.setText(Integer.toString(orders.size()));
+
             }
         });
 
