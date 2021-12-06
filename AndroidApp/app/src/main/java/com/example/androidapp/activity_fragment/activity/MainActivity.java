@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Order Today");
+        getSupportActionBar().setTitle("Đơn Hàng Hôm Nay");
         mDrawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
 
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int intentFragment = getIntent().getIntExtra("fragmentSelect", -1);
         if (intentFragment == FRAGMENT_UPCOMING_ORDER) {
             replaceFragment(new UpcomingOrderFragment());
-            getSupportActionBar().setTitle("Upcoming Order");
+            getSupportActionBar().setTitle("Đơn Hàng Sắp Tới");
             mCurrentFragment = FRAGMENT_UPCOMING_ORDER;
             nav_view.getMenu().findItem(R.id.upcoming_order).setChecked(true);
         }
@@ -187,25 +187,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.order_today) {
             if (mCurrentFragment != FRAGMENT_ORDER_TODAY) {
                 replaceFragment(new OrderTodayFragment());
-                getSupportActionBar().setTitle("Order Today");
+                getSupportActionBar().setTitle("Đơn Hàng Hôm Nay");
                 mCurrentFragment = FRAGMENT_ORDER_TODAY;
             }
         } else if (id == R.id.upcoming_order) {
             if (mCurrentFragment != FRAGMENT_UPCOMING_ORDER) {
                 replaceFragment(new UpcomingOrderFragment());
-                getSupportActionBar().setTitle("Upcoming Order");
+                getSupportActionBar().setTitle("Đơn Hàng Sắp Tới");
                 mCurrentFragment = FRAGMENT_UPCOMING_ORDER;
             }
         } else if (id == R.id.client) {
             if (mCurrentFragment != FRAGMENT_CLIENT) {
                 replaceFragment(new ClientFragment());
-                getSupportActionBar().setTitle("Client");
+                getSupportActionBar().setTitle("Khách Hàng");
                 mCurrentFragment = FRAGMENT_CLIENT;
             }
         } else if (id == R.id.menu) {
             if (mCurrentFragment != FRAGMENT_MENU) {
                 replaceFragment(new MenuFragment());
-                getSupportActionBar().setTitle("Menu");
+                getSupportActionBar().setTitle("Thực Đơn");
                 mCurrentFragment = FRAGMENT_MENU;
             }
         } else if (id == R.id.history) {
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.unpaid_order) {
             if (mCurrentFragment != FRAGMENT_UNPAID_ORDER) {
                 replaceFragment(new UnpaidOrderFragment());
-                getSupportActionBar().setTitle("Unpaid Order");
+                getSupportActionBar().setTitle("Đơn Chưa Thanh Toán");
                 mCurrentFragment = FRAGMENT_UNPAID_ORDER;
             }
         }
@@ -314,10 +314,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     UnpaidOrder unpaidOrder = new UnpaidOrder(client, order.getDate(), order.getTime(), order.getPrice(), false, order.getOrderListDish());
                                     unpaidOrderViewModel.insert(unpaidOrder);
                                 }
+                            } else {
+                                //Move to history all cancel order
+                                HistoryOrder historyOrder = new HistoryOrder(client, order.getDate(), order.getTime(), order.getPrice(), order.getShip(), order.getPaid(), order.getOrderListDish());
+                                historyOrderViewModel.insert(historyOrder);
                             }
-                            //Move to history
-                            HistoryOrder historyOrder = new HistoryOrder(client, order.getDate(), order.getTime(), order.getPrice(), order.getShip(), order.getPaid(), order.getOrderListDish());
-                            historyOrderViewModel.insert(historyOrder);
+
                             //Remove all old order
                             orderViewModel.delete(order);
                         }
@@ -375,9 +377,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onChanged(List<HistoryOrder> historyOrders) {
                 int revThisMonth = 0;
-                for (int i = 0; i < historyOrders.size(); i++) {
-                    revThisMonth = revThisMonth + historyOrders.get(i).getPrice();
+                try {
+                    for (int i = 0; i < historyOrders.size(); i++) {
+                        Date historyOrderDate = simpleDateFormat.parse(historyOrders.get(i).getDate());
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(historyOrderDate);
+                        if (calendar.get(Calendar.MONTH) == calendarToday.get(Calendar.MONTH) && calendar.get(Calendar.YEAR) == calendarToday.get(Calendar.YEAR))
+                            revThisMonth = revThisMonth + historyOrders.get(i).getPrice();
+                    }
+                } catch (ParseException ex) {
+
                 }
+
                 textView.setText(String.format("%,d", revThisMonth));
             }
         });
