@@ -18,24 +18,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Revenue today: "
+            android:text="Order today: "
             android:textColor="@color/main_white"
-            android:textSize="17sp"></TextView>
+            android:textSize="18sp"></TextView>
         <TextView
 
             android:id="@+id/order_revenue"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="899.000"
+            android:text="2"
             android:textColor="@color/color_price"
-            android:textSize="17sp"></TextView>
+            android:textSize="19sp"></TextView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" VND"
+            android:text=" orders"
             android:textColor="@color/main_white"
-            android:textSize="17sp"></TextView>
+            android:textSize="18sp"></TextView>
     </LinearLayout>
 
     <RelativeLayout
