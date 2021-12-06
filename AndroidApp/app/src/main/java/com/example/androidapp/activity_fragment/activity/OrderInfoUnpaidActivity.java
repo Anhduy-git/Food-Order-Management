@@ -81,7 +81,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
-            byte[] image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
+            image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
             imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
 
