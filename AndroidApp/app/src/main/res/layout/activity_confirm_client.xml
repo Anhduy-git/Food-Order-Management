@@ -98,7 +98,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name:"
+            android:text="Tên khách hàng:"
             android:textColor="@color/main_white"
             android:textSize="18sp"></TextView>
 
@@ -124,7 +124,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Number:"
+            android:text="Số điện thoại:"
             android:textColor="@color/main_white"
             android:textSize="18sp"></TextView>
 
@@ -150,7 +150,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Address:"
+            android:text="Địa chỉ:"
             android:textColor="@color/main_white"
             android:textSize="18sp"></TextView>
 
@@ -190,7 +190,7 @@
         android:layout_alignBottom="@+id/blur_layout"
         android:layout_centerInParent="true"
         android:background="@drawable/btn_add"
-        android:text="Update"
+        android:text="Cập Nhật"
         android:textColor="@color/main_white"
         android:textSize="20dp"
         android:translationY="100dp"

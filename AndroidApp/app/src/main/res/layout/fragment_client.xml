@@ -29,7 +29,7 @@
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@+id/icon_searching"
             android:background="@color/main_white"
-            android:hint="search"
+            android:hint="tìm kiếm"
             android:inputType="text"
             android:maxLines="1"
             android:textColor="@color/main_color"

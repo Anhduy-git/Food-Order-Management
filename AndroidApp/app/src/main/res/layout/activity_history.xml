@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="4dp"
-            android:text="History"
+            android:text="Lịch Sử"
             android:textColor="@color/main_white"
             android:textSize="19sp"></TextView>
     </LinearLayout>

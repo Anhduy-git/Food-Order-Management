@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order today: "
+            android:text="Hôm nay có "
             android:textColor="@color/main_white"
             android:textSize="18sp"></TextView>
         <TextView
@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" orders"
+            android:text=" đơn hàng"
             android:textColor="@color/main_white"
             android:textSize="18sp"></TextView>
     </LinearLayout>

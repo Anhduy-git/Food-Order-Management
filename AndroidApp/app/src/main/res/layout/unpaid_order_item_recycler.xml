@@ -93,8 +93,8 @@
 
     <View
         android:id="@+id/flag_ship"
-        android:layout_width="17dp"
-        android:layout_height="33dp"
+        android:layout_width="20dp"
+        android:layout_height="36dp"
         android:layout_alignParentRight="true"
         android:background="@drawable/flag_ship"
         android:translationX="-30dp"

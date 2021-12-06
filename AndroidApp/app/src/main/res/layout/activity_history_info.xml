@@ -57,7 +57,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order Information"
+            android:text="Thông Tin Đơn Hàng"
             android:textColor="@color/main_white"
             android:textSize="19sp"
             android:layout_gravity="center_vertical"
@@ -179,12 +179,11 @@
             android:orientation="vertical">
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="Total price:"
+                android:text="Tổng tiền:"
                 android:textColor="@color/main_white"
                 android:textSize="17sp"></TextView>
 
