@@ -155,7 +155,8 @@
         android:background="@drawable/btn_add"
         android:text="Cập Nhật"
         android:textColor="@color/main_white"
-        android:textSize="20dp"></Button>
+        android:textSize="20dp"
+        android:soundEffectsEnabled="false"></Button>
 
     <View
         android:layout_width="280dp"

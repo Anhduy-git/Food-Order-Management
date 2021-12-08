@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -235,7 +236,15 @@ public class NewOrderActivity extends AppCompatActivity {
                 Toast.makeText(this, "Can't add order in the past here", Toast.LENGTH_SHORT).show();
                 return;
             }
-
+            //confirm sound
+            final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+            //release resource when completed
+            sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    sound.release();
+                }
+            });
+            sound.start();
             Intent data = new Intent();
             data.putExtra(EXTRA_ORDER_NAME, strOrderName);
             data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);

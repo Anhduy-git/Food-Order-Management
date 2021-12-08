@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -118,7 +119,15 @@ public class UpdateDishActivity extends AppCompatActivity {
             Toast.makeText(this, "Please insert name and price", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        //confirm sound
+        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+        //release resource when completed
+        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                sound.release();
+            }
+        });
+        sound.start();
         Intent data = new Intent();
         data.putExtra(EXTRA_NAME, strDishName);
         data.putExtra(EXTRA_PRICE, Integer.valueOf(strDishPrice));

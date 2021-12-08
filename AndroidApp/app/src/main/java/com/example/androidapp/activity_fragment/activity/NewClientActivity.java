@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -106,7 +107,15 @@ public class NewClientActivity extends AppCompatActivity {
             Toast.makeText(this, "Please insert name, number and address", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        //confirm sound
+        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+        //release resource when completed
+        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                sound.release();
+            }
+        });
+        sound.start();
         Intent data = new Intent();
         data.putExtra(EXTRA_CLIENT_NAME, strClientName);
         data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);

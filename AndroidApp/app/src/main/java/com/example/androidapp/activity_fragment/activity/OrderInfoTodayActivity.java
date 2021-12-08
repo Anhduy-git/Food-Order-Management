@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -73,6 +74,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
+    private int change = 0;
 
 
     @Override
@@ -130,6 +132,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         checkPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                change = 1;
                 if (paid == false){
                     paid = true;
 
@@ -139,10 +142,19 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 }
             }
         });
+        final MediaPlayer sound = MediaPlayer.create(this, R.raw.ship_sound);
+        //release resource when completed
+        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                sound.release();
+            }
+        });
         //Ship button to confirm ship and return data
         btnShip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Sound onClick
+                sound.start();
                 ship = true;
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHECK_SHIP, ship);
@@ -163,26 +175,40 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         //Button back to OrderTodayFragment
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent data = new Intent();
-                data.putExtra(EXTRA_CHECK_PAID, paid);
-                data.putExtra(EXTRA_CHECK_SHIP, ship);
-                data.putExtra(EXTRA_ORDER_NAME, strOrderName);
-                data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
-                data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
-                data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
-                data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-                data.putExtra(EXTRA_ORDER_IMAGE, image);
-                data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
-                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
-                if (id != -1) {
-                    data.putExtra(EXTRA_ORDER_ID, id);
+                if (change == 1) {
+                    //confirm sound
+                    final MediaPlayer sound = MediaPlayer.create(OrderInfoTodayActivity.this, R.raw.confirm_sound);
+                    //release resource when completed
+                    sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            sound.release();
+                        }
+                    });
+                    sound.start();
+                    Intent data = new Intent();
+                    data.putExtra(EXTRA_CHECK_PAID, paid);
+                    data.putExtra(EXTRA_CHECK_SHIP, ship);
+                    data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+                    data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
+                    data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
+                    data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
+                    data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                    data.putExtra(EXTRA_ORDER_IMAGE, image);
+                    data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
+                    int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
+                    if (id != -1) {
+                        data.putExtra(EXTRA_ORDER_ID, id);
+                    }
+                    setResult(RESULT_OK, data);
+                    finish();
+                } else {
+                    onBackPressed();
                 }
-                setResult(RESULT_OK, data);
-                finish();
             }
         });
         //Button to choose a new dish from menu

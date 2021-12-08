@@ -194,7 +194,8 @@
         android:textColor="@color/main_white"
         android:textSize="20dp"
         android:translationY="100dp"
-        android:translationZ="1dp"></Button>
+        android:translationZ="1dp"
+        android:soundEffectsEnabled="false"></Button>
 
     <View
         android:layout_width="280dp"
