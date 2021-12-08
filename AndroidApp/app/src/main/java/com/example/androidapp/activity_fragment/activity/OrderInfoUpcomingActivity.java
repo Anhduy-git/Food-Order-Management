@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -66,6 +67,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
     private List<Dish> mListDish = new ArrayList<>();
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
     private Button btnAddDish;
+    private int change = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +117,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         checkPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                change = 1;
                 if (paid == false){
                     paid = true;
 
@@ -129,21 +132,34 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent data = new Intent();
-                data.putExtra(EXTRA_CHECK_PAID, paid);
-                data.putExtra(EXTRA_ORDER_NAME, strOrderName);
-                data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
-                data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
-                data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
-                data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-                data.putExtra(EXTRA_ORDER_IMAGE, image);
-                data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
-                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
-                if (id != -1) {
-                    data.putExtra(EXTRA_ORDER_ID, id);
+                if (change == 1) {
+                    //confirm sound
+                    final MediaPlayer sound = MediaPlayer.create(OrderInfoUpcomingActivity.this, R.raw.confirm_sound);
+                    //release resource when completed
+                    sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            sound.release();
+                        }
+                    });
+                    sound.start();
+                    Intent data = new Intent();
+                    data.putExtra(EXTRA_CHECK_PAID, paid);
+                    data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+                    data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
+                    data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
+                    data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
+                    data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                    data.putExtra(EXTRA_ORDER_IMAGE, image);
+                    data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
+                    int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
+                    if (id != -1) {
+                        data.putExtra(EXTRA_ORDER_ID, id);
+                    }
+                    setResult(RESULT_OK, data);
+                    finish();
+                } else {
+                    onBackPressed();
                 }
-                setResult(RESULT_OK, data);
-                finish();
             }
         });
         //Button to choose a new dish from menu

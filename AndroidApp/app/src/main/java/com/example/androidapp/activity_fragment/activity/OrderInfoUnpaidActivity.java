@@ -1,6 +1,7 @@
 package com.example.androidapp.activity_fragment.activity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -90,11 +91,19 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         //display list dish
         dishOrderInfoAdapter.setDish(mListDish);
 
-
+        //confirm sound
+        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+        //release resource when completed
+        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                sound.release();
+            }
+        });
         //Paid button to confirm paid and remove unpaid order
         btnPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sound.start();
                 Intent data = new Intent();
                 int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
                 if (id != -1) {

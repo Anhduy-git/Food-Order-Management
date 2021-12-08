@@ -154,6 +154,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
         android:background="@drawable/btn_add"
+        android:soundEffectsEnabled="false"
         android:text="thêm"
         android:textColor="@color/main_white"
         android:textSize="20dp"></Button>

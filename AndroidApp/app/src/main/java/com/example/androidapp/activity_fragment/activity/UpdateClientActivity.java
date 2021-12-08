@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,6 +54,8 @@ public class UpdateClientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirm_client);
 
         initUi();
+        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+        //release resource when completed
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_CLIENT_ID)) {
@@ -65,6 +68,7 @@ public class UpdateClientActivity extends AppCompatActivity {
         btnUpdateClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 updateClient();
             }
         });
@@ -114,7 +118,15 @@ public class UpdateClientActivity extends AppCompatActivity {
             Toast.makeText(this, "Please insert name, number and address", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        //confirm sound
+        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+        //release resource when completed
+        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                sound.release();
+            }
+        });
+        sound.start();
         Intent data = new Intent();
         data.putExtra(EXTRA_CLIENT_NAME, strClientName);
         data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
