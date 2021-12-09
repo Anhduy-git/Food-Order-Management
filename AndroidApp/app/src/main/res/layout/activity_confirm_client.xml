@@ -195,7 +195,7 @@
         android:textSize="20dp"
         android:translationY="100dp"
         android:translationZ="1dp"
-        android:soundEffectsEnabled="false"></Button>
+        android:visibility="gone"></Button>
 
     <View
         android:layout_width="280dp"

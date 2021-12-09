@@ -16,7 +16,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,6 +68,8 @@ public class UpdateDishActivity extends AppCompatActivity {
             byte[] image = intent.getByteArrayExtra(EXTRA_IMAGE);
             imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
         }
+        //Check for update to show btn
+        checkUpdate();
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +163,8 @@ public class UpdateDishActivity extends AppCompatActivity {
     }
 
     private void takePictureFromGallery() {
+        //update image
+        btnUpdate.setVisibility(View.VISIBLE);
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhoto, GALLERY_REQUEST);
     }
@@ -166,6 +172,8 @@ public class UpdateDishActivity extends AppCompatActivity {
     private void takePictureFromCamera() {
         Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePicture.resolveActivity(getPackageManager()) != null) {
+            //update image
+            btnUpdate.setVisibility(View.VISIBLE);
             startActivityForResult(takePicture, CAMERA_REQUEST);
         }
     }
@@ -204,5 +212,42 @@ public class UpdateDishActivity extends AppCompatActivity {
         }else {
             Toast.makeText(UpdateDishActivity.this, "Permission not granted", Toast.LENGTH_SHORT).show();
         }
+    }
+    private void checkUpdate() {
+        editDishName.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                btnUpdate.setVisibility(View.VISIBLE);
+            }
+        });
+        editDishPrice.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                btnUpdate.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 }

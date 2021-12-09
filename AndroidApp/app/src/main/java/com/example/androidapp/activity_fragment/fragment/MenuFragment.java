@@ -175,7 +175,6 @@ public class MenuFragment extends Fragment {
             //check if dish exist
             if (!checkDishExist(dish)) {
                 dishViewModel.insertDish(dish);
-                Toast.makeText(getActivity(), "Dish added successfully", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -183,7 +182,7 @@ public class MenuFragment extends Fragment {
         else if (requestCode == EDIT_DISH_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(UpdateDishActivity.EXTRA_ID, -1);
             if (id == -1) {
-                Toast.makeText(getActivity(), "Dish can't be updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -196,7 +195,6 @@ public class MenuFragment extends Fragment {
             if (!checkDishExist(dish)) {
                 dish.setDishID(id);
                 dishViewModel.updateDish(dish);
-                Toast.makeText(getActivity(), "Dish updated successfully", Toast.LENGTH_SHORT).show();
             }
         }
         else {

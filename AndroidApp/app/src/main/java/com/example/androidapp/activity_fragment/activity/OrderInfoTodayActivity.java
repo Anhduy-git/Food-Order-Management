@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -67,14 +70,14 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
     private CheckBox checkPaid;
 
     private boolean ship;
-    private boolean paid;
+    private boolean beforePaid;
+    private boolean currentPaid;
 
     private byte[] image;
 
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
-    private int change = 0;
 
 
     @Override
@@ -82,8 +85,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_info_today);
         //Reset
-        ship = false;
-        paid = false;
+        currentPaid = false;
+        beforePaid = false;
         initUi();
         initRecyclerView();
 
@@ -101,7 +104,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
 
             ship = intent.getBooleanExtra(EXTRA_CHECK_SHIP, ship);
-            paid = intent.getBooleanExtra(EXTRA_CHECK_PAID, paid);
+            beforePaid = intent.getBooleanExtra(EXTRA_CHECK_PAID, beforePaid);
+            currentPaid = beforePaid;
 
             image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
             imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
@@ -110,9 +114,21 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         }
         //display list dish
         dishOrderAdapter.setDish(mListDish);
-
+        //check for change to update price
+        dishOrderAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver(){
+            @Override
+            public void onChanged() {
+                int price = 0;
+                //generate id for all dish and update price
+                for (Dish dish : mListDish) {
+                    price = price + dish.getPrice() * dish.getQuantity();
+                }
+                //Change price textview
+                tvOrderPrice.setText(String.valueOf(price));
+            }
+        });
         //Check if Paid for checkbox:
-        if (paid){
+        if (currentPaid){
             checkPaid.setChecked(true);
         }
         //Check if ship for disable button
@@ -126,27 +142,34 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         String strOrderNumber = tvOrderNumber.getText().toString().trim();
         String strOrderDate = tvOrderDate.getText().toString().trim();
         String strOrderTime = tvOrderTime.getText().toString().trim();
-        int orderPrice = Integer.valueOf(tvOrderPrice.getText().toString().trim());
 
         //Checkbox to confirm paid
         checkPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                change = 1;
-                if (paid == false){
-                    paid = true;
+                if (currentPaid == false){
+                    currentPaid = true;
 
                 } else {
-                    paid = false;
+                    currentPaid = false;
 
                 }
             }
         });
+        //ship sound
         final MediaPlayer sound = MediaPlayer.create(this, R.raw.ship_sound);
         //release resource when completed
         sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
                 sound.release();
+            }
+        });
+        //confirm sound
+        final MediaPlayer sound_back = MediaPlayer.create(this, R.raw.confirm_sound);
+        //release resource when completed
+        sound_back.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                sound_back.release();
             }
         });
         //Ship button to confirm ship and return data
@@ -158,7 +181,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 ship = true;
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHECK_SHIP, ship);
-                data.putExtra(EXTRA_CHECK_PAID, paid);
+                data.putExtra(EXTRA_CHECK_PAID, currentPaid);
                 data.putExtra(EXTRA_ORDER_NAME, strOrderName);
                 data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
@@ -180,36 +203,28 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (change == 1) {
-                    //confirm sound
-                    final MediaPlayer sound = MediaPlayer.create(OrderInfoTodayActivity.this, R.raw.confirm_sound);
-                    //release resource when completed
-                    sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        public void onCompletion(MediaPlayer mp) {
-                            sound.release();
-                        }
-                    });
-                    sound.start();
-                    Intent data = new Intent();
-                    data.putExtra(EXTRA_CHECK_PAID, paid);
-                    data.putExtra(EXTRA_CHECK_SHIP, ship);
-                    data.putExtra(EXTRA_ORDER_NAME, strOrderName);
-                    data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
-                    data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
-                    data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
-                    data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-                    data.putExtra(EXTRA_ORDER_IMAGE, image);
-                    data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
-                    int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
-                    if (id != -1) {
-                        data.putExtra(EXTRA_ORDER_ID, id);
-                    }
-                    setResult(RESULT_OK, data);
-                    finish();
-                } else {
-                    onBackPressed();
+                if (currentPaid != beforePaid) {
+
+                    sound_back.start();
                 }
+                Intent data = new Intent();
+                data.putExtra(EXTRA_CHECK_PAID, currentPaid);
+                data.putExtra(EXTRA_CHECK_SHIP, ship);
+                data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+                data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
+                data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
+                data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
+                data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                data.putExtra(EXTRA_ORDER_IMAGE, image);
+                data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
+                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
+                if (id != -1) {
+                    data.putExtra(EXTRA_ORDER_ID, id);
+                }
+                setResult(RESULT_OK, data);
+                finish();
             }
+
         });
         //Button to choose a new dish from menu
         btnAddDish.setOnClickListener(new View.OnClickListener() {
@@ -262,10 +277,14 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 dish.setQuantity(dishQuantity);
                 mListDish.add(dish);
             }
-            //generate id for all dish
+            int price = 0;
+            //generate id for all dish and update price
             for (int i = 1; i <= mListDish.size(); i++) {
                 mListDish.get(i - 1).setDishID(i);
+                price += mListDish.get(i - 1).getPrice() * mListDish.get(i - 1).getQuantity();
             }
+            //Change price textview
+            tvOrderPrice.setText(String.valueOf(price));
             //Display the chosen dish to the current order
             dishOrderAdapter.setDish(mListDish);
         }

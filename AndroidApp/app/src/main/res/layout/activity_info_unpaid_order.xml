@@ -236,7 +236,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:background="@drawable/bg_ship_btn"
-            android:soundEffectsEnabled="false"
             android:text="Thanh Toán"
             android:textAllCaps="false"
             android:textColor="@color/main_white"

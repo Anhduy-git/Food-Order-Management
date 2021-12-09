@@ -60,21 +60,23 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
     private Button btnBack;
     private CheckBox checkPaid;
 
-    private boolean paid;
+    private boolean beforePaid;
+    private boolean currentPaid;
     private byte[] image;
 
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
     private Button btnAddDish;
-    private int change = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_info_upcoming);
         //Reset
-        paid = false;
+        currentPaid = false;
+        beforePaid = false;
 
         initUi();
         initRecyclerView();
@@ -94,15 +96,29 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
             imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
 
-            paid = intent.getBooleanExtra(EXTRA_CHECK_PAID, paid);
+            beforePaid = intent.getBooleanExtra(EXTRA_CHECK_PAID, beforePaid);
+            currentPaid = beforePaid;
 
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
         }
         //display list dish
         dishOrderAdapter.setDish(mListDish);
+        //check for change to update price
+        dishOrderAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver(){
+            @Override
+            public void onChanged() {
+                int price = 0;
+                //generate id for all dish and update price
+                for (Dish dish : mListDish) {
+                    price = price + dish.getPrice() * dish.getQuantity();
+                }
+                //Change price textview
+                tvOrderPrice.setText(String.valueOf(price));
+            }
+        });
 
         //Check if Paid for checkbox:
-        if (paid){
+        if (currentPaid){
             checkPaid.setChecked(true);
         }
 
@@ -117,12 +133,12 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         checkPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                change = 1;
-                if (paid == false){
-                    paid = true;
+
+                if (currentPaid == false){
+                    currentPaid = true;
 
                 } else {
-                    paid = false;
+                    currentPaid = false;
 
                 }
             }
@@ -132,7 +148,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (change == 1) {
+                if (currentPaid != beforePaid) {
                     //confirm sound
                     final MediaPlayer sound = MediaPlayer.create(OrderInfoUpcomingActivity.this, R.raw.confirm_sound);
                     //release resource when completed
@@ -142,25 +158,24 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                         }
                     });
                     sound.start();
-                    Intent data = new Intent();
-                    data.putExtra(EXTRA_CHECK_PAID, paid);
-                    data.putExtra(EXTRA_ORDER_NAME, strOrderName);
-                    data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
-                    data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
-                    data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
-                    data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-                    data.putExtra(EXTRA_ORDER_IMAGE, image);
-                    data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
-                    int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
-                    if (id != -1) {
-                        data.putExtra(EXTRA_ORDER_ID, id);
-                    }
-                    setResult(RESULT_OK, data);
-                    finish();
-                } else {
-                    onBackPressed();
                 }
+                Intent data = new Intent();
+                data.putExtra(EXTRA_CHECK_PAID, currentPaid);
+                data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+                data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
+                data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
+                data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
+                data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                data.putExtra(EXTRA_ORDER_IMAGE, image);
+                data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
+                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
+                if (id != -1) {
+                    data.putExtra(EXTRA_ORDER_ID, id);
+                }
+                setResult(RESULT_OK, data);
+                finish();
             }
+
         });
         //Button to choose a new dish from menu
         btnAddDish.setOnClickListener(new View.OnClickListener() {
@@ -212,10 +227,14 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                 dish.setQuantity(dishQuantity);
                 mListDish.add(dish);
             }
-            //generate id for all dish
+            int price = 0;
+            //generate id for all dish and update price
             for (int i = 1; i <= mListDish.size(); i++) {
                 mListDish.get(i - 1).setDishID(i);
+                price += mListDish.get(i - 1).getPrice() * mListDish.get(i - 1).getQuantity();
             }
+            //Change price textview
+            tvOrderPrice.setText(String.valueOf(price));
             //Display the chosen dish to the current order
             dishOrderAdapter.setDish(mListDish);
         }

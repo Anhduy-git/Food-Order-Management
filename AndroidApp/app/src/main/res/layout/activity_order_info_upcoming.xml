@@ -55,8 +55,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/btn_back_background"
             android:drawableStart="@drawable/back_btn"
-            android:paddingLeft="8dp"
-            android:soundEffectsEnabled="false"></Button>
+            android:paddingLeft="8dp"></Button>
 
 
         <TextView

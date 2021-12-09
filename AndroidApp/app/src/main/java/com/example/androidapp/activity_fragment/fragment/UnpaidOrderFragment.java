@@ -89,7 +89,7 @@ public class UnpaidOrderFragment extends Fragment {
             List<Dish> mOrderListDish = new ArrayList<>();
 
             if (id == -1){
-                Toast.makeText(getActivity(), "Unpaid Order can't be updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -98,7 +98,6 @@ public class UnpaidOrderFragment extends Fragment {
             UnpaidOrder unpaidOrder = new UnpaidOrder(client, "", "", 0, true, mOrderListDish);
             unpaidOrder.setId(id);
             unpaidOrderViewModel.delete(unpaidOrder);
-            Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         }
 
     }

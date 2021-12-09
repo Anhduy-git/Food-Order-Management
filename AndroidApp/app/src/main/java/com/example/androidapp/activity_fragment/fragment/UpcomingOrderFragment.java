@@ -160,14 +160,13 @@ public class UpcomingOrderFragment extends Fragment {
             int price = calculateOrderPrice(mOrderListDish);
             paid = data.getBooleanExtra(OrderInfoUpcomingActivity.EXTRA_CHECK_PAID, paid);
             if (id == -1){
-                Toast.makeText(getActivity(), "Order can't be updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, price, paid, mOrderListDish);
             upcomingOrder.setId(id);
             upcomingOrderViewModel.update(upcomingOrder);
-            Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         }
         else {
 
