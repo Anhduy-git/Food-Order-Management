@@ -175,7 +175,6 @@ public class ClientFragment extends Fragment {
             //Check if exist client
             if (!checkClientExist(client)) {
                 clientViewModel.insertClient(client);
-                Toast.makeText(getActivity(), "Client added successfully", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -184,7 +183,7 @@ public class ClientFragment extends Fragment {
         else if (requestCode == EDIT_CLIENT_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(UpdateClientActivity.EXTRA_CLIENT_ID, -1);
             if (id == -1) {
-                Toast.makeText(getActivity(), "Client can't be updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -198,7 +197,6 @@ public class ClientFragment extends Fragment {
             if (!checkClientExist(client)) {
                 client.setClientId(id);
                 clientViewModel.updateClient(client);
-                Toast.makeText(getActivity(), "Client updated successfully", Toast.LENGTH_SHORT).show();
             }
         } else {
             //Do nothing

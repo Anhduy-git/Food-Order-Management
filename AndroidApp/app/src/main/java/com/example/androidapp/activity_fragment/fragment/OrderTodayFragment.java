@@ -59,7 +59,6 @@ public class OrderTodayFragment extends Fragment {
 
     private boolean paid;
     private boolean ship;
-
     public static List<Dish> mOrderListDish = new ArrayList<>();
 
     @Nullable
@@ -185,7 +184,7 @@ public class OrderTodayFragment extends Fragment {
                 }
 
             } catch (ParseException ex) {
-                Toast.makeText(getActivity(), "Parse Exception", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lỗi", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -202,7 +201,7 @@ public class OrderTodayFragment extends Fragment {
             ship = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, ship);
 
             if (id == -1){
-                Toast.makeText(getActivity(), "Order can't be updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 return;
             }
             Client client = new Client(name, number, address, image);
@@ -220,7 +219,6 @@ public class OrderTodayFragment extends Fragment {
                 HistoryOrder historyOrder = new HistoryOrder(client, order.getDate(), order.getTime(), order.getPrice(), order.getShip(), order.getPaid(), order.getOrderListDish());
                 historyOrderViewModel.insert(historyOrder);
             }
-            Toast.makeText(getActivity(), "Order updated successfully", Toast.LENGTH_SHORT).show();
         } else {
             //Do nothing
         }

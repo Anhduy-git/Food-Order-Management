@@ -14,7 +14,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,15 +49,13 @@ public class UpdateClientActivity extends AppCompatActivity {
     private Button btnAddImage;
     private Button btnUpdateClient;
     private Button btnBack;
-
+    private int change = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_client);
 
         initUi();
-        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
-        //release resource when completed
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_CLIENT_ID)) {
@@ -65,10 +65,12 @@ public class UpdateClientActivity extends AppCompatActivity {
             byte[] image = intent.getByteArrayExtra(EXTRA_CLIENT_IMAGE);
             imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
         }
+        //Check for update to show btn
+        checkUpdate();
+
         btnUpdateClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 updateClient();
             }
         });
@@ -157,6 +159,8 @@ public class UpdateClientActivity extends AppCompatActivity {
     }
 
     private void takePictureFromGallery() {
+        //update image
+        btnUpdateClient.setVisibility(View.VISIBLE);
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhoto, GALLERY_REQUEST);
     }
@@ -164,6 +168,8 @@ public class UpdateClientActivity extends AppCompatActivity {
     private void takePictureFromCamera() {
         Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePicture.resolveActivity(getPackageManager()) != null) {
+            //update image
+            btnUpdateClient.setVisibility(View.VISIBLE);
             startActivityForResult(takePicture, CAMERA_REQUEST);
         }
     }
@@ -202,5 +208,58 @@ public class UpdateClientActivity extends AppCompatActivity {
         }else {
             Toast.makeText(UpdateClientActivity.this, "Permission not granted", Toast.LENGTH_SHORT).show();
         }
+    }
+    private void checkUpdate() {
+        editClientName.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                btnUpdateClient.setVisibility(View.VISIBLE);
+            }
+        });
+        editClientAddress.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                btnUpdateClient.setVisibility(View.VISIBLE);
+            }
+        });
+        editClientNumber.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                btnUpdateClient.setVisibility(View.VISIBLE);
+            }
+        });
     }
 }
