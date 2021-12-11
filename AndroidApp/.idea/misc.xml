@@ -19,11 +19,14 @@
         <entry key="app/src/main/res/drawable/bg_searching.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/bg_ship_btn.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/bg_splash.xml" value="0.3515625" />
+        <entry key="app/src/main/res/drawable/big_ball.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/borderbottom.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/box_info.xml" value="0.28125" />
         <entry key="app/src/main/res/drawable/btn_add.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/btn_add_circle.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/btn_back.xml" value="0.17777777777777778" />
+        <entry key="app/src/main/res/drawable/btn_back_background.xml" value="0.3515625" />
+        <entry key="app/src/main/res/drawable/btn_trans_bg.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/button.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/confirm_check_box.xml" value="0.16203703703703703" />
         <entry key="app/src/main/res/drawable/ic_camera.xml" value="0.36875" />
