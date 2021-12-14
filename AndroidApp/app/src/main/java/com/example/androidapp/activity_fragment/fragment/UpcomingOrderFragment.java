@@ -38,7 +38,6 @@ public class UpcomingOrderFragment extends Fragment {
     public static final int CONFIRM_ORDER_REQUEST = 2;
     //View model
     private UpcomingOrderViewModel upcomingOrderViewModel;
-    private boolean paid;
     public static List<Dish> mOrderListDish = new ArrayList<>();
 
 
@@ -139,10 +138,8 @@ public class UpcomingOrderFragment extends Fragment {
             Client client = new Client(name, number, address, imageDir);
             mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
             int price = calculateOrderPrice(mOrderListDish);
-            //Reset paid
-            paid = false;
 
-            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, price, paid, mOrderListDish);
+            UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, price, false, mOrderListDish);
             upcomingOrderViewModel.insert(upcomingOrder);
 
         } else if (requestCode == CONFIRM_ORDER_REQUEST && resultCode == RESULT_OK) {
@@ -156,7 +153,7 @@ public class UpcomingOrderFragment extends Fragment {
             Client client = new Client(name, number, address, imageDir);
             mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
             int price = calculateOrderPrice(mOrderListDish);
-            paid = data.getBooleanExtra(OrderInfoUpcomingActivity.EXTRA_CHECK_PAID, paid);
+            boolean paid = data.getBooleanExtra(OrderInfoUpcomingActivity.EXTRA_CHECK_PAID, false);
             if (id == -1){
                 Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 return;

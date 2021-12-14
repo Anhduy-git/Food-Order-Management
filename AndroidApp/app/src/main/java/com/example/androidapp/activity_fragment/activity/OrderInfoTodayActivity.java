@@ -61,6 +61,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
     public static final String EXTRA_ORDER_PRICE =
             "com.example.androidapp.EXTRA_ORDER_PRICE";
     public static final int CHOOSE_DISH_REQUEST= 1;
+    public static final String EXTRA_CHECK_CONFIRM_SHIP =
+            "com.example.androidapp.EXTRA_CHECK_CONFIRM_SHIP";
 
     private TextView tvOrderName;
     private TextView tvOrderAddress;
@@ -192,6 +194,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 ship = true;
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHECK_SHIP, ship);
+                data.putExtra(EXTRA_CHECK_CONFIRM_SHIP, true);
                 data.putExtra(EXTRA_CHECK_PAID, currentPaid);
                 data.putExtra(EXTRA_ORDER_NAME, strOrderName);
                 data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
