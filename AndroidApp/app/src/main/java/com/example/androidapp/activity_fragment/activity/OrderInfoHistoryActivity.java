@@ -1,6 +1,8 @@
 package com.example.androidapp.activity_fragment.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,9 @@ import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,8 +77,18 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
-            image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
-            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
+            //read image from file
+            try {
+                File f = new File(intent.getStringExtra(EXTRA_ORDER_IMAGE),
+                        intent.getStringExtra(EXTRA_ORDER_NAME) +
+                                "-" + intent.getStringExtra(EXTRA_ORDER_ADDRESS)
+                                + "-" + intent.getStringExtra(EXTRA_ORDER_NUMBER));
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                imageView.setImageBitmap(b);
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
         }
         //display list dish

@@ -17,8 +17,8 @@ public interface DishDao {
     @Query("SELECT * FROM dish_table ORDER BY name ASC")
     LiveData<List<Dish>> getAllDishes();
 
-    @Query("SELECT * FROM dish_table WHERE name =:newName AND price =:newPrice AND image =:newImage")
-    List<Dish> checkDishExist(String newName, int newPrice, byte[] newImage);
+    @Query("SELECT * FROM dish_table WHERE name =:newName AND price =:newPrice")
+    List<Dish> checkDishExist(String newName, int newPrice);
 
     @Insert
     void insertDish(Dish dish);

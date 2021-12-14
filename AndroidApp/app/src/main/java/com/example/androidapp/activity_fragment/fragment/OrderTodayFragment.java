@@ -118,7 +118,7 @@ public class OrderTodayFragment extends Fragment {
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, order.getPaid());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, order.getShip());
                 intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_PRICE, order.getPrice());
-                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_IMAGE, order.getClient().getImage());
+                intent.putExtra(OrderInfoTodayActivity.EXTRA_ORDER_IMAGE, order.getClient().getImageDir());
                 intent.putParcelableArrayListExtra(OrderInfoTodayActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) order.getOrderListDish());
                 startActivityForResult(intent, CONFIRM_ORDER_REQUEST);
             }
@@ -156,9 +156,8 @@ public class OrderTodayFragment extends Fragment {
             String number = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_NUMBER);
             String time = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_DATE);
-            byte[] image = data.getByteArrayExtra(NewOrderActivity.EXTRA_ORDER_IMAGE);
-
-            Client client = new Client(name, number, address, image);
+            String imageDir = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_IMAGE);
+            Client client = new Client(name, number, address, imageDir);
             mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
             int price = calculateOrderPrice(mOrderListDish);
 
@@ -196,7 +195,7 @@ public class OrderTodayFragment extends Fragment {
             String number = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_NUMBER);
             String time = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_DATE);
-            byte[] image = data.getByteArrayExtra(OrderInfoTodayActivity.EXTRA_ORDER_IMAGE);
+            String imageDir = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_IMAGE);
             paid = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, paid);
             ship = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, ship);
 
@@ -204,7 +203,7 @@ public class OrderTodayFragment extends Fragment {
                 Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Client client = new Client(name, number, address, image);
+            Client client = new Client(name, number, address, imageDir);
             mOrderListDish = data.getParcelableArrayListExtra(OrderInfoTodayActivity.EXTRA_ORDER_DISH_LIST);
             int price = calculateOrderPrice(mOrderListDish);
 

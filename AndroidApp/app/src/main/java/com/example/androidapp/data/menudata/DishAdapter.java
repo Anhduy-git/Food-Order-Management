@@ -1,5 +1,7 @@
 package com.example.androidapp.data.menudata;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,9 @@ import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +92,15 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
 
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
-        holder.imgView.setImageBitmap(ImageConverter.convertByteArray2Image(dish.getImage()));
+        //read image from file
+        try {
+            File f=new File(dish.getImageDir(), dish.getName() + "-" + dish.getPrice());
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            holder.imgView.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -189,4 +202,6 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
     public void setOnItemClickDelListener(DishAdapter.OnItemClickDelListener delListener){
         this.delListener = delListener;
     }
+
+
 }

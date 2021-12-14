@@ -3,7 +3,11 @@ package com.example.androidapp.activity_fragment.fragment;
 import static android.app.Activity.RESULT_OK;
 
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,6 +42,9 @@ import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 public class ClientFragment extends Fragment {
@@ -48,6 +55,7 @@ public class ClientFragment extends Fragment {
     private ClientViewModel clientViewModel;
     private Button btnAddClient;
     private EditText edtSearchBar;
+    private ClientAdapter clientAdapter;
 
     public ClientFragment() {
         //Empty on purpose
@@ -66,7 +74,7 @@ public class ClientFragment extends Fragment {
         rcvData.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         //Create Client ADAPTER
-        final ClientAdapter clientAdapter = new ClientAdapter(mListClient);
+        clientAdapter = new ClientAdapter(mListClient);
         rcvData.setAdapter(clientAdapter);
 
         //Create Client VIEW MODEL
@@ -127,7 +135,7 @@ public class ClientFragment extends Fragment {
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_NAME, client.getClientName());
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_NUMBER, client.getPhoneNumber());
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS, client.getAddress());
-                intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_IMAGE, client.getImage());
+                intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_IMAGE, client.getImageDir());
 
                 startActivityForResult(intent, EDIT_CLIENT_REQUEST);
             }
@@ -168,12 +176,16 @@ public class ClientFragment extends Fragment {
             String name = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_NAME);
             String number = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_NUMBER);
             String address = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_ADDRESS);
-            byte[] image = data.getByteArrayExtra(NewClientActivity.EXTRA_CLIENT_IMAGE);
-
-            Client client = new Client(name, number, address, image);
+            //get bitmap image from intent
+            byte[] imageArray = data.getByteArrayExtra(NewClientActivity.EXTRA_CLIENT_IMAGE);
+            Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
+            Client client = new Client(name, number, address, "");
 
             //Check if exist client
-            if (!checkClientExist(client)) {
+            if (checkClientExistForInsert(client)) {
+                String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
+                        client.getAddress() + "-" + client.getPhoneNumber());
+                client.setImageDir(imageDir);
                 clientViewModel.insertClient(client);
             }
 
@@ -190,23 +202,58 @@ public class ClientFragment extends Fragment {
             String name = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_NAME);
             String number = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_NUMBER);
             String address = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS);
-            byte[] image = data.getByteArrayExtra(UpdateClientActivity.EXTRA_CLIENT_IMAGE);
 
-            Client client = new Client(name, number, address, image);
+            byte[] imageArray = data.getByteArrayExtra(UpdateClientActivity.EXTRA_CLIENT_IMAGE);
+            Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
+
+            Client client = new Client(name, number, address, "");
             //Check if exist client
-            if (!checkClientExist(client)) {
+            if (checkClientExistForUpdate(client)) {
+                String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
+                        client.getAddress() + "-" + client.getPhoneNumber());
+                client.setImageDir(imageDir);
                 client.setClientId(id);
                 clientViewModel.updateClient(client);
+                //Update recycler item
+                clientAdapter.notifyDataSetChanged();
             }
         } else {
             //Do nothing
         }
     }
 
-    private boolean checkClientExist(@NonNull Client client) {
+    private boolean checkClientExistForInsert(@NonNull Client client) {
         List<Client> list  = AppDatabase.getInstance(getContext()).clientDao().checkClientExist(client.getClientName(),
-                client.getAddress(), client.getPhoneNumber(), client.getImage());
-        return list != null && !list.isEmpty();
+                client.getAddress(), client.getPhoneNumber());
+        return list == null || list.size() == 0;
+    }
+    private boolean checkClientExistForUpdate(@NonNull Client client) {
+        List<Client> list  = AppDatabase.getInstance(getContext()).clientDao().checkClientExist(client.getClientName(),
+                client.getAddress(), client.getPhoneNumber());
+        return list != null && list.size() <= 1;
+    }
+    private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
+        ContextWrapper cw = new ContextWrapper(getContext());
+        // path to /data/data/yourapp/app_data/imageClientDir
+        File directory = cw.getDir("imageClientDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath = new File(directory,fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
     }
 
 }

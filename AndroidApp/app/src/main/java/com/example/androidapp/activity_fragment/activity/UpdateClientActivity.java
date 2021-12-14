@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -25,6 +26,10 @@ import android.widget.Toast;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.ImageConverter;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class UpdateClientActivity extends AppCompatActivity {
     public static final String EXTRA_CLIENT_ID =
@@ -59,11 +64,21 @@ public class UpdateClientActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_CLIENT_ID)) {
+
             editClientName.setText(intent.getStringExtra(EXTRA_CLIENT_NAME));
             editClientNumber.setText(intent.getStringExtra(EXTRA_CLIENT_NUMBER));
             editClientAddress.setText(intent.getStringExtra(EXTRA_CLIENT_ADDRESS));
-            byte[] image = intent.getByteArrayExtra(EXTRA_CLIENT_IMAGE);
-            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
+            try {
+                File f=new File(intent.getStringExtra(EXTRA_CLIENT_IMAGE),
+                        intent.getStringExtra(EXTRA_CLIENT_NAME)
+                        + "-" + intent.getStringExtra(EXTRA_CLIENT_ADDRESS)
+                        + "-" + intent.getStringExtra(EXTRA_CLIENT_NUMBER));
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                imageView.setImageBitmap(b);
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         //Check for update to show btn
         checkUpdate();
@@ -112,6 +127,7 @@ public class UpdateClientActivity extends AppCompatActivity {
         String strClientName = editClientName.getText().toString().trim();
         String strClientNumber = editClientNumber.getText().toString().trim();
         String strClientAddress = editClientAddress.getText().toString().trim();
+
         Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
         Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
 

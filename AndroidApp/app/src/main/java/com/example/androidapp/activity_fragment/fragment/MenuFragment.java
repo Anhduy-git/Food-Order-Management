@@ -3,8 +3,11 @@ package com.example.androidapp.activity_fragment.fragment;
 import static android.app.Activity.RESULT_OK;
 
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +30,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidapp.activity_fragment.activity.NewClientActivity;
 import com.example.androidapp.activity_fragment.activity.UpdateDishActivity;
 import com.example.androidapp.activity_fragment.activity.NewDishActivity;
 import com.example.androidapp.R;
@@ -40,6 +45,11 @@ import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +61,7 @@ public class MenuFragment extends Fragment {
     private DishViewModel dishViewModel;
     private Button btnAddDish;
     private EditText edtSearchBar;
-
+    private DishAdapter dishAdapter;
     public MenuFragment() {
         //Empty on purpose
     }
@@ -69,7 +79,7 @@ public class MenuFragment extends Fragment {
         rcvData.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         //Create DISH ADAPTER
-        final DishAdapter dishAdapter = new DishAdapter(mListDish);
+        dishAdapter = new DishAdapter(mListDish);
         rcvData.setAdapter(dishAdapter);
 
         //Create DISH VIEW MODEL
@@ -129,7 +139,7 @@ public class MenuFragment extends Fragment {
                 intent.putExtra(UpdateDishActivity.EXTRA_ID, dish.getDishID());
                 intent.putExtra(UpdateDishActivity.EXTRA_NAME, dish.getName());
                 intent.putExtra(UpdateDishActivity.EXTRA_PRICE, dish.getPrice());
-                intent.putExtra(UpdateDishActivity.EXTRA_IMAGE, dish.getImage());
+                intent.putExtra(UpdateDishActivity.EXTRA_IMAGE, dish.getImageDir());
 
                 startActivityForResult(intent, EDIT_DISH_REQUEST);
             }
@@ -168,12 +178,16 @@ public class MenuFragment extends Fragment {
         if (requestCode == ADD_DISH_REQUEST && resultCode == RESULT_OK) {
             String name = data.getStringExtra(NewDishActivity.EXTRA_MENU_NAME);
             int price = data.getIntExtra(NewDishActivity.EXTRA_MENU_PRICE, 0);
-            byte[] image = data.getByteArrayExtra(NewDishActivity.EXTRA_MENU_IMAGE);
-            //Log.d("IMAGE", String.valueOf(image));
+            //get bitmap image from intent
+            byte[] imageArray = data.getByteArrayExtra(NewDishActivity.EXTRA_MENU_IMAGE);
+            Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
 
-            Dish dish = new Dish(name, price, image);
+            Dish dish = new Dish(name, price, "");
             //check if dish exist
-            if (!checkDishExist(dish)) {
+            if (checkDishExistForInsert(dish)) {
+                //Store image to a file in internal memory
+                String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
+                dish.setImageDir(imageDir);
                 dishViewModel.insertDish(dish);
             }
 
@@ -188,21 +202,56 @@ public class MenuFragment extends Fragment {
 
             String name = data.getStringExtra(UpdateDishActivity.EXTRA_NAME);
             int price = data.getIntExtra(UpdateDishActivity.EXTRA_PRICE, 0);
-            byte[] image = data.getByteArrayExtra(UpdateDishActivity.EXTRA_IMAGE);
+            //get bitmap image from intent
+            byte[] imageArray = data.getByteArrayExtra(UpdateDishActivity.EXTRA_IMAGE);
+            Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
 
-            Dish dish = new Dish(name, price, image);
+            Dish dish = new Dish(name, price, "");
             //check if dish exist
-            if (!checkDishExist(dish)) {
+            if (checkDishExistForUpdate(dish)) {
+                //Store image to a file in internal memory
+                String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
+                //update image dir
+                dish.setImageDir(imageDir);
                 dish.setDishID(id);
                 dishViewModel.updateDish(dish);
+                //Update recycler item
+                dishAdapter.notifyDataSetChanged();
             }
         }
         else {
             //Do nothing
         }
     }
-    private boolean checkDishExist(@NonNull Dish dish) {
-        List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice(), dish.getImage());
-        return list != null && !list.isEmpty();
+    private boolean checkDishExistForInsert(@NonNull Dish dish) {
+        List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice());
+        return list == null || list.size() == 0;
+    }
+    private boolean checkDishExistForUpdate(@NonNull Dish dish) {
+        List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice());
+        return list != null && list.size() <= 1;
+    }
+    private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
+        ContextWrapper cw = new ContextWrapper(getContext());
+        // path to /data/data/yourapp/app_data/imageDishDir
+        File directory = cw.getDir("imageDishDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath = new File(directory,fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
     }
 }

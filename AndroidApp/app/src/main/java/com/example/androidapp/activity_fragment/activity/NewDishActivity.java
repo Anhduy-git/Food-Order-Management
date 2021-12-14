@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -27,7 +29,10 @@ import android.widget.Toast;
 import com.example.androidapp.R;
 import com.example.androidapp.data.ImageConverter;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -109,9 +114,9 @@ public class NewDishActivity extends AppCompatActivity {
     private void addDish() {
         String strDishName = edtDishName.getText().toString().trim();
         String strDishPrice = edtDishPrice.getText().toString().trim();
+
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-        //byte[] image = ImageConverter.convertImage2ByteArray(bitmap);
 
 
         //Check if fields are empty, if so then don't add to database
@@ -132,7 +137,6 @@ public class NewDishActivity extends AppCompatActivity {
         data.putExtra(EXTRA_MENU_NAME, strDishName);
         data.putExtra(EXTRA_MENU_PRICE, Integer.valueOf(strDishPrice));
         data.putExtra(EXTRA_MENU_IMAGE, ImageConverter.convertImage2ByteArray(image));
-
         setResult(RESULT_OK, data);
         finish();
     }
@@ -199,4 +203,5 @@ public class NewDishActivity extends AppCompatActivity {
             Toast.makeText(NewDishActivity.this, "Permission not granted", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

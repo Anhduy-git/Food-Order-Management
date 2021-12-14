@@ -66,7 +66,7 @@ public class UnpaidOrderFragment extends Fragment {
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ID, unpaidOrder.getId());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NAME, unpaidOrder.getClient().getClientName());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ADDRESS, unpaidOrder.getClient().getAddress());
-                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_IMAGE, unpaidOrder.getClient().getImage());
+                intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_IMAGE, unpaidOrder.getClient().getImageDir());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_TIME, unpaidOrder.getTime());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_DATE, unpaidOrder.getDate());
                 intent.putExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_NUMBER, unpaidOrder.getClient().getPhoneNumber());
@@ -84,8 +84,6 @@ public class UnpaidOrderFragment extends Fragment {
 
         if (requestCode == CONFIRM_UNPAID_ORDER_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(OrderInfoUnpaidActivity.EXTRA_ORDER_ID, -1);
-            //initialize empty array, just for delete
-            byte[] image = new byte[0];
             List<Dish> mOrderListDish = new ArrayList<>();
 
             if (id == -1){
@@ -93,7 +91,7 @@ public class UnpaidOrderFragment extends Fragment {
                 return;
             }
 
-            Client client = new Client("", "", "", image);
+            Client client = new Client("", "", "", "");
             //only id is necessary for delete
             UnpaidOrder unpaidOrder = new UnpaidOrder(client, "", "", 0, true, mOrderListDish);
             unpaidOrder.setId(id);

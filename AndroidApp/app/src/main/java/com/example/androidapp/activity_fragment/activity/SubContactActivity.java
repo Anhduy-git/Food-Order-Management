@@ -70,7 +70,7 @@ public class SubContactActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_NAME, client.getClientName());
                 data.putExtra(EXTRA_PHONE_NUMBER, client.getPhoneNumber());
                 data.putExtra(EXTRA_ADDRESS, client.getAddress());
-                data.putExtra(EXTRA_IMAGE, client.getImage());
+                data.putExtra(EXTRA_IMAGE, client.getImageDir());
 
                 setResult(RESULT_OK, data);
                 finish();

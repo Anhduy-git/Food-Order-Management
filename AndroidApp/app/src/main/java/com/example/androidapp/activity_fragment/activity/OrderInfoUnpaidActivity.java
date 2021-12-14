@@ -1,6 +1,8 @@
 package com.example.androidapp.activity_fragment.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -19,6 +21,9 @@ import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderAdapter;
 import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +59,6 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button btnBack;
     private Button btnPaid;
-    private byte[] image;
     //Here order's paid is definitely false, and order's ship is definitely true.
     private boolean paid = false;
     private boolean ship = true;
@@ -77,14 +81,23 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
 
             int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
             tvOrderPrice.setText(String.valueOf(price));
-
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
-            image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
-            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
+            //read image from file
+            try {
+                File f = new File(intent.getStringExtra(EXTRA_ORDER_IMAGE),
+                        intent.getStringExtra(EXTRA_ORDER_NAME) +
+                                "-" + intent.getStringExtra(EXTRA_ORDER_ADDRESS)
+                                + "-" + intent.getStringExtra(EXTRA_ORDER_NUMBER));
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                imageView.setImageBitmap(b);
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
         }
 

@@ -1,5 +1,7 @@
 package com.example.androidapp.data.upcomingorderdata;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,9 @@ import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,8 +91,19 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
         holder.tvOrderDate.setText(upcomingOrder.getDate());
         holder.tvOrderTime.setText(upcomingOrder.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", upcomingOrder.getPrice()) + " VND");
-        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(upcomingOrder.getClient().getImage()));
-
+        //Read image from file
+        try {
+            File f=new File(upcomingOrder.getClient().getImageDir(),
+                    upcomingOrder.getClient().getClientName()
+                            + "-" + upcomingOrder.getClient().getAddress()
+                            + "-" + upcomingOrder.getClient().getPhoneNumber());
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            holder.imageView.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //Handle flag
         if (upcomingOrder.getPaid()){
             holder.flagPaid.setVisibility(View.VISIBLE);
         } else {

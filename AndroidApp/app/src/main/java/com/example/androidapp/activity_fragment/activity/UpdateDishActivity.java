@@ -1,11 +1,15 @@
 package com.example.androidapp.activity_fragment.activity;
 
+import static com.example.androidapp.activity_fragment.activity.NewDishActivity.EXTRA_MENU_IMAGE;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -28,7 +32,10 @@ import android.widget.Toast;
 import com.example.androidapp.R;
 import com.example.androidapp.data.ImageConverter;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -62,11 +69,19 @@ public class UpdateDishActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
+
             editDishName.setText(intent.getStringExtra(EXTRA_NAME));
-            String price = String.valueOf(intent.getIntExtra(EXTRA_PRICE, 0));
-            editDishPrice.setText(price);
-            byte[] image = intent.getByteArrayExtra(EXTRA_IMAGE);
-            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
+            editDishPrice.setText(String.valueOf(intent.getIntExtra(EXTRA_PRICE, 0)));
+            try {
+                File f=new File(intent.getStringExtra(EXTRA_IMAGE),
+                        intent.getStringExtra(EXTRA_NAME)
+                        + "-" + String.valueOf(intent.getIntExtra(EXTRA_PRICE, 0)));
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                imageView.setImageBitmap(b);
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         //Check for update to show btn
         checkUpdate();
@@ -74,6 +89,7 @@ public class UpdateDishActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 updateDish();
             }
         });
@@ -114,9 +130,10 @@ public class UpdateDishActivity extends AppCompatActivity {
     private void updateDish() {
         String strDishName = editDishName.getText().toString().trim();
         String strDishPrice = editDishPrice.getText().toString().trim();
-        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+
+        //Store image to a file in internal memory
+        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-        //byte[] image = ImageConverter.convertImage2ByteArray(bitmap);
 
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strDishName) || TextUtils.isEmpty(strDishPrice)) {

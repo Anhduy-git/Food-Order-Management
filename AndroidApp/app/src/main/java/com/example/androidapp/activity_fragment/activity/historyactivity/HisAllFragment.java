@@ -73,7 +73,7 @@ public class HisAllFragment extends Fragment {
                 intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_DATE, historyOrder.getDate());
                 intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_NUMBER, historyOrder.getClient().getPhoneNumber());
                 intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_PRICE, historyOrder.getPrice());
-                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_IMAGE, historyOrder.getClient().getImage());
+                intent.putExtra(OrderInfoHistoryActivity.EXTRA_ORDER_IMAGE, historyOrder.getClient().getImageDir());
                 intent.putParcelableArrayListExtra(OrderInfoHistoryActivity.EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) historyOrder.getOrderListDish());
                 startActivityForResult(intent, VIEW_HISTORY_ORDER_REQUEST);
             }

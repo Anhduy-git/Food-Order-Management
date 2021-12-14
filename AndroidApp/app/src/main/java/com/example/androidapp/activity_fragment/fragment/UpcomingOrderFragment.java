@@ -91,7 +91,7 @@ public class UpcomingOrderFragment extends Fragment {
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NAME, upcomingOrder.getClient().getClientName());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_PRICE, upcomingOrder.getPrice());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_ADDRESS, upcomingOrder.getClient().getAddress());
-                intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_IMAGE, upcomingOrder.getClient().getImage());
+                intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_IMAGE, upcomingOrder.getClient().getImageDir());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_TIME, upcomingOrder.getTime());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_DATE, upcomingOrder.getDate());
                 intent.putExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NUMBER, upcomingOrder.getClient().getPhoneNumber());
@@ -135,9 +135,8 @@ public class UpcomingOrderFragment extends Fragment {
             String number = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_NUMBER);
             String time = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_DATE);
-            byte[] image = data.getByteArrayExtra(NewOrderActivity.EXTRA_ORDER_IMAGE);
-
-            Client client = new Client(name, number, address, image);
+            String imageDir = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_IMAGE);
+            Client client = new Client(name, number, address, imageDir);
             mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
             int price = calculateOrderPrice(mOrderListDish);
             //Reset paid
@@ -153,9 +152,8 @@ public class UpcomingOrderFragment extends Fragment {
             String number = data.getStringExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_NUMBER);
             String time = data.getStringExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_DATE);
-            byte[] image = data.getByteArrayExtra(OrderInfoUpcomingActivity.EXTRA_ORDER_IMAGE);
-
-            Client client = new Client(name, number, address, image);
+            String imageDir = data.getStringExtra(NewOrderActivity.EXTRA_ORDER_IMAGE);
+            Client client = new Client(name, number, address, imageDir);
             mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
             int price = calculateOrderPrice(mOrderListDish);
             paid = data.getBooleanExtra(OrderInfoUpcomingActivity.EXTRA_CHECK_PAID, paid);

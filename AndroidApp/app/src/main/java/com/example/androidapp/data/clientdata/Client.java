@@ -15,14 +15,13 @@ public class Client {
     private String phoneNumber;
     private String address;
 
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    private byte[] image;
+    private String imageDir;
 
-    public Client(String clientName, String phoneNumber, String address, byte[] image) {
+    public Client(String clientName, String phoneNumber, String address, String imageDir) {
         this.clientName = clientName;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.image = image;
+        this.imageDir = imageDir;
     }
 
 
@@ -45,11 +44,11 @@ public class Client {
         return address;
     }
 
-    public byte[] getImage() {
-        return image;
+    public String getImageDir() {
+        return imageDir;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImageDir(String imageDir) {
+        this.imageDir = imageDir;
     }
 }

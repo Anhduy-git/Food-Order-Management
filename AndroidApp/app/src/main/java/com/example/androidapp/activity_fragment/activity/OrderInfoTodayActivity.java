@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -27,6 +29,9 @@ import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderAdapter;
 import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,12 +73,10 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
     private Button btnShip;
     private Button btnAddDish;
     private CheckBox checkPaid;
-
+    private String imageDir;
     private boolean ship;
     private boolean beforePaid;
     private boolean currentPaid;
-
-    private byte[] image;
 
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
@@ -102,15 +105,23 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
             tvOrderDate.setText(intent.getStringExtra(EXTRA_ORDER_DATE));
-
             ship = intent.getBooleanExtra(EXTRA_CHECK_SHIP, ship);
             beforePaid = intent.getBooleanExtra(EXTRA_CHECK_PAID, beforePaid);
             currentPaid = beforePaid;
-
-            image = intent.getByteArrayExtra(EXTRA_ORDER_IMAGE);
-            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
-
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
+            imageDir = intent.getStringExtra(EXTRA_ORDER_IMAGE);
+            //read image from file
+            try {
+                File f = new File(imageDir,
+                        intent.getStringExtra(EXTRA_ORDER_NAME) +
+                                "-" + intent.getStringExtra(EXTRA_ORDER_ADDRESS)
+                                + "-" + intent.getStringExtra(EXTRA_ORDER_NUMBER));
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                imageView.setImageBitmap(b);
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         //display list dish
         dishOrderAdapter.setDish(mListDish);
@@ -187,7 +198,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
                 data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
                 data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-                data.putExtra(EXTRA_ORDER_IMAGE, image);
+                data.putExtra(EXTRA_ORDER_IMAGE, imageDir);
 
                 data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
                 int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
@@ -215,7 +226,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
                 data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
                 data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-                data.putExtra(EXTRA_ORDER_IMAGE, image);
+                data.putExtra(EXTRA_ORDER_IMAGE, imageDir);
                 data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
                 int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
                 if (id != -1) {
@@ -268,7 +279,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             //check if dish existed
             int checkExist = 0;
             for (int i = 0; i < mListDish.size(); i++) {
-                if (mListDish.get(i).getName().equals(dish.getName())) {
+                if (mListDish.get(i).getName().equals(dish.getName()) &&
+                        mListDish.get(i).getPrice() == dish.getPrice()) {
                     checkExist = 1;
                     mListDish.get(i).setQuantity(mListDish.get(i).getQuantity() + dishQuantity);
                 }

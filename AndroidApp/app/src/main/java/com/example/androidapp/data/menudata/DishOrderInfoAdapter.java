@@ -1,5 +1,7 @@
 package com.example.androidapp.data.menudata;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,9 @@ import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
 import com.example.androidapp.data.ImageConverter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +70,16 @@ public class DishOrderInfoAdapter extends RecyclerView.Adapter<DishOrderInfoAdap
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
         holder.tvDishQuantity.setText(String.valueOf(dish.getQuantity()));
+
+        //read image from file
+        try {
+            File f=new File(dish.getImageDir(), dish.getName() + "-" + dish.getPrice());
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            holder.imgView.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
