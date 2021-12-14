@@ -1,5 +1,7 @@
 package com.example.androidapp.data.clientdata;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,9 @@ import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +93,15 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
         holder.tvClientName.setText(client.getClientName());
         holder.tvClientNumber.setText(client.getPhoneNumber());
         holder.tvClientAddress.setText(client.getAddress());
-        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(client.getImage()));
+        //read image from file
+        try {
+            File f=new File(client.getImageDir(), client.getClientName() + "-" + client.getAddress() + "-" + client.getPhoneNumber());
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            holder.imageView.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

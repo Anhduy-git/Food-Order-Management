@@ -2,6 +2,8 @@ package com.example.androidapp.data.orderdata;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,9 @@ import com.example.androidapp.R;
 import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,8 +94,19 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
         holder.tvOrderDate.setText(order.getDate());
         holder.tvOrderTime.setText(order.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", order.getPrice()) + " VND");
-        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(order.getClient().getImage()));
-
+        //Read image from file
+        try {
+            File f=new File(order.getClient().getImageDir(),
+                    order.getClient().getClientName()
+                    + "-" + order.getClient().getAddress()
+            + "-" + order.getClient().getPhoneNumber());
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            holder.imageView.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //Handle flag
         if (order.getPaid()){
             holder.flagPaid.setVisibility(View.VISIBLE);
         } else {

@@ -1,5 +1,7 @@
 package com.example.androidapp.data.historydata;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.ImageConverter;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 
 public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderAdapter.HistoryOrderViewHolder> {
@@ -64,8 +70,19 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
         holder.tvOrderDate.setText(historyOrder.getDate());
         holder.tvOrderTime.setText(historyOrder.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", historyOrder.getPrice()) + " VND");
-        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(historyOrder.getClient().getImage()));
-
+        //Read image from file
+        try {
+            File f=new File(historyOrder.getClient().getImageDir(),
+                    historyOrder.getClient().getClientName()
+                            + "-" + historyOrder.getClient().getAddress()
+                            + "-" + historyOrder.getClient().getPhoneNumber());
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            holder.imageView.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //Handle flag
         if (historyOrder.getShip()){
             holder.flagCompleted.setVisibility(View.VISIBLE);
             holder.flagCanceled.setVisibility(View.GONE);

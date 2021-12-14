@@ -99,6 +99,7 @@ public class NewClientActivity extends AppCompatActivity {
         String strClientName = editClientName.getText().toString().trim();
         String strClientNumber = editClientNumber.getText().toString().trim();
         String strClientAddress = editClientAddress.getText().toString().trim();
+
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
 

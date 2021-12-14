@@ -19,14 +19,16 @@ public class Dish implements Parcelable {
     private int price;
     private int quantity;
 
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    private byte[] image;
 
-    public Dish(String name, int price, byte[] image) {
+    private String imageDir;
+
+
+
+    public Dish(String name, int price, String imageDir) {
         this.name = name;
         this.price = price;
         this.quantity = 0;
-        this.image = image;
+        this.imageDir = imageDir;
     }
 
     protected Dish(Parcel in) {
@@ -34,8 +36,8 @@ public class Dish implements Parcelable {
         name = in.readString();
         price = in.readInt();
         quantity = in.readInt();
-        //TODO: ERROR HERE
-        //image = in.createByteArray();
+
+        imageDir = in.readString();
     }
 
     public static final Creator<Dish> CREATOR = new Creator<Dish>() {
@@ -83,14 +85,13 @@ public class Dish implements Parcelable {
         this.quantity = quantity;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImageDir(String imageDir) {
+        this.imageDir = imageDir;
     }
-
+    public String getImageDir() {
+        return imageDir;
+    }
     @Override
     public int describeContents() {
         return 0;
@@ -102,8 +103,8 @@ public class Dish implements Parcelable {
         dest.writeString(name);
         dest.writeInt(price);
         dest.writeInt(quantity);
-        //TODO: ERROR HERE
-       // dest.writeByteArray(image);
+
+        dest.writeString(imageDir);
     }
 }
 

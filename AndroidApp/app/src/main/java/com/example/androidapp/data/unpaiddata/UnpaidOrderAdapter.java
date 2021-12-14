@@ -1,5 +1,7 @@
 package com.example.androidapp.data.unpaiddata;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,9 @@ import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.orderdata.Order;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +79,18 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
         holder.tvOrderDate.setText(unpaidOrder.getDate());
         holder.tvOrderTime.setText(unpaidOrder.getTime());
         holder.tvOrderPrice.setText(String.format("%,d", unpaidOrder.getPrice()) + " VND");
-        holder.imageView.setImageBitmap(ImageConverter.convertByteArray2Image(unpaidOrder.getClient().getImage()));
+        //Read image from file
+        try {
+            File f=new File(unpaidOrder.getClient().getImageDir(),
+                    unpaidOrder.getClient().getClientName()
+                            + "-" + unpaidOrder.getClient().getAddress()
+                            + "-" + unpaidOrder.getClient().getPhoneNumber());
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            holder.imageView.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 

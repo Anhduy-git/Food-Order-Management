@@ -10,6 +10,8 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -31,6 +33,9 @@ import com.example.androidapp.data.menudata.DishOrderAdapter;
 
 import org.joda.time.DateTimeComparator;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,10 +76,9 @@ public class NewOrderActivity extends AppCompatActivity {
     private Button btnBack;
     private Button btnAddDish;
     private Button btnAddClient;
-
+    private String imageDir;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
-    private byte[] image;
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
 
     @Override
@@ -251,7 +255,7 @@ public class NewOrderActivity extends AppCompatActivity {
             data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
             data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
             data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-            data.putExtra(EXTRA_ORDER_IMAGE, image);
+            data.putExtra(EXTRA_ORDER_IMAGE, imageDir);
             data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
 
             setResult(RESULT_OK, data);
@@ -269,15 +273,25 @@ public class NewOrderActivity extends AppCompatActivity {
             String clientName = data.getStringExtra(SubContactActivity.EXTRA_NAME);
             String clientPhoneNumber = data.getStringExtra(SubContactActivity.EXTRA_PHONE_NUMBER);
             String clientAddress = data.getStringExtra(SubContactActivity.EXTRA_ADDRESS);
-            image = data.getByteArrayExtra(SubContactActivity.EXTRA_IMAGE);
+            imageDir = data.getStringExtra(SubContactActivity.EXTRA_IMAGE);
 
             //Display client's info after having chosen from existing contact
             editOrderName.setText(clientName);
             editOrderNumber.setText(clientPhoneNumber);
             editOrderAddress.setText(clientAddress);
-            imageView.setImageBitmap(ImageConverter.convertByteArray2Image(image));
+            //read image from file
+            try {
+                File f = new File(imageDir,
+                        clientName +
+                                "-" + clientAddress
+                                + "-" + clientPhoneNumber);
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                imageView.setImageBitmap(b);
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
-            Toast.makeText(NewOrderActivity.this, "Client added successfully", Toast.LENGTH_SHORT).show();
         }
         else if (requestCode == CHOOSE_DISH_REQUEST && resultCode == RESULT_OK) {
             Dish dish = data.getParcelableExtra(SubMenuActivity.EXTRA_DISH);
@@ -287,7 +301,8 @@ public class NewOrderActivity extends AppCompatActivity {
             int checkExist = 0;
 
             for (int i = 0; i < mListDish.size(); i++) {
-                if (mListDish.get(i).getName().equals(dish.getName())) {
+                if (mListDish.get(i).getName().equals(dish.getName()) &&
+                        mListDish.get(i).getPrice() == dish.getPrice()) {
                     checkExist = 1;
                     mListDish.get(i).setQuantity(mListDish.get(i).getQuantity() + dishQuantity);
                     break;

@@ -99,7 +99,7 @@ public class SubMenuActivity extends AppCompatActivity {
                 //Log.d("test","clicked");
                 //Set the current dish choice to the dish that's been clicked
                 isChosen = true;
-                currentDishChoice = new Dish(dish.getName(), dish.getPrice(), dish.getImage());
+                currentDishChoice = new Dish(dish.getName(), dish.getPrice(), dish.getImageDir());
                 //Log.d("NAME", currentDishChoice.getName());
 
                 //Reset quantity whenever click to an item
