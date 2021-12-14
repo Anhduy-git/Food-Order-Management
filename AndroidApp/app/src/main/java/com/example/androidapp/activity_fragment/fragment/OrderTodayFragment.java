@@ -57,8 +57,6 @@ public class OrderTodayFragment extends Fragment {
     private OrderViewModel orderViewModel;
     private UpcomingOrderViewModel upcomingOrderViewModel;
 
-    private boolean paid;
-    private boolean ship;
     public static List<Dish> mOrderListDish = new ArrayList<>();
 
     @Nullable
@@ -161,9 +159,6 @@ public class OrderTodayFragment extends Fragment {
             mOrderListDish = data.getParcelableArrayListExtra(NewOrderActivity.EXTRA_ORDER_DISH_LIST);
             int price = calculateOrderPrice(mOrderListDish);
 
-            //Reset ship and paid immediately after add new order.
-            ship = false;
-            paid = false;
             //Only compare the date
             DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
             Calendar calendar = Calendar.getInstance();
@@ -175,10 +170,10 @@ public class OrderTodayFragment extends Fragment {
                 int ret = dateTimeComparator.compare(orderDate, today);
                 if (ret > 0){
                     //Move order to upcoming order if order's day > today.
-                    UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, price, paid, mOrderListDish);
+                    UpcomingOrder upcomingOrder = new UpcomingOrder(client, date, time, price, false, mOrderListDish);
                     upcomingOrderViewModel.insert(upcomingOrder);
                 } else { //else add to new order's today
-                    Order order = new Order(client, date, time, price, ship, paid, mOrderListDish);
+                    Order order = new Order(client, date, time, price, false, false, mOrderListDish);
                     orderViewModel.insert(order);
                 }
 
@@ -196,8 +191,10 @@ public class OrderTodayFragment extends Fragment {
             String time = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_TIME);
             String date = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_DATE);
             String imageDir = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_IMAGE);
-            paid = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, paid);
-            ship = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, ship);
+
+            boolean paid = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, false);
+            boolean ship = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, false);
+            boolean confirmShip = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_CONFIRM_SHIP, false);
 
             if (id == -1){
                 Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
@@ -211,7 +208,7 @@ public class OrderTodayFragment extends Fragment {
             order.setId(id);
             orderViewModel.update(order);
             //if shipped, then move to history
-            if(order.getShip()) {
+            if(confirmShip) {
                 HistoryOrderViewModel historyOrderViewModel;
                 historyOrderViewModel = new ViewModelProvider(this).get(HistoryOrderViewModel.class);
                 //Move to history all success order
