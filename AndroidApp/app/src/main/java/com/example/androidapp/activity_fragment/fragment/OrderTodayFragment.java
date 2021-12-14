@@ -192,9 +192,11 @@ public class OrderTodayFragment extends Fragment {
             String date = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_DATE);
             String imageDir = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_IMAGE);
 
+
             boolean paid = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, false);
             boolean ship = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, false);
             boolean confirmShip = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_CONFIRM_SHIP, false);
+
 
             if (id == -1){
                 Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
