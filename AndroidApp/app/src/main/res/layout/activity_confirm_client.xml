@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tên khách hàng:"
                 android:textColor="@color/main_white"
-                android:textSize="18sp"></TextView>
+                android:textSize="17sp"></TextView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -110,7 +110,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:textColor="@color/main_white"
-                    android:textSize="17sp"></EditText>
+                    android:textSize="16sp"></EditText>
             </RelativeLayout>
 
             <TextView
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:text="Số điện thoại:"
                 android:textColor="@color/main_white"
-                android:textSize="18sp"></TextView>
+                android:textSize="17sp"></TextView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -136,7 +136,7 @@
                     android:inputType="number"
                     android:maxLines="1"
                     android:textColor="@color/main_white"
-                    android:textSize="17sp"></EditText>
+                    android:textSize="16sp"></EditText>
             </RelativeLayout>
 
             <TextView
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:text="Địa chỉ:"
                 android:textColor="@color/main_white"
-                android:textSize="18sp"></TextView>
+                android:textSize="17sp"></TextView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -162,7 +162,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:textColor="@color/main_white"
-                    android:textSize="17sp"></EditText>
+                    android:textSize="16sp"></EditText>
             </RelativeLayout>
         </LinearLayout>
 
@@ -178,13 +178,13 @@
         <Button
             android:id="@+id/update_client_info_button"
             android:layout_width="288dp"
-            android:layout_height="54dp"
+            android:layout_height="45dp"
             android:layout_alignBottom="@+id/blur_layout"
             android:layout_centerInParent="true"
             android:background="@drawable/btn_add"
             android:text="Cập Nhật"
             android:textColor="@color/main_white"
-            android:textSize="20dp"
+            android:textSize="19dp"
             android:translationY="100dp"
             android:translationZ="1dp"
             android:visibility="gone"></Button>
