@@ -7,27 +7,29 @@
 
     <Button
         android:id="@+id/btn_back_sub_contact"
-        android:layout_width="@dimen/size_btn"
-        android:layout_height="@dimen/size_btn"
-        android:layout_centerVertical="true"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginTop="4dp"
+        android:layout_marginLeft="6dp"
+        android:layout_centerVertical="true"
         android:background="@drawable/btn_back_background"
         android:drawableStart="@drawable/back_btn"
-        android:paddingLeft="8dp"></Button>
+        ></Button>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:orientation="horizontal"
         android:background="@drawable/bg_searching"
         android:layout_margin="10dp">
+
         <ImageView
             android:id="@+id/icon_searching"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/icon_searching"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"></ImageView>
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/icon_searching"></ImageView>
 
         <EditText
             android:layout_width="match_parent"

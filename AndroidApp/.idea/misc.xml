@@ -29,13 +29,16 @@
         <entry key="app/src/main/res/drawable/btn_trans_bg.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/button.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/confirm_check_box.xml" value="0.16203703703703703" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_ios_new_24.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/ic_camera.xml" value="0.36875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/drawable/icon_searching.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/list_item.xml" value="0.17777777777777778" />
         <entry key="app/src/main/res/drawable/num_dish_box.xml" value="0.28125" />
         <entry key="app/src/main/res/drawable/order_today_icon.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/plus_btn.xml" value="0.375" />
+        <entry key="app/src/main/res/drawable/plus_icon.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/remove_btn.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_client.xml" value="0.35185185185185186" />
         <entry key="app/src/main/res/layout/activity_confirm_client.xml" value="0.33" />
@@ -51,10 +54,10 @@
         <entry key="app/src/main/res/layout/activity_new_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_order.xml" value="0.35185185185185186" />
         <entry key="app/src/main/res/layout/activity_order_info_today.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_order_info_upcoming.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_order_info_upcoming.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_profile_client.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_sub_contact.xml" value="0.35885416666666664" />
-        <entry key="app/src/main/res/layout/activity_sub_menu.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/layout/activity_sub_contact.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_sub_menu.xml" value="0.33" />
         <entry key="app/src/main/res/layout/alert_dialog_picture.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/layout/bg_splash.xml" value="0.33" />
         <entry key="app/src/main/res/layout/client_item_recycler.xml" value="0.33" />
@@ -66,7 +69,7 @@
         <entry key="app/src/main/res/layout/fragment_completed_history.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_menu.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_order_today.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_order_today.xml" value="0.67" />
         <entry key="app/src/main/res/layout/fragment_unpaid_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_upcoming_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/header_nav.xml" value="0.35185185185185186" />

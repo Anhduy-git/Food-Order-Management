@@ -24,12 +24,12 @@
 
             <Button
                 android:id="@+id/btn_back"
-                android:layout_width="@dimen/size_btn"
-                android:layout_height="@dimen/size_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:background="@drawable/btn_trans_bg"
                 android:drawableStart="@drawable/back_btn"
-                android:paddingLeft="8dp"></Button>
+                ></Button>
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView
@@ -51,16 +51,16 @@
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/cardview"
-            android:translationY="-61dp"
+            android:translationY="-53dp"
             android:translationX="-20dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/bg_lib_btn"
             android:drawableTop="@drawable/lib_icon"
-            android:paddingTop="14dp"  />
+            android:paddingTop="8dp"  />
 
         <View
             android:layout_width="50dp"
