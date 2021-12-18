@@ -51,12 +51,11 @@
 
             <Button
                 android:id="@+id/btn_back"
-                android:layout_width="@dimen/size_btn"
-                android:layout_height="@dimen/size_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:background="@drawable/btn_back_background"
-                android:drawableStart="@drawable/back_btn"
-                android:paddingLeft="8dp"></Button>
+                android:drawableStart="@drawable/back_btn"></Button>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -67,6 +66,19 @@
                 android:textColor="@color/main_white"
                 android:textSize="19sp"></TextView>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/paid_btn"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/bg_ship_btn"
+            android:text="Thanh Toán"
+            android:layout_marginRight="15dp"
+            android:translationY="2dp"
+            android:textAllCaps="false"
+            android:textColor="@color/main_white"
+            android:textSize="18dp"></Button>
         <View
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -223,28 +235,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="225dp"
-            android:layout_marginBottom="60dp"
             android:padding="10dp"></androidx.recyclerview.widget.RecyclerView>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical">
-
-            <Button
-
-                android:id="@+id/paid_btn"
-
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/bg_ship_btn"
-                android:text="Thanh Toán"
-                android:textAllCaps="false"
-                android:textColor="@color/main_white"
-                android:textSize="20dp"></Button>
-        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

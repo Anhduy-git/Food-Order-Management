@@ -51,12 +51,12 @@
 
             <Button
                 android:id="@+id/btn_back"
-                android:layout_width="@dimen/size_btn"
-                android:layout_height="@dimen/size_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:background="@drawable/btn_back_background"
                 android:drawableStart="@drawable/back_btn"
-                android:paddingLeft="8dp"></Button>
+                ></Button>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
