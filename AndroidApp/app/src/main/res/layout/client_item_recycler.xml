@@ -19,7 +19,6 @@
             android:layout_width="67dp"
             android:layout_height="67dp"
             android:gravity="center"
-            android:layout_marginTop="5dp"
             android:background="@drawable/bg_delete_swipe_btn"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp">
