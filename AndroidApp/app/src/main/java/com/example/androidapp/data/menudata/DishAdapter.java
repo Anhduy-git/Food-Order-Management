@@ -55,8 +55,8 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
         @Override
         public boolean areContentsTheSame(@NonNull Dish oldItem, @NonNull Dish newItem) {
             return oldItem.getName().equals(newItem.getName()) &&
-                    oldItem.getPrice() == newItem.getPrice();
-
+                    oldItem.getPrice() == newItem.getPrice() &&
+                    oldItem.getImageDir().equals(newItem.getImageDir());
         }
     };
 

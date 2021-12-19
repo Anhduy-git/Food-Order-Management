@@ -14,9 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidApp">
-        <activity
-            android:name=".activity_fragment.activity.HistoryInfoActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activity_fragment.activity.SplashActivity"
             android:exported="true">
@@ -27,44 +25,61 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity_fragment.activity.HistoryInfoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity_fragment.activity.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.NewOrderActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.UpdateClientActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.UpdateDishActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.HistoryActivity"
-            android:exported="false" />
+            android:exported="false"
+        android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.NewClientActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.NewDishActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.OrderInfoTodayActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.OrderInfoUpcomingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.SubContactActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.SubMenuActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.OrderInfoUnpaidActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity_fragment.activity.OrderInfoHistoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <receiver android:name=".supportclass.NotificationReceiver" />
     </application>

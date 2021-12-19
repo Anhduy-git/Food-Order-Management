@@ -49,6 +49,7 @@ public class UpdateDishActivity extends AppCompatActivity {
     public static final String EXTRA_IMAGE =
             "com.example.androidapp.EXTRA_IMAGE";
 
+
     private final int GALLERY_REQUEST = 1;
     private final int CAMERA_REQUEST = 2;
     private final int IMAGE_SIZE = 500;

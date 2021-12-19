@@ -40,7 +40,6 @@ public class DishSelectAdapter extends RecyclerView.Adapter<DishSelectAdapter.Di
     public void setDish(List<Dish> mListDish) {
         this.mListDish = mListDish;
         this.mListDishFull = new ArrayList<>(mListDish);
-
         notifyDataSetChanged();
     }
 

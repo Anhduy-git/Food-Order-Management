@@ -206,6 +206,7 @@ public class MenuFragment extends Fragment {
             //get bitmap image from intent
             byte[] imageArray = data.getByteArrayExtra(UpdateDishActivity.EXTRA_IMAGE);
             Dish dish = new Dish(name, price, "NULL");
+            dish.setDishID(id);
             //check if dish exist
             if (checkDishExistForUpdate(dish)) {
                 if (imageArray != null) {
@@ -214,10 +215,7 @@ public class MenuFragment extends Fragment {
                     String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
                     dish.setImageDir(imageDir);
                 }
-                dish.setDishID(id);
                 dishViewModel.updateDish(dish);
-                //Update recycler item
-                dishAdapter.notifyDataSetChanged();
             }
         }
         else {
@@ -230,7 +228,7 @@ public class MenuFragment extends Fragment {
     }
     private boolean checkDishExistForUpdate(@NonNull Dish dish) {
         List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice());
-        return list == null || list.size() <= 1;
+        return (list == null) || (list.size() == 0) || (list.size() == 1 && list.get(0).getDishID() == dish.getDishID());
     }
     private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
         ContextWrapper cw = new ContextWrapper(getContext());

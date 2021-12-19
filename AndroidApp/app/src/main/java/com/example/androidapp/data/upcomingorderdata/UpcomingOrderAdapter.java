@@ -59,7 +59,8 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
                     oldItem.getClient().getPhoneNumber().equals(newItem.getClient().getPhoneNumber()) &&
                     oldItem.getPrice() == newItem.getPrice() &&
                     oldItem.getPaid() == newItem.getPaid() &&
-                    oldItem.getShip() == newItem.getShip();
+                    oldItem.getShip() == newItem.getShip() &&
+                    oldItem.getOrderListDish().equals(newItem.getOrderListDish());
         }
     };
 
