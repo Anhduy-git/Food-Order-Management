@@ -93,10 +93,7 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
         holder.tvOrderPrice.setText(String.format("%,d", upcomingOrder.getPrice()) + " VND");
         //Read image from file
         try {
-            File f=new File(upcomingOrder.getClient().getImageDir(),
-                    upcomingOrder.getClient().getClientName()
-                            + "-" + upcomingOrder.getClient().getAddress()
-                            + "-" + upcomingOrder.getClient().getPhoneNumber());
+            File f=new File(upcomingOrder.getClient().getImageDir());
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.imageView.setImageBitmap(b);
         }

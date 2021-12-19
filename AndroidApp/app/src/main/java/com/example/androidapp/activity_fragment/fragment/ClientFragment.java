@@ -178,14 +178,15 @@ public class ClientFragment extends Fragment {
             String address = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_ADDRESS);
             //get bitmap image from intent
             byte[] imageArray = data.getByteArrayExtra(NewClientActivity.EXTRA_CLIENT_IMAGE);
-            Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
-            Client client = new Client(name, number, address, "");
-
+            Client client = new Client(name, number, address, "NULL");
             //Check if exist client
             if (checkClientExistForInsert(client)) {
-                String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
-                        client.getAddress() + "-" + client.getPhoneNumber());
-                client.setImageDir(imageDir);
+                if (imageArray != null) {
+                    Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
+                    String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
+                            client.getAddress() + "-" + client.getPhoneNumber());
+                    client.setImageDir(imageDir);
+                }
                 clientViewModel.insertClient(client);
             }
 
@@ -204,14 +205,15 @@ public class ClientFragment extends Fragment {
             String address = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS);
 
             byte[] imageArray = data.getByteArrayExtra(UpdateClientActivity.EXTRA_CLIENT_IMAGE);
-            Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
-
-            Client client = new Client(name, number, address, "");
+            Client client = new Client(name, number, address, "NULL");
             //Check if exist client
             if (checkClientExistForUpdate(client)) {
-                String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
-                        client.getAddress() + "-" + client.getPhoneNumber());
-                client.setImageDir(imageDir);
+                if (imageArray != null) {
+                    Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
+                    String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
+                            client.getAddress() + "-" + client.getPhoneNumber());
+                    client.setImageDir(imageDir);
+                }
                 client.setClientId(id);
                 clientViewModel.updateClient(client);
                 //Update recycler item
@@ -230,7 +232,7 @@ public class ClientFragment extends Fragment {
     private boolean checkClientExistForUpdate(@NonNull Client client) {
         List<Client> list  = AppDatabase.getInstance(getContext()).clientDao().checkClientExist(client.getClientName(),
                 client.getAddress(), client.getPhoneNumber());
-        return list != null && list.size() <= 1;
+        return list == null || list.size() <= 1;
     }
     private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
         ContextWrapper cw = new ContextWrapper(getContext());
@@ -253,7 +255,7 @@ public class ClientFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-        return directory.getAbsolutePath();
+        return directory.getAbsolutePath() + '/' + fileName;
     }
 
 }

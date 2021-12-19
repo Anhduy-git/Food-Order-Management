@@ -54,11 +54,14 @@ public class UpdateClientActivity extends AppCompatActivity {
     private Button btnAddImage;
     private Button btnUpdateClient;
     private Button btnBack;
-    private int change = 0;
+    private boolean changeImg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_client);
+
+        //Set default changeImg is false
+        changeImg = false;
 
         initUi();
 
@@ -69,10 +72,7 @@ public class UpdateClientActivity extends AppCompatActivity {
             editClientNumber.setText(intent.getStringExtra(EXTRA_CLIENT_NUMBER));
             editClientAddress.setText(intent.getStringExtra(EXTRA_CLIENT_ADDRESS));
             try {
-                File f=new File(intent.getStringExtra(EXTRA_CLIENT_IMAGE),
-                        intent.getStringExtra(EXTRA_CLIENT_NAME)
-                        + "-" + intent.getStringExtra(EXTRA_CLIENT_ADDRESS)
-                        + "-" + intent.getStringExtra(EXTRA_CLIENT_NUMBER));
+                File f=new File(intent.getStringExtra(EXTRA_CLIENT_IMAGE));
                 Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
                 imageView.setImageBitmap(b);
             }
@@ -128,9 +128,6 @@ public class UpdateClientActivity extends AppCompatActivity {
         String strClientNumber = editClientNumber.getText().toString().trim();
         String strClientAddress = editClientAddress.getText().toString().trim();
 
-        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-        Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strClientName) || TextUtils.isEmpty(strClientNumber) || TextUtils.isEmpty(strClientAddress)) {
             Toast.makeText(this, "Please insert name, number and address", Toast.LENGTH_SHORT).show();
@@ -149,7 +146,12 @@ public class UpdateClientActivity extends AppCompatActivity {
         data.putExtra(EXTRA_CLIENT_NAME, strClientName);
         data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
         data.putExtra(EXTRA_CLIENT_ADDRESS, strClientAddress);
-        data.putExtra(EXTRA_CLIENT_IMAGE, ImageConverter.convertImage2ByteArray(image));
+        if (changeImg) {
+            Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+            data.putExtra(EXTRA_CLIENT_IMAGE, ImageConverter.convertImage2ByteArray(image));
+        }
+
 
         int id = getIntent().getIntExtra(EXTRA_CLIENT_ID, -1);
         if (id != -1) {
@@ -195,6 +197,8 @@ public class UpdateClientActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
             try {
+                //set changed Img
+                changeImg = true;
                 Uri selectedImage = data.getData();
                 imageView.setImageURI(selectedImage);
             } catch (Exception e) {
@@ -203,6 +207,8 @@ public class UpdateClientActivity extends AppCompatActivity {
         }
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             try {
+                //set changed Img
+                changeImg = true;
                 Bundle bundle = data.getExtras();
                 Bitmap bitmapImage = (Bitmap) bundle.get("data");
                 imageView.setImageBitmap(bitmapImage);

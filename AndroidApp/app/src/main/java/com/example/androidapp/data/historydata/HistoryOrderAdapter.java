@@ -72,10 +72,7 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
         holder.tvOrderPrice.setText(String.format("%,d", historyOrder.getPrice()) + " VND");
         //Read image from file
         try {
-            File f=new File(historyOrder.getClient().getImageDir(),
-                    historyOrder.getClient().getClientName()
-                            + "-" + historyOrder.getClient().getAddress()
-                            + "-" + historyOrder.getClient().getPhoneNumber());
+            File f=new File(historyOrder.getClient().getImageDir());
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.imageView.setImageBitmap(b);
         }

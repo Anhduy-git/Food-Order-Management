@@ -22,7 +22,7 @@ public interface OrderDao {
     @Delete
     void delete(Order order);
 
-    @Query("SELECT * FROM order_table ORDER BY clientName ASC")
+    @Query("SELECT * FROM order_table order by datetime(substr(date, 7, 4) || '-' || substr(date, 4, 2) || '-' || substr(date, 1, 2) || ' ' || time || ':' || '00') DESC")
     LiveData<List<Order>> getAllOrder();
 
     @Query("DELETE FROM order_table")

@@ -60,11 +60,15 @@ public class NewDishActivity extends AppCompatActivity {
     private Button btnAddDish;
     private Button btnBack;
     private Button btnAddImage;
+    private boolean changeImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_dish);
+
+        //Set default changeImg is false
+        changeImg = false;
 
         initUi();
 
@@ -115,8 +119,7 @@ public class NewDishActivity extends AppCompatActivity {
         String strDishName = edtDishName.getText().toString().trim();
         String strDishPrice = edtDishPrice.getText().toString().trim();
 
-        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+
 
 
         //Check if fields are empty, if so then don't add to database
@@ -136,7 +139,13 @@ public class NewDishActivity extends AppCompatActivity {
         Intent data = new Intent();
         data.putExtra(EXTRA_MENU_NAME, strDishName);
         data.putExtra(EXTRA_MENU_PRICE, Integer.valueOf(strDishPrice));
-        data.putExtra(EXTRA_MENU_IMAGE, ImageConverter.convertImage2ByteArray(image));
+
+        if (changeImg) {
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+            data.putExtra(EXTRA_MENU_IMAGE, ImageConverter.convertImage2ByteArray(image));
+        }
+
         setResult(RESULT_OK, data);
         finish();
     }
@@ -173,6 +182,8 @@ public class NewDishActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
             try {
+                //set changed Img
+                changeImg = true;
                 Uri selectedImage = data.getData();
                 imageView.setImageURI(selectedImage);
             } catch (Exception e) {
@@ -181,6 +192,8 @@ public class NewDishActivity extends AppCompatActivity {
         }
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             try {
+                //set changed Img
+                changeImg = true;
                 Bundle bundle = data.getExtras();
                 Bitmap bitmapImage = (Bitmap) bundle.get("data");
                 imageView.setImageBitmap(bitmapImage);

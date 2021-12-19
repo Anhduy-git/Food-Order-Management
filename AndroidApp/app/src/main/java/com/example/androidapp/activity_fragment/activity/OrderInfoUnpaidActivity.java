@@ -88,10 +88,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             mListDish = intent.getParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST);
             //read image from file
             try {
-                File f = new File(intent.getStringExtra(EXTRA_ORDER_IMAGE),
-                        intent.getStringExtra(EXTRA_ORDER_NAME) +
-                                "-" + intent.getStringExtra(EXTRA_ORDER_ADDRESS)
-                                + "-" + intent.getStringExtra(EXTRA_ORDER_NUMBER));
+                File f = new File(intent.getStringExtra(EXTRA_ORDER_IMAGE));
                 Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
                 imageView.setImageBitmap(b);
             }

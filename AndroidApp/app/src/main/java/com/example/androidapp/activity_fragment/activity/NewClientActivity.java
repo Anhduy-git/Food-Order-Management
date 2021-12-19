@@ -47,11 +47,15 @@ public class NewClientActivity extends AppCompatActivity {
     private Button btnAddClient;
     private Button btnBack;
     private Button btnAddImage;
+    private boolean changeImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_client);
+
+        //Set default changeImg is false
+        changeImg = false;
 
         initUi();
 
@@ -100,9 +104,6 @@ public class NewClientActivity extends AppCompatActivity {
         String strClientNumber = editClientNumber.getText().toString().trim();
         String strClientAddress = editClientAddress.getText().toString().trim();
 
-        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strClientName) || TextUtils.isEmpty(strClientNumber) || TextUtils.isEmpty(strClientAddress)) {
             Toast.makeText(this, "Please insert name, number and address", Toast.LENGTH_SHORT).show();
@@ -121,7 +122,12 @@ public class NewClientActivity extends AppCompatActivity {
         data.putExtra(EXTRA_CLIENT_NAME, strClientName);
         data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
         data.putExtra(EXTRA_CLIENT_ADDRESS, strClientAddress);
-        data.putExtra(EXTRA_CLIENT_IMAGE, ImageConverter.convertImage2ByteArray(image));
+
+        if (changeImg) {
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+            data.putExtra(EXTRA_CLIENT_IMAGE, ImageConverter.convertImage2ByteArray(image));
+        }
 
         setResult(RESULT_OK, data);
         finish();
@@ -159,6 +165,8 @@ public class NewClientActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
             try {
+                //set changed Img
+                changeImg = true;
                 Uri selectedImage = data.getData();
                 imageView.setImageURI(selectedImage);
             } catch (Exception e) {
@@ -167,6 +175,8 @@ public class NewClientActivity extends AppCompatActivity {
         }
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             try {
+                //set changed Img
+                changeImg = true;
                 Bundle bundle = data.getExtras();
                 Bitmap bitmapImage = (Bitmap) bundle.get("data");
                 imageView.setImageBitmap(bitmapImage);

@@ -180,14 +180,15 @@ public class MenuFragment extends Fragment {
             int price = data.getIntExtra(NewDishActivity.EXTRA_MENU_PRICE, 0);
             //get bitmap image from intent
             byte[] imageArray = data.getByteArrayExtra(NewDishActivity.EXTRA_MENU_IMAGE);
-            Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
-
-            Dish dish = new Dish(name, price, "");
+            Dish dish = new Dish(name, price, "NULL");
             //check if dish exist
             if (checkDishExistForInsert(dish)) {
-                //Store image to a file in internal memory
-                String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
-                dish.setImageDir(imageDir);
+                if (imageArray != null) {
+                    Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
+                    //Store image to a file in internal memory
+                    String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
+                    dish.setImageDir(imageDir);
+                }
                 dishViewModel.insertDish(dish);
             }
 
@@ -204,15 +205,15 @@ public class MenuFragment extends Fragment {
             int price = data.getIntExtra(UpdateDishActivity.EXTRA_PRICE, 0);
             //get bitmap image from intent
             byte[] imageArray = data.getByteArrayExtra(UpdateDishActivity.EXTRA_IMAGE);
-            Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
-
-            Dish dish = new Dish(name, price, "");
+            Dish dish = new Dish(name, price, "NULL");
             //check if dish exist
             if (checkDishExistForUpdate(dish)) {
-                //Store image to a file in internal memory
-                String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
-                //update image dir
-                dish.setImageDir(imageDir);
+                if (imageArray != null) {
+                    Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
+                    //Store image to a file in internal memory
+                    String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
+                    dish.setImageDir(imageDir);
+                }
                 dish.setDishID(id);
                 dishViewModel.updateDish(dish);
                 //Update recycler item
@@ -229,7 +230,7 @@ public class MenuFragment extends Fragment {
     }
     private boolean checkDishExistForUpdate(@NonNull Dish dish) {
         List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice());
-        return list != null && list.size() <= 1;
+        return list == null || list.size() <= 1;
     }
     private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
         ContextWrapper cw = new ContextWrapper(getContext());
@@ -252,6 +253,6 @@ public class MenuFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-        return directory.getAbsolutePath();
+        return directory.getAbsolutePath() + "/" + fileName;
     }
 }

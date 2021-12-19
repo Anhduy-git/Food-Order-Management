@@ -281,10 +281,7 @@ public class NewOrderActivity extends AppCompatActivity {
             editOrderAddress.setText(clientAddress);
             //read image from file
             try {
-                File f = new File(imageDir,
-                        clientName +
-                                "-" + clientAddress
-                                + "-" + clientPhoneNumber);
+                File f = new File(imageDir);
                 Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
                 imageView.setImageBitmap(b);
             }

@@ -59,12 +59,16 @@ public class UpdateDishActivity extends AppCompatActivity {
     private Button btnBack;
     private Button btnUpdate;
     private Button btnAddImage;
+    private boolean changeImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_menu);
 
+
+        //Set default changeImg is false
+        changeImg = false;
         initUi();
 
         Intent intent = getIntent();
@@ -73,9 +77,7 @@ public class UpdateDishActivity extends AppCompatActivity {
             editDishName.setText(intent.getStringExtra(EXTRA_NAME));
             editDishPrice.setText(String.valueOf(intent.getIntExtra(EXTRA_PRICE, 0)));
             try {
-                File f=new File(intent.getStringExtra(EXTRA_IMAGE),
-                        intent.getStringExtra(EXTRA_NAME)
-                        + "-" + String.valueOf(intent.getIntExtra(EXTRA_PRICE, 0)));
+                File f=new File(intent.getStringExtra(EXTRA_IMAGE));
                 Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
                 imageView.setImageBitmap(b);
             }
@@ -131,9 +133,7 @@ public class UpdateDishActivity extends AppCompatActivity {
         String strDishName = editDishName.getText().toString().trim();
         String strDishPrice = editDishPrice.getText().toString().trim();
 
-        //Store image to a file in internal memory
-        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+
 
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strDishName) || TextUtils.isEmpty(strDishPrice)) {
@@ -152,7 +152,14 @@ public class UpdateDishActivity extends AppCompatActivity {
         Intent data = new Intent();
         data.putExtra(EXTRA_NAME, strDishName);
         data.putExtra(EXTRA_PRICE, Integer.valueOf(strDishPrice));
-        data.putExtra(EXTRA_IMAGE, ImageConverter.convertImage2ByteArray(image));
+
+        if (changeImg) {
+            //Store image to a file in internal memory
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+            data.putExtra(EXTRA_IMAGE, ImageConverter.convertImage2ByteArray(image));
+        }
+
 
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
@@ -200,6 +207,8 @@ public class UpdateDishActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
             try {
+                //set changed Img
+                changeImg = true;
                 Uri selectedImage = data.getData();
                 imageView.setImageURI(selectedImage);
             } catch (Exception e) {
@@ -208,6 +217,8 @@ public class UpdateDishActivity extends AppCompatActivity {
         }
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             try {
+                //set changed Img
+                changeImg = true;
                 Bundle bundle = data.getExtras();
                 Bitmap bitmapImage = (Bitmap) bundle.get("data");
                 imageView.setImageBitmap(bitmapImage);
