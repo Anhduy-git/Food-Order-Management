@@ -6,6 +6,7 @@
         <entry key="../../../../../../layout/custom_preview.xml" value="0.36770833333333336" />
         <entry key="../../../../layout/custom_preview.xml" value="0.16203703703703703" />
         <entry key="app/src/main/res/drawable/attention.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/drawable/back_btn.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/ball_detail.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/bg_btn_modify.xml" value="0.36923076923076925" />
         <entry key="app/src/main/res/drawable/bg_checkbox.xml" value="0.36923076923076925" />
@@ -33,6 +34,7 @@
         <entry key="app/src/main/res/drawable/ic_camera.xml" value="0.36875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18611111111111112" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/drawable/icon_payment.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/icon_searching.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/list_item.xml" value="0.17777777777777778" />
         <entry key="app/src/main/res/drawable/num_dish_box.xml" value="0.28125" />
@@ -69,7 +71,7 @@
         <entry key="app/src/main/res/layout/fragment_completed_history.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_menu.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_order_today.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/fragment_order_today.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_unpaid_order.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_upcoming_order.xml" value="0.25" />
         <entry key="app/src/main/res/layout/header_nav.xml" value="0.35185185185185186" />

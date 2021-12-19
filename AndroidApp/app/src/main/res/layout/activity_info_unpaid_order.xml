@@ -69,16 +69,16 @@
 
         <Button
             android:id="@+id/paid_btn"
-            android:layout_width="130dp"
+            android:layout_width="70dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/bg_ship_btn"
-            android:text="Thanh Toán"
             android:layout_marginRight="15dp"
-            android:translationY="2dp"
+            android:background="@drawable/bg_ship_btn"
+            android:drawableTop="@drawable/icon_payment"
             android:textAllCaps="false"
             android:textColor="@color/main_white"
-            android:textSize="18dp"></Button>
+            android:textSize="18dp"
+            android:translationY="2dp"></Button>
         <View
             android:layout_width="35dp"
             android:layout_height="35dp"
