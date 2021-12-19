@@ -55,7 +55,8 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
         public boolean areContentsTheSame(@NonNull Client oldItem, @NonNull Client newItem) {
             return oldItem.getClientName().equals(newItem.getClientName()) &&
                     oldItem.getAddress().equals(newItem.getAddress()) &&
-                    oldItem.getPhoneNumber().equals(newItem.getPhoneNumber());
+                    oldItem.getPhoneNumber().equals(newItem.getPhoneNumber()) &&
+                    oldItem.getImageDir().equals(newItem.getImageDir());
 
         }
     };

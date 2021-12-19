@@ -206,6 +206,7 @@ public class ClientFragment extends Fragment {
 
             byte[] imageArray = data.getByteArrayExtra(UpdateClientActivity.EXTRA_CLIENT_IMAGE);
             Client client = new Client(name, number, address, "NULL");
+            client.setClientId(id);
             //Check if exist client
             if (checkClientExistForUpdate(client)) {
                 if (imageArray != null) {
@@ -214,10 +215,7 @@ public class ClientFragment extends Fragment {
                             client.getAddress() + "-" + client.getPhoneNumber());
                     client.setImageDir(imageDir);
                 }
-                client.setClientId(id);
                 clientViewModel.updateClient(client);
-                //Update recycler item
-                clientAdapter.notifyDataSetChanged();
             }
         } else {
             //Do nothing
@@ -232,7 +230,7 @@ public class ClientFragment extends Fragment {
     private boolean checkClientExistForUpdate(@NonNull Client client) {
         List<Client> list  = AppDatabase.getInstance(getContext()).clientDao().checkClientExist(client.getClientName(),
                 client.getAddress(), client.getPhoneNumber());
-        return list == null || list.size() <= 1;
+        return (list == null) || (list.size() == 0) || (list.size() == 1 && list.get(0).getClientId() == client.getClientId());
     }
     private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
         ContextWrapper cw = new ContextWrapper(getContext());
