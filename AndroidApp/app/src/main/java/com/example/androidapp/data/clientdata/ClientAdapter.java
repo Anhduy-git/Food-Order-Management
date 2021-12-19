@@ -95,7 +95,7 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
         holder.tvClientAddress.setText(client.getAddress());
         //read image from file
         try {
-            File f=new File(client.getImageDir(), client.getClientName() + "-" + client.getAddress() + "-" + client.getPhoneNumber());
+            File f=new File(client.getImageDir());
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.imageView.setImageBitmap(b);
         }

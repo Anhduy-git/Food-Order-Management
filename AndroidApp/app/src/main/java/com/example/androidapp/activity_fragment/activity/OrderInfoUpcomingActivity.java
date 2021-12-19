@@ -103,10 +103,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             imageDir = intent.getStringExtra(EXTRA_ORDER_IMAGE);
             //read image from file
             try {
-                File f = new File(imageDir,
-                        intent.getStringExtra(EXTRA_ORDER_NAME) +
-                                "-" + intent.getStringExtra(EXTRA_ORDER_ADDRESS)
-                                + "-" + intent.getStringExtra(EXTRA_ORDER_NUMBER));
+                File f = new File(imageDir);
                 Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
                 imageView.setImageBitmap(b);
             }

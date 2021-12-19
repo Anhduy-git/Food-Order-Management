@@ -94,7 +94,7 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
         //read image from file
         try {
-            File f=new File(dish.getImageDir(), dish.getName() + "-" + dish.getPrice());
+            File f=new File(dish.getImageDir());
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.imgView.setImageBitmap(b);
         }

@@ -2,6 +2,8 @@ package com.example.androidapp.activity_fragment.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -11,19 +13,36 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.historydata.HistoryOrder;
+import com.example.androidapp.data.historydata.HistoryOrderViewModel;
+import com.example.androidapp.data.upcomingorderdata.UpcomingOrder;
 import com.example.androidapp.supportclass.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
     private Button btnBack;
     private ViewPager2 mViewPager2;
     private BottomNavigationView mBottomNavigationView;
+    private HistoryOrderViewModel historyOrderViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        //setup view model (remove his order when full)
+        historyOrderViewModel = new ViewModelProvider(this).get(HistoryOrderViewModel.class);
+        historyOrderViewModel.getAllHistoryOrder().observe(HistoryActivity.this, new Observer<List<HistoryOrder>>() {
+            @Override
+            public void onChanged(List<HistoryOrder> historyOrders) {
+                if (historyOrders.size() > 5)
+                    historyOrderViewModel.delete(historyOrders.get(historyOrders.size() - 1));
+            }
+        });
+
 
         //Button back to Main Activity
         btnBack = (Button)findViewById(R.id.btn_back);

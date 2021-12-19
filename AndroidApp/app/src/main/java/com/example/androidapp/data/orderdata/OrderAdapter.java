@@ -96,10 +96,7 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
         holder.tvOrderPrice.setText(String.format("%,d", order.getPrice()) + " VND");
         //Read image from file
         try {
-            File f=new File(order.getClient().getImageDir(),
-                    order.getClient().getClientName()
-                    + "-" + order.getClient().getAddress()
-            + "-" + order.getClient().getPhoneNumber());
+            File f=new File(order.getClient().getImageDir());
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.imageView.setImageBitmap(b);
         }

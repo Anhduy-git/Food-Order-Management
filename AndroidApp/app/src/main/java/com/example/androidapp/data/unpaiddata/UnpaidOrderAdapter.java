@@ -81,10 +81,7 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
         holder.tvOrderPrice.setText(String.format("%,d", unpaidOrder.getPrice()) + " VND");
         //Read image from file
         try {
-            File f=new File(unpaidOrder.getClient().getImageDir(),
-                    unpaidOrder.getClient().getClientName()
-                            + "-" + unpaidOrder.getClient().getAddress()
-                            + "-" + unpaidOrder.getClient().getPhoneNumber());
+            File f=new File(unpaidOrder.getClient().getImageDir());
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.imageView.setImageBitmap(b);
         }

@@ -21,6 +21,6 @@ public interface UnpaidOrderDao {
     @Delete
     void delete(UnpaidOrder unpaidOrder);
 
-    @Query("SELECT * FROM unpaid_order_table ORDER BY date ASC")
+    @Query("SELECT * FROM unpaid_order_table order by datetime(substr(date, 7, 4) || '-' || substr(date, 4, 2) || '-' || substr(date, 1, 2) || ' ' || time || ':' || '00') DESC")
     LiveData<List<UnpaidOrder>> getAllUnpaidOrder();
 }

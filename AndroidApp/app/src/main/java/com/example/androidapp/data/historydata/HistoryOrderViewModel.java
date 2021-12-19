@@ -7,6 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 
+import com.example.androidapp.data.orderdata.Order;
+
 import java.util.List;
 
 public class HistoryOrderViewModel extends AndroidViewModel {
@@ -24,6 +26,9 @@ public class HistoryOrderViewModel extends AndroidViewModel {
     }
     public void insert(HistoryOrder historyOrder){
         repository.insert(historyOrder);
+    }
+    public void delete(HistoryOrder historyOrder){
+        repository.delete(historyOrder);
     }
     public LiveData<List<HistoryOrder>> getAllHistoryOrder(){
         return allHistoryOrder;

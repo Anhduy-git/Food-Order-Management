@@ -73,7 +73,7 @@ public class DishOrderInfoAdapter extends RecyclerView.Adapter<DishOrderInfoAdap
 
         //read image from file
         try {
-            File f=new File(dish.getImageDir(), dish.getName() + "-" + dish.getPrice());
+            File f=new File(dish.getImageDir());
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.imgView.setImageBitmap(b);
         }

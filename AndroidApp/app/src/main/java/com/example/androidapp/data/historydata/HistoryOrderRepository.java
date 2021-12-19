@@ -30,7 +30,7 @@ public class HistoryOrderRepository {
         new HistoryOrderRepository.InsertNoteAsyncTask(historyOrderDao).execute(historyOrder);
     }
 
-
+    public void delete(HistoryOrder historyOrder){new DeleteNoteAsyncTask(historyOrderDao).execute(historyOrder); }
 
     public LiveData<List<HistoryOrder>> getAllHistoryOrder(){
         return allHistoryOrder;
@@ -51,6 +51,17 @@ public class HistoryOrderRepository {
         @Override
         protected Void doInBackground(HistoryOrder... historyOrders){
             historyOrderDao.insert(historyOrders[0]);
+            return null;
+        }
+    }
+    private static class DeleteNoteAsyncTask extends AsyncTask<HistoryOrder, Void, Void>{
+        private HistoryOrderDao historyOrderDao;
+        private DeleteNoteAsyncTask(HistoryOrderDao historyOrderDao){
+            this.historyOrderDao = historyOrderDao;
+        }
+        @Override
+        protected Void doInBackground(HistoryOrder... historyOrders){
+            historyOrderDao.delete(historyOrders[0]);
             return null;
         }
     }
