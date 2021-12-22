@@ -11,11 +11,12 @@
 
 <!--    Secondary layout-->
     <LinearLayout
-        android:id="@+id/client_item_del"
+
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center">
         <LinearLayout
+            android:id="@+id/client_item_del"
             android:layout_width="67dp"
             android:layout_height="67dp"
             android:gravity="center"

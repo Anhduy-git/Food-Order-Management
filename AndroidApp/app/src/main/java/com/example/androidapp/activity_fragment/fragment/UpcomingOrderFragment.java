@@ -3,16 +3,20 @@ package com.example.androidapp.activity_fragment.fragment;
 import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,6 +29,7 @@ import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUpcomingActivity;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.menudata.Dish;
+import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrder;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrderAdapter;
 import com.example.androidapp.data.upcomingorderdata.UpcomingOrderViewModel;
@@ -39,7 +44,8 @@ public class UpcomingOrderFragment extends Fragment {
     //View model
     private UpcomingOrderViewModel upcomingOrderViewModel;
     public static List<Dish> mOrderListDish = new ArrayList<>();
-
+    //sound
+    private MediaPlayer sound = null;
 
 
     @Nullable
@@ -65,6 +71,8 @@ public class UpcomingOrderFragment extends Fragment {
                 upcomingOrderAdapter.submitList(upcomingOrders);
             }
         });
+        //Sound
+        sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
 
 //        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
 //                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -103,7 +111,7 @@ public class UpcomingOrderFragment extends Fragment {
         upcomingOrderAdapter.setOnItemClickDelListener(new UpcomingOrderAdapter.OnItemClickDelListener() {
             @Override
             public void onItemClickDel(UpcomingOrder upcomingOrder) {
-                upcomingOrderViewModel.delete(upcomingOrder);
+                confirmDelDialog(upcomingOrder);
             }
         });
 
@@ -176,5 +184,33 @@ public class UpcomingOrderFragment extends Fragment {
         }
 
         return price;
+    }
+    private void confirmDelDialog(UpcomingOrder upcomingOrder) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.alert_dialog_delete, (RelativeLayout)getView().findViewById(R.id.layout_dialog)
+        );
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
+
+        //confirm paid btn
+        view.findViewById(R.id.confirm_dialog_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                sound.start();
+                upcomingOrderViewModel.delete(upcomingOrder);
+            }
+        });
+        //cancel btn
+        view.findViewById(R.id.cancel_dialog_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        alertDialog.show();
     }
 }

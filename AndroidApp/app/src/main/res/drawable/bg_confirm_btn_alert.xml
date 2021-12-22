@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape android:shape="rectangle"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient android:startColor="#4CA1A3"
-        android:endColor="#A5E1AD"></gradient>
-    <corners android:radius="100dp"></corners>
-</shape>
+<ripple
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?colorControlHighlight">
+    <item>
+        <shape android:shape="rectangle"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+            <gradient android:startColor="#4CA1A3"
+                android:endColor="#A5E1AD"></gradient>
+            <corners android:radius="100dp"></corners>
+        </shape>
+    </item>
+</ripple>

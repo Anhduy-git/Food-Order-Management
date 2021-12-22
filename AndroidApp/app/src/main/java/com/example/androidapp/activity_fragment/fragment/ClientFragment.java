@@ -8,6 +8,8 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,10 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -38,6 +42,7 @@ import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.clientdata.ClientAdapter;
 import com.example.androidapp.data.clientdata.ClientViewModel;
+import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.orderdata.Order;
 import com.example.androidapp.data.orderdata.OrderAdapter;
 
@@ -56,6 +61,8 @@ public class ClientFragment extends Fragment {
     private Button btnAddClient;
     private EditText edtSearchBar;
     private ClientAdapter clientAdapter;
+    //confirm sound
+    private MediaPlayer sound = null;
 
     public ClientFragment() {
         //Empty on purpose
@@ -91,6 +98,8 @@ public class ClientFragment extends Fragment {
 
             }
         });
+        //Sound
+        sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
 
         //Method DELETE an item by swiping it
 //        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
@@ -145,7 +154,7 @@ public class ClientFragment extends Fragment {
         clientAdapter.setOnItemClickDelListener(new ClientAdapter.OnItemClickDelListener() {
             @Override
             public void onItemClickDel(Client client) {
-                clientViewModel.deleteClient(client);
+                confirmDelDialog(client);
             }
         });
 
@@ -255,5 +264,32 @@ public class ClientFragment extends Fragment {
         }
         return directory.getAbsolutePath() + '/' + fileName;
     }
+    private void confirmDelDialog(Client client) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.alert_dialog_delete, (RelativeLayout)getView().findViewById(R.id.layout_dialog)
+        );
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
 
+        //confirm paid btn
+        view.findViewById(R.id.confirm_dialog_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                sound.start();
+                clientViewModel.deleteClient(client);
+            }
+        });
+        //cancel btn
+        view.findViewById(R.id.cancel_dialog_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        alertDialog.show();
+    }
 }

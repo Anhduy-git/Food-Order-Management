@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DateTimeComparator dateTimeComparator;
     private Date today;
     private String tomorrow;
-    private Calendar calendarNotification;
     private Calendar calendarToday;
     private Calendar calendarTomorrow;
     public static final String CHANNEL_ID = "CHANNEL 1";
@@ -118,9 +117,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         //Only compare the date
         dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
-        //Get today's date
+
+        //Get today's date (on Create date)
         calendarToday = Calendar.getInstance();
         today = calendarToday.getTime();
+
         //Get tomorrow's date
         calendarTomorrow = Calendar.getInstance();
         calendarTomorrow.add(Calendar.DAY_OF_YEAR, 1);
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //put get time here to check for update whenever the activity is visible
         // (useful when restart app from home)
         super.onStart();
+        //Date now (used to store the current date, may differ from today)
         Date nowDate = Calendar.getInstance().getTime();
         //if user restart from home in another day, then refresh app
         int ret = dateTimeComparator.compare(nowDate, today);
@@ -363,7 +365,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         //set time daily for notification
-        calendarNotification = Calendar.getInstance();
+        Calendar calendarNotification = Calendar.getInstance();
         calendarNotification.set(Calendar.HOUR_OF_DAY, 20);
         calendarNotification.set(Calendar.MINUTE, 0);
         calendarNotification.set(Calendar.SECOND, 0);

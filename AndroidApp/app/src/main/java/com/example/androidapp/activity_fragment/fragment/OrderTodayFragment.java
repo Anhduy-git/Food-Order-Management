@@ -4,6 +4,8 @@ package com.example.androidapp.activity_fragment.fragment;
 import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -11,12 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.Observer;
@@ -56,8 +60,9 @@ public class OrderTodayFragment extends Fragment {
     //View model
     private OrderViewModel orderViewModel;
     private UpcomingOrderViewModel upcomingOrderViewModel;
-
     public static List<Dish> mOrderListDish = new ArrayList<>();
+    //sound
+    private MediaPlayer sound = null;
 
     @Nullable
     @Override
@@ -77,7 +82,6 @@ public class OrderTodayFragment extends Fragment {
         //Set up view model
         upcomingOrderViewModel = new ViewModelProvider(this).get(UpcomingOrderViewModel.class);
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
-
         orderViewModel.getAllOrder().observe(getActivity(), new Observer<List<Order>>() {
             @Override
             public void onChanged(List<Order> orders) {
@@ -88,6 +92,8 @@ public class OrderTodayFragment extends Fragment {
 
             }
         });
+        //Sound
+        sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
 
 //        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
 //                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -126,7 +132,7 @@ public class OrderTodayFragment extends Fragment {
         orderAdapter.setOnItemClickDelListener(new OrderAdapter.OnItemClickDelListener() {
             @Override
             public void onItemClickDel(Order order) {
-                orderViewModel.delete(order);
+                confirmDelDialog(order);
             }
         });
 
@@ -227,5 +233,33 @@ public class OrderTodayFragment extends Fragment {
             price += dish.getPrice() * dish.getQuantity();
         }
         return price;
+    }
+    private void confirmDelDialog(Order order) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.alert_dialog_delete, (RelativeLayout)getView().findViewById(R.id.layout_dialog)
+        );
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
+
+        //confirm paid btn
+        view.findViewById(R.id.confirm_dialog_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                sound.start();
+                orderViewModel.delete(order);
+            }
+        });
+        //cancel btn
+        view.findViewById(R.id.cancel_dialog_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        alertDialog.show();
     }
 }

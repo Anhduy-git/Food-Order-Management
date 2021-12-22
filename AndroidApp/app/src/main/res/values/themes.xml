@@ -29,6 +29,11 @@
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">20sp</item>
     </style>
-    AndroidApp/app/src/main/res/values/themes.xml
+
+<!--    Dialog-->
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+ 
 
 </resources>

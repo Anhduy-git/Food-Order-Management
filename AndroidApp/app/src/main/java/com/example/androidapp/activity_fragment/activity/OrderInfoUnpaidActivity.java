@@ -3,14 +3,18 @@ package com.example.androidapp.activity_fragment.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -65,7 +69,9 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     //info is view only
-    final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
+    private final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
+    //sound confirm paid
+    private MediaPlayer sound = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +108,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         dishOrderInfoAdapter.setDish(mListDish);
 
         //confirm sound
-        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+        sound = MediaPlayer.create(this, R.raw.confirm_sound);
         //release resource when completed
         sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
@@ -113,14 +119,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         btnPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sound.start();
-                Intent data = new Intent();
-                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
-                if (id != -1) {
-                    data.putExtra(EXTRA_ORDER_ID, id);
-                }
-                setResult(RESULT_OK, data);
-                finish();
+                showConfirmPaidDialog();
             }
         });
         //Button back to UnpaidOrderFragment
@@ -149,6 +148,41 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
 
         rcvData.setAdapter(dishOrderInfoAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
+    }
+    private void showConfirmPaidDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(this).inflate(R.layout.alert_dialog_unpaid, (RelativeLayout) findViewById(R.id.layout_dialog)
+        );
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
+
+        //confirm paid btn
+        view.findViewById(R.id.confirm_dialog_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                //sound confirm
+                sound.start();
+                Intent data = new Intent();
+                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
+                if (id != -1) {
+                    data.putExtra(EXTRA_ORDER_ID, id);
+                }
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        });
+        //cancel btn
+        view.findViewById(R.id.cancel_dialog_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        alertDialog.show();
     }
 
 }

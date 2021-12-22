@@ -1,7 +1,9 @@
 package com.example.androidapp.activity_fragment.activity;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,15 +13,21 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.androidapp.R;
@@ -79,11 +87,19 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
     private boolean ship;
     private boolean beforePaid;
     private boolean currentPaid;
-
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
-    final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
+    private final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
+    //ship sound
+    private MediaPlayer sound_ship = null;
+    //confirm sound
+    private MediaPlayer sound_back = null;
 
+    private String strOrderName;
+    private String strOrderAddress;
+    private String strOrderNumber ;
+    private String strOrderDate ;
+    private String strOrderTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,66 +163,51 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         }
 
         //Convert to String
-        String strOrderName = tvOrderName.getText().toString().trim();
-        String strOrderAddress = tvOrderAddress.getText().toString().trim();
-        String strOrderNumber = tvOrderNumber.getText().toString().trim();
-        String strOrderDate = tvOrderDate.getText().toString().trim();
-        String strOrderTime = tvOrderTime.getText().toString().trim();
+        strOrderName = tvOrderName.getText().toString().trim();
+        strOrderAddress = tvOrderAddress.getText().toString().trim();
+        strOrderNumber = tvOrderNumber.getText().toString().trim();
+        strOrderDate = tvOrderDate.getText().toString().trim();
+        strOrderTime = tvOrderTime.getText().toString().trim();
 
         //Checkbox to confirm paid
         checkPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentPaid == false){
+                if (!currentPaid){
                     currentPaid = true;
 
                 } else {
                     currentPaid = false;
-
                 }
             }
         });
+
         //ship sound
-        final MediaPlayer sound = MediaPlayer.create(this, R.raw.ship_sound);
+        sound_ship = MediaPlayer.create(this, R.raw.ship_sound);
         //release resource when completed
-        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        sound_ship.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
-                sound.release();
+                sound_ship.release();
             }
         });
+
         //confirm sound
-        final MediaPlayer sound_back = MediaPlayer.create(this, R.raw.confirm_sound);
+        sound_back = MediaPlayer.create(this, R.raw.confirm_sound);
         //release resource when completed
         sound_back.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
                 sound_back.release();
             }
         });
-        //Ship button to confirm ship and return data
+
+
+
+
+        //Ship button to confirm ship and show dialog confirm
         btnShip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Sound onClick
-                sound.start();
-                ship = true;
-                Intent data = new Intent();
-                data.putExtra(EXTRA_CHECK_SHIP, ship);
-                data.putExtra(EXTRA_CHECK_CONFIRM_SHIP, true);
-                data.putExtra(EXTRA_CHECK_PAID, currentPaid);
-                data.putExtra(EXTRA_ORDER_NAME, strOrderName);
-                data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
-                data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
-                data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
-                data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-                data.putExtra(EXTRA_ORDER_IMAGE, imageDir);
-
-                data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
-                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
-                if (id != -1) {
-                    data.putExtra(EXTRA_ORDER_ID, id);
-                }
-                setResult(RESULT_OK, data);
-                finish();
+                showShipDialog();
             }
         });
 
@@ -246,7 +247,53 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             }
         });
     }
+    private void showShipDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(this).inflate(R.layout.alert_dialog_ship, (RelativeLayout) findViewById(R.id.layout_dialog)
+        );
+        builder.setView(view);
+        AlertDialog alertDialog = builder.create();
 
+        //ship btn
+        view.findViewById(R.id.confirm_dialog_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                //Sound onClick
+                sound_ship.start();
+                ship = true;
+                Intent data = new Intent();
+                data.putExtra(EXTRA_CHECK_SHIP, ship);
+                data.putExtra(EXTRA_CHECK_CONFIRM_SHIP, true);
+                data.putExtra(EXTRA_CHECK_PAID, currentPaid);
+                data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+                data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
+                data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
+                data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
+                data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                data.putExtra(EXTRA_ORDER_IMAGE, imageDir);
+
+                data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
+                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
+                if (id != -1) {
+                    data.putExtra(EXTRA_ORDER_ID, id);
+                }
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        });
+        //cancel btn
+        view.findViewById(R.id.cancel_dialog_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        alertDialog.show();
+    }
     private void initUi () {
         tvOrderPrice = findViewById(R.id.order_price);
         tvOrderName = findViewById(R.id.order_name);
