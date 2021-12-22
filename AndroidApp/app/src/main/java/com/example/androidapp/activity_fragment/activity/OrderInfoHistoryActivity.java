@@ -71,7 +71,7 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
             int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
-            tvOrderPrice.setText(String.valueOf(price));
+            tvOrderPrice.setText(String.format("%,d", price));
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
