@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -91,14 +92,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setTitle("Đơn Hàng Hôm Nay");
         mDrawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
-
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
         replaceFragment(new OrderTodayFragment());
-
         //set highlight order today
         nav_view.getMenu().findItem(R.id.order_today).setChecked(true);
         //select the current fragment from intent (when start from notification)
@@ -109,13 +107,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mCurrentFragment = FRAGMENT_UPCOMING_ORDER;
             nav_view.getMenu().findItem(R.id.upcoming_order).setChecked(true);
         }
-
-
         //Setup View Model
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
         unpaidOrderViewModel = new ViewModelProvider(this).get(UnpaidOrderViewModel.class);
         upcomingOrderViewModel = new ViewModelProvider(this).get(UpcomingOrderViewModel.class);
         historyOrderViewModel = new ViewModelProvider(this).get(HistoryOrderViewModel.class);
+
+
         //Date format
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         //Only compare the date
@@ -126,11 +124,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Get tomorrow's date
         calendarTomorrow = Calendar.getInstance();
         calendarTomorrow.add(Calendar.DAY_OF_YEAR, 1);
-
         tomorrow = simpleDateFormat.format(calendarTomorrow.getTime());
 
         //get revenue this month
-
         View headerView = nav_view.getHeaderView(0);
         TextView revMonth = (TextView)headerView.findViewById(R.id.rev_this_month);
         getRevMonth(revMonth);
@@ -148,11 +144,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-//    @Override
-//    public void onStart(){
-//        super.onStart();
-//        Log.d("test", "onStart");
-//    }
+    @Override
+    public void onStart(){
+        //put get time here to check for update whenever the activity is visible
+        // (useful when restart app from home)
+        super.onStart();
+        Date nowDate = Calendar.getInstance().getTime();
+        //if user restart from home in another day, then refresh app
+        int ret = dateTimeComparator.compare(nowDate, today);
+        if (ret != 0) {
+            finish();
+            startActivity(getIntent());
+        }
+
+    }
 //    @Override
 //    public void onPause(){
 //        super.onPause();
@@ -162,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    public void onRestart(){
 //        super.onRestart();
 //        Log.d("test", "onRestart");
+//
 //    }
 //    @Override
 //    public void onResume(){
