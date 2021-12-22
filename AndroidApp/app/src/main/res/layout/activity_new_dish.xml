@@ -151,13 +151,4 @@
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
-
-    <View
-        android:layout_width="280dp"
-        android:layout_height="280dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/ball_detail"
-        android:translationX="-10dp"
-        android:translationY="110dp"
-        android:translationZ="-2dp"></View>
 </RelativeLayout>
