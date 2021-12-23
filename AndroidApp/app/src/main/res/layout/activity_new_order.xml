@@ -14,7 +14,7 @@
         android:layout_width="230dp"
         android:layout_height="230dp"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ball_detail"
+        android:background="@drawable/planet_order"
         android:translationX="60dp"
         android:translationY="-80dp"></View>
 
@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="10dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="250dp">
@@ -41,13 +42,14 @@
                 android:layout_marginRight="140dp"
                 android:background="@drawable/ball_detail"></View>
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/order_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <Button
@@ -56,8 +58,7 @@
                 android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:background="@drawable/btn_back_background"
-                android:drawableStart="@drawable/back_btn"
-                ></Button>
+                android:drawableStart="@drawable/back_btn"></Button>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,23 +83,25 @@
                 android:textColor="@color/main_white"
                 android:textSize="16dp"></Button>
         </RelativeLayout>
+
         <View
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="205dp"
             android:background="@drawable/ball_detail"
             android:translationZ="1dp"></View>
+
         <RelativeLayout
-            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="185dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
             android:layout_marginRight="10dp">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
-                android:background="@drawable/box_info"
-                ></View>
+                android:background="@drawable/box_info"></View>
 
             <io.alterac.blurkit.BlurLayout
                 android:id="@+id/blur_layout"
@@ -123,14 +126,14 @@
                     android:id="@+id/order_avatar"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ava_client_default"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ava_client_default" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="8dp">
+                    android:layout_marginLeft="8dp"
+                    android:orientation="vertical">
 
                     <EditText
                         android:id="@+id/add_order_name"
@@ -170,12 +173,14 @@
                         android:textColor="@color/main_white"
                         android:textColorHint="@color/color_hint"
                         android:textSize="17sp"></EditText>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginTop="4dp"
+                        android:orientation="horizontal"
                         android:weightSum="10">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -186,22 +191,23 @@
                                 android:id="@+id/add_order_time"
                                 android:layout_width="22dp"
                                 android:layout_height="22dp"
+                                android:layout_gravity="center"
                                 android:layout_marginRight="5dp"
                                 android:maxHeight="18dp"
-                                android:layout_gravity="center"
                                 android:src="@drawable/clock_ic"></ImageView>
 
                             <TextView
                                 android:id="@+id/order_time_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="25dp"
+                                android:layout_marginRight="5dp"
                                 android:background="@drawable/borderbottom"
                                 android:hint="hh:mm"
                                 android:textColor="@color/main_white"
                                 android:textColorHint="@color/color_hint"
-                                android:textSize="17sp"
-                                android:layout_marginRight="5dp"></TextView>
+                                android:textSize="17sp"></TextView>
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -240,9 +246,9 @@
                 android:layout_marginRight="60dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_info"
+                android:letterSpacing="0.1"
                 android:text="chọn từ danh bạ"
                 android:textAllCaps="false"
-                android:letterSpacing="0.1"
                 android:textColor="@color/main_white"
                 android:textSize="17sp"></Button>
         </RelativeLayout>
