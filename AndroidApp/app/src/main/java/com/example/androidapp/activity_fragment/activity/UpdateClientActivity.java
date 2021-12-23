@@ -54,14 +54,11 @@ public class UpdateClientActivity extends AppCompatActivity {
     private Button btnAddImage;
     private Button btnUpdateClient;
     private Button btnBack;
-    private boolean changeImg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_client);
 
-        //Set default changeImg is false
-        changeImg = false;
 
         initUi();
 
@@ -146,11 +143,11 @@ public class UpdateClientActivity extends AppCompatActivity {
         data.putExtra(EXTRA_CLIENT_NAME, strClientName);
         data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
         data.putExtra(EXTRA_CLIENT_ADDRESS, strClientAddress);
-        if (changeImg) {
-            Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-            data.putExtra(EXTRA_CLIENT_IMAGE, ImageConverter.convertImage2ByteArray(image));
-        }
+
+        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+        Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+        data.putExtra(EXTRA_CLIENT_IMAGE, ImageConverter.convertImage2ByteArray(image));
+
 
 
         int id = getIntent().getIntExtra(EXTRA_CLIENT_ID, -1);
@@ -197,8 +194,6 @@ public class UpdateClientActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
             try {
-                //set changed Img
-                changeImg = true;
                 Uri selectedImage = data.getData();
                 imageView.setImageURI(selectedImage);
             } catch (Exception e) {
@@ -207,8 +202,6 @@ public class UpdateClientActivity extends AppCompatActivity {
         }
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             try {
-                //set changed Img
-                changeImg = true;
                 Bundle bundle = data.getExtras();
                 Bitmap bitmapImage = (Bitmap) bundle.get("data");
                 imageView.setImageBitmap(bitmapImage);
