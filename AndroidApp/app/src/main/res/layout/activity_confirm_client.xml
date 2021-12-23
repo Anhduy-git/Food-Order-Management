@@ -9,9 +9,9 @@
     tools:context=".activity_fragment.activity.UpdateClientActivity">
 
     <View
-        android:layout_width="700dp"
-        android:layout_height="300dp"
-        android:background="@drawable/big_ball_top"></View>
+        android:layout_width="320dp"
+        android:layout_height="270dp"
+        android:background="@drawable/planet_client"></View>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,7 +35,6 @@
 
         <Button
             android:id="@+id/update_client_info_button"
-            android:visibility="gone"
             android:layout_width="110dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
@@ -46,13 +45,14 @@
             android:textSize="17dp"
             android:translationX="-3dp"
             android:translationY="4dp"
-            android:translationZ="1dp"></Button>
+            android:translationZ="1dp"
+            android:visibility="gone"></Button>
 
         <View
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_alignBottom="@+id/blur_layout"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:background="@drawable/ball_detail"
             android:translationY="-60dp"></View>
 
@@ -60,10 +60,11 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignBottom="@+id/blur_layout"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:background="@drawable/ball_detail"
-            android:translationX="70dp"
+            android:translationX="-70dp"
             android:translationY="30dp"></View>
+
 
         <View
             android:layout_width="310dp"
@@ -193,9 +194,22 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_alignBottom="@+id/blur_layout"
-            android:layout_alignParentRight="true"
             android:background="@drawable/ball_detail"
-            android:translationX="-70dp"
-            android:translationY="-1dp"></View>
+            android:translationX="30dp"></View>
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/blur_layout"
+            android:background="@drawable/star"
+            android:translationX="10dp"
+            android:translationY="-20dp"></View>
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/star"
+            android:translationY="130dp"></View>
     </RelativeLayout>
 </RelativeLayout>

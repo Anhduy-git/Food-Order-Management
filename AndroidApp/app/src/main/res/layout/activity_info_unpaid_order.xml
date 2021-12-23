@@ -14,12 +14,13 @@
         android:layout_alignParentRight="true"
         android:translationY="-80dp"
         android:translationX="60dp"
-        android:background="@drawable/ball_detail"></View>
+        android:background="@drawable/planet_order"></View>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="10dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="250dp">
@@ -75,6 +76,7 @@
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_ship_btn"
             android:drawableTop="@drawable/icon_payment"
+            android:paddingTop="4dp"
             android:textAllCaps="false"
             android:textColor="@color/main_white"
             android:textSize="18dp"
