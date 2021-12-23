@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +29,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import androidx.recyclerview.widget.ItemTouchHelper;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.androidapp.activity_fragment.activity.NewDishActivity;
+
 import com.example.androidapp.activity_fragment.activity.UpdateClientActivity;
 import com.example.androidapp.activity_fragment.activity.NewClientActivity;
 import com.example.androidapp.R;
@@ -42,9 +43,6 @@ import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.clientdata.ClientAdapter;
 import com.example.androidapp.data.clientdata.ClientViewModel;
-import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.orderdata.Order;
-import com.example.androidapp.data.orderdata.OrderAdapter;
 
 
 import java.io.File;
