@@ -2,6 +2,7 @@ package com.example.androidapp.data.orderdata;
 
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -102,7 +103,9 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
             holder.imageView.setImageBitmap(b);
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Resources res = holder.imageView.getResources();
+            Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.ava_client_default);
+            holder.imageView.setImageBitmap(bitmap);
         }
         //Handle flag
         if (order.getPaid()){

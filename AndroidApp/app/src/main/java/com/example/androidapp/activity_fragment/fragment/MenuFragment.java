@@ -6,6 +6,7 @@ import static android.app.Activity.RESULT_OK;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
@@ -144,10 +145,10 @@ public class MenuFragment extends Fragment {
             @Override
             public void onItemClick(Dish dish) {
                 Intent intent = new Intent(getActivity(), UpdateDishActivity.class);
-                intent.putExtra(UpdateDishActivity.EXTRA_ID, dish.getDishID());
-                intent.putExtra(UpdateDishActivity.EXTRA_NAME, dish.getName());
-                intent.putExtra(UpdateDishActivity.EXTRA_PRICE, dish.getPrice());
-                intent.putExtra(UpdateDishActivity.EXTRA_IMAGE, dish.getImageDir());
+                intent.putExtra(UpdateDishActivity.EXTRA_DISH_ID, dish.getDishID());
+                intent.putExtra(UpdateDishActivity.EXTRA_DISH_NAME, dish.getName());
+                intent.putExtra(UpdateDishActivity.EXTRA_DISH_PRICE, dish.getPrice());
+                intent.putExtra(UpdateDishActivity.EXTRA_OLD_IMAGE, dish.getImageDir());
 
                 startActivityForResult(intent, EDIT_DISH_REQUEST);
             }
@@ -184,14 +185,19 @@ public class MenuFragment extends Fragment {
 
         //ADD_DISH_REQUEST (Add a dish to database)
         if (requestCode == ADD_DISH_REQUEST && resultCode == RESULT_OK) {
-            String name = data.getStringExtra(NewDishActivity.EXTRA_MENU_NAME);
-            int price = data.getIntExtra(NewDishActivity.EXTRA_MENU_PRICE, 0);
+            String name = data.getStringExtra(NewDishActivity.EXTRA_DISH_NAME);
+            int price = data.getIntExtra(NewDishActivity.EXTRA_DISH_PRICE, 0);
             //get bitmap image from intent
-            byte[] imageArray = data.getByteArrayExtra(NewDishActivity.EXTRA_MENU_IMAGE);
-            Dish dish = new Dish(name, price, "NULL");
+            byte[] imageArray = data.getByteArrayExtra(NewDishActivity.EXTRA_DISH_IMAGE);
+            Dish dish = new Dish(name, price, "");
             //check if dish exist
             if (checkDishExistForInsert(dish)) {
-                if (imageArray != null) {
+                if (imageArray == null || imageArray.length == 0) {
+                    Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.rec_ava_dish_default);
+                    //Store image to a file in internal memory
+                    String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
+                    dish.setImageDir(imageDir);
+                } else {
                     Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
                     //Store image to a file in internal memory
                     String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
@@ -203,21 +209,30 @@ public class MenuFragment extends Fragment {
         }
         //EDIT DISH REQUEST (Update an existing dish)
         else if (requestCode == EDIT_DISH_REQUEST && resultCode == RESULT_OK) {
-            int id = data.getIntExtra(UpdateDishActivity.EXTRA_ID, -1);
+            int id = data.getIntExtra(UpdateDishActivity.EXTRA_DISH_ID, -1);
             if (id == -1) {
                 Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            String name = data.getStringExtra(UpdateDishActivity.EXTRA_NAME);
-            int price = data.getIntExtra(UpdateDishActivity.EXTRA_PRICE, 0);
+            String name = data.getStringExtra(UpdateDishActivity.EXTRA_DISH_NAME);
+            int price = data.getIntExtra(UpdateDishActivity.EXTRA_DISH_PRICE, 0);
+            String oldImagePath = data.getStringExtra(UpdateDishActivity.EXTRA_OLD_IMAGE);
+            //delete the old image when update
+            File oldImage = new File(oldImagePath);
+            boolean deleted = oldImage.delete();
             //get bitmap image from intent
-            byte[] imageArray = data.getByteArrayExtra(UpdateDishActivity.EXTRA_IMAGE);
-            Dish dish = new Dish(name, price, "NULL");
+            byte[] imageArray = data.getByteArrayExtra(UpdateDishActivity.EXTRA_NEW_IMAGE);
+            Dish dish = new Dish(name, price, "");
             dish.setDishID(id);
             //check if dish exist
             if (checkDishExistForUpdate(dish)) {
-                if (imageArray != null) {
+                if (imageArray == null || imageArray.length == 0) {
+                    Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.rec_ava_dish_default);
+                    //Store image to a file in internal memory
+                    String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
+                    dish.setImageDir(imageDir);
+                } else {
                     Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
                     //Store image to a file in internal memory
                     String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
@@ -225,9 +240,6 @@ public class MenuFragment extends Fragment {
                 }
                 dishViewModel.updateDish(dish);
             }
-        }
-        else {
-            //Do nothing
         }
     }
     private boolean checkDishExistForInsert(@NonNull Dish dish) {
@@ -275,6 +287,9 @@ public class MenuFragment extends Fragment {
             public void onClick(View v) {
                 alertDialog.dismiss();
                 sound.start();
+                //delete the old image
+                File oldImage = new File(dish.getImageDir());
+                boolean deleted = oldImage.delete();
                 dishViewModel.deleteDish(dish);
             }
         });

@@ -39,6 +39,7 @@ import com.example.androidapp.activity_fragment.activity.UpdateClientActivity;
 import com.example.androidapp.activity_fragment.activity.NewClientActivity;
 import com.example.androidapp.R;
 
+import com.example.androidapp.activity_fragment.activity.UpdateDishActivity;
 import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.clientdata.ClientAdapter;
@@ -142,7 +143,7 @@ public class ClientFragment extends Fragment {
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_NAME, client.getClientName());
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_NUMBER, client.getPhoneNumber());
                 intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS, client.getAddress());
-                intent.putExtra(UpdateClientActivity.EXTRA_CLIENT_IMAGE, client.getImageDir());
+                intent.putExtra(UpdateClientActivity.EXTRA_OLD_IMAGE, client.getImageDir());
 
                 startActivityForResult(intent, EDIT_CLIENT_REQUEST);
             }
@@ -185,10 +186,16 @@ public class ClientFragment extends Fragment {
             String address = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_ADDRESS);
             //get bitmap image from intent
             byte[] imageArray = data.getByteArrayExtra(NewClientActivity.EXTRA_CLIENT_IMAGE);
-            Client client = new Client(name, number, address, "NULL");
+            Client client = new Client(name, number, address, "");
             //Check if exist client
             if (checkClientExistForInsert(client)) {
-                if (imageArray != null) {
+                if (imageArray == null || imageArray.length == 0) {
+                    Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
+                    //Store image to a file in internal memory
+                    String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
+                            client.getAddress() + "-" + client.getPhoneNumber());
+                    client.setImageDir(imageDir);
+                } else {
                     Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
                     String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
                             client.getAddress() + "-" + client.getPhoneNumber());
@@ -210,13 +217,24 @@ public class ClientFragment extends Fragment {
             String name = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_NAME);
             String number = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_NUMBER);
             String address = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS);
+            String oldImagePath = data.getStringExtra(UpdateClientActivity.EXTRA_OLD_IMAGE);
 
-            byte[] imageArray = data.getByteArrayExtra(UpdateClientActivity.EXTRA_CLIENT_IMAGE);
-            Client client = new Client(name, number, address, "NULL");
+            //delete the old image when update
+            File oldImage = new File(oldImagePath);
+            boolean deleted = oldImage.delete();
+
+            byte[] imageArray = data.getByteArrayExtra(UpdateClientActivity.EXTRA_NEW_IMAGE);
+            Client client = new Client(name, number, address, "");
             client.setClientId(id);
             //Check if exist client
             if (checkClientExistForUpdate(client)) {
-                if (imageArray != null) {
+                if (imageArray == null || imageArray.length == 0) {
+                    Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
+                    //Store image to a file in internal memory
+                    String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
+                            client.getAddress() + "-" + client.getPhoneNumber());
+                    client.setImageDir(imageDir);
+                } else {
                     Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
                     String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
                             client.getAddress() + "-" + client.getPhoneNumber());
@@ -224,8 +242,6 @@ public class ClientFragment extends Fragment {
                 }
                 clientViewModel.updateClient(client);
             }
-        } else {
-            //Do nothing
         }
     }
 
@@ -275,6 +291,9 @@ public class ClientFragment extends Fragment {
             public void onClick(View v) {
                 alertDialog.dismiss();
                 sound.start();
+                //delete the old image
+                File oldImage = new File(client.getImageDir());
+                boolean deleted = oldImage.delete();
                 clientViewModel.deleteClient(client);
             }
         });

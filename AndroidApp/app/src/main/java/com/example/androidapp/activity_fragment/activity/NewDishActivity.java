@@ -42,12 +42,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class NewDishActivity extends AppCompatActivity {
 
 
-    public static final String EXTRA_MENU_NAME =
-            "com.example.androidapp.EXTRA_MENU_NAME";
-    public static final String EXTRA_MENU_PRICE =
-            "com.example.androidapp.EXTRA_MENU_PRICE";
-    public static final String EXTRA_MENU_IMAGE =
-            "com.example.androidapp.EXTRA_MENU_IMAGE";
+    public static final String EXTRA_DISH_NAME =
+            "com.example.androidapp.EXTRA_DISH_NAME";
+    public static final String EXTRA_DISH_PRICE =
+            "com.example.androidapp.EXTRA_DISH_PRICE";
+    public static final String EXTRA_DISH_IMAGE =
+            "com.example.androidapp.EXTRA_DISH_IMAGE";
 
     private final int GALLERY_REQUEST = 1;
     private final int CAMERA_REQUEST = 2;
@@ -137,13 +137,13 @@ public class NewDishActivity extends AppCompatActivity {
         });
         sound.start();
         Intent data = new Intent();
-        data.putExtra(EXTRA_MENU_NAME, strDishName);
-        data.putExtra(EXTRA_MENU_PRICE, Integer.valueOf(strDishPrice));
+        data.putExtra(EXTRA_DISH_NAME, strDishName);
+        data.putExtra(EXTRA_DISH_PRICE, Integer.valueOf(strDishPrice));
 
         if (changeImg) {
             Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
             Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-            data.putExtra(EXTRA_MENU_IMAGE, ImageConverter.convertImage2ByteArray(image));
+            data.putExtra(EXTRA_DISH_IMAGE, ImageConverter.convertImage2ByteArray(image));
         }
 
         setResult(RESULT_OK, data);
