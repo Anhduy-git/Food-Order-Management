@@ -255,11 +255,11 @@ public class MenuFragment extends Fragment {
         // path to /data/data/yourapp/app_data/imageDishDir
         File directory = cw.getDir("imageDishDir", Context.MODE_PRIVATE);
         // Create imageDir
-        File mypath = new File(directory,fileName);
+        File myPath = new File(directory,fileName);
 
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(mypath);
+            fos = new FileOutputStream(myPath);
             // Use the compress method on the BitMap object to write image to the OutputStream
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
         } catch (Exception e) {
