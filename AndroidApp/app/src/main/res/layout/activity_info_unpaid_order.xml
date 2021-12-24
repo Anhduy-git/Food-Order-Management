@@ -9,12 +9,14 @@
     android:orientation="vertical">
 
     <View
-        android:layout_width="230dp"
-        android:layout_height="230dp"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
         android:layout_alignParentRight="true"
-        android:translationY="-80dp"
-        android:translationX="60dp"
-        android:background="@drawable/planet_order"></View>
+        android:background="@drawable/planet_order"
+        android:translationX="100dp"
+        android:translationY="-90dp"
+        android:rotation="-40"
+        ></View>
 
     <RelativeLayout
         android:layout_width="match_parent"
