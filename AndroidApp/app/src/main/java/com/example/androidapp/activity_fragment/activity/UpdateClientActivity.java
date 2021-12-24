@@ -40,8 +40,10 @@ public class UpdateClientActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_CLIENT_NUMBER";
     public static final String EXTRA_CLIENT_ADDRESS =
             "com.example.androidapp.EXTRA_CLIENT_ADDRESS";
-    public static final String EXTRA_CLIENT_IMAGE =
-            "com.example.androidapp.EXTRA_CLIENT_IMAGE";
+    public static final String EXTRA_NEW_IMAGE =
+            "com.example.androidapp.EXTRA_NEW_IMAGE";
+    public static final String EXTRA_OLD_IMAGE =
+            "com.example.androidapp.EXTRA_OLD_IMAGE";
 
     private final int GALLERY_REQUEST = 1;
     private final int CAMERA_REQUEST = 2;
@@ -69,12 +71,13 @@ public class UpdateClientActivity extends AppCompatActivity {
             editClientNumber.setText(intent.getStringExtra(EXTRA_CLIENT_NUMBER));
             editClientAddress.setText(intent.getStringExtra(EXTRA_CLIENT_ADDRESS));
             try {
-                File f=new File(intent.getStringExtra(EXTRA_CLIENT_IMAGE));
+                File f=new File(intent.getStringExtra(EXTRA_OLD_IMAGE));
                 Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
                 imageView.setImageBitmap(b);
             }
             catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
+                imageView.setImageBitmap(bitmap);
             }
         }
         //Check for update to show btn
@@ -143,10 +146,10 @@ public class UpdateClientActivity extends AppCompatActivity {
         data.putExtra(EXTRA_CLIENT_NAME, strClientName);
         data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
         data.putExtra(EXTRA_CLIENT_ADDRESS, strClientAddress);
-
+        data.putExtra(EXTRA_OLD_IMAGE, getIntent().getStringExtra(EXTRA_OLD_IMAGE));
         Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
         Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-        data.putExtra(EXTRA_CLIENT_IMAGE, ImageConverter.convertImage2ByteArray(image));
+        data.putExtra(EXTRA_NEW_IMAGE, ImageConverter.convertImage2ByteArray(image));
 
 
 

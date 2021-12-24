@@ -1,5 +1,6 @@
 package com.example.androidapp.data.clientdata;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -101,7 +102,9 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
             holder.imageView.setImageBitmap(b);
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Resources res = holder.imageView.getResources();
+            Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.ava_client_default);
+            holder.imageView.setImageBitmap(bitmap);
         }
     }
 

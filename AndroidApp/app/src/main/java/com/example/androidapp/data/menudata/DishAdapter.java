@@ -1,5 +1,6 @@
 package com.example.androidapp.data.menudata;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -93,14 +94,18 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
         holder.tvDishName.setText(dish.getName());
         holder.tvDishPrice.setText(String.format("%,d", dish.getPrice()) + " VND");
         //read image from file
+
         try {
             File f=new File(dish.getImageDir());
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.imgView.setImageBitmap(b);
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Resources res = holder.imgView.getResources();
+            Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.rec_ava_dish_default);
+            holder.imgView.setImageBitmap(bitmap);
         }
+
     }
 
     @Override

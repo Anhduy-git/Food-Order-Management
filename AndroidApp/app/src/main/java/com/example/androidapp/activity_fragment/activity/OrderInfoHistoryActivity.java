@@ -1,6 +1,7 @@
 package com.example.androidapp.activity_fragment.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -84,7 +85,8 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
                 imageView.setImageBitmap(b);
             }
             catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
+                imageView.setImageBitmap(bitmap);
             }
 
         }

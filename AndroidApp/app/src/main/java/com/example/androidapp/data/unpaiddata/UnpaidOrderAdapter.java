@@ -1,5 +1,6 @@
 package com.example.androidapp.data.unpaiddata;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -86,7 +87,9 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
             holder.imageView.setImageBitmap(b);
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Resources res = holder.imageView.getResources();
+            Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.ava_client_default);
+            holder.imageView.setImageBitmap(bitmap);
         }
 
     }

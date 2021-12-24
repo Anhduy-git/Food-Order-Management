@@ -1,5 +1,6 @@
 package com.example.androidapp.data.menudata;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -72,14 +73,18 @@ public class DishOrderInfoAdapter extends RecyclerView.Adapter<DishOrderInfoAdap
         holder.tvDishQuantity.setText(String.valueOf(dish.getQuantity()));
 
         //read image from file
+
         try {
             File f=new File(dish.getImageDir());
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.imgView.setImageBitmap(b);
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Resources res = holder.imgView.getResources();
+            Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.rec_ava_dish_default);
+            holder.imgView.setImageBitmap(bitmap);
         }
+
 
     }
 
