@@ -6,14 +6,10 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.example.androidapp.data.AppDatabase;
-import com.example.androidapp.data.orderdata.Order;
-import com.example.androidapp.data.orderdata.OrderDao;
-import com.example.androidapp.data.orderdata.OrderRepository;
 
 import java.util.List;
 
 public class HistoryOrderRepository {
-
 
     private HistoryOrderDao historyOrderDao;
     private LiveData<List<HistoryOrder>> allHistoryOrder;
@@ -65,7 +61,5 @@ public class HistoryOrderRepository {
             return null;
         }
     }
-
-
 }
 

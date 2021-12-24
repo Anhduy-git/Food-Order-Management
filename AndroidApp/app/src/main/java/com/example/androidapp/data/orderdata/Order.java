@@ -4,13 +4,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
+
 
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.menudata.Dish;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Entity(tableName = "order_table")
@@ -77,8 +76,6 @@ public class Order {
         return orderListDish;
     }
 
-
-
     //Setter
     public void setId(int id) {
         this.id = id;
@@ -91,9 +88,6 @@ public class Order {
     }
     public void setDate(String date) {
         this.date = date;
-    }
-    public void setOrderListDish(List<Dish> orderListDish) {
-        this.orderListDish = orderListDish;
     }
     public void setClient(Client client) {
         this.client = client;

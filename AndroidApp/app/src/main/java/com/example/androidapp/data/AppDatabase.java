@@ -2,7 +2,7 @@ package com.example.androidapp.data;
 
 
 import android.content.Context;
-import android.media.Image;
+
 import android.os.AsyncTask;
 
 import androidx.room.Database;
@@ -62,17 +62,6 @@ public abstract class AppDatabase extends RoomDatabase {
         return instance;
     }
 
-    /*
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
-        }
-    };
-
-     */
-
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private DishDao dishDao;
         private OrderDao orderDao;
@@ -91,7 +80,6 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            //dishDao.insertDish(new Dish("Name", 1));
             return null;
         }
 

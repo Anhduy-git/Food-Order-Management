@@ -1,11 +1,11 @@
 package com.example.androidapp.data.orderdata;
 
 
-import android.content.Context;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProvider;
+
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,8 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
-import com.example.androidapp.data.menudata.Dish;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -119,10 +116,7 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
         } else {
             holder.flagShip.setVisibility(View.INVISIBLE);
         }
-
-
     }
-
 
     public Order getOrderAt(int pos){
         return getItem(pos);
@@ -177,7 +171,6 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
                     if (delListener != null && pos != RecyclerView.NO_POSITION){
                         delListener.onItemClickDel(order);
                     }
-
                 }
             });
 

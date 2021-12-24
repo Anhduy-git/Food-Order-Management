@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -92,10 +91,6 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
         }
     }
 
-    public HistoryOrder getUnpaidOrderAt(int pos){
-        return getItem(pos);
-    }
-
     public class HistoryOrderViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvOrderName;
@@ -129,6 +124,7 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
             });
         }
     }
+
     public interface OnItemClickListener{
         void onItemClick(HistoryOrder historyOrder);
 
@@ -136,5 +132,4 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
     public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
     }
-
 }

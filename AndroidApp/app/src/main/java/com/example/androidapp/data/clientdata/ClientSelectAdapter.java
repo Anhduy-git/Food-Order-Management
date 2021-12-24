@@ -6,8 +6,6 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -18,9 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
-import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.menudata.DishSelectAdapter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,7 +26,6 @@ import java.util.List;
 public class ClientSelectAdapter extends RecyclerView.Adapter<ClientSelectAdapter.ClientSelectViewHolder> implements Filterable {
     private List<Client> mListClient;
     private List<Client> mListClientFull;
-
 
     private OnItemClickListener listener;
 

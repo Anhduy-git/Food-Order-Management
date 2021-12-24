@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidapp.activity_fragment.activity.NewClientActivity;
 import com.example.androidapp.activity_fragment.activity.NewOrderActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.R;
@@ -50,7 +48,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class OrderTodayFragment extends Fragment {
     private Button btnAddNewOrder;
@@ -70,9 +67,7 @@ public class OrderTodayFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_order_today,
                 container, false);
 
-
-        RecyclerView rcvData = (RecyclerView) view.findViewById(R.id.order_today_recycler);;
-        //rcvData.setHasFixedSize(true);
+        RecyclerView rcvData = (RecyclerView) view.findViewById(R.id.order_today_recycler);
         rcvData.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         numOrderToday = (TextView)view.findViewById(R.id.order_num);
@@ -95,20 +90,7 @@ public class OrderTodayFragment extends Fragment {
         //Sound
         sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
 
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-//                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                orderViewModel.delete(orderAdapter.getOrderAt(viewHolder.getAdapterPosition()));
-//                Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
-//            }
-//        }).attachToRecyclerView(rcvData);
-
-        //Sent data to Order Info when click order
+        //Send data to Order Info when click order
         orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Order order) {
@@ -198,11 +180,9 @@ public class OrderTodayFragment extends Fragment {
             String date = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_DATE);
             String imageDir = data.getStringExtra(OrderInfoTodayActivity.EXTRA_ORDER_IMAGE);
 
-
             boolean paid = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_PAID, false);
             boolean ship = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_SHIP, false);
             boolean confirmShip = data.getBooleanExtra(OrderInfoTodayActivity.EXTRA_CHECK_CONFIRM_SHIP, false);
-
 
             if (id == -1){
                 Toast.makeText(getActivity(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();

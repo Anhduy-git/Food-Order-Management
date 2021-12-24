@@ -21,10 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
-import com.example.androidapp.data.orderdata.Order;
-import com.example.androidapp.data.orderdata.OrderAdapter;
-
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,7 +54,6 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
                     oldItem.getAddress().equals(newItem.getAddress()) &&
                     oldItem.getPhoneNumber().equals(newItem.getPhoneNumber()) &&
                     oldItem.getImageDir().equals(newItem.getImageDir());
-
         }
     };
 
@@ -146,7 +141,6 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
     };
 
     public class ClientViewHolder extends RecyclerView.ViewHolder {
-
         private TextView tvClientName;
         private TextView tvClientNumber;
         private TextView tvClientAddress;

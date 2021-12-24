@@ -6,7 +6,6 @@ import static android.app.Activity.RESULT_OK;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
@@ -14,13 +13,11 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -31,28 +28,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidapp.activity_fragment.activity.NewClientActivity;
 import com.example.androidapp.activity_fragment.activity.UpdateDishActivity;
 import com.example.androidapp.activity_fragment.activity.NewDishActivity;
 import com.example.androidapp.R;
 
 import com.example.androidapp.data.AppDatabase;
-import com.example.androidapp.data.ImageConverter;
-import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishAdapter;
 import com.example.androidapp.data.menudata.DishViewModel;
-import com.example.androidapp.data.orderdata.Order;
-import com.example.androidapp.data.orderdata.OrderAdapter;
-
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -105,22 +93,6 @@ public class MenuFragment extends Fragment {
         });
         //Sound
         sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
-
-        //Method DELETE an item by swiping it
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-//                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                //Not implemented on purpose
-//                return false;
-//            }
-//            //This is the swiping to delete method
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                dishViewModel.deleteDish(dishAdapter.getDishAt(viewHolder.getAdapterPosition()));
-//                Toast.makeText(getActivity(), "Dish deleted", Toast.LENGTH_SHORT).show();
-//            }
-//        }).attachToRecyclerView(rcvData);
 
         //Create search bar listener for SEARCH METHOD
         edtSearchBar.addTextChangedListener(new TextWatcher() {
@@ -220,7 +192,7 @@ public class MenuFragment extends Fragment {
             String oldImagePath = data.getStringExtra(UpdateDishActivity.EXTRA_OLD_IMAGE);
             //delete the old image when update
             File oldImage = new File(oldImagePath);
-            boolean deleted = oldImage.delete();
+            //boolean deleted = oldImage.delete();
             //get bitmap image from intent
             byte[] imageArray = data.getByteArrayExtra(UpdateDishActivity.EXTRA_NEW_IMAGE);
             Dish dish = new Dish(name, price, "");
@@ -289,7 +261,7 @@ public class MenuFragment extends Fragment {
                 sound.start();
                 //delete the old image
                 File oldImage = new File(dish.getImageDir());
-                boolean deleted = oldImage.delete();
+                //boolean deleted = oldImage.delete();
                 dishViewModel.deleteDish(dish);
             }
         });

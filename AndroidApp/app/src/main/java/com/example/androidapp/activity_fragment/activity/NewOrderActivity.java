@@ -16,7 +16,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,7 +26,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderAdapter;
 
@@ -42,7 +40,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class NewOrderActivity extends AppCompatActivity {
 
@@ -99,7 +96,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     addOrder();
                 }
                 else {
-                    Toast.makeText(NewOrderActivity.this, "Please add a dish", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewOrderActivity.this, "Xin hãy thêm món", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -226,7 +223,7 @@ public class NewOrderActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(strOrderName) || TextUtils.isEmpty(strOrderAddress)
                 || TextUtils.isEmpty(strOrderNumber) || TextUtils.isEmpty(strOrderDate)
                 || TextUtils.isEmpty(strOrderTime)) {
-            Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Một vài chỗ còn trống", Toast.LENGTH_SHORT).show();
             return;
         }
         //Get the current date
@@ -237,7 +234,7 @@ public class NewOrderActivity extends AppCompatActivity {
             //Check if the day is not in the pass
             int ret = dateTimeComparator.compare(orderDate, today);
             if (ret < 0){
-                Toast.makeText(this, "Can't add order in the past here", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Thời gian không hợp lệ!", Toast.LENGTH_SHORT).show();
                 return;
             }
             //confirm sound

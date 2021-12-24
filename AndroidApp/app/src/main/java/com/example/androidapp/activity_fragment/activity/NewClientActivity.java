@@ -106,7 +106,7 @@ public class NewClientActivity extends AppCompatActivity {
 
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strClientName) || TextUtils.isEmpty(strClientNumber) || TextUtils.isEmpty(strClientAddress)) {
-            Toast.makeText(this, "Please insert name, number and address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Xin hãy nhập tên, số điện thoại và địa chỉ", Toast.LENGTH_SHORT).show();
             return;
         }
         //confirm sound

@@ -13,11 +13,8 @@ import android.widget.Button;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.clientdata.Client;
-import com.example.androidapp.data.clientdata.ClientAdapter;
 import com.example.androidapp.data.clientdata.ClientSelectAdapter;
 import com.example.androidapp.data.clientdata.ClientViewModel;
-import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.menudata.DishViewModel;
 
 import java.util.List;
 

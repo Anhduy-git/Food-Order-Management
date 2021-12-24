@@ -29,8 +29,4 @@ public class OrderViewModel extends AndroidViewModel {
     public LiveData<List<Order>> getAllOrder(){
         return allOrder;
     }
-    public void deleteAllOrder() {
-        repository.deleteAllOrder();
-    }
-
 }

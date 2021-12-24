@@ -3,7 +3,7 @@ package com.example.androidapp.data.upcomingorderdata;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
-import com.example.androidapp.data.orderdata.Order;
-import com.example.androidapp.data.orderdata.OrderAdapter;
+
 
 
 import java.io.File;
@@ -110,9 +108,7 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
         } else {
             holder.flagPaid.setVisibility(View.INVISIBLE);
         }
-
     }
-
 
     public UpcomingOrder getUpcomingOrderAt(int pos){
         return getItem(pos);

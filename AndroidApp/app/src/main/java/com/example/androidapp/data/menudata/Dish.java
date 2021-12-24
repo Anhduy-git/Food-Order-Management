@@ -1,28 +1,23 @@
 package com.example.androidapp.data.menudata;
 
-import android.graphics.Bitmap;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.room.ColumnInfo;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
+
 
 @Entity(tableName = "dish_table")
 public class Dish implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int dishID;
-
     private String name;
     private int price;
     private int quantity;
-
-
     private String imageDir;
-
-
 
     public Dish(String name, int price, String imageDir) {
         this.name = name;
@@ -36,7 +31,6 @@ public class Dish implements Parcelable {
         name = in.readString();
         price = in.readInt();
         quantity = in.readInt();
-
         imageDir = in.readString();
     }
 
@@ -85,13 +79,14 @@ public class Dish implements Parcelable {
         this.quantity = quantity;
     }
 
-
     public void setImageDir(String imageDir) {
         this.imageDir = imageDir;
     }
+
     public String getImageDir() {
         return imageDir;
     }
+
     @Override
     public int describeContents() {
         return 0;
@@ -103,7 +98,6 @@ public class Dish implements Parcelable {
         dest.writeString(name);
         dest.writeInt(price);
         dest.writeInt(quantity);
-
         dest.writeString(imageDir);
     }
 }

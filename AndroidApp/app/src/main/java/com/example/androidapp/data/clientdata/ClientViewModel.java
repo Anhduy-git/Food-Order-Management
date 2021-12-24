@@ -32,10 +32,6 @@ public class ClientViewModel extends AndroidViewModel {
         repository.deleteClient(client);
     }
 
-    public void deleteAllClients() {
-        repository.deleteAllClients();
-    }
-
     public LiveData<List<Client>> getAllClients() {
         return allClients;
     }

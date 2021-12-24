@@ -3,7 +3,7 @@ package com.example.androidapp.data.unpaiddata;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +17,6 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
-import com.example.androidapp.data.orderdata.Order;
-
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -92,10 +89,6 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
             holder.imageView.setImageBitmap(bitmap);
         }
 
-    }
-
-    public UnpaidOrder getUnpaidOrderAt(int pos){
-        return getItem(pos);
     }
 
     public class UnpaidOrderViewHolder extends RecyclerView.ViewHolder {

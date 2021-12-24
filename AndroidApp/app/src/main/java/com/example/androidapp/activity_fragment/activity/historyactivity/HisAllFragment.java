@@ -1,6 +1,5 @@
 package com.example.androidapp.activity_fragment.activity.historyactivity;
 
-import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +7,7 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,16 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
 import com.example.androidapp.activity_fragment.activity.OrderInfoHistoryActivity;
-import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
-import com.example.androidapp.activity_fragment.activity.OrderInfoUnpaidActivity;
-import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.historydata.HistoryOrder;
 import com.example.androidapp.data.historydata.HistoryOrderAdapter;
 import com.example.androidapp.data.historydata.HistoryOrderViewModel;
-import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.unpaiddata.UnpaidOrder;
-import com.example.androidapp.data.unpaiddata.UnpaidOrderAdapter;
-import com.example.androidapp.data.unpaiddata.UnpaidOrderViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +29,6 @@ import java.util.List;
 public class HisAllFragment extends Fragment {
     public static final int VIEW_HISTORY_ORDER_REQUEST = 1;
     private HistoryOrderViewModel historyOrderViewModel;
-    public static List<Dish> mOrderListDish = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,9 +36,7 @@ public class HisAllFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_all_history,
                 container, false);
 
-
         RecyclerView rcvData = (RecyclerView) view.findViewById(R.id.his_all_recycler);;
-        //rcvData.setHasFixedSize(true);
         rcvData.setLayoutManager(new LinearLayoutManager(view.getContext()));
         final HistoryOrderAdapter historyOrderAdapter = new HistoryOrderAdapter();
         rcvData.setAdapter(historyOrderAdapter);
@@ -80,5 +69,4 @@ public class HisAllFragment extends Fragment {
         });
         return view;
     }
-
 }

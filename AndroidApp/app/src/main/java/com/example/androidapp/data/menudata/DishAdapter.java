@@ -21,10 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
-import com.example.androidapp.data.clientdata.Client;
-import com.example.androidapp.data.orderdata.Order;
-import com.example.androidapp.data.orderdata.OrderAdapter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -105,7 +101,6 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
             Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.rec_ava_dish_default);
             holder.imgView.setImageBitmap(bitmap);
         }
-
     }
 
     @Override
@@ -185,7 +180,6 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
                     if (delListener != null && pos != RecyclerView.NO_POSITION){
                         delListener.onItemClickDel(dish);
                     }
-
                 }
             });
         }

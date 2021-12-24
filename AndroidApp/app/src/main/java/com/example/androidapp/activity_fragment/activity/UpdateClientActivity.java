@@ -60,13 +60,9 @@ public class UpdateClientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_client);
-
-
         initUi();
-
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_CLIENT_ID)) {
-
             editClientName.setText(intent.getStringExtra(EXTRA_CLIENT_NAME));
             editClientNumber.setText(intent.getStringExtra(EXTRA_CLIENT_NUMBER));
             editClientAddress.setText(intent.getStringExtra(EXTRA_CLIENT_ADDRESS));
@@ -130,7 +126,7 @@ public class UpdateClientActivity extends AppCompatActivity {
 
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strClientName) || TextUtils.isEmpty(strClientNumber) || TextUtils.isEmpty(strClientAddress)) {
-            Toast.makeText(this, "Please insert name, number and address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Xin hãy nhập tên, số điện thoại và địa chỉ", Toast.LENGTH_SHORT).show();
             return;
         }
         //confirm sound
@@ -150,8 +146,6 @@ public class UpdateClientActivity extends AppCompatActivity {
         Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
         Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
         data.putExtra(EXTRA_NEW_IMAGE, ImageConverter.convertImage2ByteArray(image));
-
-
 
         int id = getIntent().getIntExtra(EXTRA_CLIENT_ID, -1);
         if (id != -1) {
@@ -224,7 +218,7 @@ public class UpdateClientActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }else {
-            Toast.makeText(UpdateClientActivity.this, "Permission not granted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UpdateClientActivity.this, "Chưa được cấp quyền!", Toast.LENGTH_SHORT).show();
         }
     }
     private void checkUpdate() {
@@ -245,6 +239,7 @@ public class UpdateClientActivity extends AppCompatActivity {
                 btnUpdateClient.setVisibility(View.VISIBLE);
             }
         });
+
         editClientAddress.addTextChangedListener(new TextWatcher() {
 
             @Override

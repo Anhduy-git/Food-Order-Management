@@ -1,7 +1,7 @@
 package com.example.androidapp.data.clientdata;
 
 
-import androidx.room.ColumnInfo;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 

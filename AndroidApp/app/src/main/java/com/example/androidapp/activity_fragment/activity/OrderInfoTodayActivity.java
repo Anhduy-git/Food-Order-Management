@@ -3,27 +3,20 @@ package com.example.androidapp.activity_fragment.activity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -31,11 +24,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 
 import com.example.androidapp.data.menudata.DishOrderAdapter;
-import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,7 +38,6 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
 
     public static final String EXTRA_ORDER_ID =
             "com.example.androidapp.EXTRA_ORDER_ID";
-
     public static final String EXTRA_ORDER_NAME =
             "com.example.androidapp.EXTRA_ORDER_NAME";
     public static final String EXTRA_ORDER_ADDRESS =
@@ -201,9 +191,6 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         //Ship button to confirm ship and show dialog confirm
         btnShip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,7 +204,6 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (currentPaid != beforePaid) {
-
                     sound_back.start();
                 }
                 Intent data = new Intent();
@@ -237,8 +223,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 setResult(RESULT_OK, data);
                 finish();
             }
-
         });
+
         //Button to choose a new dish from menu
         btnAddDish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,6 +234,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showShipDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
         View view = LayoutInflater.from(this).inflate(R.layout.alert_dialog_ship, (RelativeLayout) findViewById(R.id.layout_dialog)
@@ -283,6 +270,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         //cancel btn
         view.findViewById(R.id.cancel_dialog_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,6 +283,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         }
         alertDialog.show();
     }
+
     private void initUi () {
         tvOrderPrice = findViewById(R.id.order_price);
         tvOrderName = findViewById(R.id.order_name);
@@ -307,8 +296,8 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         checkPaid = findViewById(R.id.order_paid_checkbox);
         btnShip = findViewById(R.id.order_ship_btn);
         btnAddDish = findViewById(R.id.new_dish_btn);
-
     }
+
     private void initRecyclerView() {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
@@ -316,11 +305,11 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         rcvData.setAdapter(dishOrderAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
+
     @SuppressLint("WrongConstant")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == CHOOSE_DISH_REQUEST && resultCode == RESULT_OK) {
             Dish dish = data.getParcelableExtra(SubMenuActivity.EXTRA_DISH);
             int dishQuantity = data.getIntExtra(SubMenuActivity.EXTRA_DISH_QUANTITY, 0);
@@ -337,6 +326,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 dish.setQuantity(dishQuantity);
                 mListDish.add(dish);
             }
+
             int price = 0;
             //generate id for all dish and update price
             for (int i = 1; i <= mListDish.size(); i++) {
@@ -349,5 +339,4 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             dishOrderAdapter.setDish(mListDish);
         }
     }
-
 }

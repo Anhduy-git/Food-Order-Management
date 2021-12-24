@@ -17,13 +17,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderAdapter;
-import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -89,10 +86,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
-
             int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
             tvOrderPrice.setText(String.format("%,d", price));
-
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
             tvOrderTime.setText(intent.getStringExtra(EXTRA_ORDER_TIME));
             tvOrderNumber.setText(intent.getStringExtra(EXTRA_ORDER_NUMBER));
@@ -147,10 +142,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
 
                 if (currentPaid == false){
                     currentPaid = true;
-
                 } else {
                     currentPaid = false;
-
                 }
             }
         });
@@ -186,8 +179,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                 setResult(RESULT_OK, data);
                 finish();
             }
-
         });
+
         //Button to choose a new dish from menu
         btnAddDish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,6 +204,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         btnAddDish = findViewById(R.id.new_dish_btn);
 
     }
+
     private void initRecyclerView() {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
@@ -218,11 +212,11 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         rcvData.setAdapter(dishOrderAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
+
     @SuppressLint("WrongConstant")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == CHOOSE_DISH_REQUEST && resultCode == RESULT_OK) {
             Dish dish = data.getParcelableExtra(SubMenuActivity.EXTRA_DISH);
             int dishQuantity = data.getIntExtra(SubMenuActivity.EXTRA_DISH_QUANTITY, 0);
@@ -251,5 +245,4 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
             dishOrderAdapter.setDish(mListDish);
         }
     }
-
 }
