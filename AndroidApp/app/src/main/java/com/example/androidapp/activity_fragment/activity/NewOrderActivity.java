@@ -76,7 +76,7 @@ public class NewOrderActivity extends AppCompatActivity {
     private Button btnBack;
     private Button btnAddDish;
     private Button btnAddClient;
-    private String imageDir;
+    private String imageDir = "";
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
