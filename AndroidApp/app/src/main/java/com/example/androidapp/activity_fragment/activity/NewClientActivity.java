@@ -39,7 +39,7 @@ public class NewClientActivity extends AppCompatActivity {
 
     private final int GALLERY_REQUEST = 1;
     private final int CAMERA_REQUEST = 2;
-    private final int IMAGE_SIZE = 800;
+    private final int IMAGE_SIZE = 500;
     private EditText editClientName;
     private EditText editClientNumber;
     private EditText editClientAddress;
