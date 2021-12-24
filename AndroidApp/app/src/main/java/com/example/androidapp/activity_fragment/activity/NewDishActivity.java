@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -19,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,18 +25,7 @@ import android.widget.Toast;
 import com.example.androidapp.R;
 import com.example.androidapp.data.ImageConverter;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
-
 public class NewDishActivity extends AppCompatActivity {
-
 
     public static final String EXTRA_DISH_NAME =
             "com.example.androidapp.EXTRA_DISH_NAME";
@@ -103,8 +88,6 @@ public class NewDishActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void initUi () {
         imageView = findViewById(R.id.dish_pic_view);
         edtDishName = findViewById(R.id.add_dish_name_text);
@@ -119,12 +102,9 @@ public class NewDishActivity extends AppCompatActivity {
         String strDishName = edtDishName.getText().toString().trim();
         String strDishPrice = edtDishPrice.getText().toString().trim();
 
-
-
-
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strDishName) || TextUtils.isEmpty(strDishPrice)) {
-            Toast.makeText(this, "Please insert name and price", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Xin hãy điền tên và giá", Toast.LENGTH_SHORT).show();
             return;
         }
         //confirm sound
@@ -213,7 +193,7 @@ public class NewDishActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }else {
-            Toast.makeText(NewDishActivity.this, "Permission not granted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewDishActivity.this, "Chưa được cấp quyền", Toast.LENGTH_SHORT).show();
         }
     }
 

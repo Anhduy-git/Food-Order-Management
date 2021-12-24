@@ -39,7 +39,6 @@ import com.example.androidapp.activity_fragment.activity.UpdateClientActivity;
 import com.example.androidapp.activity_fragment.activity.NewClientActivity;
 import com.example.androidapp.R;
 
-import com.example.androidapp.activity_fragment.activity.UpdateDishActivity;
 import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.clientdata.ClientAdapter;
@@ -99,22 +98,6 @@ public class ClientFragment extends Fragment {
         });
         //Sound
         sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
-
-        //Method DELETE an item by swiping it
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-//                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                //Not implemented on purpose
-//                return false;
-//            }
-//            //This is the swiping to delete method
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                clientViewModel.deleteClient(clientAdapter.getClientAt(viewHolder.getAdapterPosition()));
-//                Toast.makeText(getActivity(), "Client deleted", Toast.LENGTH_SHORT).show();
-//            }
-//        }).attachToRecyclerView(rcvData);
 
         //Create search bar listener for SEARCH METHOD
         edtSearchBar.addTextChangedListener(new TextWatcher() {
@@ -206,7 +189,6 @@ public class ClientFragment extends Fragment {
 
         }
         //EDIT CLIENT REQUEST (Update an existing client)
-
         else if (requestCode == EDIT_CLIENT_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(UpdateClientActivity.EXTRA_CLIENT_ID, -1);
             if (id == -1) {
@@ -221,7 +203,7 @@ public class ClientFragment extends Fragment {
 
             //delete the old image when update
             File oldImage = new File(oldImagePath);
-            boolean deleted = oldImage.delete();
+            //boolean deleted = oldImage.delete();
 
             byte[] imageArray = data.getByteArrayExtra(UpdateClientActivity.EXTRA_NEW_IMAGE);
             Client client = new Client(name, number, address, "");
@@ -278,6 +260,7 @@ public class ClientFragment extends Fragment {
         }
         return directory.getAbsolutePath() + '/' + fileName;
     }
+
     private void confirmDelDialog(Client client) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.alert_dialog_delete, (RelativeLayout)getView().findViewById(R.id.layout_dialog)
@@ -293,7 +276,7 @@ public class ClientFragment extends Fragment {
                 sound.start();
                 //delete the old image
                 File oldImage = new File(client.getImageDir());
-                boolean deleted = oldImage.delete();
+                //boolean deleted = oldImage.delete();
                 clientViewModel.deleteClient(client);
             }
         });

@@ -1,7 +1,7 @@
 package com.example.androidapp.activity_fragment.activity;
 
 import android.content.Intent;
-import android.content.res.Resources;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
 
@@ -28,7 +27,6 @@ import java.util.List;
 public class OrderInfoHistoryActivity extends AppCompatActivity {
     public static final String EXTRA_ORDER_ID =
             "com.example.androidapp.EXTRA_ORDER_ID";
-
     public static final String EXTRA_ORDER_NAME =
             "com.example.androidapp.EXTRA_ORDER_NAME";
     public static final String EXTRA_ORDER_ADDRESS =
@@ -56,7 +54,6 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
     private Button btnBack;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
-    private byte[] image;
     private ImageView imageView;
     //info is view only
     final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
@@ -88,11 +85,9 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
                 imageView.setImageBitmap(bitmap);
             }
-
         }
         //display list dish
         dishOrderInfoAdapter.setDish(mListDish);
-
 
         //Button back to UnpaidOrderFragment
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -101,10 +96,7 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
     }
-
 
     private void initUi () {
         tvOrderPrice = findViewById(R.id.order_price);
@@ -116,10 +108,10 @@ public class OrderInfoHistoryActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         imageView = findViewById(R.id.order_avatar);
     }
+
     private void initRecyclerView() {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
-
         rcvData.setAdapter(dishOrderInfoAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }

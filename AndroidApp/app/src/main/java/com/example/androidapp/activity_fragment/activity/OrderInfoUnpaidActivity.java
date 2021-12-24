@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -20,9 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
 import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.menudata.DishOrderAdapter;
 import com.example.androidapp.data.menudata.DishOrderInfoAdapter;
 
 import java.io.File;
@@ -35,7 +32,6 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
 
     public static final String EXTRA_ORDER_ID =
             "com.example.androidapp.EXTRA_ORDER_ID";
-
     public static final String EXTRA_ORDER_NAME =
             "com.example.androidapp.EXTRA_ORDER_NAME";
     public static final String EXTRA_ORDER_ADDRESS =
@@ -52,7 +48,6 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             "com.example.androidapp.EXTRA_ORDER_PRICE";
     public static final String EXTRA_ORDER_IMAGE =
             "com.example.androidapp.EXTRA_ORDER_IMAGE";
-
 
     private TextView tvOrderName;
     private TextView tvOrderPrice;
@@ -84,7 +79,6 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
             tvOrderName.setText(intent.getStringExtra(EXTRA_ORDER_NAME));
-
             int price = intent.getIntExtra(EXTRA_ORDER_PRICE, 0);
             tvOrderPrice.setText(String.format("%,d", price));
             tvOrderAddress.setText(intent.getStringExtra(EXTRA_ORDER_ADDRESS));
@@ -102,7 +96,6 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
                 imageView.setImageBitmap(bitmap);
             }
-
         }
 
         //display list dish
@@ -116,6 +109,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
                 sound.release();
             }
         });
+
         //Paid button to confirm paid and remove unpaid order
         btnPaid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +117,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
                 showConfirmPaidDialog();
             }
         });
+
         //Button back to UnpaidOrderFragment
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +138,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         btnPaid = findViewById(R.id.paid_btn);
     }
+
     private void initRecyclerView() {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
@@ -150,6 +146,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         rcvData.setAdapter(dishOrderInfoAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
+
     private void showConfirmPaidDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
         View view = LayoutInflater.from(this).inflate(R.layout.alert_dialog_unpaid, (RelativeLayout) findViewById(R.id.layout_dialog)
@@ -173,6 +170,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         //cancel btn
         view.findViewById(R.id.cancel_dialog_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,10 +178,10 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
+
         if (alertDialog.getWindow() != null) {
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         }
         alertDialog.show();
     }
-
 }

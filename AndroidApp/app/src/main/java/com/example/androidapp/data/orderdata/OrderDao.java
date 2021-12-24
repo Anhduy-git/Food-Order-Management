@@ -7,8 +7,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.androidapp.data.menudata.Dish;
-
 import java.util.List;
 
 @Dao
@@ -27,10 +25,5 @@ public interface OrderDao {
 
     @Query("DELETE FROM order_table")
     void deleteAllOrder();
-
-    /*
-    @Query("SELECT dish_list FROM order_table")
-    LiveData<List<Dish>> getOrderDishList();
-     */
 
 }

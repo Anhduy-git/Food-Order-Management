@@ -15,7 +15,6 @@ import android.widget.Button;
 import com.example.androidapp.R;
 import com.example.androidapp.data.historydata.HistoryOrder;
 import com.example.androidapp.data.historydata.HistoryOrderViewModel;
-import com.example.androidapp.data.upcomingorderdata.UpcomingOrder;
 import com.example.androidapp.supportclass.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -42,7 +41,6 @@ public class HistoryActivity extends AppCompatActivity {
                     historyOrderViewModel.delete(historyOrders.get(historyOrders.size() - 1));
             }
         });
-
 
         //Button back to Main Activity
         btnBack = (Button)findViewById(R.id.btn_back);

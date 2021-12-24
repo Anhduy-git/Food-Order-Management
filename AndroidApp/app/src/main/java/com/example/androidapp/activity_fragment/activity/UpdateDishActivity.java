@@ -50,7 +50,6 @@ public class UpdateDishActivity extends AppCompatActivity {
     public static final String EXTRA_OLD_IMAGE =
             "com.example.androidapp.EXTRA_OLD_IMAGE";
 
-
     private final int GALLERY_REQUEST = 1;
     private final int CAMERA_REQUEST = 2;
     private final int IMAGE_SIZE = 500;
@@ -66,8 +65,6 @@ public class UpdateDishActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_menu);
-
-
         initUi();
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_DISH_ID)) {
@@ -90,7 +87,6 @@ public class UpdateDishActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 updateDish();
             }
         });
@@ -134,7 +130,7 @@ public class UpdateDishActivity extends AppCompatActivity {
 
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strDishName) || TextUtils.isEmpty(strDishPrice)) {
-            Toast.makeText(this, "Please insert name and price", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Xin hãy nhập tên và ", Toast.LENGTH_SHORT).show();
             return;
         }
         //confirm sound
@@ -153,7 +149,6 @@ public class UpdateDishActivity extends AppCompatActivity {
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
         data.putExtra(EXTRA_NEW_IMAGE, ImageConverter.convertImage2ByteArray(image));
-
 
         int id = getIntent().getIntExtra(EXTRA_DISH_ID, -1);
         if (id != -1) {
@@ -227,9 +222,10 @@ public class UpdateDishActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }else {
-            Toast.makeText(UpdateDishActivity.this, "Permission not granted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UpdateDishActivity.this, "Chưa được cấp quyền", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void checkUpdate() {
         editDishName.addTextChangedListener(new TextWatcher() {
 
@@ -248,6 +244,7 @@ public class UpdateDishActivity extends AppCompatActivity {
                 btnUpdate.setVisibility(View.VISIBLE);
             }
         });
+
         editDishPrice.addTextChangedListener(new TextWatcher() {
 
             @Override

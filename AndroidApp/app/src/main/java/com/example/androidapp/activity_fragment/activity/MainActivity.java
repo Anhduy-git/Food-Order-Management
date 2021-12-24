@@ -58,8 +58,6 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-
     private DrawerLayout mDrawerLayout;
 
     private static final int FRAGMENT_ORDER_TODAY = 0;
@@ -96,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView nav_view = findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(this);
         replaceFragment(new OrderTodayFragment());
+
         //set highlight order today
         nav_view.getMenu().findItem(R.id.order_today).setChecked(true);
         //select the current fragment from intent (when start from notification)
@@ -140,8 +139,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Update item from Today Order to Unpaid Order and History
         updateUnpaidOrderAndHistory();
-
-
     }
 
 
@@ -160,33 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
-//    @Override
-//    public void onPause(){
-//        super.onPause();
-//        Log.d("test", "onPause");
-//    }
-//    @Override
-//    public void onRestart(){
-//        super.onRestart();
-//        Log.d("test", "onRestart");
-//
-//    }
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//
-//        Log.d("test", "On resume");
-//    }
-//    @Override
-//    public void onStop(){
-//        super.onStop();
-//        Log.d("test", "onStop");
-//    }
-//    @Override
-//    public void onDestroy(){
-//        super.onDestroy();
-//        Log.d("test", "onDestroy");
-//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -242,19 +212,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-//    //Select the current fragment from intent
-//    private void  selectFragment() {
-//        int intentFragment = getIntent().getIntExtra("fragmentSelect", -1);
-//
-//        if (intentFragment == FRAGMENT_UPCOMING_ORDER) {
-//
-//            replaceFragment(new UpcomingOrderFragment());
-//            getSupportActionBar().setTitle("Upcoming Order");
-//            mCurrentFragment = FRAGMENT_UPCOMING_ORDER;
-//        } else {
-//            replaceFragment(new OrderTodayFragment());
-//        }
-//    }
 
     private void replaceFragment (Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -273,9 +230,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (notificationManager != null) {
                 notificationManager.createNotificationChannel(channel);
             }
-
         }
     }
+
     private void updateUpcomingOrder() {
         upcomingOrderViewModel.getAllUpcomingOrder().observe(MainActivity.this, new Observer<List<UpcomingOrder>>() {
             @Override
@@ -304,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
     private void updateUnpaidOrderAndHistory() {
         orderViewModel.getAllOrder().observe(MainActivity.this, new Observer<List<Order>>() {
             @Override
@@ -362,13 +320,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Notification
         createNotificationChannel();
 
-
-
         //set time daily for notification
         Calendar calendarNotification = Calendar.getInstance();
         calendarNotification.set(Calendar.HOUR_OF_DAY, 20);
         calendarNotification.set(Calendar.MINUTE, 0);
         calendarNotification.set(Calendar.SECOND, 0);
+
         //set notify only 1 time in day
         if (Calendar.getInstance().after(calendarNotification)) {
             calendarNotification.add(Calendar.DAY_OF_MONTH, 1);

@@ -6,9 +6,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.androidapp.data.clientdata.Client;
-import com.example.androidapp.data.orderdata.Order;
-
 import java.util.List;
 
 @Dao

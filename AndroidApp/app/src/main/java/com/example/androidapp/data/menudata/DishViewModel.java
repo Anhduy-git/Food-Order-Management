@@ -31,10 +31,6 @@ public class DishViewModel extends AndroidViewModel {
         repository.deleteDish(dish);
     }
 
-    public void deleteAllDishes() {
-        repository.deleteAllDishes();
-    }
-
     public LiveData<List<Dish>> getAllDishes() {
         return allDishes;
     }

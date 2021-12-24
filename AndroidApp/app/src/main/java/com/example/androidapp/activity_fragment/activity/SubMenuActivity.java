@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.menudata.DishSelectAdapter;
 import com.example.androidapp.data.menudata.DishSelectAdapter;
 import com.example.androidapp.data.menudata.DishViewModel;
 
@@ -96,11 +94,9 @@ public class SubMenuActivity extends AppCompatActivity {
         dishSelectAdapter.setOnItemClickListener(new DishSelectAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Dish dish) {
-                //Log.d("test","clicked");
                 //Set the current dish choice to the dish that's been clicked
                 isChosen = true;
                 currentDishChoice = new Dish(dish.getName(), dish.getPrice(), dish.getImageDir());
-                //Log.d("NAME", currentDishChoice.getName());
 
                 //Reset quantity whenever click to an item
                 numberOfDish = 1;
@@ -156,14 +152,13 @@ public class SubMenuActivity extends AppCompatActivity {
 
     private void addDishToOrder() {
         if (isChosen == false) {
-            Toast.makeText(this, "Please select a dish", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Xin hãy chọn một món", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Intent data = new Intent();
         data.putExtra(EXTRA_DISH, currentDishChoice);
         data.putExtra(EXTRA_DISH_QUANTITY, numberOfDish);
-        //data.putExtra(EXTRA_DISH_ID, currentDishChoice.getDishID());
         setResult(RESULT_OK, data);
         finish();
     }

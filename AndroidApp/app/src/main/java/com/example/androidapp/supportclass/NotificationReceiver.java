@@ -7,10 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Ringtone;
+
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.util.Log;
+
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -43,8 +43,8 @@ public class NotificationReceiver extends BroadcastReceiver {
                     .setSmallIcon(R.drawable.logo_small)
                     .setLargeIcon(bitmap)
                     .setSound(uri)
-                    .setContentTitle("Notification")
-                    .setContentText("Tomorrow you have " + numOrderTomorrow + " orders")
+                    .setContentTitle("Thông báo")
+                    .setContentText("Ngày mai bạn có" + numOrderTomorrow + " đơn hàng")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setAutoCancel(true);
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);

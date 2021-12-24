@@ -17,11 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
 import com.example.androidapp.activity_fragment.activity.OrderInfoHistoryActivity;
-import com.example.androidapp.activity_fragment.activity.OrderInfoUnpaidActivity;
 import com.example.androidapp.data.historydata.HistoryOrder;
 import com.example.androidapp.data.historydata.HistoryOrderAdapter;
 import com.example.androidapp.data.historydata.HistoryOrderViewModel;
-import com.example.androidapp.data.menudata.Dish;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +27,6 @@ import java.util.List;
 public class HisCompletedFragment extends Fragment {
     public static final int VIEW_HISTORY_ORDER_REQUEST = 1;
     private HistoryOrderViewModel historyOrderViewModel;
-    public static List<Dish> mOrderListDish = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,9 +34,7 @@ public class HisCompletedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_completed_history,
                 container, false);
 
-
         RecyclerView rcvData = (RecyclerView) view.findViewById(R.id.his_completed_recycler);;
-        //rcvData.setHasFixedSize(true);
         rcvData.setLayoutManager(new LinearLayoutManager(view.getContext()));
         final HistoryOrderAdapter historyOrderAdapter = new HistoryOrderAdapter();
         rcvData.setAdapter(historyOrderAdapter);

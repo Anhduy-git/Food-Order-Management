@@ -6,9 +6,6 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.example.androidapp.data.AppDatabase;
-import com.example.androidapp.data.menudata.Dish;
-import com.example.androidapp.data.menudata.DishDao;
-import com.example.androidapp.data.menudata.DishRepository;
 
 import java.util.List;
 

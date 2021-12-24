@@ -6,9 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-
-import com.example.androidapp.data.orderdata.Order;
-
 import java.util.List;
 
 public class HistoryOrderViewModel extends AndroidViewModel {

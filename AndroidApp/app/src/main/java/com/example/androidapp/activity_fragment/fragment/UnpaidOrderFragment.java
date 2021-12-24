@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.activity_fragment.activity.OrderInfoTodayActivity;
 import com.example.androidapp.activity_fragment.activity.OrderInfoUnpaidActivity;
 import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.menudata.Dish;
@@ -43,7 +42,6 @@ public class UnpaidOrderFragment extends Fragment {
 
 
         RecyclerView rcvData = (RecyclerView) view.findViewById(R.id.unpaid_order_recycler);;
-        //rcvData.setHasFixedSize(true);
         rcvData.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         final UnpaidOrderAdapter unpaidOrderAdapter = new UnpaidOrderAdapter();
@@ -77,6 +75,7 @@ public class UnpaidOrderFragment extends Fragment {
         });
         return view;
     }
+
     //Get data return from Intent to update order
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -2,10 +2,7 @@ package com.example.androidapp.data;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.util.Base64;
 
-import androidx.room.TypeConverter;
 
 import java.io.ByteArrayOutputStream;
 

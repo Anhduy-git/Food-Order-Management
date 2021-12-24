@@ -6,7 +6,6 @@ import com.example.androidapp.data.clientdata.Client;
 import com.example.androidapp.data.menudata.Dish;
 import com.example.androidapp.data.orderdata.Order;
 
-import java.util.Dictionary;
 import java.util.List;
 
 @Entity(tableName = "upcoming_order_table")

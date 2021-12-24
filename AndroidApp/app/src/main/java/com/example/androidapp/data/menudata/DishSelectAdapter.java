@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
-import com.example.androidapp.data.ImageConverter;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,8 +30,6 @@ import java.util.List;
 public class DishSelectAdapter extends RecyclerView.Adapter<DishSelectAdapter.DishSelectViewHolder> implements Filterable {
     private List<Dish> mListDish;
     private List<Dish> mListDishFull;
-
-
     private OnItemClickListener listener;
 
     public DishSelectAdapter(List<Dish> mListDish) {
@@ -42,11 +40,6 @@ public class DishSelectAdapter extends RecyclerView.Adapter<DishSelectAdapter.Di
         this.mListDish = mListDish;
         this.mListDishFull = new ArrayList<>(mListDish);
         notifyDataSetChanged();
-    }
-
-    //Get the dish position
-    public Dish getDishAt(int postition) {
-        return mListDish.get(postition);
     }
 
     @NonNull
