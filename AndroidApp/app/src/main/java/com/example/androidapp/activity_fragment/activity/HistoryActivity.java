@@ -47,17 +47,14 @@ public class HistoryActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
 
         mViewPager2 = findViewById(R.id.view_pager);
         mBottomNavigationView = findViewById(R.id.nav_head_view);
-
         ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(this);
         mViewPager2.setAdapter(mViewPagerAdapter);
-
         mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

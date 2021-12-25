@@ -36,7 +36,6 @@ public class NotificationReceiver extends BroadcastReceiver {
             //Get sound
             Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, repeatIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
                     .setContentIntent(pendingIntent)

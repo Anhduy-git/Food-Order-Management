@@ -20,8 +20,6 @@ import java.util.List;
 
 public class SubContactActivity extends AppCompatActivity {
 
-    public static final String EXTRA_ID =
-            "com.example.androidapp.EXTRA_ID";
     public static final String EXTRA_NAME =
             "com.example.androidapp.EXTRA_NAME";
     public static final String EXTRA_PHONE_NUMBER =

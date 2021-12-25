@@ -80,10 +80,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     private final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
-    //ship sound
-    private MediaPlayer sound_ship = null;
-    //confirm sound
-    private MediaPlayer sound_back = null;
+
 
     private String strOrderName;
     private String strOrderAddress;
@@ -100,6 +97,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         beforePaid = false;
         initUi();
         initRecyclerView();
+
 
         //Get data from intent to display UI
         Intent intent = getIntent();
@@ -150,7 +148,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         }
         //Check if ship for disable button
         if (ship){
-            btnShip.setVisibility(View.INVISIBLE);
+            btnShip.setVisibility(View.GONE);
         }
 
         //Convert to String
@@ -164,32 +162,11 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         checkPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!currentPaid){
-                    currentPaid = true;
-
-                } else {
-                    currentPaid = false;
-                }
+                currentPaid = !currentPaid;
             }
         });
 
-        //ship sound
-        sound_ship = MediaPlayer.create(this, R.raw.ship_sound);
-        //release resource when completed
-        sound_ship.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                sound_ship.release();
-            }
-        });
 
-        //confirm sound
-        sound_back = MediaPlayer.create(this, R.raw.confirm_sound);
-        //release resource when completed
-        sound_back.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                sound_back.release();
-            }
-        });
 
         //Ship button to confirm ship and show dialog confirm
         btnShip.setOnClickListener(new View.OnClickListener() {
@@ -203,9 +180,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentPaid != beforePaid) {
-                    sound_back.start();
-                }
+
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHECK_PAID, currentPaid);
                 data.putExtra(EXTRA_CHECK_SHIP, ship);
@@ -221,6 +196,19 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                     data.putExtra(EXTRA_ORDER_ID, id);
                 }
                 setResult(RESULT_OK, data);
+
+                if (currentPaid != beforePaid) {
+                    //confirm sound
+                    final MediaPlayer sound_back = MediaPlayer.create(OrderInfoTodayActivity.this, R.raw.confirm_sound);
+                    //release resource when completed
+                    sound_back.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            sound_back.release();
+                        }
+                    });
+                    sound_back.start();
+                }
+
                 finish();
             }
         });
@@ -247,8 +235,6 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
-                //Sound onClick
-                sound_ship.start();
                 ship = true;
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHECK_SHIP, ship);
@@ -267,6 +253,17 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                     data.putExtra(EXTRA_ORDER_ID, id);
                 }
                 setResult(RESULT_OK, data);
+
+                //ship sound
+                final MediaPlayer sound_ship = MediaPlayer.create(OrderInfoTodayActivity.this, R.raw.ship_sound);
+                //release resource when completed
+                sound_ship.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mp) {
+                        sound_ship.release();
+                    }
+                });
+                sound_ship.start();
+
                 finish();
             }
         });
@@ -301,7 +298,6 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
     private void initRecyclerView() {
         //Dish view holder and recycler view and displaying
         rcvData = findViewById(R.id.order_dish_recycler);
-
         rcvData.setAdapter(dishOrderAdapter);
         rcvData.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -334,7 +330,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                 price += mListDish.get(i - 1).getPrice() * mListDish.get(i - 1).getQuantity();
             }
             //Change price textview
-            tvOrderPrice.setText(String.valueOf(price));
+            tvOrderPrice.setText(String.format("%,d", price));
             //Display the chosen dish to the current order
             dishOrderAdapter.setDish(mListDish);
         }

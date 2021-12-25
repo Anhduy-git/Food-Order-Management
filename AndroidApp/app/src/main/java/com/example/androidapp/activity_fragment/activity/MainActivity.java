@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Get tomorrow's date
         calendarTomorrow = Calendar.getInstance();
         calendarTomorrow.add(Calendar.DAY_OF_YEAR, 1);
+        //get string of tomorrow date
         tomorrow = simpleDateFormat.format(calendarTomorrow.getTime());
 
         //get revenue this month
@@ -152,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //if user restart from home in another day, then refresh app
         int ret = dateTimeComparator.compare(nowDate, today);
         if (ret != 0) {
+            //restart app to sync
             finish();
             startActivity(getIntent());
         }

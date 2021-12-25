@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -24,6 +27,10 @@ import android.widget.Toast;
 
 import com.example.androidapp.R;
 import com.example.androidapp.data.ImageConverter;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 
 public class NewClientActivity extends AppCompatActivity {
@@ -109,6 +116,36 @@ public class NewClientActivity extends AppCompatActivity {
             Toast.makeText(this, "Xin hãy nhập tên, số điện thoại và địa chỉ", Toast.LENGTH_SHORT).show();
             return;
         }
+
+
+        Intent data = new Intent();
+        data.putExtra(EXTRA_CLIENT_NAME, strClientName);
+        data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
+        data.putExtra(EXTRA_CLIENT_ADDRESS, strClientAddress);
+
+        if (changeImg) {
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+            String imageDir = saveToInternalStorage(image, strClientName + "-" +
+                    strClientAddress + "-" + strClientNumber);
+            data.putExtra(EXTRA_CLIENT_IMAGE, imageDir);
+
+            //release memory
+            bitmap.recycle();
+            image.recycle();
+
+        } else {
+            Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
+            String imageDir = saveToInternalStorage(image, strClientName + "-" +
+                    strClientAddress + "-" + strClientNumber);
+            data.putExtra(EXTRA_CLIENT_IMAGE, imageDir);
+
+            //release memory
+            image.recycle();
+        }
+
+        setResult(RESULT_OK, data);
+
         //confirm sound
         final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
         //release resource when completed
@@ -118,18 +155,7 @@ public class NewClientActivity extends AppCompatActivity {
             }
         });
         sound.start();
-        Intent data = new Intent();
-        data.putExtra(EXTRA_CLIENT_NAME, strClientName);
-        data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
-        data.putExtra(EXTRA_CLIENT_ADDRESS, strClientAddress);
 
-        if (changeImg) {
-            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-            data.putExtra(EXTRA_CLIENT_IMAGE, ImageConverter.convertImage2ByteArray(image));
-        }
-
-        setResult(RESULT_OK, data);
         finish();
     }
 
@@ -198,6 +224,30 @@ public class NewClientActivity extends AppCompatActivity {
         }else {
             Toast.makeText(NewClientActivity.this, "Permission not granted", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageClientDir
+        File directory = cw.getDir("imageClientDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File myPath = new File(directory,fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(myPath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath() + '/' + fileName;
     }
 }
 

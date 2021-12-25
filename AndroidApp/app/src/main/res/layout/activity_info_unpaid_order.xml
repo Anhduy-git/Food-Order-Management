@@ -164,7 +164,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Time: "
+                            android:text="Giờ: "
                             android:textColor="@color/main_white"
                             android:textSize="16sp"></TextView>
                         <TextView
@@ -178,7 +178,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Day: "
+                            android:text="Ngày: "
                             android:textColor="@color/main_white"
                             android:textSize="16sp"
                             android:layout_marginLeft="20dp"></TextView>

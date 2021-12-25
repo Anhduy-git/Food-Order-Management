@@ -31,9 +31,6 @@ public class DishRepository {
         new DeleteDishAsyncTask(dishDao).execute(dish);
     }
 
-    public void deleteAllDishes() {
-        new DeleteAllDishesAsyncTask(dishDao).execute();
-    }
 
     public LiveData<List<Dish>> getAllDishes() {
         return allDishes;
@@ -81,17 +78,4 @@ public class DishRepository {
         }
     }
 
-    private static class DeleteAllDishesAsyncTask extends AsyncTask<Void, Void, Void> {
-        private DishDao dishDao;
-
-        private DeleteAllDishesAsyncTask(DishDao dishDao) {
-            this.dishDao = dishDao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            dishDao.deleteAllDishes();
-            return null;
-        }
-    }
 }

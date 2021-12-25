@@ -31,6 +31,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidapp.activity_fragment.activity.NewClientActivity;
 import com.example.androidapp.activity_fragment.activity.UpdateDishActivity;
 import com.example.androidapp.activity_fragment.activity.NewDishActivity;
 import com.example.androidapp.R;
@@ -67,6 +68,8 @@ public class MenuFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         mListDish = new ArrayList<>();
         initUi(view);
+        //Sound
+        sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
 
         //Create Recycler View
         RecyclerView rcvData = view.findViewById(R.id.menu_recycler);;
@@ -91,8 +94,7 @@ public class MenuFragment extends Fragment {
 
             }
         });
-        //Sound
-        sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
+
 
         //Create search bar listener for SEARCH METHOD
         edtSearchBar.addTextChangedListener(new TextWatcher() {
@@ -157,24 +159,14 @@ public class MenuFragment extends Fragment {
 
         //ADD_DISH_REQUEST (Add a dish to database)
         if (requestCode == ADD_DISH_REQUEST && resultCode == RESULT_OK) {
+
             String name = data.getStringExtra(NewDishActivity.EXTRA_DISH_NAME);
             int price = data.getIntExtra(NewDishActivity.EXTRA_DISH_PRICE, 0);
-            //get bitmap image from intent
-            byte[] imageArray = data.getByteArrayExtra(NewDishActivity.EXTRA_DISH_IMAGE);
-            Dish dish = new Dish(name, price, "");
+            String imageDir = data.getStringExtra(NewDishActivity.EXTRA_DISH_IMAGE);
+            Dish dish = new Dish(name, price, imageDir);
+
             //check if dish exist
             if (checkDishExistForInsert(dish)) {
-                if (imageArray == null || imageArray.length == 0) {
-                    Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.rec_ava_dish_default);
-                    //Store image to a file in internal memory
-                    String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
-                    dish.setImageDir(imageDir);
-                } else {
-                    Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
-                    //Store image to a file in internal memory
-                    String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
-                    dish.setImageDir(imageDir);
-                }
                 dishViewModel.insertDish(dish);
             }
 
@@ -189,27 +181,12 @@ public class MenuFragment extends Fragment {
 
             String name = data.getStringExtra(UpdateDishActivity.EXTRA_DISH_NAME);
             int price = data.getIntExtra(UpdateDishActivity.EXTRA_DISH_PRICE, 0);
-            String oldImagePath = data.getStringExtra(UpdateDishActivity.EXTRA_OLD_IMAGE);
-            //delete the old image when update
-            File oldImage = new File(oldImagePath);
-            //boolean deleted = oldImage.delete();
-            //get bitmap image from intent
-            byte[] imageArray = data.getByteArrayExtra(UpdateDishActivity.EXTRA_NEW_IMAGE);
-            Dish dish = new Dish(name, price, "");
+            String imageDir = data.getStringExtra(UpdateDishActivity.EXTRA_NEW_IMAGE);
+            Dish dish = new Dish(name, price, imageDir);
             dish.setDishID(id);
+
             //check if dish exist
             if (checkDishExistForUpdate(dish)) {
-                if (imageArray == null || imageArray.length == 0) {
-                    Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.rec_ava_dish_default);
-                    //Store image to a file in internal memory
-                    String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
-                    dish.setImageDir(imageDir);
-                } else {
-                    Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
-                    //Store image to a file in internal memory
-                    String imageDir = saveToInternalStorage(image, dish.getName() + "-" + dish.getPrice());
-                    dish.setImageDir(imageDir);
-                }
                 dishViewModel.updateDish(dish);
             }
         }
@@ -222,29 +199,7 @@ public class MenuFragment extends Fragment {
         List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice());
         return (list == null) || (list.size() == 0) || (list.size() == 1 && list.get(0).getDishID() == dish.getDishID());
     }
-    private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
-        ContextWrapper cw = new ContextWrapper(getContext());
-        // path to /data/data/yourapp/app_data/imageDishDir
-        File directory = cw.getDir("imageDishDir", Context.MODE_PRIVATE);
-        // Create imageDir
-        File myPath = new File(directory,fileName);
 
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(myPath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return directory.getAbsolutePath() + "/" + fileName;
-    }
 
     private void confirmDelDialog(Dish dish) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
@@ -261,7 +216,7 @@ public class MenuFragment extends Fragment {
                 sound.start();
                 //delete the old image
                 File oldImage = new File(dish.getImageDir());
-                //boolean deleted = oldImage.delete();
+                boolean deleted = oldImage.delete();
                 dishViewModel.deleteDish(dish);
             }
         });

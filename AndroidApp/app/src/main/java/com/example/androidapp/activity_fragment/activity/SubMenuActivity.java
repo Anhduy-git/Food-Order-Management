@@ -151,7 +151,7 @@ public class SubMenuActivity extends AppCompatActivity {
     }
 
     private void addDishToOrder() {
-        if (isChosen == false) {
+        if (!isChosen) {
             Toast.makeText(this, "Xin hãy chọn một món", Toast.LENGTH_SHORT).show();
             return;
         }

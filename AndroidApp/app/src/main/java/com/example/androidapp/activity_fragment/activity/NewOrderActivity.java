@@ -92,12 +92,7 @@ public class NewOrderActivity extends AppCompatActivity {
         btnAddOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (! mListDish.isEmpty()) {
-                    addOrder();
-                }
-                else {
-                    Toast.makeText(NewOrderActivity.this, "Xin hãy thêm món", Toast.LENGTH_SHORT).show();
-                }
+                addOrder();
             }
         });
 
@@ -219,13 +214,21 @@ public class NewOrderActivity extends AppCompatActivity {
         DateTimeComparator dateTimeComparator = DateTimeComparator.getDateOnlyInstance();
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         //Check if fields are empty, if so then don't add to database
         if (TextUtils.isEmpty(strOrderName) || TextUtils.isEmpty(strOrderAddress)
                 || TextUtils.isEmpty(strOrderNumber) || TextUtils.isEmpty(strOrderDate)
                 || TextUtils.isEmpty(strOrderTime)) {
-            Toast.makeText(this, "Một vài chỗ còn trống", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Xin hãy điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        //check if order list is empty
+        if (mListDish == null || mListDish.isEmpty()) {
+            Toast.makeText(NewOrderActivity.this, "Xin hãy thêm món", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         //Get the current date
         Date today = calendar.getTime();
         //Get order date
@@ -237,15 +240,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 Toast.makeText(this, "Thời gian không hợp lệ!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            //confirm sound
-            final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
-            //release resource when completed
-            sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                public void onCompletion(MediaPlayer mp) {
-                    sound.release();
-                }
-            });
-            sound.start();
+
             Intent data = new Intent();
             data.putExtra(EXTRA_ORDER_NAME, strOrderName);
             data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
@@ -256,9 +251,20 @@ public class NewOrderActivity extends AppCompatActivity {
             data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
 
             setResult(RESULT_OK, data);
+
+            //confirm sound
+            final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+            //release resource when completed
+            sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    sound.release();
+                }
+            });
+            sound.start();
+
             finish();
         } catch (ParseException ex) {
-            Toast.makeText(NewOrderActivity.this, "Parse Exception", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewOrderActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();
         }
     }
     @SuppressLint("WrongConstant")
@@ -276,6 +282,7 @@ public class NewOrderActivity extends AppCompatActivity {
             editOrderName.setText(clientName);
             editOrderNumber.setText(clientPhoneNumber);
             editOrderAddress.setText(clientAddress);
+
             //read image from file
             try {
                 File f = new File(imageDir);
@@ -292,7 +299,6 @@ public class NewOrderActivity extends AppCompatActivity {
             Dish dish = data.getParcelableExtra(SubMenuActivity.EXTRA_DISH);
             int dishQuantity = data.getIntExtra(SubMenuActivity.EXTRA_DISH_QUANTITY, 0);
             //check if dish existed
-
             int checkExist = 0;
 
             for (int i = 0; i < mListDish.size(); i++) {

@@ -148,9 +148,6 @@ public class UpcomingOrderFragment extends Fragment {
             upcomingOrder.setId(id);
             upcomingOrderViewModel.update(upcomingOrder);
         }
-        else {
-            //Do nothing
-        }
     }
 
     int calculateOrderPrice(List<Dish> listDish){

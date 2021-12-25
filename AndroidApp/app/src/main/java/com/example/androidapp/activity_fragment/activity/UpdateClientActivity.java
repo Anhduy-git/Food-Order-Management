@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -30,6 +32,8 @@ import com.example.androidapp.data.ImageConverter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class UpdateClientActivity extends AppCompatActivity {
     public static final String EXTRA_CLIENT_ID =
@@ -56,6 +60,9 @@ public class UpdateClientActivity extends AppCompatActivity {
     private Button btnAddImage;
     private Button btnUpdateClient;
     private Button btnBack;
+    
+    
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,17 +73,20 @@ public class UpdateClientActivity extends AppCompatActivity {
             editClientName.setText(intent.getStringExtra(EXTRA_CLIENT_NAME));
             editClientNumber.setText(intent.getStringExtra(EXTRA_CLIENT_NUMBER));
             editClientAddress.setText(intent.getStringExtra(EXTRA_CLIENT_ADDRESS));
+            
             try {
+                //read path image from intent and display
                 File f=new File(intent.getStringExtra(EXTRA_OLD_IMAGE));
-                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-                imageView.setImageBitmap(b);
+                Bitmap image = BitmapFactory.decodeStream(new FileInputStream(f));
+                imageView.setImageBitmap(image);
             }
             catch (FileNotFoundException e) {
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
-                imageView.setImageBitmap(bitmap);
+                //display default image for client
+                Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
+                imageView.setImageBitmap(image);
             }
         }
-        //Check for update to show btn
+        //Check for update to show btn update
         checkUpdate();
 
         btnUpdateClient.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +139,34 @@ public class UpdateClientActivity extends AppCompatActivity {
             Toast.makeText(this, "Xin hãy nhập tên, số điện thoại và địa chỉ", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        Intent data = new Intent();
+        data.putExtra(EXTRA_CLIENT_NAME, strClientName);
+        data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
+        data.putExtra(EXTRA_CLIENT_ADDRESS, strClientAddress);
+
+        //delete the old image when update
+        File oldImage = new File(getIntent().getStringExtra(EXTRA_OLD_IMAGE));
+        boolean deleted = oldImage.delete();
+        
+        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+        String imageDir = saveToInternalStorage(image, strClientName + "-" +
+                strClientAddress + "-" + strClientNumber);
+
+        //release memory
+        bitmap.recycle();
+        image.recycle();
+
+        //put new image path to intent
+        data.putExtra(EXTRA_NEW_IMAGE, imageDir);
+
+        int id = getIntent().getIntExtra(EXTRA_CLIENT_ID, -1);
+        if (id != -1) {
+            data.putExtra(EXTRA_CLIENT_ID, id);
+        }
+        setResult(RESULT_OK, data);
+
         //confirm sound
         final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
         //release resource when completed
@@ -138,20 +176,7 @@ public class UpdateClientActivity extends AppCompatActivity {
             }
         });
         sound.start();
-        Intent data = new Intent();
-        data.putExtra(EXTRA_CLIENT_NAME, strClientName);
-        data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
-        data.putExtra(EXTRA_CLIENT_ADDRESS, strClientAddress);
-        data.putExtra(EXTRA_OLD_IMAGE, getIntent().getStringExtra(EXTRA_OLD_IMAGE));
-        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-        Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-        data.putExtra(EXTRA_NEW_IMAGE, ImageConverter.convertImage2ByteArray(image));
 
-        int id = getIntent().getIntExtra(EXTRA_CLIENT_ID, -1);
-        if (id != -1) {
-            data.putExtra(EXTRA_CLIENT_ID, id);
-        }
-        setResult(RESULT_OK, data);
         finish();
     }
 
@@ -171,8 +196,6 @@ public class UpdateClientActivity extends AppCompatActivity {
     }
 
     private void takePictureFromGallery() {
-        //update image
-        btnUpdateClient.setVisibility(View.VISIBLE);
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhoto, GALLERY_REQUEST);
     }
@@ -180,8 +203,6 @@ public class UpdateClientActivity extends AppCompatActivity {
     private void takePictureFromCamera() {
         Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePicture.resolveActivity(getPackageManager()) != null) {
-            //update image
-            btnUpdateClient.setVisibility(View.VISIBLE);
             startActivityForResult(takePicture, CAMERA_REQUEST);
         }
     }
@@ -191,6 +212,9 @@ public class UpdateClientActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
             try {
+                //set btn update to visible
+                btnUpdateClient.setVisibility(View.VISIBLE);
+                
                 Uri selectedImage = data.getData();
                 imageView.setImageURI(selectedImage);
             } catch (Exception e) {
@@ -199,6 +223,9 @@ public class UpdateClientActivity extends AppCompatActivity {
         }
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             try {
+                //set btn update to visible
+                btnUpdateClient.setVisibility(View.VISIBLE);
+                
                 Bundle bundle = data.getExtras();
                 Bitmap bitmapImage = (Bitmap) bundle.get("data");
                 imageView.setImageBitmap(bitmapImage);
@@ -274,5 +301,28 @@ public class UpdateClientActivity extends AppCompatActivity {
                 btnUpdateClient.setVisibility(View.VISIBLE);
             }
         });
+    }
+    private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageClientDir
+        File directory = cw.getDir("imageClientDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File myPath = new File(directory,fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(myPath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath() + '/' + fileName;
     }
 }
