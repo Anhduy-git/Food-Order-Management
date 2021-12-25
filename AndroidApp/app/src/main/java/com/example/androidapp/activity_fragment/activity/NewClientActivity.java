@@ -26,11 +26,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.ImageConverter;
+import com.example.androidapp.data.clientdata.Client;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 
 public class NewClientActivity extends AppCompatActivity {
@@ -123,40 +126,47 @@ public class NewClientActivity extends AppCompatActivity {
         data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
         data.putExtra(EXTRA_CLIENT_ADDRESS, strClientAddress);
 
-        if (changeImg) {
-            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-            String imageDir = saveToInternalStorage(image, strClientName + "-" +
-                    strClientAddress + "-" + strClientNumber);
-            data.putExtra(EXTRA_CLIENT_IMAGE, imageDir);
+        Client newClient = new Client(strClientName, strClientNumber, strClientAddress, "");
 
-            //release memory
-            bitmap.recycle();
-            image.recycle();
 
-        } else {
-            Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
-            String imageDir = saveToInternalStorage(image, strClientName + "-" +
-                    strClientAddress + "-" + strClientNumber);
-            data.putExtra(EXTRA_CLIENT_IMAGE, imageDir);
+        if (checkClientAvailableForInsert(newClient)) {
+            if (changeImg) {
+                Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+                String imageDir = saveToInternalStorage(image, strClientName + "-" +
+                        strClientAddress + "-" + strClientNumber);
+                data.putExtra(EXTRA_CLIENT_IMAGE, imageDir);
 
-            //release memory
-            image.recycle();
-        }
+                //release memory
+                bitmap.recycle();
+                image.recycle();
 
-        setResult(RESULT_OK, data);
+            } else {
+                Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
+                String imageDir = saveToInternalStorage(image, strClientName + "-" +
+                        strClientAddress + "-" + strClientNumber);
+                data.putExtra(EXTRA_CLIENT_IMAGE, imageDir);
 
-        //confirm sound
-        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
-        //release resource when completed
-        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                sound.release();
+                //release memory
+                image.recycle();
             }
-        });
-        sound.start();
 
-        finish();
+            setResult(RESULT_OK, data);
+
+            //confirm sound
+            final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+            //release resource when completed
+            sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    sound.release();
+                }
+            });
+            sound.start();
+
+            finish();
+        } else {
+            Toast.makeText(NewClientActivity.this, "Khách hàng đã tồn tại !", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean checkRequestPermission() {
@@ -248,6 +258,12 @@ public class NewClientActivity extends AppCompatActivity {
             }
         }
         return directory.getAbsolutePath() + '/' + fileName;
+    }
+
+    private boolean checkClientAvailableForInsert(@NonNull Client client) {
+        List<Client> list  = AppDatabase.getInstance(NewClientActivity.this).clientDao().checkClientExist(client.getClientName(),
+                client.getAddress(), client.getPhoneNumber());
+        return list == null || list.size() == 0;
     }
 }
 

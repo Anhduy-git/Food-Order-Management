@@ -27,13 +27,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.ImageConverter;
+import com.example.androidapp.data.clientdata.Client;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class UpdateClientActivity extends AppCompatActivity {
     public static final String EXTRA_CLIENT_ID =
@@ -144,40 +147,51 @@ public class UpdateClientActivity extends AppCompatActivity {
         data.putExtra(EXTRA_CLIENT_NAME, strClientName);
         data.putExtra(EXTRA_CLIENT_NUMBER, strClientNumber);
         data.putExtra(EXTRA_CLIENT_ADDRESS, strClientAddress);
-
-        //delete the old image when update
-        File oldImage = new File(getIntent().getStringExtra(EXTRA_OLD_IMAGE));
-        boolean deleted = oldImage.delete();
-        
-        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-        String imageDir = saveToInternalStorage(image, strClientName + "-" +
-                strClientAddress + "-" + strClientNumber);
-
-        //release memory
-        bitmap.recycle();
-        image.recycle();
-
-        //put new image path to intent
-        data.putExtra(EXTRA_NEW_IMAGE, imageDir);
-
         int id = getIntent().getIntExtra(EXTRA_CLIENT_ID, -1);
         if (id != -1) {
             data.putExtra(EXTRA_CLIENT_ID, id);
+        } else {
+            Toast.makeText(UpdateClientActivity.this, "Cập nhật không hợp lệ !", Toast.LENGTH_SHORT).show();
+            return;
         }
-        setResult(RESULT_OK, data);
 
-        //confirm sound
-        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
-        //release resource when completed
-        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                sound.release();
-            }
-        });
-        sound.start();
+        Client clientUpdate = new Client(strClientName, strClientNumber, strClientAddress, "");
+        clientUpdate.setClientId(id);
+        if (checkClientAvailableForUpdate(clientUpdate)) {
+            //delete the old image when update
+            File oldImage = new File(getIntent().getStringExtra(EXTRA_OLD_IMAGE));
+            boolean deleted = oldImage.delete();
 
-        finish();
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+            String imageDir = saveToInternalStorage(image, strClientName + "-" +
+                    strClientAddress + "-" + strClientNumber);
+
+            //release memory
+            bitmap.recycle();
+            image.recycle();
+
+            //put new image path to intent
+            data.putExtra(EXTRA_NEW_IMAGE, imageDir);
+
+
+            setResult(RESULT_OK, data);
+
+            //confirm sound
+            final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+            //release resource when completed
+            sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    sound.release();
+                }
+            });
+            sound.start();
+
+            finish();
+        } else {
+            Toast.makeText(UpdateClientActivity.this, "Khách hàng đã tồn tại !", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private boolean checkRequestPermission() {
@@ -324,5 +338,10 @@ public class UpdateClientActivity extends AppCompatActivity {
             }
         }
         return directory.getAbsolutePath() + '/' + fileName;
+    }
+    private boolean checkClientAvailableForUpdate(@NonNull Client client) {
+        List<Client> list  = AppDatabase.getInstance(UpdateClientActivity.this).clientDao().checkClientExist(client.getClientName(),
+                client.getAddress(), client.getPhoneNumber());
+        return (list == null) || (list.size() == 0) || (list.size() == 1 && list.get(0).getClientId() == client.getClientId());
     }
 }

@@ -33,13 +33,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.ImageConverter;
+import com.example.androidapp.data.menudata.Dish;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 
 public class UpdateDishActivity extends AppCompatActivity {
@@ -142,43 +145,50 @@ public class UpdateDishActivity extends AppCompatActivity {
 
         Intent data = new Intent();
         data.putExtra(EXTRA_DISH_NAME, strDishName);
-        data.putExtra(EXTRA_DISH_PRICE, Integer.valueOf(strDishPrice));
-
-        //delete the old image when update
-        File oldImage = new File(getIntent().getStringExtra(EXTRA_OLD_IMAGE));
-        boolean deleted = oldImage.delete();
-
-        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-        String imageDir = saveToInternalStorage(image, strDishName + "-" +
-                strDishPrice);
-
-        //release memory
-        bitmap.recycle();
-        image.recycle();
-
-        //put new image path to intent
-        data.putExtra(EXTRA_NEW_IMAGE, imageDir);
-
-
+        data.putExtra(EXTRA_DISH_PRICE, Integer.parseInt(strDishPrice));
         int id = getIntent().getIntExtra(EXTRA_DISH_ID, -1);
         if (id != -1) {
             data.putExtra(EXTRA_DISH_ID, id);
+        } else {
+            Toast.makeText(UpdateDishActivity.this, "Cập nhật không hợp lệ !", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Dish dishUpdate = new Dish(strDishName, Integer.parseInt(strDishPrice), "");
+        dishUpdate.setDishID(id);
+        if (checkDishAvailableForUpdate(dishUpdate)) {
+            //delete the old image when update
+            File oldImage = new File(getIntent().getStringExtra(EXTRA_OLD_IMAGE));
+            boolean deleted = oldImage.delete();
+            //save new image to file and get path
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+            String imageDir = saveToInternalStorage(image, strDishName + "-" +
+                    strDishPrice);
+            //release memory
+            bitmap.recycle();
+            image.recycle();
+
+            //put new image path to intent
+            data.putExtra(EXTRA_NEW_IMAGE, imageDir);
+
+            setResult(RESULT_OK, data);
+
+            //confirm sound
+            final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+            //release resource when completed
+            sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    sound.release();
+                }
+            });
+            sound.start();
+
+            finish();
+        } else {
+            Toast.makeText(UpdateDishActivity.this, "Món ăn đã tồn tại !", Toast.LENGTH_SHORT).show();
         }
 
-        setResult(RESULT_OK, data);
 
-        //confirm sound
-        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
-        //release resource when completed
-        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                sound.release();
-            }
-        });
-        sound.start();
-
-        finish();
     }
 
     private boolean checkRequestPermission() {
@@ -310,5 +320,10 @@ public class UpdateDishActivity extends AppCompatActivity {
             }
         }
         return directory.getAbsolutePath() + "/" + fileName;
+    }
+
+    private boolean checkDishAvailableForUpdate(@NonNull Dish dish) {
+        List<Dish> list  = AppDatabase.getInstance(UpdateDishActivity.this).dishDao().checkDishExist(dish.getName(), dish.getPrice());
+        return (list == null) || (list.size() == 0) || (list.size() == 1 && list.get(0).getDishID() == dish.getDishID());
     }
 }
