@@ -3,7 +3,7 @@
     <item android:id="@+id/history_all"
         android:title="Tất Cả"></item>
     <item android:id="@+id/history_completed"
-        android:title="Hoàn Thành"></item>
+        android:title="Đã giao"></item>
     <item android:id="@+id/history_canceled"
         android:title="Đã Hủy"></item>
 </menu>
