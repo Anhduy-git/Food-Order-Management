@@ -58,15 +58,11 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button btnBack;
     private Button btnPaid;
-    //Here order's paid is definitely false, and order's ship is definitely true.
-    private boolean paid = false;
-    private boolean ship = true;
     private RecyclerView rcvData;
     private List<Dish> mListDish = new ArrayList<>();
     //info is view only
     private final DishOrderInfoAdapter dishOrderInfoAdapter = new DishOrderInfoAdapter(mListDish);
-    //sound confirm paid
-    private MediaPlayer sound = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,14 +97,7 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
         //display list dish
         dishOrderInfoAdapter.setDish(mListDish);
 
-        //confirm sound
-        sound = MediaPlayer.create(this, R.raw.confirm_sound);
-        //release resource when completed
-        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                sound.release();
-            }
-        });
+
 
         //Paid button to confirm paid and remove unpaid order
         btnPaid.setOnClickListener(new View.OnClickListener() {
@@ -159,14 +148,23 @@ public class OrderInfoUnpaidActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
-                //sound confirm
-                sound.start();
                 Intent data = new Intent();
                 int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
                 if (id != -1) {
                     data.putExtra(EXTRA_ORDER_ID, id);
                 }
                 setResult(RESULT_OK, data);
+
+                //confirm sound
+                final MediaPlayer sound = MediaPlayer.create(OrderInfoUnpaidActivity.this, R.raw.confirm_sound);
+                //release resource when completed
+                sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    public void onCompletion(MediaPlayer mp) {
+                        sound.release();
+                    }
+                });
+                sound.start();
+
                 finish();
             }
         });

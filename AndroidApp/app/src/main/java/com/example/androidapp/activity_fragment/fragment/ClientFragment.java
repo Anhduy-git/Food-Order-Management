@@ -72,6 +72,8 @@ public class ClientFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_client, container, false);
         mListClient = new ArrayList<>();
         initUi(view);
+        //Sound
+        sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
 
         //Create Recycler View
         RecyclerView rcvData = view.findViewById(R.id.client_recycler);;
@@ -96,8 +98,7 @@ public class ClientFragment extends Fragment {
 
             }
         });
-        //Sound
-        sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
+
 
         //Create search bar listener for SEARCH METHOD
         edtSearchBar.addTextChangedListener(new TextWatcher() {
@@ -164,26 +165,15 @@ public class ClientFragment extends Fragment {
 
         //ADD_CLIENT_REQUEST (Add a Client to database)
         if (requestCode == ADD_CLIENT_REQUEST && resultCode == RESULT_OK) {
+
             String name = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_NAME);
             String number = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_NUMBER);
             String address = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_ADDRESS);
-            //get bitmap image from intent
-            byte[] imageArray = data.getByteArrayExtra(NewClientActivity.EXTRA_CLIENT_IMAGE);
-            Client client = new Client(name, number, address, "");
+            String imageDir = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_IMAGE);
+            Client client = new Client(name, number, address, imageDir);
+
             //Check if exist client
             if (checkClientExistForInsert(client)) {
-                if (imageArray == null || imageArray.length == 0) {
-                    Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
-                    //Store image to a file in internal memory
-                    String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
-                            client.getAddress() + "-" + client.getPhoneNumber());
-                    client.setImageDir(imageDir);
-                } else {
-                    Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
-                    String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
-                            client.getAddress() + "-" + client.getPhoneNumber());
-                    client.setImageDir(imageDir);
-                }
                 clientViewModel.insertClient(client);
             }
 
@@ -199,29 +189,12 @@ public class ClientFragment extends Fragment {
             String name = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_NAME);
             String number = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_NUMBER);
             String address = data.getStringExtra(UpdateClientActivity.EXTRA_CLIENT_ADDRESS);
-            String oldImagePath = data.getStringExtra(UpdateClientActivity.EXTRA_OLD_IMAGE);
-
-            //delete the old image when update
-            File oldImage = new File(oldImagePath);
-            //boolean deleted = oldImage.delete();
-
-            byte[] imageArray = data.getByteArrayExtra(UpdateClientActivity.EXTRA_NEW_IMAGE);
-            Client client = new Client(name, number, address, "");
+            String imageDir = data.getStringExtra(UpdateClientActivity.EXTRA_NEW_IMAGE);
+            Client client = new Client(name, number, address, imageDir);
             client.setClientId(id);
+
             //Check if exist client
             if (checkClientExistForUpdate(client)) {
-                if (imageArray == null || imageArray.length == 0) {
-                    Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.ava_client_default);
-                    //Store image to a file in internal memory
-                    String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
-                            client.getAddress() + "-" + client.getPhoneNumber());
-                    client.setImageDir(imageDir);
-                } else {
-                    Bitmap image = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.length);
-                    String imageDir = saveToInternalStorage(image, client.getClientName() + "-" +
-                            client.getAddress() + "-" + client.getPhoneNumber());
-                    client.setImageDir(imageDir);
-                }
                 clientViewModel.updateClient(client);
             }
         }
@@ -237,29 +210,7 @@ public class ClientFragment extends Fragment {
                 client.getAddress(), client.getPhoneNumber());
         return (list == null) || (list.size() == 0) || (list.size() == 1 && list.get(0).getClientId() == client.getClientId());
     }
-    private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
-        ContextWrapper cw = new ContextWrapper(getContext());
-        // path to /data/data/yourapp/app_data/imageClientDir
-        File directory = cw.getDir("imageClientDir", Context.MODE_PRIVATE);
-        // Create imageDir
-        File myPath = new File(directory,fileName);
 
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(myPath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return directory.getAbsolutePath() + '/' + fileName;
-    }
 
     private void confirmDelDialog(Client client) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme);
@@ -276,7 +227,7 @@ public class ClientFragment extends Fragment {
                 sound.start();
                 //delete the old image
                 File oldImage = new File(client.getImageDir());
-                //boolean deleted = oldImage.delete();
+                boolean deleted = oldImage.delete();
                 clientViewModel.deleteClient(client);
             }
         });

@@ -70,6 +70,9 @@ public class OrderTodayFragment extends Fragment {
         RecyclerView rcvData = (RecyclerView) view.findViewById(R.id.order_today_recycler);
         rcvData.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        //Sound
+        sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
+
         numOrderToday = (TextView)view.findViewById(R.id.order_num);
 
         final OrderAdapter orderAdapter = new OrderAdapter();
@@ -83,12 +86,11 @@ public class OrderTodayFragment extends Fragment {
                 //Update Recycle View
                 orderAdapter.submitList(orders);
                 //Display number of order today
-                numOrderToday.setText(Integer.toString(orders.size()));
+                numOrderToday.setText(String.format("%d", orders.size()));
 
             }
         });
-        //Sound
-        sound = MediaPlayer.create(getActivity(), R.raw.confirm_sound);
+
 
         //Send data to Order Info when click order
         orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
@@ -203,8 +205,6 @@ public class OrderTodayFragment extends Fragment {
                 HistoryOrder historyOrder = new HistoryOrder(client, order.getDate(), order.getTime(), order.getPrice(), order.getShip(), order.getPaid(), order.getOrderListDish());
                 historyOrderViewModel.insert(historyOrder);
             }
-        } else {
-            //Do nothing
         }
     }
     int calculateOrderPrice(List<Dish> listDish){

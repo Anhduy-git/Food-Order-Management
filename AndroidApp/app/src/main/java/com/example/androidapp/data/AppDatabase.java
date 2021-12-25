@@ -36,7 +36,7 @@ import com.example.androidapp.data.upcomingorderdata.UpcomingOrderDao;
         UnpaidOrder.class,
         UpcomingOrder.class,
         HistoryOrder.class
-}, version = 1)
+}, version = 2)
 
 @TypeConverters({DataConverter.class})
 public abstract class AppDatabase extends RoomDatabase {

@@ -82,6 +82,9 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
 
         initUi();
         initRecyclerView();
+
+
+
         //Get data from intent to display UI
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ORDER_ID)){
@@ -119,7 +122,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                     price = price + dish.getPrice() * dish.getQuantity();
                 }
                 //Change price textview
-                tvOrderPrice.setText(String.valueOf(price));
+                tvOrderPrice.setText(String.format("%,d", price));
             }
         });
 
@@ -139,12 +142,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         checkPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (currentPaid == false){
-                    currentPaid = true;
-                } else {
-                    currentPaid = false;
-                }
+                currentPaid = !currentPaid;
             }
         });
 
@@ -152,17 +150,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentPaid != beforePaid) {
-                    //confirm sound
-                    final MediaPlayer sound = MediaPlayer.create(OrderInfoUpcomingActivity.this, R.raw.confirm_sound);
-                    //release resource when completed
-                    sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        public void onCompletion(MediaPlayer mp) {
-                            sound.release();
-                        }
-                    });
-                    sound.start();
-                }
+
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHECK_PAID, currentPaid);
                 data.putExtra(EXTRA_ORDER_NAME, strOrderName);
@@ -177,6 +165,19 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                     data.putExtra(EXTRA_ORDER_ID, id);
                 }
                 setResult(RESULT_OK, data);
+
+                if (currentPaid != beforePaid) {
+                    //confirm sound
+                    final MediaPlayer sound_back = MediaPlayer.create(OrderInfoUpcomingActivity.this, R.raw.confirm_sound);
+                    //release resource when completed
+                    sound_back.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            sound_back.release();
+                        }
+                    });
+                    sound_back.start();
+                }
+
                 finish();
             }
         });
@@ -240,7 +241,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                 price += mListDish.get(i - 1).getPrice() * mListDish.get(i - 1).getQuantity();
             }
             //Change price textview
-            tvOrderPrice.setText(String.valueOf(price));
+            tvOrderPrice.setText(String.format("%,d", price));
             //Display the chosen dish to the current order
             dishOrderAdapter.setDish(mListDish);
         }

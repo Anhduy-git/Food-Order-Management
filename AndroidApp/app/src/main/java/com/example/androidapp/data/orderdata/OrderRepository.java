@@ -27,9 +27,7 @@ public class OrderRepository {
         new UpdateNoteAsyncTask(orderDao).execute(order);
     }
     public void delete(Order order){new DeleteNoteAsyncTask(orderDao).execute(order); }
-    public void deleteAllOrder() {
-        new OrderRepository.DeleteAllOrderAsyncTask(orderDao).execute();
-    }
+
 
     public LiveData<List<Order>> getAllOrder(){
         return allOrder;
@@ -68,18 +66,4 @@ public class OrderRepository {
             return null;
         }
     }
-    private static class DeleteAllOrderAsyncTask extends AsyncTask<Void, Void, Void> {
-        private OrderDao orderDao;
-
-        private DeleteAllOrderAsyncTask(OrderDao orderDao) {
-            this.orderDao = orderDao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            orderDao.deleteAllOrder();
-            return null;
-        }
-    }
-
 }

@@ -11,12 +11,14 @@
     android:orientation="vertical">
 
     <View
-        android:layout_width="230dp"
-        android:layout_height="230dp"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
         android:layout_alignParentRight="true"
         android:background="@drawable/planet_order"
-        android:translationX="60dp"
-        android:translationY="-80dp"></View>
+        android:translationX="100dp"
+        android:translationY="-90dp"
+        android:rotation="-40"
+    ></View>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,7 +41,7 @@
                 android:layout_height="90dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="140dp"
+                android:layout_marginRight="120dp"
                 android:background="@drawable/ball_detail"></View>
         </RelativeLayout>
 
