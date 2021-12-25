@@ -141,7 +141,7 @@ public class OrderInfoTodayActivity extends AppCompatActivity {
                     price = price + dish.getPrice() * dish.getQuantity();
                 }
                 //Change price textview
-                tvOrderPrice.setText(String.valueOf(price));
+                tvOrderPrice.setText(String.format("%,d", price));
             }
         });
         //Check if Paid for checkbox:

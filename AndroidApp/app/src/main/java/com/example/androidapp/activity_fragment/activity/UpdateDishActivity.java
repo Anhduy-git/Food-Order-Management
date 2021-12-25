@@ -52,7 +52,7 @@ public class UpdateDishActivity extends AppCompatActivity {
 
     private final int GALLERY_REQUEST = 1;
     private final int CAMERA_REQUEST = 2;
-    private final int IMAGE_SIZE = 800;
+    private final int IMAGE_SIZE = 500;
 
     private EditText editDishName;
     private EditText editDishPrice;

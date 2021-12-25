@@ -119,7 +119,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                     price = price + dish.getPrice() * dish.getQuantity();
                 }
                 //Change price textview
-                tvOrderPrice.setText(String.valueOf(price));
+                tvOrderPrice.setText(String.format("%,d", price));
             }
         });
 
