@@ -43,7 +43,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                     .setLargeIcon(bitmap)
                     .setSound(uri)
                     .setContentTitle("Thông báo")
-                    .setContentText("Ngày mai bạn có" + numOrderTomorrow + " đơn hàng")
+                    .setContentText("Ngày mai bạn có " + numOrderTomorrow + " đơn hàng")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setAutoCancel(true);
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
