@@ -26,11 +26,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.AppDatabase;
 import com.example.androidapp.data.ImageConverter;
+import com.example.androidapp.data.menudata.Dish;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class NewDishActivity extends AppCompatActivity {
 
@@ -117,42 +120,47 @@ public class NewDishActivity extends AppCompatActivity {
 
         Intent data = new Intent();
         data.putExtra(EXTRA_DISH_NAME, strDishName);
-        data.putExtra(EXTRA_DISH_PRICE, Integer.valueOf(strDishPrice));
+        data.putExtra(EXTRA_DISH_PRICE, Integer.parseInt(strDishPrice));
+        Dish newDish = new Dish(strDishName, Integer.parseInt(strDishPrice), "");
 
-        if (changeImg) {
-            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
-            String imageDir = saveToInternalStorage(image, strDishName + "-" +
-                    strDishPrice);
-            data.putExtra(EXTRA_DISH_IMAGE, imageDir);
+        if (checkDishAvailableForInsert(newDish)) {
+            if (changeImg) {
+                Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                Bitmap image = ImageConverter.getResizedBitmap(bitmap, IMAGE_SIZE);
+                String imageDir = saveToInternalStorage(image, strDishName + "-" +
+                        strDishPrice);
+                data.putExtra(EXTRA_DISH_IMAGE, imageDir);
 
-            //release memory
-            bitmap.recycle();
-            image.recycle();
+                //release memory
+                bitmap.recycle();
+                image.recycle();
 
+            } else {
+                Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.rec_ava_dish_default);
+                String imageDir = saveToInternalStorage(image, strDishName + "-" +
+                        strDishPrice);
+                data.putExtra(EXTRA_DISH_IMAGE, imageDir);
+
+                //release memory
+                image.recycle();
+            }
+            setResult(RESULT_OK, data);
+
+            //confirm sound
+            final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
+            //release resource when completed
+            sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    sound.release();
+                }
+            });
+            sound.start();
+
+            finish();
         } else {
-            Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.rec_ava_dish_default);
-            String imageDir = saveToInternalStorage(image, strDishName + "-" +
-                    strDishPrice);
-            data.putExtra(EXTRA_DISH_IMAGE, imageDir);
-
-            //release memory
-            image.recycle();
+            Toast.makeText(NewDishActivity.this, "Món ăn đã tồn tại !", Toast.LENGTH_SHORT).show();
         }
 
-        setResult(RESULT_OK, data);
-
-        //confirm sound
-        final MediaPlayer sound = MediaPlayer.create(this, R.raw.confirm_sound);
-        //release resource when completed
-        sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                sound.release();
-            }
-        });
-        sound.start();
-
-        finish();
     }
 
     private boolean checkRequestPermission() {
@@ -244,6 +252,10 @@ public class NewDishActivity extends AppCompatActivity {
             }
         }
         return directory.getAbsolutePath() + "/" + fileName;
+    }
+    private boolean checkDishAvailableForInsert(@NonNull Dish dish) {
+        List<Dish> list  = AppDatabase.getInstance(NewDishActivity.this).dishDao().checkDishExist(dish.getName(), dish.getPrice());
+        return list == null || list.size() == 0;
     }
 
 }

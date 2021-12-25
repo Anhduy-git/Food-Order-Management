@@ -3,11 +3,9 @@ package com.example.androidapp.activity_fragment.fragment;
 import static android.app.Activity.RESULT_OK;
 
 
-import android.content.Context;
-import android.content.ContextWrapper;
+
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -31,7 +29,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidapp.activity_fragment.activity.NewClientActivity;
+
 import com.example.androidapp.activity_fragment.activity.UpdateDishActivity;
 import com.example.androidapp.activity_fragment.activity.NewDishActivity;
 import com.example.androidapp.R;
@@ -42,8 +40,7 @@ import com.example.androidapp.data.menudata.DishAdapter;
 import com.example.androidapp.data.menudata.DishViewModel;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,11 +161,8 @@ public class MenuFragment extends Fragment {
             int price = data.getIntExtra(NewDishActivity.EXTRA_DISH_PRICE, 0);
             String imageDir = data.getStringExtra(NewDishActivity.EXTRA_DISH_IMAGE);
             Dish dish = new Dish(name, price, imageDir);
+            dishViewModel.insertDish(dish);
 
-            //check if dish exist
-            if (checkDishExistForInsert(dish)) {
-                dishViewModel.insertDish(dish);
-            }
 
         }
         //EDIT DISH REQUEST (Update an existing dish)
@@ -184,21 +178,11 @@ public class MenuFragment extends Fragment {
             String imageDir = data.getStringExtra(UpdateDishActivity.EXTRA_NEW_IMAGE);
             Dish dish = new Dish(name, price, imageDir);
             dish.setDishID(id);
+            dishViewModel.updateDish(dish);
 
-            //check if dish exist
-            if (checkDishExistForUpdate(dish)) {
-                dishViewModel.updateDish(dish);
-            }
         }
     }
-    private boolean checkDishExistForInsert(@NonNull Dish dish) {
-        List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice());
-        return list == null || list.size() == 0;
-    }
-    private boolean checkDishExistForUpdate(@NonNull Dish dish) {
-        List<Dish> list  = AppDatabase.getInstance(getContext()).dishDao().checkDishExist(dish.getName(), dish.getPrice());
-        return (list == null) || (list.size() == 0) || (list.size() == 1 && list.get(0).getDishID() == dish.getDishID());
-    }
+
 
 
     private void confirmDelDialog(Dish dish) {
@@ -208,7 +192,7 @@ public class MenuFragment extends Fragment {
         builder.setView(view);
         AlertDialog alertDialog = builder.create();
 
-        //confirm paid btn
+        //confirm delete btn
         view.findViewById(R.id.confirm_dialog_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,11 +3,9 @@ package com.example.androidapp.activity_fragment.fragment;
 import static android.app.Activity.RESULT_OK;
 
 
-import android.content.Context;
-import android.content.ContextWrapper;
+
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -46,8 +44,7 @@ import com.example.androidapp.data.clientdata.ClientViewModel;
 
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 public class ClientFragment extends Fragment {
@@ -172,10 +169,8 @@ public class ClientFragment extends Fragment {
             String imageDir = data.getStringExtra(NewClientActivity.EXTRA_CLIENT_IMAGE);
             Client client = new Client(name, number, address, imageDir);
 
-            //Check if exist client
-            if (checkClientExistForInsert(client)) {
-                clientViewModel.insertClient(client);
-            }
+            clientViewModel.insertClient(client);
+
 
         }
         //EDIT CLIENT REQUEST (Update an existing client)
@@ -193,23 +188,13 @@ public class ClientFragment extends Fragment {
             Client client = new Client(name, number, address, imageDir);
             client.setClientId(id);
 
-            //Check if exist client
-            if (checkClientExistForUpdate(client)) {
-                clientViewModel.updateClient(client);
-            }
+            clientViewModel.updateClient(client);
+
         }
     }
 
-    private boolean checkClientExistForInsert(@NonNull Client client) {
-        List<Client> list  = AppDatabase.getInstance(getContext()).clientDao().checkClientExist(client.getClientName(),
-                client.getAddress(), client.getPhoneNumber());
-        return list == null || list.size() == 0;
-    }
-    private boolean checkClientExistForUpdate(@NonNull Client client) {
-        List<Client> list  = AppDatabase.getInstance(getContext()).clientDao().checkClientExist(client.getClientName(),
-                client.getAddress(), client.getPhoneNumber());
-        return (list == null) || (list.size() == 0) || (list.size() == 1 && list.get(0).getClientId() == client.getClientId());
-    }
+
+
 
 
     private void confirmDelDialog(Client client) {
@@ -219,7 +204,7 @@ public class ClientFragment extends Fragment {
         builder.setView(view);
         AlertDialog alertDialog = builder.create();
 
-        //confirm paid btn
+        //confirm delete btn
         view.findViewById(R.id.confirm_dialog_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
