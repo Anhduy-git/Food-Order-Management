@@ -94,14 +94,14 @@ public class DishOrderAdapter extends RecyclerView.Adapter<DishOrderAdapter.Dish
         });
     }
 
-    public class DishViewHolder extends RecyclerView.ViewHolder {
+    public static class DishViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvDishName;
-        private TextView tvDishPrice;
-        private ImageView imageView;
-        private SwipeRevealLayout swipeRevealLayout;
-        private LinearLayout layoutDel;
-        private TextView tvDishQuantity;
+        private final TextView tvDishName;
+        private final TextView tvDishPrice;
+        private final ImageView imageView;
+        private final SwipeRevealLayout swipeRevealLayout;
+        private final LinearLayout layoutDel;
+        private final TextView tvDishQuantity;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);

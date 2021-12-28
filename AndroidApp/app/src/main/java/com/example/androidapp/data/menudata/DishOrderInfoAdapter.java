@@ -79,12 +79,12 @@ public class DishOrderInfoAdapter extends RecyclerView.Adapter<DishOrderInfoAdap
         }
     }
 
-    public class DishViewHolder extends RecyclerView.ViewHolder {
+    public static class DishViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvDishName;
-        private TextView tvDishPrice;
-        private ImageView imgView;
-        private TextView tvDishQuantity;
+        private final TextView tvDishName;
+        private final TextView tvDishPrice;
+        private final ImageView imgView;
+        private final TextView tvDishQuantity;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);

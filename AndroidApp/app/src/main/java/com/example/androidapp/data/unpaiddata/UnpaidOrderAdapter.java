@@ -93,12 +93,12 @@ public class UnpaidOrderAdapter extends ListAdapter<UnpaidOrder, UnpaidOrderAdap
 
     public class UnpaidOrderViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvOrderName;
-        private TextView tvOrderDate;
-        private TextView tvOrderTime;
-        private TextView tvOrderPrice;
-        private RelativeLayout item;
-        private ImageView imageView;
+        private final TextView tvOrderName;
+        private final TextView tvOrderDate;
+        private final TextView tvOrderTime;
+        private final TextView tvOrderPrice;
+        private final RelativeLayout item;
+        private final ImageView imageView;
 
         public UnpaidOrderViewHolder(@NonNull View itemView) {
             super(itemView);

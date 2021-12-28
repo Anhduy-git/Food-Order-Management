@@ -122,10 +122,10 @@ public class DishSelectAdapter extends RecyclerView.Adapter<DishSelectAdapter.Di
 
     public class DishSelectViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvDishName;
-        private TextView tvDishPrice;
-        private ImageView imageView;
-        private RelativeLayout item;
+        private final TextView tvDishName;
+        private final TextView tvDishPrice;
+        private final ImageView imageView;
+        private final RelativeLayout item;
 
         public DishSelectViewHolder(@NonNull View itemView) {
             super(itemView);
