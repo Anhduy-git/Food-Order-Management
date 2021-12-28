@@ -93,14 +93,14 @@ public class HistoryOrderAdapter extends ListAdapter<HistoryOrder, HistoryOrderA
 
     public class HistoryOrderViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvOrderName;
-        private TextView tvOrderDate;
-        private TextView tvOrderTime;
-        private TextView tvOrderPrice;
-        private View flagCompleted;
-        private View flagCanceled;
-        private RelativeLayout item;
-        private ImageView imageView;
+        private final TextView tvOrderName;
+        private final TextView tvOrderDate;
+        private final TextView tvOrderTime;
+        private final TextView tvOrderPrice;
+        private final View flagCompleted;
+        private final View flagCanceled;
+        private final RelativeLayout item;
+        private final ImageView imageView;
 
         public HistoryOrderViewHolder(@NonNull View itemView) {
             super(itemView);

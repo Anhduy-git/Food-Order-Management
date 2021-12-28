@@ -116,15 +116,15 @@ public class UpcomingOrderAdapter extends ListAdapter<UpcomingOrder, UpcomingOrd
 
     public class UpcomingOrderViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvOrderName;
-        private TextView tvOrderDate;
-        private TextView tvOrderTime;
-        private TextView tvOrderPrice;
-        private ImageView imageView;
-        private View flagPaid;
-        private RelativeLayout item;
-        private SwipeRevealLayout swipeRevealLayout;
-        private LinearLayout layoutDel;
+        private final TextView tvOrderName;
+        private final TextView tvOrderDate;
+        private final TextView tvOrderTime;
+        private final TextView tvOrderPrice;
+        private final ImageView imageView;
+        private final View flagPaid;
+        private final RelativeLayout item;
+        private final SwipeRevealLayout swipeRevealLayout;
+        private final LinearLayout layoutDel;
 
         public UpcomingOrderViewHolder(@NonNull View itemView) {
             super(itemView);

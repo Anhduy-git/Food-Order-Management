@@ -124,16 +124,16 @@ public class OrderAdapter extends ListAdapter<Order, OrderAdapter.OrderViewHolde
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvOrderName;
-        private TextView tvOrderDate;
-        private TextView tvOrderTime;
-        private TextView tvOrderPrice;
-        private ImageView imageView;
-        private View flagPaid;
-        private View flagShip;
-        private SwipeRevealLayout swipeRevealLayout;
-        private LinearLayout layoutDel;
-        private RelativeLayout item;
+        private final TextView tvOrderName;
+        private final TextView tvOrderDate;
+        private final TextView tvOrderTime;
+        private final TextView tvOrderPrice;
+        private final ImageView imageView;
+        private final View flagPaid;
+        private final View flagShip;
+        private final SwipeRevealLayout swipeRevealLayout;
+        private final LinearLayout layoutDel;
+        private final RelativeLayout item;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -142,12 +142,12 @@ public class DishAdapter extends ListAdapter<Dish, DishAdapter.DishViewHolder> i
 
     public class DishViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvDishName;
-        private TextView tvDishPrice;
-        private ImageView imgView;
-        private SwipeRevealLayout swipeRevealLayout;
-        private LinearLayout layoutDel;
-        private RelativeLayout item;
+        private final TextView tvDishName;
+        private final TextView tvDishPrice;
+        private final ImageView imgView;
+        private final SwipeRevealLayout swipeRevealLayout;
+        private final LinearLayout layoutDel;
+        private final RelativeLayout item;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);

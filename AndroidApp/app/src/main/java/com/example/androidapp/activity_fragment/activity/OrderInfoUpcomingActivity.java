@@ -70,6 +70,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
     private List<Dish> mListDish = new ArrayList<>();
     final DishOrderAdapter dishOrderAdapter = new DishOrderAdapter(mListDish);
     private Button btnAddDish;
+    private boolean updated;
 
 
     @Override
@@ -79,6 +80,7 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         //Reset
         currentPaid = false;
         beforePaid = false;
+        updated = false;
 
         initUi();
         initRecyclerView();
@@ -116,6 +118,8 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         dishOrderAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver(){
             @Override
             public void onChanged() {
+                //is updated
+                updated = true;
                 int price = 0;
                 //generate id for all dish and update price
                 for (Dish dish : mListDish) {
@@ -150,23 +154,25 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent data = new Intent();
-                data.putExtra(EXTRA_CHECK_PAID, currentPaid);
-                data.putExtra(EXTRA_ORDER_NAME, strOrderName);
-                data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
-                data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
-                data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
-                data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
-                data.putExtra(EXTRA_ORDER_IMAGE, imageDir);
-                data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
-                int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
-                if (id != -1) {
-                    data.putExtra(EXTRA_ORDER_ID, id);
-                }
-                setResult(RESULT_OK, data);
-
                 if (currentPaid != beforePaid) {
+                    updated = true;
+                }
+                if (updated) {
+                    Intent data = new Intent();
+                    data.putExtra(EXTRA_CHECK_PAID, currentPaid);
+                    data.putExtra(EXTRA_ORDER_NAME, strOrderName);
+                    data.putExtra(EXTRA_ORDER_ADDRESS, strOrderAddress);
+                    data.putExtra(EXTRA_ORDER_DATE, strOrderDate);
+                    data.putExtra(EXTRA_ORDER_TIME, strOrderTime);
+                    data.putExtra(EXTRA_ORDER_NUMBER, strOrderNumber);
+                    data.putExtra(EXTRA_ORDER_IMAGE, imageDir);
+                    data.putParcelableArrayListExtra(EXTRA_ORDER_DISH_LIST, (ArrayList<? extends Parcelable>) mListDish);
+                    int id = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
+                    if (id != -1) {
+                        data.putExtra(EXTRA_ORDER_ID, id);
+                    }
+                    setResult(RESULT_OK, data);
+
                     //confirm sound
                     final MediaPlayer sound_back = MediaPlayer.create(OrderInfoUpcomingActivity.this, R.raw.confirm_sound);
                     //release resource when completed
@@ -176,9 +182,12 @@ public class OrderInfoUpcomingActivity extends AppCompatActivity {
                         }
                     });
                     sound_back.start();
+
+                    finish();
+                } else {
+                    onBackPressed();
                 }
 
-                finish();
             }
         });
 

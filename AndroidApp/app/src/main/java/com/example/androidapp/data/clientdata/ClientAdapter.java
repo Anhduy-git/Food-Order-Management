@@ -141,13 +141,13 @@ public class ClientAdapter extends ListAdapter<Client, ClientAdapter.ClientViewH
     };
 
     public class ClientViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvClientName;
-        private TextView tvClientNumber;
-        private TextView tvClientAddress;
-        private ImageView imageView;
-        private SwipeRevealLayout swipeRevealLayout;
-        private LinearLayout layoutDel;
-        private RelativeLayout item;
+        private final TextView tvClientName;
+        private final TextView tvClientNumber;
+        private final TextView tvClientAddress;
+        private final ImageView imageView;
+        private final SwipeRevealLayout swipeRevealLayout;
+        private final LinearLayout layoutDel;
+        private final RelativeLayout item;
 
         public ClientViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -124,11 +124,11 @@ public class ClientSelectAdapter extends RecyclerView.Adapter<ClientSelectAdapte
 
     public class ClientSelectViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvClientName;
-        private TextView tvClientNumber;
-        private TextView tvClientAddress;
-        private ImageView imageView;
-        private RelativeLayout item;
+        private final TextView tvClientName;
+        private final TextView tvClientNumber;
+        private final TextView tvClientAddress;
+        private final ImageView imageView;
+        private final RelativeLayout item;
 
         public ClientSelectViewHolder(@NonNull View itemView) {
             super(itemView);

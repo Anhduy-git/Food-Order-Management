@@ -37,7 +37,7 @@ public class HistoryActivity extends AppCompatActivity {
         historyOrderViewModel.getAllHistoryOrder().observe(HistoryActivity.this, new Observer<List<HistoryOrder>>() {
             @Override
             public void onChanged(List<HistoryOrder> historyOrders) {
-                if (historyOrders.size() > 5)
+                if (historyOrders.size() > 500)
                     historyOrderViewModel.delete(historyOrders.get(historyOrders.size() - 1));
             }
         });
