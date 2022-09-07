@@ -2,7 +2,7 @@
 
 ![Logo](https://user-images.githubusercontent.com/84486806/188896672-ce4230b2-82ce-42b5-920a-2ca7c9211bdf.png)
 
-# Foods Orders Manager
+# Food Order Management
 An android application that helps online food vendors manage orders, customer lists and menus.
 
 ## Contributors
@@ -19,6 +19,10 @@ Here is our team, you can connect us through our Linkedin:
 **Android Toolkit:** Android Studio, Android SDK.
 
 **Database:** SQLite.
+
+**UI Framework:** Android UI.
+
+**UI Design Tool:** Figma.
 
 
 ## Features
