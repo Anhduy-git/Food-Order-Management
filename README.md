@@ -1,9 +1,8 @@
 
-![Logo](https://user-images.githubusercontent.com/84486806/188895749-380640fc-5600-41e3-a879-140c9aae8311.png)
+![Logo](https://user-images.githubusercontent.com/84486806/188896250-a7ea5639-d159-489e-80ad-d3371a33ea47.png)
 
 # Foods Orders Manager
 An android application that helps online food vendors manage orders, customer lists and menus.
-
 
 ## Contributors
 Here is our team, you can connect us through our Linkedin:
