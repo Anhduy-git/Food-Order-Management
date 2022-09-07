@@ -1,23 +1,41 @@
 
-# AndroidApp
+![Logo](https://res.cloudinary.com/dkgkiwvpm/image/upload/v1662557736/Apps%20logo/khoi-bep_zjqsja.png)
 
-## Make a pull request
 
-### 1. git clone "url" 
-(remove the current repo's folder in computer before clone)
-### 2. cd "repoName"
-(cd to repo's folder after cloning)
-### 3. git branch "branchName" 
-(create new branch)
-### 4. git checkout "branchName" 
-(switch to branch "branchName")
-### 5. Write new code 
-(in branch "branchName")
-### 6. git add . 
-(add all modified file to Staging area)
-### 7. git commit -m "message" 
-(move all changes in Staging area to a commit)
-### 8. git push origin "branchName" 
-(push all new commit in branch "branchName" to Github)
-### 9. remove the current repo's folder 
-(for the next clone)
+# Foods Orders Manager
+An android application that helps online food vendors manage orders, customer lists and menus.
+
+
+## Contributors
+Here is our team, you can connect us through our Linkedin:
+- [Nguyen Tran Anh Duy (Android Developper)](https://www.linkedin.com/in/duy-nguyen-tran-anh/).
+- Nguyen Ho Trung Hieu (Android Developper).
+- Vu Hoai Nam (Frontend Developper).
+
+
+## Tech Stack
+
+**Programming Language:** Java.
+
+**Android Toolkit:** Android Studio, Android SDK.
+
+**Database:** SQLite.
+
+
+## Features
+
+- CRUD Orders (orders's today, future orders, past orders).
+- CRUD Dishes.
+- CRUD Clients.
+- Add photos for clients/dishes.
+- Calculate the total price of 1 order.
+- Notify user of upcoming orders.
+- Confirm delivery/payment.
+- Calculate monthly revenue.
+- Manage list of debtors.
+
+
+## Demo
+https://user-images.githubusercontent.com/84486806/188894721-73b4b6fe-5290-4fa9-a109-ecdac2756304.mp4
+
+
