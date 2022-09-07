@@ -1,9 +1,12 @@
 
+## You are the  ![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FAnhduy-git%2FFood-Order-Management&countColor=%230096ff&style=flat) ! Thanks for your visit!
+
+
+# Food Order Management
 
 ![Logo](https://user-images.githubusercontent.com/84486806/188896672-ce4230b2-82ce-42b5-920a-2ca7c9211bdf.png)
 
-# Food Order Management
-An android application that helps online food vendors manage orders, customer lists and menus.
+An android application that helps online food vendors manage orders, customers list and menu.
 
 ## Contributors
 Here is our team, you can connect us through our Linkedin:
